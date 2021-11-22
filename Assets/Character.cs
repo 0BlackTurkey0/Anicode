@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public enum CharacterType:ushort {Owl, Koala, Kangaroo, Whale, Fox};
 
 public class Character {
     private CharacterType Type;
     private int HP;
-    private int[] Food = new int[9];
+    private int[] Food;
     private int Attack_Mag;
     private int Ability_Mag;
     private int Attack_Def;
@@ -15,6 +16,7 @@ public class Character {
 
     public Character(CharacterType type) {
         Type = type;
+        Food = new int[9];
         switch (type) {
             case CharacterType.Owl:
                 HP = 200;

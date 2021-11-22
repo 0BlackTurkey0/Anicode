@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Code {
     private List<Tuple<Instruction, ushort>> Instructions;
@@ -9,6 +10,8 @@ public class Code {
 
     public Code(Code copy = null) {
         if (copy != null) Instructions = copy.Instructions;
+        else Instructions = new List<Tuple<Instruction, ushort>>();
+        Records = new Stack<ushort>();
     }
 
     public void Init() {
@@ -25,11 +28,15 @@ public class Code {
             else
                 level = Instructions[position - 1].Item2;
         }
+        else if (position < Instructions.Count)
+            if (level < Instructions[position].Item2)
+                level = Instructions[position].Item2;
         Tuple<Instruction, ushort> New_Instruction = new Tuple<Instruction, ushort>(new Instruction(type, arguments), level);
         Instructions.Insert(position, New_Instruction);
     }
 
     public void Delete(ushort position) {
+        if (position >= Instructions.Count) position = (ushort)(Instructions.Count - 1);
         if (Instructions[position].Item1.GetInstuctionType() == InstructionType.Loop || Instructions[position].Item1.GetInstuctionType() == InstructionType.If) {
             ushort tmp = position;
             while (Instructions[++tmp].Item2 > Instructions[position].Item2)
@@ -61,6 +68,16 @@ public class Code {
             }
         }
         return Instructions[ProgramCounter++].Item1;
+    }
+
+    public void Display() {
+        System.Text.StringBuilder display = new System.Text.StringBuilder();
+        foreach (var i in Instructions) {
+            for (int x = 0; x < i.Item2; x++)
+                display.Append("  ");
+            display.AppendLine(i.Item1.GetInstuctionType().ToString());
+        }
+        Debug.Log(display.ToString());
     }
 }
  

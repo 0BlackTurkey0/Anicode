@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Collections.Generic;
+using UnityEngine;
 
 public enum InstructionType:ushort {None, Move, Loop, If, Assign, Attack}
 
@@ -12,7 +13,8 @@ public class Instruction {
      */
     public Instruction(InstructionType type, int[] arguments = null) {
         Type = type;
-        Arguments = arguments.ToList();
+        if (arguments != null) Arguments = arguments.ToList();
+        else Arguments = new List<int>();
     }
 
     public InstructionType GetInstuctionType() {
