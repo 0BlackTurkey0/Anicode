@@ -963,7 +963,7 @@ GameObject:
   - component: {fileID: 186843742}
   - component: {fileID: 186843741}
   m_Layer: 5
-  m_Name: red-previex-button (2)
+  m_Name: red-preview-button (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1054,7 +1054,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 29e6bbc8b190a984181d4e750cd0c935, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 855bfcd513e420a41a2f6b9beb58f4b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1085,7 +1085,7 @@ GameObject:
   - component: {fileID: 197466566}
   - component: {fileID: 197466565}
   m_Layer: 5
-  m_Name: blue-previex-button (1)
+  m_Name: blue-preview-button (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1176,7 +1176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d0abc6dbc134c2a4a8ad1a1ea1355ab6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fbcc6e7bb0673fe4c8b75b74798a48a4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2229,7 +2229,7 @@ GameObject:
   - component: {fileID: 329945138}
   - component: {fileID: 329945137}
   m_Layer: 5
-  m_Name: green-previex-button (4)
+  m_Name: green-preview-button (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2320,7 +2320,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3bc82ae4150403e4f9ab51d58787a490, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dca5fa514394a764c8da11c573637553, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3007,7 +3007,7 @@ GameObject:
   - component: {fileID: 460875654}
   - component: {fileID: 460875653}
   m_Layer: 5
-  m_Name: green-previex-button (2)
+  m_Name: green-preview-button (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3098,7 +3098,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3bc82ae4150403e4f9ab51d58787a490, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dca5fa514394a764c8da11c573637553, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3129,7 +3129,7 @@ GameObject:
   - component: {fileID: 467032437}
   - component: {fileID: 467032436}
   m_Layer: 5
-  m_Name: green-previex-button
+  m_Name: green-preview-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3220,7 +3220,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3bc82ae4150403e4f9ab51d58787a490, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dca5fa514394a764c8da11c573637553, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3847,7 +3847,7 @@ GameObject:
   - component: {fileID: 493429618}
   - component: {fileID: 493429617}
   m_Layer: 5
-  m_Name: blue-previex-button (2)
+  m_Name: blue-preview-button (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3938,7 +3938,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d0abc6dbc134c2a4a8ad1a1ea1355ab6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fbcc6e7bb0673fe4c8b75b74798a48a4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5235,7 +5235,7 @@ GameObject:
   - component: {fileID: 869027201}
   - component: {fileID: 869027200}
   m_Layer: 5
-  m_Name: green-previex-button (1)
+  m_Name: green-preview-button (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5326,7 +5326,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3bc82ae4150403e4f9ab51d58787a490, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dca5fa514394a764c8da11c573637553, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5357,7 +5357,7 @@ GameObject:
   - component: {fileID: 912416881}
   - component: {fileID: 912416880}
   m_Layer: 5
-  m_Name: red-previex-button (3)
+  m_Name: red-preview-button (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5448,7 +5448,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 29e6bbc8b190a984181d4e750cd0c935, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 855bfcd513e420a41a2f6b9beb58f4b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6820,7 +6820,7 @@ GameObject:
   - component: {fileID: 1295105712}
   - component: {fileID: 1295105711}
   m_Layer: 5
-  m_Name: green-previex-button (3)
+  m_Name: green-preview-button (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6911,7 +6911,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3bc82ae4150403e4f9ab51d58787a490, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dca5fa514394a764c8da11c573637553, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7340,7 +7340,7 @@ GameObject:
   - component: {fileID: 1391421920}
   - component: {fileID: 1391421919}
   m_Layer: 5
-  m_Name: blue-previex-button (3)
+  m_Name: blue-preview-button (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7431,7 +7431,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d0abc6dbc134c2a4a8ad1a1ea1355ab6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fbcc6e7bb0673fe4c8b75b74798a48a4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7972,7 +7972,7 @@ GameObject:
   - component: {fileID: 1533085958}
   - component: {fileID: 1533085957}
   m_Layer: 5
-  m_Name: red-previex-button (4)
+  m_Name: red-preview-button (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8063,7 +8063,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 29e6bbc8b190a984181d4e750cd0c935, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 855bfcd513e420a41a2f6b9beb58f4b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8645,7 +8645,7 @@ GameObject:
   - component: {fileID: 1741878784}
   - component: {fileID: 1741878783}
   m_Layer: 5
-  m_Name: blue-previex-button
+  m_Name: blue-preview-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8736,7 +8736,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d0abc6dbc134c2a4a8ad1a1ea1355ab6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fbcc6e7bb0673fe4c8b75b74798a48a4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9202,7 +9202,7 @@ GameObject:
   - component: {fileID: 1812821810}
   - component: {fileID: 1812821809}
   m_Layer: 5
-  m_Name: red-previex-button
+  m_Name: red-preview-button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9293,7 +9293,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 29e6bbc8b190a984181d4e750cd0c935, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 855bfcd513e420a41a2f6b9beb58f4b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9916,7 +9916,7 @@ GameObject:
   - component: {fileID: 1970212173}
   - component: {fileID: 1970212172}
   m_Layer: 5
-  m_Name: blue-previex-button (4)
+  m_Name: blue-preview-button (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10007,7 +10007,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d0abc6dbc134c2a4a8ad1a1ea1355ab6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fbcc6e7bb0673fe4c8b75b74798a48a4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10183,7 +10183,7 @@ GameObject:
   - component: {fileID: 2012892750}
   - component: {fileID: 2012892749}
   m_Layer: 5
-  m_Name: red-previex-button (1)
+  m_Name: red-preview-button (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10274,7 +10274,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 29e6bbc8b190a984181d4e750cd0c935, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 855bfcd513e420a41a2f6b9beb58f4b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
