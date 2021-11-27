@@ -24,9 +24,7 @@ public class Instruction {
         if (arguments != null) _Arguments = arguments.ToList();
         else _Arguments = new List<int>();
     }
-
-
-
+    
     public ushort GetInstuctionCost() {
         switch (Type) {
             case InstructionType.Move:
