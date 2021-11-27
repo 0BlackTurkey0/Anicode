@@ -45,21 +45,20 @@ public class Code {
         Instructions.RemoveAt(position);
     }
 
-    public Instruction Next(bool condition = true) {
-        if (ProgramCounter >= Instructions.Count) return new Instruction(InstructionType.None);
+    public int Next(bool condition = true) {
+        if (ProgramCounter >= Instructions.Count) return -1;
         if (!condition) {
             ushort tmp = Records.Pop();
-            while (Instructions[ProgramCounter].Item2 > Instructions[tmp].Item2)
+            while (ProgramCounter < Instructions.Count && Instructions[ProgramCounter].Item2 > Instructions[tmp].Item2)
                 ProgramCounter++;
+            if (ProgramCounter >= Instructions.Count) return -1;
         }
-        if (Instructions[ProgramCounter].Item1.GetInstuctionType() == InstructionType.Loop || Instructions[ProgramCounter].Item1.GetInstuctionType() == InstructionType.If)
-            Records.Push(ProgramCounter);
         if (Records.Count > 0) {
             ushort tmp = Records.Peek();
             while (Records.Count > 0 && Instructions[ProgramCounter].Item2 <= Instructions[tmp].Item2) {
                 if (Instructions[tmp].Item1.GetInstuctionType() == InstructionType.Loop) {
                     ProgramCounter = tmp;
-                    return Instructions[ProgramCounter].Item1;
+                    return ProgramCounter++;
                 }
                 else if (Instructions[tmp].Item1.GetInstuctionType() == InstructionType.If) {
                     Records.Pop();
@@ -67,7 +66,13 @@ public class Code {
                 }
             }
         }
-        return Instructions[ProgramCounter++].Item1;
+        if (Instructions[ProgramCounter].Item1.GetInstuctionType() == InstructionType.Loop || Instructions[ProgramCounter].Item1.GetInstuctionType() == InstructionType.If)
+            Records.Push(ProgramCounter);
+        return ProgramCounter++;
+    }
+
+    public Instruction GetInstruction(ushort index){
+        return Instructions[index].Item1;
     }
 
     public void Display() {

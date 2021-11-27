@@ -2,11 +2,11 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum InstructionType:ushort {None, Move, Loop, If, Assign, Attack}
+public enum InstructionType:ushort {Move, Loop, If, Assign, Attack}
 
 public class Instruction {
-    private InstructionType Type;
-    private List<int> Arguments;
+    public InstructionType Type;
+    public List<int> Arguments;
     /* Move arguments {Diffculty, Direction, Color}
      * Loop arguments {Loop Times}
      * If arguments {Judge Type}
@@ -19,10 +19,6 @@ public class Instruction {
 
     public InstructionType GetInstuctionType() {
         return Type;
-    }
-
-    public int GetInstuctionArgument(ushort index) {
-        return Arguments[index];
     }
 
     public ushort GetInstuctionCost() {
