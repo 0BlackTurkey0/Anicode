@@ -13,8 +13,10 @@ public class Character {
     private int Attack_Def;
     private int Ability_Def;
     private int Speed;
+    private Code code;
 
     public Character(CharacterType type) {
+        code = new Code();
         Type = type;
         Food = new int[9];
         switch (type) {

@@ -8,6 +8,13 @@ public class Code {
     private Stack<ushort> Records;
     private ushort ProgramCounter;
 
+    public Instruction this[ushort index] {
+        get {
+            if (index < Instructions.Count) return Instructions[index].Item1;
+            else return null;
+        }
+    }
+
     public Code(Code copy = null) {
         if (copy != null) Instructions = copy.Instructions;
         else Instructions = new List<Tuple<Instruction, ushort>>();
@@ -23,7 +30,7 @@ public class Code {
         if (position > Instructions.Count) position = (ushort)Instructions.Count;
         if (position == 0) level = 0;
         else if (level > Instructions[position-1].Item2) {
-            if (Instructions[position - 1].Item1.GetInstuctionType() == InstructionType.Loop || Instructions[position - 1].Item1.GetInstuctionType() == InstructionType.If)
+            if (Instructions[position - 1].Item1.Type == InstructionType.Loop || Instructions[position - 1].Item1.Type == InstructionType.If)
                 level = (ushort)(Instructions[position - 1].Item2 + 1);
             else
                 level = Instructions[position - 1].Item2;
@@ -37,7 +44,7 @@ public class Code {
 
     public void Delete(ushort position) {
         if (position >= Instructions.Count) position = (ushort)(Instructions.Count - 1);
-        if (Instructions[position].Item1.GetInstuctionType() == InstructionType.Loop || Instructions[position].Item1.GetInstuctionType() == InstructionType.If) {
+        if (Instructions[position].Item1.Type == InstructionType.Loop || Instructions[position].Item1.Type == InstructionType.If) {
             ushort tmp = position;
             while (Instructions[++tmp].Item2 > Instructions[position].Item2)
                 Instructions[tmp] = new Tuple<Instruction, ushort>(Instructions[tmp].Item1, (ushort)(Instructions[tmp].Item2 - 1));
@@ -45,42 +52,38 @@ public class Code {
         Instructions.RemoveAt(position);
     }
 
-    public int Next(bool condition = true) {
-        if (ProgramCounter >= Instructions.Count) return -1;
+    public ushort Next(bool condition = true) {
+        if (ProgramCounter >= Instructions.Count) return ProgramCounter;
         if (!condition) {
             ushort tmp = Records.Pop();
             while (ProgramCounter < Instructions.Count && Instructions[ProgramCounter].Item2 > Instructions[tmp].Item2)
                 ProgramCounter++;
-            if (ProgramCounter >= Instructions.Count) return -1;
+            if (ProgramCounter >= Instructions.Count) return ProgramCounter;
         }
         if (Records.Count > 0) {
             ushort tmp = Records.Peek();
             while (Records.Count > 0 && Instructions[ProgramCounter].Item2 <= Instructions[tmp].Item2) {
-                if (Instructions[tmp].Item1.GetInstuctionType() == InstructionType.Loop) {
+                if (Instructions[tmp].Item1.Type == InstructionType.Loop) {
                     ProgramCounter = tmp;
                     return ProgramCounter++;
                 }
-                else if (Instructions[tmp].Item1.GetInstuctionType() == InstructionType.If) {
+                else if (Instructions[tmp].Item1.Type == InstructionType.If) {
                     Records.Pop();
                     if (Records.Count > 0) tmp = Records.Peek();
                 }
             }
         }
-        if (Instructions[ProgramCounter].Item1.GetInstuctionType() == InstructionType.Loop || Instructions[ProgramCounter].Item1.GetInstuctionType() == InstructionType.If)
+        if (Instructions[ProgramCounter].Item1.Type == InstructionType.Loop || Instructions[ProgramCounter].Item1.Type == InstructionType.If)
             Records.Push(ProgramCounter);
         return ProgramCounter++;
     }
-
-    public Instruction GetInstruction(ushort index){
-        return Instructions[index].Item1;
-    }
-
+    
     public void Display() {
         System.Text.StringBuilder display = new System.Text.StringBuilder();
         foreach (var i in Instructions) {
             for (int x = 0; x < i.Item2; x++)
                 display.Append("  ");
-            display.AppendLine(i.Item1.GetInstuctionType().ToString());
+            display.AppendLine(i.Item1.Type.ToString());
         }
         Debug.Log(display.ToString());
     }

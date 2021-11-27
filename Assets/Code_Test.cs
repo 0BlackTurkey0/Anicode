@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class Code_Test : MonoBehaviour
 {
-    public int tmp;
+    public ushort pos;
     public bool con;
     Code test;
-    // Start is called before the first frame update
-    void Start()
-    {
+
+    void Start() {
         test = new Code();
         con = true;
         Debug.Log("Start Test");
@@ -36,15 +35,13 @@ public class Code_Test : MonoBehaviour
         test.Display();
         */
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if ((tmp = test.Next(con)) >= 0)
-        {
-            Instruction target = test.GetInstruction((ushort)tmp);
-            Debug.Log(tmp.ToString() + ":" + target.GetInstuctionType().ToString());
-            if (target.GetInstuctionType() == InstructionType.Loop)
+    
+    void Update() {
+        pos = test.Next(con);
+        Instruction target = test[pos];
+        if (target != null) {
+            Debug.Log(pos.ToString() + ":" + target.Type.ToString());
+            if (target.Type == InstructionType.Loop)
                 if (target.Arguments[1] == 0)
                 {
                     target.Arguments[1] = target.Arguments[0];

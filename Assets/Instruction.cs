@@ -5,21 +5,27 @@ using UnityEngine;
 public enum InstructionType:ushort {Move, Loop, If, Assign, Attack}
 
 public class Instruction {
-    public InstructionType Type;
-    public List<int> Arguments;
+    private InstructionType _Type;
+    public InstructionType Type {
+        get { return _Type; }
+        set { _Type = value; }
+    }
+    private List<int> _Arguments;
+    public List<int> Arguments {
+        get { return _Arguments; }
+        set { _Arguments = value; }
+    }
     /* Move arguments {Diffculty, Direction, Color}
      * Loop arguments {Loop Times}
      * If arguments {Judge Type}
      */
     public Instruction(InstructionType type, int[] arguments = null) {
-        Type = type;
-        if (arguments != null) Arguments = arguments.ToList();
-        else Arguments = new List<int>();
+        _Type = type;
+        if (arguments != null) _Arguments = arguments.ToList();
+        else _Arguments = new List<int>();
     }
 
-    public InstructionType GetInstuctionType() {
-        return Type;
-    }
+
 
     public ushort GetInstuctionCost() {
         switch (Type) {
