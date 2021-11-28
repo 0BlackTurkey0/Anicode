@@ -14,7 +14,7 @@ public class Code {
             else return null;
         }
     }
-
+    
     public Code(Code copy = null) {
         if (copy != null) Instructions = copy.Instructions;
         else Instructions = new List<Tuple<Instruction, ushort>>();
@@ -46,7 +46,7 @@ public class Code {
         if (position >= Instructions.Count) position = (ushort)(Instructions.Count - 1);
         if (Instructions[position].Item1.Type == InstructionType.Loop || Instructions[position].Item1.Type == InstructionType.If) {
             ushort tmp = position;
-            while (Instructions[++tmp].Item2 > Instructions[position].Item2)
+            while (tmp + 1 < Instructions.Count && Instructions[++tmp].Item2 > Instructions[position].Item2)
                 Instructions[tmp] = new Tuple<Instruction, ushort>(Instructions[tmp].Item1, (ushort)(Instructions[tmp].Item2 - 1));
         }
         Instructions.RemoveAt(position);
@@ -77,7 +77,12 @@ public class Code {
             Records.Push(ProgramCounter);
         return ProgramCounter++;
     }
-    
+
+    public ushort GetLevel(ushort index) {
+        if (index < Instructions.Count) return Instructions[index].Item2;
+        return 0;
+    }
+
     public void Display() {
         System.Text.StringBuilder display = new System.Text.StringBuilder();
         foreach (var i in Instructions) {

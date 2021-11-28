@@ -13,10 +13,14 @@ public class Character {
     private int Attack_Def;
     private int Ability_Def;
     private int Speed;
-    private Code code;
+    private Code _code;
+    public Code code {
+        get { return _code; }
+        set { _code = value; }
+    }
 
     public Character(CharacterType type) {
-        code = new Code();
+        _code = new Code();
         Type = type;
         Food = new int[9];
         switch (type) {
