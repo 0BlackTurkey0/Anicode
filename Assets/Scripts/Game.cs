@@ -16,7 +16,7 @@ public class Game : MonoBehaviour {
         get { return _Difficulty; }
         set { _Difficulty = value; }
     }
-
+    
     [SerializeField] private GameObject Code_Area;
     [SerializeField] private GameObject Instruction_Prefab;
 

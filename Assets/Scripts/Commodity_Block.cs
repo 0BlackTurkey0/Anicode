@@ -19,8 +19,8 @@ public class Commodity_Block : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData) {
         position = rect.position;
-        ushort num = (ushort)((rect.position.y - 1042.5) / -75);
-        type = (InstructionType)num;
+        ushort index = (ushort)Mathf.Round((rect.localPosition.y + 35) / -75);
+        type = (InstructionType)index;
     }
 
     public void OnDrag(PointerEventData eventData) {
