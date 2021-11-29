@@ -26,9 +26,6 @@ public class Game : MonoBehaviour {
     }
 
     void Start() {
-        _Players[0].code.Insert(InstructionType.Move, 0, 0);
-        _Players[0].code.Insert(InstructionType.Loop, 1, 0);
-        _Players[0].code.Insert(InstructionType.If, 2, 0);
         UpdateCode();
     }
     
