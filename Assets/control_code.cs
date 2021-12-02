@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class control_code : MonoBehaviour
 {
     public GameObject preview_iamge;
-    public Sprite picture_kan;
+    public Sprite picture;
     public GameObject ani_detail;
     public GameObject att_detail;
     public GameObject ins_detail;
@@ -53,10 +53,10 @@ public class control_code : MonoBehaviour
         ins_detail.SetActive(false);
         cod_detail.SetActive(false);
         ani_detail.SetActive(true);
-        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(-115, -100, 0);
-        intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 100);
+        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(-300, -200, 0);
+        intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(400, 200);
         intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
-        intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(180, 65);
+        intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(360, 130);
     }
     public void ChangeToAttribute()
     {
@@ -64,10 +64,10 @@ public class control_code : MonoBehaviour
         ins_detail.SetActive(false);
         cod_detail.SetActive(false);
         att_detail.SetActive(true);
-        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(-115, -100, 0);
-        intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 100);
+        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(-300, -200, 0);
+        intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(400, 200);
         intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
-        intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(180, 65);
+        intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(360, 130);
     }
     public void ChangeToInstruction()
     {
@@ -75,10 +75,10 @@ public class control_code : MonoBehaviour
         att_detail.SetActive(false);
         cod_detail.SetActive(false);
         ins_detail.SetActive(true);
-        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(250,-60,0);
-        intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(150, 120);
+        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(500,-120,0);
+        intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 240);
         intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
-        intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(110, 75);
+        intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(220, 150);
     }
     public void ChangeToCodeChallenge()
     {
@@ -86,10 +86,10 @@ public class control_code : MonoBehaviour
         att_detail.SetActive(false);
         ins_detail.SetActive(false);
         cod_detail.SetActive(true);
-        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(250, -60, 0);
-        intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(150, 120);
+        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(500, -120, 0);
+        intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 240);
         intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
-        intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(110, 75);
+        intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(220, 150);
 
     }
     public void ShowKanText()
@@ -216,39 +216,39 @@ public class control_code : MonoBehaviour
     }
     public void ShowMinText()
     {
-        string content = Resources.Load<TextAsset>("minif_Text").ToString();
+        string content = Resources.Load<TextAsset>("min_Text").ToString();
         Debug.Log(content);
         GameObject.Find("introduceframe").transform.GetChild(0).gameObject.GetComponent<Text>().text = content;
     }
     public void ShowKangaroo()
     {
         preview_iamge.SetActive(true);
-        picture_kan = Resources.Load("kangaroo", typeof(Sprite)) as Sprite;
-        preview_iamge.GetComponent<Image>().sprite = picture_kan;
+        picture = Resources.Load("kangaroo", typeof(Sprite)) as Sprite;
+        preview_iamge.GetComponent<Image>().sprite = picture;
     }
     public void ShowWhale()
     {
         preview_iamge.SetActive(true);
-        picture_kan = Resources.Load("whale", typeof(Sprite)) as Sprite;
-        preview_iamge.GetComponent<Image>().sprite = picture_kan;
+        picture = Resources.Load("whale", typeof(Sprite)) as Sprite;
+        preview_iamge.GetComponent<Image>().sprite = picture;
     }
     public void ShowOwl()
     {
         preview_iamge.SetActive(true);
-        picture_kan = Resources.Load("owl", typeof(Sprite)) as Sprite;
-        preview_iamge.GetComponent<Image>().sprite = picture_kan;
+        picture = Resources.Load("owl", typeof(Sprite)) as Sprite;
+        preview_iamge.GetComponent<Image>().sprite = picture;
     }
     public void ShowKoala()
     {
         preview_iamge.SetActive(true);
-        picture_kan = Resources.Load("koala", typeof(Sprite)) as Sprite;
-        preview_iamge.GetComponent<Image>().sprite = picture_kan;
+        picture = Resources.Load("koala", typeof(Sprite)) as Sprite;
+        preview_iamge.GetComponent<Image>().sprite = picture;
     }
     public void ShowFox()
     {
         preview_iamge.SetActive(true);
-        picture_kan = Resources.Load("fox", typeof(Sprite)) as Sprite;
-        preview_iamge.GetComponent<Image>().sprite = picture_kan;
+        picture = Resources.Load("fox", typeof(Sprite)) as Sprite;
+        preview_iamge.GetComponent<Image>().sprite = picture;
     }
 
 }
