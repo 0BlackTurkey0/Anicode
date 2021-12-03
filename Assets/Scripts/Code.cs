@@ -29,15 +29,18 @@ public class Code {
     public void Insert(InstructionType type, ushort position, ushort level, int[] arguments = null) {
         if (position > Instructions.Count) position = (ushort)Instructions.Count;
         if (position == 0) level = 0;
-        else if (level > Instructions[position-1].Item2) {
+        else if (level > Instructions[position - 1].Item2) {
             if (Instructions[position - 1].Item1.Type == InstructionType.Loop || Instructions[position - 1].Item1.Type == InstructionType.If)
                 level = (ushort)(Instructions[position - 1].Item2 + 1);
             else
                 level = Instructions[position - 1].Item2;
         }
         else if (position < Instructions.Count)
-            if (level < Instructions[position].Item2)
+            if (level < Instructions[position].Item2) {
                 level = Instructions[position].Item2;
+                if (level > 0 && (type == InstructionType.Loop || type == InstructionType.If))
+                    level--;
+            }
         Tuple<Instruction, ushort> New_Instruction = new Tuple<Instruction, ushort>(new Instruction(type, arguments), level);
         Instructions.Insert(position, New_Instruction);
     }

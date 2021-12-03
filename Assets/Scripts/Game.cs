@@ -41,7 +41,7 @@ public class Game : MonoBehaviour {
             RectTransform rect = instruction.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2(200 + 120 * _Players[0].code.GetLevel(ProgramCounter), rect.sizeDelta.y);
             instruction.transform.SetParent(Code_Area.transform, false);
-            Text typeString = instruction.gameObject.transform.GetChild(0).GetChild(0).GetComponent<Text>();
+            Text typeString = instruction.transform.GetChild(0).GetChild(0).GetComponent<Text>();
             switch (_Players[0].code[ProgramCounter].Type) {
                 case InstructionType.Move:
                     typeString.text = "Move";

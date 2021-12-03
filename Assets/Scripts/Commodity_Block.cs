@@ -29,7 +29,7 @@ public class Commodity_Block : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        if (rect.position.x < 675) {
+        if (rect.position.x < Screen.width / 2) {
             float width = (rect.localPosition.x - Code_Area.GetComponent<RectTransform>().localPosition.x + 1218);
             ushort Position = Mathf.Round(rect.localPosition.y / -75) < 0 ? (ushort)0 : (ushort)Mathf.Round(rect.localPosition.y / -75);
             ushort Level = Mathf.Round((width - 110) / 120) < 0 ? (ushort)0 : (ushort)Mathf.Round((width - 110) / 120);

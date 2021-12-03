@@ -32,12 +32,13 @@ public class Instruction_Block : MonoBehaviour, IBeginDragHandler, IDragHandler,
     public void OnEndDrag(PointerEventData eventData) {
         ushort Position = Mathf.Round(rect.localPosition.y / -75) < 0 ? (ushort)0 : (ushort)Mathf.Round(rect.localPosition.y / -75);
         ushort Level = Mathf.Round((rect.localPosition.x - 110) / 120) < 0 ? (ushort)0 : (ushort)Mathf.Round((rect.localPosition.x - 110) / 120);
-        if (Position > originPosition + 1 || Position < originPosition || Level != originLevel) {
+        if (rect.position.x > Screen.width / 2)
+            game.Players[0].code.Delete(originPosition);
+        else if (Position > originPosition + 1 || Position < originPosition || Level != originLevel) {
             if (Position > originPosition) Position--;
             game.Players[0].code.Delete(originPosition);
             game.Players[0].code.Insert(type, Position, Level);
         }
         game.UpdateCode();
-        Destroy(gameObject);
     }
 }
