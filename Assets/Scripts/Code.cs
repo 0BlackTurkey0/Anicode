@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class Code {
     private List<Tuple<Instruction, ushort>> Instructions;
+    public ushort Size {
+        get { return (ushort)Instructions.Count; }
+    }
+
     private Stack<ushort> Records;
     private ushort ProgramCounter;
 
