@@ -21,7 +21,7 @@ public class Instruction_Block : MonoBehaviour, IBeginDragHandler, IDragHandler,
         originPosition = (ushort)Mathf.Round((rect.localPosition.y + 35) / -75);
         originLevel = (ushort)Mathf.Round((rect.localPosition.x - 110) / 60);
         type = game.Players[0].code[originPosition].Type;
-        rect.sizeDelta = new Vector2(200, rect.sizeDelta.y);
+        rect.sizeDelta = new Vector2(400, rect.sizeDelta.y);
     }
 
     public void OnDrag(PointerEventData eventData) {
@@ -31,14 +31,17 @@ public class Instruction_Block : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
     public void OnEndDrag(PointerEventData eventData) {
         ushort Position = Mathf.Round(rect.localPosition.y / -75) < 0 ? (ushort)0 : (ushort)Mathf.Round(rect.localPosition.y / -75);
-        ushort Level = Mathf.Round((rect.localPosition.x - 110) / 120) < 0 ? (ushort)0 : (ushort)Mathf.Round((rect.localPosition.x - 110) / 120);
+        ushort Level = Mathf.Round((rect.localPosition.x - 110) / 240) < 0 ? (ushort)0 : (ushort)Mathf.Round((rect.localPosition.x - 110) / 240);
         if (rect.position.x > Screen.width / 2)
             game.Players[0].code.Delete(originPosition);
+        else
+            game.Players[0].code.Change(originPosition, Position, Level);
+        /*
         else if (Position > originPosition + 1 || Position < originPosition || Level != originLevel) {
             if (Position > originPosition) Position--;
-            game.Players[0].code.Delete(originPosition);
-            game.Players[0].code.Insert(type, Position, Level);
+            game.Players[0].code.Change(originPosition, Position);
         }
+        */
         game.UpdateCode();
     }
 }

@@ -32,14 +32,16 @@ public class Instruction {
         switch (Type) {
             case InstructionType.Move:
                 return 2;
-            case InstructionType.Loop:
+            case InstructionType.Attack:
+                return 4;
+            case InstructionType.Assign:
                 return 1;
             case InstructionType.If:
                 return 1;
-            case InstructionType.Assign:
+            case InstructionType.Loop:
                 return 1;
-            case InstructionType.Attack:
-                return 4;
+            case InstructionType.Swap:
+                return 1;
             default:
                 return 0;
         }

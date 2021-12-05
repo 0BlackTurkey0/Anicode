@@ -40,11 +40,8 @@ public class Code {
                 level = Instructions[position - 1].Item2;
         }
         else if (position < Instructions.Count)
-            if (level < Instructions[position].Item2) {
+            if (level < Instructions[position].Item2)
                 level = Instructions[position].Item2;
-                if (level > 0 && (type == InstructionType.Loop || type == InstructionType.If))
-                    level--;
-            }
         Tuple<Instruction, ushort> New_Instruction = new Tuple<Instruction, ushort>(new Instruction(type, arguments), level);
         Instructions.Insert(position, New_Instruction);
     }
@@ -57,6 +54,44 @@ public class Code {
                 Instructions[tmp] = new Tuple<Instruction, ushort>(Instructions[tmp].Item1, (ushort)(Instructions[tmp].Item2 - 1));
         }
         Instructions.RemoveAt(position);
+    }
+
+    public void Change(ushort source, ushort destination, ushort level) {
+        if (source >= Instructions.Count) source = (ushort)(Instructions.Count - 1);
+        if (destination > Instructions.Count) destination = (ushort)Instructions.Count;
+        if (Instructions[source].Item1.Type == InstructionType.Loop || Instructions[source].Item1.Type == InstructionType.If) {
+            ushort end = source;
+            while (end + 1 < Instructions.Count && Instructions[end + 1].Item2 > Instructions[source].Item2) end++;
+            if (destination > end || destination <= source) {
+                if (source < destination) {
+                    Insert(Instructions[source].Item1.Type, destination, level, Instructions[source].Item1.Arguments.ToArray());
+                    level = Instructions[destination++].Item2;
+                    for (int i = source + 1; i <= end; i++) {
+                        int AddLevel = Instructions[i].Item2 - Instructions[source].Item2;
+                        Insert(Instructions[i].Item1.Type, destination++, (ushort)(level + AddLevel), Instructions[i].Item1.Arguments.ToArray());
+                    }
+                }
+                else {
+                    Insert(Instructions[source].Item1.Type, destination, level, Instructions[source].Item1.Arguments.ToArray());
+                    source++;
+                    end++;
+                    level = Instructions[destination++].Item2;
+                    for (int i = source + 1; i <= end; i += 2) {
+                        int AddLevel = Instructions[i].Item2 - Instructions[source].Item2;
+                        Insert(Instructions[i].Item1.Type, destination++, (ushort)(level + AddLevel), Instructions[i].Item1.Arguments.ToArray());
+                        source++;
+                        end++;
+                    }
+                }
+                for (int i = source; i <= end; i++)
+                    Delete(source);
+            }
+        }
+        else {
+            Insert(Instructions[source].Item1.Type, destination, level, Instructions[source].Item1.Arguments.ToArray());
+            if (source >= destination) source++;
+            Delete(source);
+        }
     }
 
     public ushort Next(bool condition = true) {

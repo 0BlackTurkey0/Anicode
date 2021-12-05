@@ -32,8 +32,49 @@ public class Commodity_Block : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (rect.position.x < Screen.width / 2) {
             float width = (rect.localPosition.x - Code_Area.GetComponent<RectTransform>().localPosition.x + 1218);
             ushort Position = Mathf.Round(rect.localPosition.y / -75) < 0 ? (ushort)0 : (ushort)Mathf.Round(rect.localPosition.y / -75);
-            ushort Level = Mathf.Round((width - 110) / 120) < 0 ? (ushort)0 : (ushort)Mathf.Round((width - 110) / 120);
-            game.Players[0].code.Insert(type, Position, Level);
+            ushort Level = Mathf.Round((width - 110) / 240) < 0 ? (ushort)0 : (ushort)Mathf.Round((width - 110) / 240);
+            Debug.Log(Position);
+            Debug.Log(Level);
+            int[] arg;
+            switch (type) {
+                case InstructionType.Move:
+                    arg = new int[1];
+                    arg[0] = transform.GetChild(0).GetChild(2).GetComponent<Dropdown>().value;
+                    break;
+                case InstructionType.Attack:
+                    arg = null;
+                    break;
+                case InstructionType.Assign:
+                    arg = new int[5];
+                    for (int i = 0; i < 3; i++)
+                        arg[i] = transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value;
+                    arg[3] = int.Parse(transform.GetChild(0).GetChild(5).GetComponent<InputField>().text);
+                    arg[4] = transform.GetChild(0).GetChild(6).GetComponent<Dropdown>().value;
+                    break;
+                case InstructionType.If:
+                    arg = new int[4];
+                    for (int i = 0; i < 3; i++)
+                        arg[i] = transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value;
+                    arg[3] = int.Parse(transform.GetChild(0).GetChild(5).GetComponent<InputField>().text);
+                    break;
+                case InstructionType.Loop:
+                    arg = new int[4];
+                    for (int i = 0; i < 3; i++)
+                        arg[i] = transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value;
+                    arg[3] = int.Parse(transform.GetChild(0).GetChild(5).GetComponent<InputField>().text);
+                    break;
+                case InstructionType.Swap:
+                    arg = new int[4];
+                    arg[0] = transform.GetChild(0).GetChild(2).GetComponent<Dropdown>().value;
+                    arg[1] = int.Parse(transform.GetChild(0).GetChild(3).GetComponent<InputField>().text);
+                    arg[2] = transform.GetChild(0).GetChild(4).GetComponent<Dropdown>().value;
+                    arg[3] = int.Parse(transform.GetChild(0).GetChild(5).GetComponent<InputField>().text);
+                    break;
+                default:
+                    arg = null;
+                    break;
+            }
+            game.Players[0].code.Insert(type, Position, Level, arg);
             game.UpdateCode();
         }
         rect.position = position;

@@ -51,6 +51,7 @@ public class Game : MonoBehaviour {
     }
     
     void Update() {
+        /*
         if (BattleEnd) {
             StartCoroutine(PrepareCode());
             BattleEnd = false;
@@ -59,6 +60,7 @@ public class Game : MonoBehaviour {
             StartCoroutine(RunCode());
             BattleStart = false;
         }
+        */
     }
 
     private IEnumerator RunCode() {
@@ -111,23 +113,29 @@ public class Game : MonoBehaviour {
                     break;
                 case InstructionType.Assign:
                     instruction = Instantiate(Instruction_Assign);
-                    for (int i = 0; i < 5; i++)
+                    for (int i = 0; i < 3; i++)
                         instruction.transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value = target.Arguments[i];
+                    instruction.transform.GetChild(0).GetChild(5).GetComponent<InputField>().text = target.Arguments[3].ToString();
+                    instruction.transform.GetChild(0).GetChild(6).GetComponent<Dropdown>().value = target.Arguments[4];
                     break;
                 case InstructionType.If:
                     instruction = Instantiate(Instruction_If);
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 3; i++)
                         instruction.transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value = target.Arguments[i];
+                    instruction.transform.GetChild(0).GetChild(5).GetComponent<InputField>().text = target.Arguments[3].ToString();
                     break;
                 case InstructionType.Loop:
                     instruction = Instantiate(Instruction_Loop);
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 3; i++)
                         instruction.transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value = target.Arguments[i];
+                    instruction.transform.GetChild(0).GetChild(5).GetComponent<InputField>().text = target.Arguments[3].ToString();
                     break;
                 case InstructionType.Swap:
                     instruction = Instantiate(Instruction_Swap);
-                    for (int i = 0; i < 4; i++)
-                        instruction.transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value = target.Arguments[i];
+                    instruction.transform.GetChild(0).GetChild(2).GetComponent<Dropdown>().value = target.Arguments[0];
+                    instruction.transform.GetChild(0).GetChild(3).GetComponent<InputField>().text = target.Arguments[1].ToString();
+                    instruction.transform.GetChild(0).GetChild(4).GetComponent<Dropdown>().value = target.Arguments[2];
+                    instruction.transform.GetChild(0).GetChild(5).GetComponent<InputField>().text = target.Arguments[3].ToString();
                     break;
                 default:
                     instruction = null;
@@ -138,7 +146,7 @@ public class Game : MonoBehaviour {
             instruction.transform.SetParent(Code_Area.transform, false);
             ProgramCounter++;
         }
-        //_Players[0].code.Display();
+        _Players[0].code.Display();
     }
 
 }
