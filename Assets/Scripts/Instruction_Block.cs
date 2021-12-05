@@ -31,7 +31,7 @@ public class Instruction_Block : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
     public void OnEndDrag(PointerEventData eventData) {
         ushort Position = Mathf.Round(rect.localPosition.y / -75) < 0 ? (ushort)0 : (ushort)Mathf.Round(rect.localPosition.y / -75);
-        ushort Level = Mathf.Round((rect.localPosition.x - 110) / 240) < 0 ? (ushort)0 : (ushort)Mathf.Round((rect.localPosition.x - 110) / 240);
+        ushort Level = Mathf.Round((rect.localPosition.x - 210) / 240) < 0 ? (ushort)0 : (ushort)Mathf.Round((rect.localPosition.x - 210) / 240);
         if (rect.position.x > Screen.width / 2)
             game.Players[0].code.Delete(originPosition);
         else
