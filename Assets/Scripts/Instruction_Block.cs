@@ -36,12 +36,6 @@ public class Instruction_Block : MonoBehaviour, IBeginDragHandler, IDragHandler,
             game.Players[0].code.Delete(originPosition);
         else
             game.Players[0].code.Change(originPosition, Position, Level);
-        /*
-        else if (Position > originPosition + 1 || Position < originPosition || Level != originLevel) {
-            if (Position > originPosition) Position--;
-            game.Players[0].code.Change(originPosition, Position);
-        }
-        */
         game.UpdateCode();
     }
 }

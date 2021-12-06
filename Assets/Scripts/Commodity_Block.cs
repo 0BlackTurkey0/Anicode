@@ -33,8 +33,6 @@ public class Commodity_Block : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             float width = (rect.localPosition.x - Code_Area.GetComponent<RectTransform>().localPosition.x + 1218);
             ushort Position = Mathf.Round(rect.localPosition.y / -75) < 0 ? (ushort)0 : (ushort)Mathf.Round(rect.localPosition.y / -75);
             ushort Level = Mathf.Round((width - 210) / 240) < 0 ? (ushort)0 : (ushort)Mathf.Round((width - 210) / 240);
-            Debug.Log(Position);
-            Debug.Log(Level);
             int[] arg;
             switch (type) {
                 case InstructionType.Move:

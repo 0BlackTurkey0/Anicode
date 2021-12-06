@@ -23,9 +23,12 @@ public class Game : MonoBehaviour {
     private bool BattleEnd;
     private bool Turn;
     private ushort CostLimit;
+    private float time;
     
     [SerializeField] private GameObject Code_Area;
     [SerializeField] private GameObject Store;
+    [SerializeField] private GameObject PrepareTime;
+    [SerializeField] private GameObject CoverField;
     [SerializeField] private GameObject Instruction_Move;
     [SerializeField] private GameObject Instruction_Attack;
     [SerializeField] private GameObject Instruction_Assign;
@@ -46,12 +49,13 @@ public class Game : MonoBehaviour {
         BattleEnd = true;
         Turn = (_Players[0].speed > _Players[1].speed);
         CostLimit = 0;
+        PrepareTime.SetActive(true);
         Store.SetActive(true);
+        CoverField.SetActive(false);
         UpdateCode();
     }
     
     void Update() {
-        /*
         if (BattleEnd) {
             StartCoroutine(PrepareCode());
             BattleEnd = false;
@@ -60,7 +64,20 @@ public class Game : MonoBehaviour {
             StartCoroutine(RunCode());
             BattleStart = false;
         }
-        */
+        if (PrepareTime.activeSelf) {
+            time -= Time.deltaTime;
+            if (time > 0) PrepareTime.GetComponent<Text>().text = time.ToString("0.0");
+            else PrepareTime.GetComponent<Text>().text = "0.0";
+        }
+    }
+
+    private IEnumerator PrepareCode() {
+        time = Round * 10f + 40f;
+        yield return new WaitForSeconds(time);
+        Store.SetActive(false);
+        PrepareTime.SetActive(false);
+        CoverField.SetActive(true);
+        BattleStart = true;
     }
 
     private IEnumerator RunCode() {
@@ -74,27 +91,31 @@ public class Game : MonoBehaviour {
         while (_Players[0].code[ProgramCounter[0]] != null || _Players[1].code[ProgramCounter[1]] != null) {
             int active = Turn ? 1 : 0;
             Instruction target = _Players[active].code[ProgramCounter[active]];
-            while (target != null && !(target.Type == InstructionType.Move || target.Type == InstructionType.Attack)) {
-                TotalCost[active] += target.GetInstuctionCost();
-                if (TotalCost[active] <= CostLimit) RunInstrucion(Turn, target);
-                else ProgramCounter[active] = _Players[active].code.Size;
-                yield return new WaitForSeconds(1f);
+            if (target != null) {
+                do {
+                    TotalCost[active] += target.GetInstuctionCost();
+                    if (TotalCost[active] <= CostLimit) {
+                        bool condition = true;
+                        condition = RunInstrucion(Turn, target);
+                        ProgramCounter[active] = _Players[active].code.Next(condition);
+                    }
+                    else ProgramCounter[active] = _Players[active].code.Size;
+                    target = _Players[active].code[ProgramCounter[active]];
+                    yield return new WaitForSeconds(1f);
+                } while (target != null && !(target.Type == InstructionType.Move || target.Type == InstructionType.Attack));
             }
             Turn = !Turn;
         }
         Round++;
         Store.SetActive(true);
+        PrepareTime.SetActive(true);
+        CoverField.SetActive(false);
         Turn = (_Players[0].speed > _Players[1].speed);
+        BattleEnd = true;
     }
 
-    private void RunInstrucion(bool turn, Instruction target) {
-
-    }
-
-    private IEnumerator PrepareCode() {
-        yield return new WaitForSeconds(Round * 5f + 20f);
-        Store.SetActive(false);
-        BattleStart = true;
+    private bool RunInstrucion(bool turn, Instruction target) {
+        return true;
     }
 
     public void UpdateCode() {
@@ -146,7 +167,7 @@ public class Game : MonoBehaviour {
             instruction.transform.SetParent(Code_Area.transform, false);
             ProgramCounter++;
         }
-        _Players[0].code.Display();
+        //_Players[0].code.Display();
     }
 
 }
