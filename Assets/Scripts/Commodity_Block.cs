@@ -29,7 +29,7 @@ public class Commodity_Block : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        if (rect.position.x < Screen.width / 2) {
+        if (rect.position.x < Screen.width / 2 && game.IncPurchaseCount() != -1) {
             float width = (rect.localPosition.x - Code_Area.GetComponent<RectTransform>().localPosition.x + 1218);
             ushort Position = Mathf.Round(rect.localPosition.y / -75) < 0 ? (ushort)0 : (ushort)Mathf.Round(rect.localPosition.y / -75);
             ushort Level = Mathf.Round((width - 210) / 240) < 0 ? (ushort)0 : (ushort)Mathf.Round((width - 210) / 240);
@@ -73,7 +73,7 @@ public class Commodity_Block : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     break;
             }
             game.Players[0].code.Insert(type, Position, Level, arg);
-            game.UpdateCode();
+            game.UpdateCode(0);
         }
         rect.position = position;
     }

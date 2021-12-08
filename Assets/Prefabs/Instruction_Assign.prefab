@@ -773,7 +773,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 2}
-  m_SizeDelta: {x: 0, y: 200}
+  m_SizeDelta: {x: 0, y: 250}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4946552181131423630
 CanvasRenderer:
@@ -1838,6 +1838,8 @@ MonoBehaviour:
     - m_Text: "V\u2084"
       m_Image: {fileID: 0}
     - m_Text: "V\u2085"
+      m_Image: {fileID: 0}
+    - m_Text: F
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

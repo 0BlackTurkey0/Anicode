@@ -36,6 +36,6 @@ public class Instruction_Block : MonoBehaviour, IBeginDragHandler, IDragHandler,
             game.Players[0].code.Delete(originPosition);
         else
             game.Players[0].code.Change(originPosition, Position, Level);
-        game.UpdateCode();
+        game.UpdateCode(0);
     }
 }

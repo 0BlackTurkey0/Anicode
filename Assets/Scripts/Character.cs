@@ -61,11 +61,26 @@ public class Character {
         set { _code = value; }
     }
 
+
+    private ushort _TotalCost;
+    public ushort TotalCost {
+        get { return _TotalCost; }
+        set { _TotalCost = value; }
+    }
+
+    private ushort _ProgramCounter;
+    public ushort ProgramCounter {
+        get { return _ProgramCounter; }
+        set { _ProgramCounter = value; }
+    }
+
     public Character(CharacterType type) {
         Type = type;
         _code = new Code();
         Variable = new int[5];
-        Food = new int[9];
+        Food = new int[8];
+        _TotalCost = 0;
+        _ProgramCounter = 0;
         switch (type) {
             case CharacterType.Owl:
                 HP = 200;
@@ -108,5 +123,13 @@ public class Character {
                 Speed = 7;
                 break;
         }
+    }
+
+    public void Reset() {
+        Variable = new int[5];
+        Food = new int[8];
+        _TotalCost = 0;
+        _ProgramCounter = 0;
+        _code.Init();
     }
 }
