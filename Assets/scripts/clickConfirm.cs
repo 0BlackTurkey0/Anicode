@@ -6,10 +6,14 @@ using UnityEngine.UI;
 public class clickConfirm : MonoBehaviour
 {
     public GameObject confirmButton;
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        this.GetComponent<Button>().onClick.AddListener(clickConfirmButton);
+        
+
+
     }
 
     // Update is called once per frame
@@ -18,9 +22,12 @@ public class clickConfirm : MonoBehaviour
         
     }
 
-    void clickConfirmButton()
+    public void clickConfirmButton(int a)
     {
         confirmButton.SetActive(true);
-        confirmButton.GetComponent<selectedBuy>().label = 0;
+        confirmButton.GetComponent<selectedBuy>().label = a;
+       
     }
+
+    
 }

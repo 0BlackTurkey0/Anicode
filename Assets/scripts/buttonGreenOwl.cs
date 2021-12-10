@@ -34,17 +34,13 @@ public class buttonGreenOwl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        this.GetComponent<Button>().onClick.AddListener(clickGreenOwl);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            this.GetComponent<Button>().onClick.AddListener(clickGreenOwl);
-        }
-
+     
     }
     void clickGreenOwl()
     {

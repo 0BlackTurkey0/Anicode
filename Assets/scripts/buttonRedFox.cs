@@ -34,17 +34,13 @@ public class buttonRedFox : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        this.GetComponent<Button>().onClick.AddListener(clickRedFox);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            this.GetComponent<Button>().onClick.AddListener(clickRedFox);
-        }
-
+     
     }
     void clickRedFox()
     {
