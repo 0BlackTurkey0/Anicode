@@ -207,6 +207,9 @@ public class Game : MonoBehaviour {
                 Players[1].food[i] = number;
             }
         }
+        else {
+            // "" 取得food資料 ""
+        }
         UpdateFood();
         yield return new WaitForSeconds(1f);
         Players[0].ProgramCounter = Players[0].code.Next(true);
