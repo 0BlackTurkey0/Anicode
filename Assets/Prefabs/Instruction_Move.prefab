@@ -164,13 +164,13 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: "\u5411\u4E0A\u79FB\u52D5"
+    - m_Text: "\u7D05\u8272\u9806\u5411"
       m_Image: {fileID: 0}
-    - m_Text: "\u5411\u4E0B\u79FB\u52D5"
+    - m_Text: "\u7D05\u8272\u9006\u5411"
       m_Image: {fileID: 0}
-    - m_Text: "\u5411\u53F3\u79FB\u52D5"
+    - m_Text: "\u85CD\u8272\u9806\u5411"
       m_Image: {fileID: 0}
-    - m_Text: "\u5411\u5DE6\u79FB\u52D5"
+    - m_Text: "\u85CD\u8272\u9006\u5411"
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1259,7 +1259,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5411\u4E0A\u79FB\u52D5"
+  m_Text: "\u7D05\u8272\u9806\u5411"
 --- !u!1 &6356083214692527230
 GameObject:
   m_ObjectHideFlags: 0

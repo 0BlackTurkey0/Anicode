@@ -7,6 +7,18 @@ public enum CharacterType:ushort {Owl, Koala, Kangaroo, Whale, Fox};
 public class Character {
     private CharacterType Type;
 
+    private int _Pos;
+    public int Pos {
+        get { return _Pos; }
+        set { _Pos = value; }
+    }
+
+    private int CurrentHP;
+    public int currentHP {
+        get { return CurrentHP; }
+        set { CurrentHP = value; }
+    }
+
     private int HP;
     public int hp {
         get { return HP; }
@@ -78,7 +90,8 @@ public class Character {
         Type = type;
         _code = new Code();
         Variable = new int[5];
-        Food = new int[8];
+        Food = new int[10];
+        CurrentHP = HP;
         _TotalCost = 0;
         _ProgramCounter = 0;
         switch (type) {
@@ -127,7 +140,7 @@ public class Character {
 
     public void Reset() {
         Variable = new int[5];
-        Food = new int[8];
+        Food = new int[10];
         _TotalCost = 0;
         _ProgramCounter = 0;
         _code.Init();

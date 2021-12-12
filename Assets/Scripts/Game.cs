@@ -10,17 +10,54 @@ public class Game : MonoBehaviour {
 
     private DifficultyType Difficulty;
 
+    private float[,] Location = new float[12, 2] {
+        {-216, 41},
+        {-240, 159},
+        {11, -53},
+        {-91, 159},
+        {4, 96},
+        {-137, 245},
+        {184, 25},
+        {-4, 205},
+        {98, 158},
+        {-7, 287},
+        {227, 158},
+        {122, 247}
+    };
+
+    private int[,] Neighbor = new int[12, 4] { // 0:紅順, 1:紅逆, 2:藍順, 3:藍逆 
+        {1, 2, 1, 3},
+        {5, 0, 3, 0},
+        {0, 6, 4, 6},
+        {7, 4, 0, 1},
+        {3, 8, 6, 2},
+        {9, 1, 9, 7},
+        {2, 10, 2, 4},
+        {8, 3, 5, 9},
+        {4, 7, 11, 10},
+        {11, 5, 7, 5},
+        {6, 11, 8, 11},
+        {10, 9, 10, 8}
+    };
+
     private ushort Round;
+    private bool IsGuest;
     private bool BattleStart;
     private bool BattleEnd;
     private bool Turn;
     private ushort CostLimit;
     private float time;
     private ushort PurchaseCount;
-    
+
+    [SerializeField] private GameObject Character1;
+    [SerializeField] private GameObject Character2;
     [SerializeField] private GameObject[] Code_Area;
     [SerializeField] private GameObject PlayerCode;
     [SerializeField] private GameObject EnemyCode;
+    [SerializeField] private GameObject PlayerVariable;
+    [SerializeField] private GameObject EnemyVariable;
+    [SerializeField] private GameObject PlayerFood;
+    [SerializeField] private GameObject EnemyFood;
     [SerializeField] private GameObject Store;
     [SerializeField] private GameObject PrepareTime;
     [SerializeField] private GameObject CoverField;
@@ -33,15 +70,25 @@ public class Game : MonoBehaviour {
     [SerializeField] private GameObject Instruction_Swap;
 
     void Awake() {
+        //IsGuest = "" 傳入是否為被接受對戰者 ""
         //暫定
         Players = new Character[2];
         Players[0] = new Character(CharacterType.Fox);
         Players[1] = new Character(CharacterType.Kangaroo);
-        Difficulty = DifficultyType.Start;
+        Difficulty = DifficultyType.Hard;
     }
 
     void Start() {
         Round = 1;
+        if (!IsGuest) {
+            Players[0].Pos = 0;
+            Players[1].Pos = 11;
+        }
+        else {
+            Players[0].Pos = 11;
+            Players[1].Pos = 0;
+        }
+        UpdateLocation();
         BattleStart = false;
         BattleEnd = true;
         CostLimit = 0;
@@ -50,6 +97,10 @@ public class Game : MonoBehaviour {
         Store.SetActive(true);
         CoverField.SetActive(false);
         EnemyCode.SetActive(false);
+        PlayerVariable.SetActive(false);
+        EnemyVariable.SetActive(false);
+        PlayerFood.SetActive(false);
+        EnemyFood.SetActive(false);
         UpdateCode(0);
     }
     
@@ -77,6 +128,10 @@ public class Game : MonoBehaviour {
         PrepareTime.SetActive(true);
         CoverField.SetActive(false);
         Purchase.SetActive(true);
+        PlayerVariable.SetActive(false);
+        EnemyVariable.SetActive(false);
+        PlayerFood.SetActive(false);
+        EnemyFood.SetActive(false);
         PurchaseCount = 0;
         Purchase.transform.GetChild(0).GetComponent<Text>().text = PurchaseCount.ToString() + " / 5";
         PlayerCode.transform.GetChild(2).gameObject.SetActive(false);
@@ -95,6 +150,10 @@ public class Game : MonoBehaviour {
         PrepareTime.SetActive(false);
         CoverField.SetActive(true);
         Purchase.SetActive(false);
+        PlayerVariable.SetActive(true);
+        EnemyVariable.SetActive(true);
+        PlayerFood.SetActive(true);
+        EnemyFood.SetActive(true);
         PlayerCode.transform.GetChild(2).gameObject.SetActive(true);
         UpdateCode(0);
         // 傳出己方資料
@@ -119,7 +178,7 @@ public class Game : MonoBehaviour {
                     UpdateCost(Turn);
                     if (Players[active].TotalCost <= CostLimit) {
                         bool condition = true;
-                        condition = RunInstrucion(Turn, target);
+                        condition = RunInstrucion(active, target);
                         Players[active].ProgramCounter = Players[active].code.Next(condition);
                     }
                     else Players[active].ProgramCounter = Players[active].code.Size;
@@ -132,7 +191,25 @@ public class Game : MonoBehaviour {
         BattleEnd = true;
     }
 
-    private bool RunInstrucion(bool turn, Instruction target) {
+    private bool RunInstrucion(int active, Instruction target) {
+        switch (target.Type) {
+            case InstructionType.Move:
+                if (Neighbor[Players[active].Pos, target.Arguments[0]] != Players[1 - active].Pos) {
+                    Players[active].Pos = Neighbor[Players[active].Pos, target.Arguments[0]];
+                    UpdateLocation();
+                }
+                return true;
+            case InstructionType.Attack:
+                return true;
+            case InstructionType.Assign:
+                return true;
+            case InstructionType.If:
+                return false;
+            case InstructionType.Loop:
+                return false;
+            case InstructionType.Swap:
+                return true;
+        }
         return true;
     }
 
@@ -193,6 +270,11 @@ public class Game : MonoBehaviour {
             PlayerCode.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = Players[0].TotalCost.ToString() + " / " + CostLimit.ToString();
         else
             EnemyCode.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = Players[1].TotalCost.ToString() + " / "  + CostLimit.ToString();
+    }
+
+    public void UpdateLocation() {
+        Character1.GetComponent<RectTransform>().anchoredPosition = new Vector2(Location[Players[0].Pos, 0], Location[Players[0].Pos, 1]);
+        Character2.GetComponent<RectTransform>().anchoredPosition = new Vector2(Location[Players[1].Pos, 0], Location[Players[1].Pos, 1]);
     }
 
     public int IncPurchaseCount() {
