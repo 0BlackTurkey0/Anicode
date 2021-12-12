@@ -95,16 +95,16 @@ public class Code {
     }
 
     public ushort Next(bool condition = true) {
-        if (ProgramCounter >= Instructions.Count) return ProgramCounter;
+        if (ProgramCounter > Instructions.Count) return ProgramCounter;
         if (!condition) {
             ushort tmp = Records.Pop();
             while (ProgramCounter < Instructions.Count && Instructions[ProgramCounter].Item2 > Instructions[tmp].Item2)
                 ProgramCounter++;
-            if (ProgramCounter >= Instructions.Count) return ProgramCounter;
+            if (ProgramCounter > Instructions.Count) return ProgramCounter;
         }
         if (Records.Count > 0) {
             ushort tmp = Records.Peek();
-            while (Records.Count > 0 && Instructions[ProgramCounter].Item2 <= Instructions[tmp].Item2) {
+            while (Records.Count > 0 && (ProgramCounter == Instructions.Count || Instructions[ProgramCounter].Item2 <= Instructions[tmp].Item2)) {
                 if (Instructions[tmp].Item1.Type == InstructionType.Loop) {
                     ProgramCounter = tmp;
                     return ProgramCounter++;
@@ -115,7 +115,7 @@ public class Code {
                 }
             }
         }
-        if (Instructions[ProgramCounter].Item1.Type == InstructionType.Loop || Instructions[ProgramCounter].Item1.Type == InstructionType.If)
+        if (ProgramCounter < Instructions.Count && (Instructions[ProgramCounter].Item1.Type == InstructionType.Loop || Instructions[ProgramCounter].Item1.Type == InstructionType.If))
             Records.Push(ProgramCounter);
         return ProgramCounter++;
     }

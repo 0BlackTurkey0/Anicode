@@ -33,8 +33,8 @@ public class Character {
 
     private int[] Food;
     public int[] food {
-        get { return food; }
-        set { food = value; }
+        get { return Food; }
+        set { Food = value; }
     }
 
     private int Attack_Mag;
@@ -73,6 +73,11 @@ public class Character {
         set { _code = value; }
     }
 
+    private ushort _FoodCounter;
+    public ushort FoodCounter {
+        get { return _FoodCounter; }
+        set { _FoodCounter = value; }
+    }
 
     private ushort _TotalCost;
     public ushort TotalCost {
@@ -91,7 +96,7 @@ public class Character {
         _code = new Code();
         Variable = new int[5];
         Food = new int[10];
-        CurrentHP = HP;
+        _FoodCounter = 0;
         _TotalCost = 0;
         _ProgramCounter = 0;
         switch (type) {
@@ -136,11 +141,13 @@ public class Character {
                 Speed = 7;
                 break;
         }
+        CurrentHP = HP;
     }
 
     public void Reset() {
         Variable = new int[5];
         Food = new int[10];
+        _FoodCounter = 0;
         _TotalCost = 0;
         _ProgramCounter = 0;
         _code.Init();
