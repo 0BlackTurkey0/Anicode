@@ -167,7 +167,7 @@ public class Game : MonoBehaviour {
         PurchaseCount = 0;
         Purchase.transform.GetChild(0).GetComponent<Text>().text = PurchaseCount.ToString() + " / 5";
         PlayerCode.transform.GetChild(2).gameObject.SetActive(false);
-        time = Round * 10f + 0f;
+        time = Round * 15f + 20f;
         yield return new WaitForSeconds(time);
         BattleStart = true;
     }
@@ -202,7 +202,7 @@ public class Game : MonoBehaviour {
         UpdateVariable();
         if (!IsGuest) {
             for (int i = 0; i < 10; i++) {
-                int number = Random.Range(1, 19);
+                int number = Random.Range(1, 15);
                 Players[0].food[i] = number;
                 Players[1].food[i] = number;
             }
@@ -260,7 +260,7 @@ public class Game : MonoBehaviour {
                     if (Players[active].Pos == Neighbor[Players[1 - active].Pos, i])
                         near = true;
                 if (near) {
-                    Players[1 - active].currentHP -= (int)((Players[active].attack_mag * 5f + Players[active].food[Players[active].FoodCounter++]) * (10f / (10f + Players[1 - active].attack_def)));
+                    Players[1 - active].currentHP -= (int)((Players[active].attack_mag * 5f) * (10f / (10f + Players[1 - active].attack_def)) + Players[active].ability_mag * Players[active].food[Players[active].FoodCounter++] / 3f * (10f / (10f + Players[1 - active].ability_def)));
                     Players[active].FoodCounter %= 10;
                     UpdateHP();
                     if (Players[1 - active].currentHP <= 0) {
