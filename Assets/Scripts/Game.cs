@@ -227,7 +227,15 @@ public class Game : MonoBehaviour {
                         condition = RunInstrucion(active, target);
                         Players[active].ProgramCounter = Players[active].code.Next(condition);
                     }
-                    else Players[active].ProgramCounter = Players[active].code.Size;
+                    else {
+                        Players[active].currentHP -= 5;
+                        UpdateHP();
+                        if (Players[active].currentHP <= 0) {
+                            EndGame = true;
+                            Winner = active == 0 ? false : true;
+                        }
+                        Players[active].ProgramCounter = Players[active].code.Size;
+                    }
                     yield return new WaitForSeconds(1f);
                 } while (Players[active].code[Players[active].ProgramCounter] != null && !(target.Type == InstructionType.Move || target.Type == InstructionType.Attack) && !EndGame);
             }
@@ -262,26 +270,42 @@ public class Game : MonoBehaviour {
                 }
                 return true;
             case InstructionType.Assign:
-                if (target.Arguments[1] == 0) s1 = 0;
-                else s1 = Players[active].variable[target.Arguments[1] - 1];
-                if (target.Arguments[2] == 0) s2 = target.Arguments[3];
-                else s2 = Players[active].variable[target.Arguments[2] - 1];
-                switch (target.Arguments[0]) {
-                    case 0: // +
-                        Players[active].variable[target.Arguments[4]] = s1 + s2;
-                        break;
-                    case 1: // -
-                        Players[active].variable[target.Arguments[4]] = s1 - s2;
-                        break;
-                    case 2: // *
-                        Players[active].variable[target.Arguments[4]] = s1 * s2;
-                        break;
-                    case 3: // /
-                        Players[active].variable[target.Arguments[4]] = s1 / s2;
-                        break;
-                    case 4: // %
-                        Players[active].variable[target.Arguments[4]] = s1 % s2;
-                        break;
+                if (target.Arguments[1] != 6) {
+                    if (target.Arguments[1] == 0) s1 = 0;
+                    else s1 = Players[active].variable[target.Arguments[1] - 1];
+                    if (target.Arguments[2] == 0) s2 = target.Arguments[3];
+                    else s2 = Players[active].variable[target.Arguments[2] - 1];
+                    switch (target.Arguments[0]) {
+                        case 0: // +
+                            Players[active].variable[target.Arguments[4]] = s1 + s2;
+                            break;
+                        case 1: // -
+                            Players[active].variable[target.Arguments[4]] = s1 - s2;
+                            break;
+                        case 2: // *
+                            Players[active].variable[target.Arguments[4]] = s1 * s2;
+                            break;
+                        case 3: // /
+                            Players[active].variable[target.Arguments[4]] = s1 / s2;
+                            break;
+                        case 4: // %
+                            Players[active].variable[target.Arguments[4]] = s1 % s2;
+                            break;
+                    }
+                }
+                else {
+                    if (target.Arguments[2] == 0) {
+                        s2 = target.Arguments[3];
+                        if (target.Arguments[3] > 9) s2 = 9;
+                        else if (target.Arguments[3] < 0) s2 = 0;
+                        Players[active].variable[target.Arguments[4]] = Players[active].food[s2];
+                    }
+                    else {
+                        s2 = Players[active].variable[target.Arguments[2] - 1];
+                        if (Players[active].variable[target.Arguments[2] - 1] > 9) s2 = 9;
+                        else if (Players[active].variable[target.Arguments[2] - 1] < 0) s2 = 0;
+                        Players[active].variable[target.Arguments[4]] = Players[active].food[s2];
+                    }
                 }
                 if (Players[active].variable[target.Arguments[4]] > 999) Players[active].variable[target.Arguments[4]] = 999;
                 if (Players[active].variable[target.Arguments[4]] < -99) Players[active].variable[target.Arguments[4]] = -99;
