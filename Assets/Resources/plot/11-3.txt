@@ -1,0 +1,3 @@
+type：討伐
+area：冰原
+target：北極熊

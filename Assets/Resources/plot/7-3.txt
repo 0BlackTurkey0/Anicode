@@ -1,0 +1,3 @@
+type：討伐
+area：叢林
+target：河馬
