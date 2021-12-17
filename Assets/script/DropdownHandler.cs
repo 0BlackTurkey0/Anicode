@@ -16,7 +16,7 @@ public class DropdownHandler : MonoBehaviour
     [SerializeField] GameObject ChooseTask;
     void Start()
     {
-        //TextBox.text = " ";
+   
         var charactordropdown = CharactorDropDown.transform.GetComponent<Dropdown>();
         charactordropdown.options.Clear();
         List<string> Charactoritems = new List<string>();
@@ -53,7 +53,7 @@ public class DropdownHandler : MonoBehaviour
         var taskdropdown = TaskDropDown.transform.GetComponent<Dropdown>();
         taskdropdown.options.Clear();
         List<string> Taskitems = new List<string>();
-        Taskitems.Add("由小到大排序'");
+        Taskitems.Add("由小到大排序");
         Taskitems.Add("LCD");
         Taskitems.Add("GCD");
         Taskitems.Add("etc");
@@ -123,6 +123,10 @@ public class DropdownHandler : MonoBehaviour
         {
             ChooseTask.SetActive(true);
             TaskDropDown.SetActive(true);
+        }
+        if (RankText.text != "困難") {
+            ChooseTask.SetActive(false);
+            TaskDropDown.SetActive(false);
         }
     }
     public void TaskDropdownItemSelected(Dropdown dropdown)

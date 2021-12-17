@@ -46,7 +46,7 @@ public class control_in_twolobby : MonoBehaviour
     {
 
     }
-    public void AcceptClick()
+    public void ConfirmClick()
     {
         MotionSetting.SetActive(false);
     }
