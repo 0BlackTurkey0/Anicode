@@ -7,9 +7,10 @@ public class control_in_twolobby : MonoBehaviour
 {
     [SerializeField] GameObject MotionSetting;
     [SerializeField] GameObject JoinBtn;
+    [SerializeField] GameObject ResetPlayerOnLIst;
 
 
-   
+
 
     // Start is called before the first frame update
     void Awake()
@@ -28,10 +29,7 @@ public class control_in_twolobby : MonoBehaviour
         
     }*/
 //---------------------------------------------------------------------------------------------------------------
-    public void Search()
-    {
-
-    }
+  
     public void ShowMotionSetting()
     {
         MotionSetting.SetActive(true);
@@ -43,6 +41,10 @@ public class control_in_twolobby : MonoBehaviour
         JoinBtn.transform.GetComponent<Button>().enabled = true;
     } 
     public void Join()
+    {
+
+    }
+    public void OnClickReset()
     {
 
     }

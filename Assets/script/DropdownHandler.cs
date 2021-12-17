@@ -11,9 +11,12 @@ public class DropdownHandler : MonoBehaviour
     [SerializeField] Text TaskText;
     [SerializeField] GameObject CharactorDropDown;
     [SerializeField] GameObject CharactorAttribute;
-    [SerializeField] GameObject RankDropDown;
     [SerializeField] GameObject TaskDropDown;
     [SerializeField] GameObject ChooseTask;
+    [SerializeField] GameObject EnteranceToggle;
+    [SerializeField] GameObject EasyToggle;
+    [SerializeField] GameObject NormalToggle;
+    [SerializeField] GameObject DifficultToggle;
     void Start()
     {
    
@@ -32,8 +35,7 @@ public class DropdownHandler : MonoBehaviour
         CharactorDropdownItemSelected(charactordropdown);
         charactordropdown.onValueChanged.AddListener(delegate{ CharactorDropdownItemSelected(charactordropdown);});
 
-
-
+        /*
         var rankdropdown = RankDropDown.transform.GetComponent<Dropdown>();
         rankdropdown.options.Clear();
         List<string> Rankitems = new List<string>();
@@ -47,7 +49,7 @@ public class DropdownHandler : MonoBehaviour
         }
         RankDropdownItemSelected(rankdropdown);
         rankdropdown.onValueChanged.AddListener(delegate{ RankDropdownItemSelected(rankdropdown);});
-
+        */
 
 
         var taskdropdown = TaskDropDown.transform.GetComponent<Dropdown>();
@@ -115,7 +117,7 @@ public class DropdownHandler : MonoBehaviour
         }
     }
 
-    public void RankDropdownItemSelected(Dropdown dropdown)
+   /* public void RankItemSelected(Dropdown dropdown)
     {
         int index = dropdown.value;
         RankText.text = dropdown.options[index].text;
@@ -128,7 +130,7 @@ public class DropdownHandler : MonoBehaviour
             ChooseTask.SetActive(false);
             TaskDropDown.SetActive(false);
         }
-    }
+    }*/
     public void TaskDropdownItemSelected(Dropdown dropdown)
     {
         int index = dropdown.value;
