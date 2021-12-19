@@ -44,6 +44,7 @@ public class Game : MonoBehaviour {
     [SerializeField] private GameObject EnemyHP;
     [SerializeField] private GameObject Store;
     [SerializeField] private GameObject PrepareTime;
+    [SerializeField] private GameObject RoundText;
     [SerializeField] private GameObject CoverField;
     [SerializeField] private GameObject Purchase;
     [SerializeField] private GameObject[] Commodity;
@@ -57,10 +58,11 @@ public class Game : MonoBehaviour {
     [SerializeField] private GameObject Instruction_Swap;
 
     void Awake() {
-        //IsGuest = "" 傳入是否為被接受對戰者 ""
+        //IsGuest = "" 傳入是否為申請對戰者 ""
         Players = new Character[2];
         CharacterType[] characterType = new CharacterType[2];
-        // "" 取得角色資訊與難度 ""
+        //characterType = "" 取得角色資訊 ""
+        //Difficulty = "" 取得難度 ""
         characterType[0] = CharacterType.Whale; //暫定
         characterType[1] = CharacterType.Kangaroo; //暫定
         Difficulty = DifficultyType.Hard; //暫定
@@ -382,6 +384,7 @@ public class Game : MonoBehaviour {
         EnemyFood.SetActive(false);
         PlayerHP.SetActive(false);
         EnemyHP.SetActive(false);
+        RoundText.GetComponent<Text>().text = "Round " + Round.ToString();
         PurchaseCount = 0;
         Purchase.transform.GetChild(0).GetComponent<Text>().text = PurchaseCount.ToString() + " / 5";
         PlayerCode.transform.GetChild(2).gameObject.SetActive(false);
@@ -422,21 +425,24 @@ public class Game : MonoBehaviour {
         UpdateCost(false);
         UpdateCost(true);
         UpdateVariable();
-        if (!IsGuest) {
-            if (Difficulty == DifficultyType.Hard)
+        if (Difficulty == DifficultyType.Hard) {
+            if (!IsGuest) {
                 for (int i = 0; i < 10; i++) {
                     int number = Random.Range(1, 15);
                     Players[0].food[i] = number;
                     Players[1].food[i] = number;
                 }
-            else
-                for (int i = 0; i < 10; i++) {
-                    Players[0].food[i] = 0;
-                    Players[1].food[i] = 0;
-                }
+                // "" 送出food資料 ""
+            }
+            else {
+                // "" 取得food資料 ""
+            }
         }
         else {
-            // "" 取得food資料 ""
+            for (int i = 0; i < 10; i++) {
+                Players[0].food[i] = 0;
+                Players[1].food[i] = 0;
+            }
         }
         UpdateFood();
         yield return new WaitForSeconds(1f);
@@ -488,7 +494,10 @@ public class Game : MonoBehaviour {
                     if (Players[active].Pos == Neighbor[Players[1 - active].Pos, i])
                         near = true;
                 if (near) {
-                    Players[1 - active].currentHP -= (int)((Players[active].attack_mag * 5f) * (10f / (10f + Players[1 - active].attack_def)) + Players[active].ability_mag * Players[active].food[Players[active].FoodCounter++] / 3f * (10f / (10f + Players[1 - active].ability_def)));
+                    Players[1 - active].currentHP -= (int)((Players[active].attack_mag * 5f) * (10f / (10f + Players[1 - active].attack_def)) + Players[active].ability_mag * (Players[active].food[Players[active].FoodCounter++] + Round) / 3f * (10f / (10f + Players[1 - active].ability_def)));
+                    if (Difficulty == DifficultyType.Hard) {
+                        if (IsSorted(active)) Players[1 - active].currentHP -= 25;
+                    }
                     Players[active].FoodCounter %= 10;
                     UpdateHP();
                     if (Players[1 - active].currentHP <= 0) {
@@ -701,6 +710,14 @@ public class Game : MonoBehaviour {
             PlayerFood.transform.GetChild(i).GetComponent<Text>().text = Players[0].food[i].ToString();
             EnemyFood.transform.GetChild(i).GetComponent<Text>().text = Players[1].food[i].ToString();
         }
+    }
+
+    private bool IsSorted(int num) {
+        for (int i = 0; i < 9; i++) {
+            if (Players[num].food[i] > Players[num].food[i + 1])
+                return false;
+        }
+        return true;
     }
 
     public int IncPurchaseCount() {
