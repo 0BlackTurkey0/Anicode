@@ -164,13 +164,13 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: "\u7D05\u8272\u9806\u5411"
+    - m_Text: "\u7D05\u8272"
       m_Image: {fileID: 0}
-    - m_Text: "\u7D05\u8272\u9006\u5411"
+    - m_Text: "\u9EC3\u8272"
       m_Image: {fileID: 0}
-    - m_Text: "\u85CD\u8272\u9806\u5411"
+    - m_Text: "\u7DA0\u8272"
       m_Image: {fileID: 0}
-    - m_Text: "\u85CD\u8272\u9006\u5411"
+    - m_Text: "\u85CD\u8272"
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -497,7 +497,7 @@ GameObject:
   - component: {fileID: 2745296314914301158}
   - component: {fileID: -4378706399517090637}
   m_Layer: 5
-  m_Name: Instruction_Move
+  m_Name: Instruction_Move_N
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1259,7 +1259,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7D05\u8272\u9806\u5411"
+  m_Text: "\u7D05\u8272"
 --- !u!1 &6356083214692527230
 GameObject:
   m_ObjectHideFlags: 0
