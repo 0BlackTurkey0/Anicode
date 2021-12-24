@@ -193,7 +193,7 @@ public class singleStoryGame:MonoBehaviour
 
     private IEnumerator ShowIntro()
     {
-        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 90);
+        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 80);
         GameObject BG = GameObject.Find("BG").transform.Find("bgOrange").gameObject;
         BG.SetActive(true);
         BG.transform.GetChild(0).gameObject.SetActive(true);
@@ -205,7 +205,7 @@ public class singleStoryGame:MonoBehaviour
             yield return null;
         isClick = false;
 
-        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 110);
         BG.SetActive(false);
 
         status = 1;
@@ -214,7 +214,7 @@ public class singleStoryGame:MonoBehaviour
 
     private IEnumerator ShowChapterContent()
     {
-        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 90);
+        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 80);
         GameObject BG = GameObject.Find("BG").transform.Find("bg" + ColorPriority[currentPos]).gameObject;
         BG.SetActive(true);
         BG.transform.GetChild(0).gameObject.SetActive(true);
@@ -239,7 +239,7 @@ public class singleStoryGame:MonoBehaviour
             yield return null;
         isClick = false;
 
-        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 110);
         BG.SetActive(false);
 
         status = 6;
@@ -248,7 +248,7 @@ public class singleStoryGame:MonoBehaviour
 
     private IEnumerator ShowFinal()
     {
-        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 90);
+        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 80);
         GameObject BG = GameObject.Find("BG").transform.Find("bgFinal").gameObject;
         BG.SetActive(true);
         BG.transform.GetChild(0).gameObject.SetActive(true);
@@ -264,7 +264,7 @@ public class singleStoryGame:MonoBehaviour
             yield return null;
         isClick = false;
 
-        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 110);
         BG.SetActive(false);
 
         status = 1;
@@ -273,7 +273,7 @@ public class singleStoryGame:MonoBehaviour
 
     private IEnumerator Clicked_SmallCube()
     {
-        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 90);
+        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 80);
         GameObject BG = GameObject.Find("BG").transform.Find("bg" + ColorPriority[Convert.ToInt32(clickedButtonName) / 4]).gameObject;
         BG.SetActive(true);
         BG.transform.GetChild(0).gameObject.SetActive(true);
@@ -295,7 +295,7 @@ public class singleStoryGame:MonoBehaviour
             yield return null;
         isClick = false;
 
-        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 110);
         BG.SetActive(false);
 
         ChooseCharactor();
@@ -304,7 +304,7 @@ public class singleStoryGame:MonoBehaviour
 
     private IEnumerator Clicked_Footprint()
     {
-        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 90);
+        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 80);
         GameObject BG = GameObject.Find("BG").transform.Find("bgWarning").gameObject;
         BG.SetActive(true);
         BG.transform.GetChild(0).gameObject.SetActive(true);
@@ -338,7 +338,7 @@ public class singleStoryGame:MonoBehaviour
             yield return null;
         isClick = false;
 
-        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 110);
         BG.SetActive(false);
 
         ChooseCharactor();
@@ -347,7 +347,7 @@ public class singleStoryGame:MonoBehaviour
 
     private IEnumerator Clicked_Skeleton()
     {
-        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 90);
+        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 80);
         GameObject BG = GameObject.Find("BG").transform.Find("bgRed").gameObject;
         BG.SetActive(true);
         BG.transform.GetChild(0).gameObject.SetActive(true);
@@ -381,7 +381,7 @@ public class singleStoryGame:MonoBehaviour
             yield return null;
         isClick = false;
 
-        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 110);
         BG.SetActive(false);
 
         ChooseCharactor();
