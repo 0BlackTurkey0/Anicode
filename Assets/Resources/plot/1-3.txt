@@ -1,0 +1,3 @@
+type：討伐
+area：平原
+target：棕熊
