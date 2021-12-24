@@ -2,20 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class control_in_twolobby : MonoBehaviour
 {
     [SerializeField] GameObject MotionSetting;
     [SerializeField] GameObject JoinBtn;
-    [SerializeField] GameObject ResetPlayerOnLIst;
+    [SerializeField] GameObject SearchBtn;
+    [SerializeField] GameObject PlayerBarPrefab;
+    [SerializeField] GameObject PlayerListContent;
 
     private Network network;
     private string playerName;  //TBD 抓取使用者名稱
     private Dictionary<string, string> playerList { get { return network.dict; } }
+    public static GameMode mode = new GameMode();
+    private int SeletedIndex = -1;
     private DateTime LocalTime { get { return DateTime.Now; } }
     private DateTime time;
-
 
     // Start is called before the first frame update
     void Awake()
@@ -26,7 +30,7 @@ public class control_in_twolobby : MonoBehaviour
     {
         network = new Network(playerName);
 
-        JoinBtn.transform.GetComponent<Button>().enabled = false;
+        JoinBtn.transform.GetComponent<Button>().enabled = true; //!!
         MotionSetting.SetActive(false);
     }
 
@@ -81,6 +85,38 @@ public class control_in_twolobby : MonoBehaviour
 			user.text = null;*/
         //---
     }
+
+    private IEnumerator UpdateList()
+    {
+        int loop = 4;
+        while (loop-- > 0) {
+            for (int i = 0;i < PlayerListContent.transform.childCount;i += 1) {
+                Destroy(PlayerListContent.transform.GetChild(i).gameObject);
+            }
+
+            int height = playerList.Count > 5 ? playerList.Count * 100 : 500;
+            PlayerListContent.GetComponent<RectTransform>().sizeDelta = new Vector2(0, height);
+
+            if (playerList.Count > 0) {
+                int posY = -50;
+                foreach (KeyValuePair<string, string> item in playerList) {
+                    GameObject temp = Instantiate(PlayerBarPrefab, PlayerListContent.transform);
+                    temp.transform.GetChild(0).gameObject.GetComponent<Text>().text = item.Key;
+                    temp.transform.GetChild(2).gameObject.GetComponent<Text>().text = item.Value;
+                    temp.transform.localPosition = new Vector2(600, posY);
+                    temp.GetComponent<Button>().onClick.AddListener(delegate () { OnClick_Select(temp.transform.GetSiblingIndex()); });
+                    posY -= 100;
+                }
+                GameObject temp1 = Instantiate(PlayerBarPrefab, PlayerListContent.transform);
+                temp1.transform.GetChild(0).gameObject.GetComponent<Text>().text = "192.168.1.101";
+                temp1.transform.GetChild(2).gameObject.GetComponent<Text>().text = "hahaha";
+                temp1.transform.localPosition = new Vector2(600, posY);
+                temp1.GetComponent<Button>().onClick.AddListener(delegate () { OnClick_Select(temp1.transform.GetSiblingIndex()); });
+            }
+            yield return new WaitForSeconds(1);
+        }
+        SearchBtn.GetComponent<Button>().enabled = true;
+    }
     //---------------------------------------------------------------------------------------------------------------
 
     public void ShowMotionSetting()
@@ -95,25 +131,23 @@ public class control_in_twolobby : MonoBehaviour
     }
     public void OnClick_Search()
     {
-        //---
-        //當玩家進入雙人大廳或按下搜尋按鈕
-        //---
         network.SearchUser();
-        //---
-        //在清單中顯示所有玩家
-        //---
+        StartCoroutine(UpdateList());
+        SearchBtn.GetComponent<Button>().enabled = false;
+
     }
     public void OnClick_Challenge()   //發起挑戰
     {
-        //---
-        //這部分為使用者選擇的對手
-        //並以ip位置為參數呼叫SendChallenge
-        string ip = "192.168.2.100";
-        //---
-        network.SendChallenge(ip);
-        //---
-        //等待對手回應
-        //---
+        if (SeletedIndex != -1) {
+            string ip = PlayerListContent.transform.GetChild(SeletedIndex).GetChild(0).gameObject.GetComponent<Text>().text;
+            Debug.Log(ip);
+            SeletedIndex = -1;
+            //---
+            network.SendChallenge(ip);
+            //---
+            //等待對手回應
+            //---
+        }
     }
     public void OnClick_Accept()  //接受挑戰
     {
@@ -136,6 +170,11 @@ public class control_in_twolobby : MonoBehaviour
         MotionSetting.SetActive(false);
     }
 
+    private void OnClick_Select(int index)
+    {
+        SeletedIndex = index;
+    }
+
     /*private void Connection()
     {
         network.SendConnection();
@@ -153,10 +192,6 @@ public class control_in_twolobby : MonoBehaviour
         }
     }*/
 
-    public void EliminateRoomNameOnList()
-    {
-        
-    }
     public void Return()
     {
         //SceneManager.LoadScene(0);

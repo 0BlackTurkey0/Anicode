@@ -163,25 +163,24 @@ public class DropdownHandler : MonoBehaviour
 
     public void Confirm()
     {
+        bool[] difficulty = new bool[4];
         if (EnteranceToggle.GetComponent<Toggle>().isOn == true)
         {
-            RankText.text += "Enterance"+" ";
+            difficulty[0] = true;
         }
         if (EasyToggle.GetComponent<Toggle>().isOn == true)
         {
-            RankText.text += "Easy" + " ";
+            difficulty[1] = true;
         }
         if (NormalToggle.GetComponent<Toggle>().isOn == true)
         {
-            RankText.text += "(Normal" + " ";
+            difficulty[2] = true;
         }
         if (DifficultToggle.GetComponent<Toggle>().isOn == true)
         {
-            RankText.text += "Difficult" + " ";
+            difficulty[3] = true;
         }
-        
-        Debug.Log(RankText.text);
+        control_in_twolobby.mode.Difficulty = difficulty;
+        control_in_twolobby.mode.Character = CharactorText.text;
     }
-    
-
 }

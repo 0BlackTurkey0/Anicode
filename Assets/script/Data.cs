@@ -31,7 +31,6 @@ public class MSG    //封包類型
 
 public class GameMode
 {
-	public int Difficulty { get; set; } = 0;    //簡單:0 初級:1 中級:2 困難:3
-	public int Map { get; set; } = 0;
+	public bool[] Difficulty { get; set; } = new bool[4];    //簡單:0 初級:1 中級:2 困難:3
 	public string Character { get; set; } = null;
 }
