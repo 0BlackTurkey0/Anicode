@@ -17,7 +17,6 @@ public class create2 : MonoBehaviour
         number = Count.ToString();
         story = "Assets/prefab/2-" + number + ".prefab";
         Prefab = AssetDatabase.LoadAssetAtPath(story, typeof(GameObject)) as GameObject;
-        //Prefab1=Instantiate(Prefab, Canvas);
         Prefab1 = Instantiate(Prefab, gameObject.GetComponent<Transform>());
         finish = Prefab1.transform.GetChild(1).gameObject.GetComponent<DialogSystem>().Finished;
     }
@@ -39,9 +38,7 @@ public class create2 : MonoBehaviour
                         number = Count.ToString();
                         story = "Assets/prefab/2-" + number + ".prefab";
                         Prefab = AssetDatabase.LoadAssetAtPath(story, typeof(GameObject)) as GameObject;
-                        //Prefab1 = Instantiate(Prefab, Canvas);
                         Prefab1 = Instantiate(Prefab, gameObject.GetComponent<Transform>());
-                        //finish = Prefab1.transform.GetChild(1).gameObject.GetComponent<DialogSystem>().Finished;
                     }
                     break;
                 case "2":
@@ -67,6 +64,12 @@ public class create2 : MonoBehaviour
                         //Prefab1 = Instantiate(Prefab, Canvas);
                         Prefab1 = Instantiate(Prefab, gameObject.GetComponent<Transform>());
                     }
+                    break;
+                case "4":
+                    Destroy(Prefab1);
+                    story = "Assets/prefab/2-22.prefab";
+                    Prefab = AssetDatabase.LoadAssetAtPath(story, typeof(GameObject)) as GameObject;
+                    Prefab1 = Instantiate(Prefab, gameObject.GetComponent<Transform>());
                     break;
             }
         }
