@@ -17,6 +17,11 @@ public class select : MonoBehaviour
     {
         SceneManager.LoadScene("story3");
     }
+    public void PlayStory()
+    {
+        Debug.Log("###");
+        SceneManager.LoadScene("select1");
+    }
     public void QuitGame()
     {
         Application.Quit();

@@ -8,11 +8,12 @@ public class create2 : MonoBehaviour
     private GameObject Prefab, Prefab1;
     int Count;
     string story, number, select;
-    bool finish;
+    bool finish,flag;
 
     // Start is called before the first frame update
     void Start()
     {
+        flag = true;
         Count = 1;
         number = Count.ToString();
         story = "Assets/prefab/2-" + number + ".prefab";
@@ -66,10 +67,13 @@ public class create2 : MonoBehaviour
                     }
                     break;
                 case "4":
-                    Destroy(Prefab1);
-                    story = "Assets/prefab/2-22.prefab";
-                    Prefab = AssetDatabase.LoadAssetAtPath(story, typeof(GameObject)) as GameObject;
-                    Prefab1 = Instantiate(Prefab, gameObject.GetComponent<Transform>());
+                    if (flag) {
+                        flag = false;
+                        Destroy(Prefab1);
+                        story = "Assets/prefab/2-22.prefab";
+                        Prefab = AssetDatabase.LoadAssetAtPath(story, typeof(GameObject)) as GameObject;
+                        Prefab1 = Instantiate(Prefab, gameObject.GetComponent<Transform>());
+                    }
                     break;
             }
         }
