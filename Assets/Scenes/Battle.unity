@@ -2089,7 +2089,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1649831402}
   m_HandleRect: {fileID: 1649831401}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5044,7 +5044,8 @@ MonoBehaviour:
   Instruction_Move_N: {fileID: 2745296314914301155, guid: 2aa02e5374babba41994897bde911e52, type: 3}
   Instruction_Move_H: {fileID: 2745296314914301155, guid: 14e31ebd92d92d741967e09323b67370, type: 3}
   Instruction_Attack: {fileID: 2745296314914301155, guid: eacf8f80abcbbc6459f95f2ae27a0641, type: 3}
-  Instruction_Assign: {fileID: 2745296314914301155, guid: 61ef0cb726dd2f94cb630c1d8bbf4eb2, type: 3}
+  Instruction_Assign_EN: {fileID: 2745296314914301155, guid: 65decb70960e629488ceddf5e9c44051, type: 3}
+  Instruction_Assign_H: {fileID: 2745296314914301155, guid: 61ef0cb726dd2f94cb630c1d8bbf4eb2, type: 3}
   Instruction_If: {fileID: 2745296314914301155, guid: 34a18a624cfe7414a836b6d7501eb8ca, type: 3}
   Instruction_Loop: {fileID: 2745296314914301155, guid: 5f3efc7933fec874a92523a70d6b3aea, type: 3}
   Instruction_Swap: {fileID: 2745296314914301155, guid: eaf1497bc2d64e74aa243f05ba2a1587, type: 3}

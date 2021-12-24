@@ -52,7 +52,8 @@ public class Game : MonoBehaviour {
     [SerializeField] private GameObject Instruction_Move_N;
     [SerializeField] private GameObject Instruction_Move_H;
     [SerializeField] private GameObject Instruction_Attack;
-    [SerializeField] private GameObject Instruction_Assign;
+    [SerializeField] private GameObject Instruction_Assign_EN;
+    [SerializeField] private GameObject Instruction_Assign_H;
     [SerializeField] private GameObject Instruction_If;
     [SerializeField] private GameObject Instruction_Loop;
     [SerializeField] private GameObject Instruction_Swap;
@@ -644,7 +645,10 @@ public class Game : MonoBehaviour {
                     instruction = Instantiate(Instruction_Attack);
                     break;
                 case InstructionType.Assign:
-                    instruction = Instantiate(Instruction_Assign);
+                    if(Difficulty == DifficultyType.Hard)
+                        instruction = Instantiate(Instruction_Assign_H);
+                    else
+                        instruction = Instantiate(Instruction_Assign_EN);
                     for (int i = 0; i < 3; i++)
                         instruction.transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value = target.Arguments[i];
                     instruction.transform.GetChild(0).GetChild(5).GetComponent<InputField>().text = target.Arguments[3].ToString();
