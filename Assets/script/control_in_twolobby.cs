@@ -12,6 +12,9 @@ public class control_in_twolobby : MonoBehaviour
     [SerializeField] GameObject SearchBtn;
     [SerializeField] GameObject PlayerBarPrefab;
     [SerializeField] GameObject PlayerListContent;
+    [SerializeField] GameObject WaitingListUpdate;
+    [SerializeField] GameObject RespondAcceptOrNot;
+    [SerializeField] GameObject WaitingOpponentRespond;
 
     private Network network;
     private string playerName;  //TBD 抓取使用者名稱
@@ -32,6 +35,9 @@ public class control_in_twolobby : MonoBehaviour
 
         JoinBtn.transform.GetComponent<Button>().enabled = true; //!!
         MotionSetting.SetActive(false);
+        WaitingListUpdate.SetActive(false);
+        RespondAcceptOrNot.SetActive(false);
+        WaitingOpponentRespond.SetActive(false);
     }
 
     // Update is called once per frame
@@ -116,6 +122,8 @@ public class control_in_twolobby : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
         SearchBtn.GetComponent<Button>().enabled = true;
+        WaitingListUpdate.SetActive(false);
+        MotionSetting.SetActive(true);
     }
     //---------------------------------------------------------------------------------------------------------------
 
@@ -131,6 +139,9 @@ public class control_in_twolobby : MonoBehaviour
     }
     public void OnClick_Search()
     {
+        WaitingListUpdate.SetActive(true);
+        MotionSetting.SetActive(false);
+
         network.SearchUser();
         StartCoroutine(UpdateList());
         SearchBtn.GetComponent<Button>().enabled = false;
@@ -147,13 +158,19 @@ public class control_in_twolobby : MonoBehaviour
             //---
             //等待對手回應
             //---
+            WaitingOpponentRespond.SetActive(true);
         }
+    }
+    public void ReceiveChallenge()  //接收來自別人的挑戰
+    {
+        RespondAcceptOrNot.SetActive(true);
     }
     public void OnClick_Accept()  //接受挑戰
     {
         //---
         //這部分為當使用者按下確認按鈕時
         //---
+        RespondAcceptOrNot.SetActive(false);
         network.AcceptChallenge();
     }
 
@@ -162,6 +179,7 @@ public class control_in_twolobby : MonoBehaviour
         //---
         //這部分為當使用者按下拒絕按鈕時
         //---
+        RespondAcceptOrNot.SetActive(false);
         network.DenyChallenge();
     }
 
