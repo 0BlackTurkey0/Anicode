@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections;
-//using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class DialogSystem : MonoBehaviour
 {
@@ -24,22 +18,14 @@ public class DialogSystem : MonoBehaviour
 
     [Header("head")]
     public Sprite face01, face02, face03, face04, face05;
-
-    private bool textFinished,exit;
-    bool cancelTyping;
     public bool Finished { get { return exit; } }
-    List<string> textList = new List<string>();
 
- 
-    void Awake()
+    private bool textFinished, cancelTyping, exit;
+    private List<string> textList = new List<string>();
+
+    void Start()
     {
         GetTextFromfile(textFile);
-    }
-
-    private void OnEnable()
-    {
-        //textLabel.text = textList[index];
-        // index++;
         textFinished = true;
         exit = false;
         StartCoroutine(SetTextUI());
@@ -47,49 +33,38 @@ public class DialogSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && index == textList.Count)
-        {
+        if (Input.GetKeyDown(KeyCode.Space) && index == textList.Count) {
             exit = true;
             gameObject.SetActive(false);
             index = 0;
             return;
         }
-  
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if(textFinished && !cancelTyping)//打完目前這行要繼續下一行
-            {
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            if (textFinished && !cancelTyping)//打完目前這行要繼續下一行
                 StartCoroutine(SetTextUI());
-            }
-            else if(!textFinished)//正在打字
-            {
+            else if (!textFinished)//正在打字
                 cancelTyping = !cancelTyping;
-            }
         }
         if (Input.GetKeyDown(KeyCode.Escape))
-        {
             Application.Quit();
-        }
     }
 
-    void GetTextFromfile(TextAsset file) 
+    void GetTextFromfile(TextAsset file)
     {
         textList.Clear();
         index = 0;
         var lineData = file.text.Split('\n');
         foreach (var line in lineData)
-        {
             textList.Add(line);
-        }
-
     }
 
     IEnumerator SetTextUI()
     {
         textFinished = false;
         textLabel.text = "";
-        switch (textList[index])
-        {
+        GameObject.Find("Image").GetComponent<Image>().enabled = true;
+        switch (textList[index]) {
             case "A\r":
                 faceImage.sprite = face01;
                 index++;
@@ -106,10 +81,13 @@ public class DialogSystem : MonoBehaviour
                 faceImage.sprite = face04;
                 index++;
                 break;
+            case "E\r":
+                GameObject.Find("Image").GetComponent<Image>().enabled = false;
+                index++;
+                break;
         }
         int letter = 0;
-        while(!cancelTyping && letter< textList[index].Length - 1)
-        {
+        while (!cancelTyping && letter < textList[index].Length - 1) {
             textLabel.text += textList[index][letter];
             letter++;
             yield return new WaitForSeconds(textSpeed);
