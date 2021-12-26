@@ -5,7 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class select : MonoBehaviour
 {
-    public void PlayStory1()
+    int first;
+    public void PlayStory()
+    {
+        first = PlayerPrefs.GetInt("Record_First", 0);
+        if (first != 0)
+        {
+            Debug.Log("aaaaaaa");
+            Debug.Log(first);
+            SceneManager.LoadScene("story1");
+        }
+    }
+    /*public void PlayStory1()
     {
         SceneManager.LoadScene("story1");
     }
@@ -25,5 +36,5 @@ public class select : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-    }
+    }*/
 }

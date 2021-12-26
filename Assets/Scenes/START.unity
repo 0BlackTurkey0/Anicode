@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -723,6 +723,7 @@ MonoBehaviour:
   textLabel: {fileID: 2092109011}
   textFile: {fileID: 4900000, guid: ce6874234d652cb48987bd4d3ca6da48, type: 3}
   index: 10
+  first: 0
   textSpeed: 0.07
 --- !u!1 &1761183178
 GameObject:
@@ -1094,6 +1095,7 @@ MonoBehaviour:
   textLabel: {fileID: 2092109011}
   textFile: {fileID: 4900000, guid: ce6874234d652cb48987bd4d3ca6da48, type: 3}
   index: 10
+  first: 0
   textSpeed: 0.07
 --- !u!114 &2138304955
 MonoBehaviour:

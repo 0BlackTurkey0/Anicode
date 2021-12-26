@@ -17,7 +17,7 @@ public class start : MonoBehaviour
     public int index,first;
     public float textSpeed;
 
-    private bool textFinished, exit;
+    private bool textFinished;
     bool cancelTyping;
     //public bool Finished { get { return exit; } }
     List<string> textList = new List<string>();
@@ -25,34 +25,40 @@ public class start : MonoBehaviour
 
     void Awake()
     {
+        PlayerPrefs.SetInt("Record_First", 0);
+        Debug.Log(first);
         GetTextFromfile(textFile);
         first=PlayerPrefs.GetInt("Record_First", 0);
+        Debug.Log(first);
     }
 
     private void OnEnable()
     {
         textFinished = true;
-        exit = false;
+        //exit = false;
         StartCoroutine(SetTextUI());
     }
 
+   
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && index == textList.Count)
         {
-            exit = true;
+            PlayerPrefs.SetInt("Record_First", 1);
+            first = PlayerPrefs.GetInt("Record_First", 0);
+            Debug.Log("******");
+            Debug.Log(first);
             GameObject.Find("DialogPanel").SetActive(false);
             GameObject.Find("Leader").SetActive(false);
             GameObject.Find("control").gameObject.transform.GetChild(0).gameObject.SetActive(true);
             index = 0;
-            PlayerPrefs.SetInt("Record_First", 1);
             //return;
         }
-        if (first != 0)
+        /*if (first != 0)
         {
             SceneManager.LoadScene("Story1");
-        }
+        }*/
         else
         {
             if (Input.GetKeyDown(KeyCode.Space) && first == 0)
