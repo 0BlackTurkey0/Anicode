@@ -9,7 +9,9 @@ public class Lobby_Control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //ด๚ธี
+        //GameData gameData = new GameData();
+        //gameData.SaveData();
     }
 
     // Update is called once per frame

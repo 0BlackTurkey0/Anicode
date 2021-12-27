@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum DifficultyType : ushort { Start, Easy, Normal, Hard };
+public enum DifficultyType : ushort { Start, Easy, Normal, Hard, NULL };
 
 public class Game : MonoBehaviour {
 
