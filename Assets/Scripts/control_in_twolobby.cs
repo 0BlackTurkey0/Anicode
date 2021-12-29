@@ -1,34 +1,47 @@
+// TODO::playerList邏輯修改(不重複生成)
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class control_in_twolobby : MonoBehaviour
 {
+    [Header("Information")]
+    [SerializeField] GameObject playerNameObject;     //TBD 抓取使用者名稱
+    [Header("Object for Canvas")]
     [SerializeField] GameObject MotionSetting;
-    [SerializeField] GameObject JoinBtn;
-    [SerializeField] GameObject SearchBtn;
-    [SerializeField] GameObject PlayerBarPrefab;
     [SerializeField] GameObject PlayerListContent;
     [SerializeField] GameObject WaitingListUpdate;
-    [SerializeField] GameObject RespondAcceptOrNot;
     [SerializeField] GameObject WaitingOpponentRespond;
+    [SerializeField] GameObject RespondAcceptOrNot;
+    [Header("Button")]
+    [SerializeField] GameObject JoinBtn;
+    [SerializeField] GameObject SearchBtn;
+    [Header("Prefab")]
+    [SerializeField] GameObject PlayerBarPrefab;
 
     private Network network;
-    private string playerName;  //TBD 抓取使用者名稱
+    private string playerName;
     private Dictionary<string, string> playerList { get { return network.dict; } }
+    private int rank {
+        get { return PlayerPrefs.GetInt("Rank", 0); }
+        set { PlayerPrefs.SetInt("Rank", value); }
+    }
+    private readonly string[] rankType = { "入門", "簡單", "普通", "困難" };
     public static GameMode mode = new GameMode();
-    private int SeletedIndex = -1;
+    private int seletedIndex = -1;
+    private bool isResponseChanllenge = false;
     private DateTime LocalTime { get { return DateTime.Now; } }
     private DateTime time;
-
-    // Start is called before the first frame update
+    
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
     }
+
+    // Start is called before the first frame update
     void Start()
     {
         network = new Network(playerName);
@@ -36,8 +49,9 @@ public class control_in_twolobby : MonoBehaviour
         JoinBtn.transform.GetComponent<Button>().enabled = true; //!!
         MotionSetting.SetActive(false);
         WaitingListUpdate.SetActive(false);
-        RespondAcceptOrNot.SetActive(false);
-        WaitingOpponentRespond.SetActive(false);
+        WaitingOpponentRespond.transform.GetChild(0).gameObject.SetActive(false);
+        RespondAcceptOrNot.transform.GetChild(0).gameObject.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -56,22 +70,19 @@ public class control_in_twolobby : MonoBehaviour
         switch (network.systemMessage)
         {
             case SYS.CHALLENGE:
-                //---
-                //"Challenge from " + playerList[network.challengerIP];
-                //玩家選擇接受或拒絕
-                //---
+                StartCoroutine(ReceiveChallenge());
+                network.ClearSystemMessage();
                 break;
 
             case SYS.ACCEPT:
-                //---
-                //進入對戰畫面
-                //---
+
+                isResponseChanllenge = true;
+                Debug.Log("###");
+                //SceneManager.LoadScene();
                 break;
 
             case SYS.DENY:
-                //---
-                //對手拒絕對戰後的動作
-                //---
+                WaitingOpponentRespond.transform.GetChild(0).gameObject.SetActive(false);
                 break;
 
             case SYS.GAME:
@@ -85,10 +96,10 @@ public class control_in_twolobby : MonoBehaviour
         //---
         //遍例playerList的方法
         /*if (playerList.Count > 0)
-			foreach (KeyValuePair<string, string> item in playerList)
-				user.text = item.Value;
-		else
-			user.text = null;*/
+            foreach (KeyValuePair<string, string> item in playerList)
+                user.text = item.Value;
+        else
+            user.text = null;*/
         //---
     }
 
@@ -108,6 +119,7 @@ public class control_in_twolobby : MonoBehaviour
                 foreach (KeyValuePair<string, string> item in playerList) {
                     GameObject temp = Instantiate(PlayerBarPrefab, PlayerListContent.transform);
                     temp.transform.GetChild(0).gameObject.GetComponent<Text>().text = item.Key;
+                    temp.transform.GetChild(1).gameObject.GetComponent<Text>().text = rankType[rank];
                     temp.transform.GetChild(2).gameObject.GetComponent<Text>().text = item.Value;
                     temp.transform.localPosition = new Vector2(600, posY);
                     temp.GetComponent<Button>().onClick.AddListener(delegate () { OnClick_Select(temp.transform.GetSiblingIndex()); });
@@ -115,6 +127,7 @@ public class control_in_twolobby : MonoBehaviour
                 }
                 GameObject temp1 = Instantiate(PlayerBarPrefab, PlayerListContent.transform);
                 temp1.transform.GetChild(0).gameObject.GetComponent<Text>().text = "192.168.1.101";
+                temp1.transform.GetChild(1).gameObject.GetComponent<Text>().text = rankType[rank];
                 temp1.transform.GetChild(2).gameObject.GetComponent<Text>().text = "hahaha";
                 temp1.transform.localPosition = new Vector2(600, posY);
                 temp1.GetComponent<Button>().onClick.AddListener(delegate () { OnClick_Select(temp1.transform.GetSiblingIndex()); });
@@ -123,7 +136,16 @@ public class control_in_twolobby : MonoBehaviour
         }
         SearchBtn.GetComponent<Button>().enabled = true;
         WaitingListUpdate.SetActive(false);
-        MotionSetting.SetActive(true);
+    }
+
+    private IEnumerator ReceiveChallenge()  //接收來自別人的挑戰
+    {
+        RespondAcceptOrNot.transform.GetChild(0).gameObject.SetActive(true);
+        RespondAcceptOrNot.transform.GetChild(0).GetChild(1).GetComponent<Text>().text = playerList[network.challengerIP] + ":";
+        yield return new WaitForSeconds(10);
+        if (!isResponseChanllenge)
+            network.DenyChallenge();
+        RespondAcceptOrNot.transform.GetChild(0).gameObject.SetActive(false);
     }
     //---------------------------------------------------------------------------------------------------------------
 
@@ -140,7 +162,6 @@ public class control_in_twolobby : MonoBehaviour
     public void OnClick_Search()
     {
         WaitingListUpdate.SetActive(true);
-        MotionSetting.SetActive(false);
 
         network.SearchUser();
         StartCoroutine(UpdateList());
@@ -149,38 +170,26 @@ public class control_in_twolobby : MonoBehaviour
     }
     public void OnClick_Challenge()   //發起挑戰
     {
-        if (SeletedIndex != -1) {
-            string ip = PlayerListContent.transform.GetChild(SeletedIndex).GetChild(0).gameObject.GetComponent<Text>().text;
+        if (seletedIndex != -1) {
+            string ip = PlayerListContent.transform.GetChild(seletedIndex).GetChild(0).gameObject.GetComponent<Text>().text;
             Debug.Log(ip);
-            SeletedIndex = -1;
-            //---
+            seletedIndex = -1;
+
             network.SendChallenge(ip);
-            //---
-            //等待對手回應
-            //---
-            WaitingOpponentRespond.SetActive(true);
+            WaitingOpponentRespond.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
-    public void ReceiveChallenge()  //接收來自別人的挑戰
-    {
-        RespondAcceptOrNot.SetActive(true);
-    }
+
     public void OnClick_Accept()  //接受挑戰
     {
-        //---
-        //這部分為當使用者按下確認按鈕時
-        //---
-        RespondAcceptOrNot.SetActive(false);
         network.AcceptChallenge();
+        RespondAcceptOrNot.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public void OnClick_Deny() //拒絕挑戰
     {
-        //---
-        //這部分為當使用者按下拒絕按鈕時
-        //---
-        RespondAcceptOrNot.SetActive(false);
         network.DenyChallenge();
+        RespondAcceptOrNot.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public void OnClick_Confirm()
@@ -190,7 +199,7 @@ public class control_in_twolobby : MonoBehaviour
 
     private void OnClick_Select(int index)
     {
-        SeletedIndex = index;
+        seletedIndex = index;
     }
 
     /*private void Connection()
