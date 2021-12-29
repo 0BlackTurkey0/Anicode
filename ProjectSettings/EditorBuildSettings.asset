@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Illustrated-Book_scene.unity
     guid: 5d2bfb46c98e7904f936751907c2e791
+  - enabled: 1
+    path: Assets/Scenes/STORY.unity
+    guid: a88fbeabf2c9cd14b8119b776f7cf482
   m_configObjects: {}
