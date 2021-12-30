@@ -37,6 +37,13 @@ public class GameData {
         set { _skins = value; }
     }
 
+    private bool _isFullScreen;
+
+    public bool IsFullScreen {
+        get { return _isFullScreen; }
+        set { _isFullScreen = value; }
+    }
+
     private float _voiceVolume;
 
     public float VoiceVolume {
@@ -50,6 +57,7 @@ public class GameData {
         _money = 0;
         _achievements = new bool[14];
         _skins = new bool[15];
+        _isFullScreen = true;
         _voiceVolume = 1f;
     }
 

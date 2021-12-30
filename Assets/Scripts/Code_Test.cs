@@ -20,7 +20,7 @@ public class Code_Test : MonoBehaviour
         test.Insert(InstructionType.If, 4, 3);
         test.Insert(InstructionType.Assign, 9, 2);
         test.Insert(InstructionType.Attack, 6, 0);
-        test.Display();
+        //test.Display();
         /*
         test.Delete(2);
         test.Display();
