@@ -127,7 +127,10 @@ public class Create : MonoBehaviour
             isRun = false;
         }
     }
-
+    public void OnClick()
+    {
+        SceneManager.LoadScene("lobby");
+    }
     /*private IEnumerator UpdateFinal()
     {
         storyNum = 4;

@@ -63,7 +63,7 @@ public class DialogSystem : MonoBehaviour
     {
         textFinished = false;
         textLabel.text = "";
-        GameObject.Find("Image").GetComponent<Image>().enabled = true;
+        GameObject.Find("Panel").gameObject.transform.GetChild(1).gameObject.SetActive(true);
         switch (textList[index]) {
             case "A\r":
                 faceImage.sprite = face01;
@@ -82,7 +82,7 @@ public class DialogSystem : MonoBehaviour
                 index++;
                 break;
             case "E\r":
-                GameObject.Find("Image").GetComponent<Image>().enabled = false;
+                 GameObject.Find("Panel").gameObject.transform.GetChild(1).gameObject.SetActive(false);
                 index++;
                 break;
         }

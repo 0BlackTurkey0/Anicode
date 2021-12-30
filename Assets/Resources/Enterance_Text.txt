@@ -1,0 +1,2 @@
+基礎指令
+move、attack

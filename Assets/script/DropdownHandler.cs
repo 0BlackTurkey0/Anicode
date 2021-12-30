@@ -63,7 +63,7 @@ public class DropdownHandler : MonoBehaviour
             CharactorAttribute.transform.GetChild(3).gameObject.SetActive(false);
             CharactorAttribute.transform.GetChild(4).gameObject.SetActive(false);
             CharactorAttribute.transform.GetChild(5).gameObject.SetActive(true);
-            string content = Resources.Load<TextAsset>("whale_Text").ToString();
+            string content = Resources.Load<TextAsset>("Enterance_Text").ToString();
             Attribute.transform.GetChild(5).gameObject.GetComponent<Text>().text = content;
         }
     }
@@ -77,7 +77,7 @@ public class DropdownHandler : MonoBehaviour
             CharactorAttribute.transform.GetChild(3).gameObject.SetActive(false);
             CharactorAttribute.transform.GetChild(4).gameObject.SetActive(false);
             CharactorAttribute.transform.GetChild(5).gameObject.SetActive(true);
-            string content = Resources.Load<TextAsset>("whale_Text").ToString();
+            string content = Resources.Load<TextAsset>("Easy_Text").ToString();
             Attribute.transform.GetChild(5).gameObject.GetComponent<Text>().text = content;
         }
     }
@@ -91,7 +91,7 @@ public class DropdownHandler : MonoBehaviour
             CharactorAttribute.transform.GetChild(3).gameObject.SetActive(false);
             CharactorAttribute.transform.GetChild(4).gameObject.SetActive(false);
             CharactorAttribute.transform.GetChild(5).gameObject.SetActive(true);
-            string content = Resources.Load<TextAsset>("whale_Text").ToString();
+            string content = Resources.Load<TextAsset>("Normal_Text").ToString();
             Attribute.transform.GetChild(5).gameObject.GetComponent<Text>().text = content;
         }
     }
@@ -105,7 +105,7 @@ public class DropdownHandler : MonoBehaviour
             CharactorAttribute.transform.GetChild(3).gameObject.SetActive(false);
             CharactorAttribute.transform.GetChild(4).gameObject.SetActive(false);
             CharactorAttribute.transform.GetChild(5).gameObject.SetActive(true);
-            string content = Resources.Load<TextAsset>("whale_Text").ToString();
+            string content = Resources.Load<TextAsset>("Difficult_Text").ToString();
             Attribute.transform.GetChild(5).gameObject.GetComponent<Text>().text = content;
         }
     }

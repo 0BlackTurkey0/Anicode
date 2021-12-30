@@ -22,6 +22,7 @@ public class Begin : MonoBehaviour
     private bool cancelTyping, textFinished = true;
     //public bool Finished { get { return exit; } }
     private List<string> textList = new List<string>();
+    //private GameObject buttonReturn = GameObject.Find("Return").gameObject;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,7 @@ public class Begin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //buttonReturn.GetComponent<Button>().onClick.AddListener(delegate () { SceneManager.LoadScene("lobby"); });
         if (Input.GetKeyDown(KeyCode.Space) && index == textList.Count) {
             first = 1;
             GameObject.Find("DialogPanel").SetActive(false);
@@ -85,6 +87,11 @@ public class Begin : MonoBehaviour
     {
         if (first == 1)
             SceneManager.LoadScene("STORY");
+    }
+
+    public void OnClick()
+    {
+        SceneManager.LoadScene("lobby");
     }
 }
 
