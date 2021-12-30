@@ -54,7 +54,7 @@ public class Create : MonoBehaviour
                     break;
                 case "3":   //關卡結束時畫面
                     if (!isRun && isFinish) {
-                        StartCoroutine(UpdateIntoGame());
+                        StartCoroutine(UpdateExitGame());
                         isRun = true;
                     }
                     break;
@@ -105,9 +105,9 @@ public class Create : MonoBehaviour
         yield return new WaitForSecondsRealtime(2);
         // 進入AI
         SceneManager.LoadScene("Battle");
-        bool isSuccess = true;  //判斷對戰結果
-        /*if (Prefab.tag == "3")
-            isSuccess = true;*/
+        /*bool isSuccess = true;  //判斷對戰結果
+        if (Prefab.tag == "2")
+            SceneManager.LoadScene("Battle");
         if (isSuccess) {
             lastTag = 2;
             Destroy(Prefab);
@@ -125,7 +125,7 @@ public class Create : MonoBehaviour
             Destroy(Prefab);
             Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefab/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
             isRun = false;
-        }
+        }*/
     }
     public void OnClick()
     {
@@ -139,4 +139,31 @@ public class Create : MonoBehaviour
         yield return new WaitForSecondsRealtime(3);
         isFinal = true;
     }*/
+
+    private IEnumerator UpdateExitGame()
+    {
+        yield return new WaitForSecondsRealtime(2);
+        bool isSuccess = true;  //判斷對戰結果
+        if (isSuccess)
+        {
+            lastTag = 2;
+            Destroy(Prefab);
+            ind++;
+            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefab/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+            yield return null;
+            isRun = false;
+        }
+        else
+        {
+            int tmp = ind + 1;
+            lastTag = 2;
+            Destroy(Prefab);
+            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefab/" + storyNum.ToString() + "-" + tmp.ToString() + "-2.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+            yield return new WaitForSecondsRealtime(2);
+            Destroy(Prefab);
+            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefab/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+            isRun = false;
+        }
+    }
 }
+    
