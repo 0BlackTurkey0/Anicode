@@ -164,7 +164,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7299322975614647565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ee4d7511bf886442be547555c626fba, type: 3}
+  m_Script: {fileID: 11500000, guid: 48afd2ccd685f55469df6c7930a6d207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   textLabel: {fileID: 7299322975653057844}
@@ -172,9 +172,9 @@ MonoBehaviour:
   textFile: {fileID: 4900000, guid: dbaf23c46586cf34a9885caeeac123b9, type: 3}
   index: 10
   textSpeed: 0.07
-  face01: {fileID: 21300000, guid: 80e8a9a79a8ac9b40b7182f1686ada76, type: 3}
-  face02: {fileID: 21300000, guid: 9113b7073b955e94f92521ff76b61ae5, type: 3}
-  face03: {fileID: 21300000, guid: d8e7db9a10dab0947a49a79552ba7bf6, type: 3}
+  face01: {fileID: 0}
+  face02: {fileID: 0}
+  face03: {fileID: 0}
   face04: {fileID: 0}
   face05: {fileID: 0}
 --- !u!1 &7299322975653057994
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 020491e68cd237d4e8d08f3998d518a8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2d51c49e20d861c41bf076ab7f9ea7e3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -396,7 +396,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9113b7073b955e94f92521ff76b61ae5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 10138505e841daf448cc11fdf64ab330, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -471,7 +471,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ea1d29b0aa086a446afaea8070d13b7c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 83f8a4eb80df6d74a8062651720c4e35, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -546,7 +546,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d8e7db9a10dab0947a49a79552ba7bf6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c6bf4fa7e8f8d2f4e9a601c61593fbaa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
