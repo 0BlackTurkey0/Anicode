@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Story1AI : MonoBehaviour
+public class AI_Mission2_4 : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

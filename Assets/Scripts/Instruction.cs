@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -30,7 +31,13 @@ public class Instruction {
         if (arguments != null) _arguments = arguments.ToList();
         else _arguments = new List<int>();
     }
-    
+
+    public override bool Equals(object ins) {
+        return (ins as Instruction).Type == _type && Enumerable.SequenceEqual((ins as Instruction).Arguments, _arguments);
+    }
+
+    public override int GetHashCode() => (_type, _arguments).GetHashCode();
+
     public ushort GetInstuctionCost() {
         switch (_type) {
             case InstructionType.Move:
