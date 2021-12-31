@@ -25,6 +25,7 @@ public class AI_Mission2_2 : MonoBehaviour
         {
             if (endBattle)
             {
+                WinCheck();
                 AI_add_code();
                 endBattle = false;
             }
@@ -40,6 +41,23 @@ public class AI_Mission2_2 : MonoBehaviour
         }
     }
 
+    private void WinCheck()
+    {
+        if (Mission1)
+        {
+            Debug.Log("You win");
+            game.EndGame = true;
+            game.Winner = true;
+        }
+
+        if (game.Round == 4)
+        {
+            Debug.Log("You lose");
+            game.EndGame = true;
+            game.Winner = false;
+        }
+    }
+
     private void Check()
     {
         if (game.Players[0].Code[(ushort)preProgramCounter] != null)
@@ -51,21 +69,6 @@ public class AI_Mission2_2 : MonoBehaviour
                     Mission1 = true;
             }
         }
-
         Debug.Log(Mission1);
-
-        if (Mission1)
-        {
-            Debug.Log("You win");
-            game.EndGame = true;
-            game.Winner = false;
-        }
-
-        if (game.Round == 4)
-        {
-            Debug.Log("You lose");
-            game.EndGame = true;
-            game.Winner = true;
-        }
     }
 }

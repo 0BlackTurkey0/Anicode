@@ -48,36 +48,24 @@ public class AI_Mission1_4 : MonoBehaviour
         {
             Debug.Log("You win");
             game.EndGame = true;
-            game.Winner = false;
+            game.Winner = true;
         }
 
         else if (game.Round == 4)
         {
             Debug.Log("You lose");
             game.EndGame = true;
-            game.Winner = true;
+            game.Winner = false;
         }
     }
     private void Check()
     {
-        //move ¥k
-        if (game.Players[0].Code[(ushort)preProgramCounter].Equals(new Instruction(InstructionType.Move, new int[1] { 3 })))
-            Mission1 = true;
-
+        if (game.Players[0].Code[(ushort)preProgramCounter]!=null)
+        {
+            //move ¥k
+            if (game.Players[0].Code[(ushort)preProgramCounter].Equals(new Instruction(InstructionType.Move, new int[1] { 3 })))
+                Mission1 = true;
+        }
         Debug.Log(Mission1);
-
-        if (Mission1)
-        {
-            Debug.Log("You win");
-            game.EndGame = true;
-            game.Winner = false;
-        }
-
-        if (game.Round == 4)
-        {
-            Debug.Log("You lose");
-            game.EndGame = true;
-            game.Winner = true;
-        }
     }
 }
