@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Create : MonoBehaviour
-{
+public class Create : MonoBehaviour {
     private GameObject Prefab;
     private int record {
         get {
@@ -16,7 +15,7 @@ public class Create : MonoBehaviour
         }
         set { PlayerPrefs.SetInt("Record_First", value); }
     }
-    private int ind, storyNum,lastTag;
+    private int ind, storyNum, lastTag;
     private bool isClick, isFinish, isRun, isEnd;// isFinal;
     private GameObject buttonParent;
 
@@ -65,7 +64,7 @@ public class Create : MonoBehaviour
                         for (int i = 1;i <= 3;i += 1)
                             buttonParent.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(delegate () { StoryOnClick(); });
                     }
-                    if (Input.GetKeyDown(KeyCode.RightArrow) && isFinish && lastTag==2) {
+                    if (Input.GetKeyDown(KeyCode.RightArrow) && isFinish && lastTag == 2) {
                         if (storyNum < 4)
                             storyNum++;
                         if (storyNum > record && storyNum < 5)
@@ -88,11 +87,11 @@ public class Create : MonoBehaviour
         ind = 1;
         isClick = true;
         var button = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
-        if (button.name == "story1" )
+        if (button.name == "story1")
             storyNum = 1;
-        else if (button.name == "story2" )
+        else if (button.name == "story2")
             storyNum = 2;
-        else if (button.name == "story3"    )
+        else if (button.name == "story3")
             storyNum = 3;
         Destroy(Prefab);
         lastTag = 4;
@@ -144,8 +143,7 @@ public class Create : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(2);
         bool isSuccess = true;  //判斷對戰結果
-        if (isSuccess)
-        {
+        if (isSuccess) {
             lastTag = 2;
             Destroy(Prefab);
             ind++;
@@ -153,8 +151,7 @@ public class Create : MonoBehaviour
             yield return null;
             isRun = false;
         }
-        else
-        {
+        else {
             int tmp = ind + 1;
             lastTag = 2;
             Destroy(Prefab);
@@ -166,4 +163,4 @@ public class Create : MonoBehaviour
         }
     }
 }
-    
+

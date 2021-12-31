@@ -2,8 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Timer : MonoBehaviour
-{
+public class Timer : MonoBehaviour {
     //public GameObject progress;
     public Slider slider;
     public Text progressText;

@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Setting_UI_Control : MonoBehaviour
-{
+public class Setting_UI_Control : MonoBehaviour {
     public GameObject full_screen;
     public GameObject windows;
     public Slider slider;

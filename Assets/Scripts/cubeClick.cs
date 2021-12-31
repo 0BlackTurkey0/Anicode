@@ -1,10 +1,9 @@
 using UnityEngine;
 
-public class CubeClick:MonoBehaviour
-{
+public class CubeClick : MonoBehaviour {
     public void OnClick_Kangaroo()
     {
-        singleStoryGame.HideCharactor();
+        singleStoryGame.HideCharacter();
         //---
         //進入挑戰
         //---
@@ -12,7 +11,7 @@ public class CubeClick:MonoBehaviour
 
     public void OnClick_Whale()
     {
-        singleStoryGame.HideCharactor();
+        singleStoryGame.HideCharacter();
         //---
         //進入挑戰
         //---
@@ -20,7 +19,7 @@ public class CubeClick:MonoBehaviour
 
     public void OnClick_Owl()
     {
-        singleStoryGame.HideCharactor();
+        singleStoryGame.HideCharacter();
         //---
         //進入挑戰
         //---
@@ -28,7 +27,7 @@ public class CubeClick:MonoBehaviour
 
     public void OnClick_Koala()
     {
-        singleStoryGame.HideCharactor();
+        singleStoryGame.HideCharacter();
         //---
         //進入挑戰
         //---
@@ -36,7 +35,7 @@ public class CubeClick:MonoBehaviour
 
     public void OnClick_Fox()
     {
-        singleStoryGame.HideCharactor();
+        singleStoryGame.HideCharacter();
         //---
         //進入挑戰
         //---

@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Commodity_Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 
@@ -12,23 +12,27 @@ public class Commodity_Block : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private Game game;
 
-    void Start() {
+    void Start()
+    {
         game = GameObject.Find("GameHandler").GetComponent<Game>();
         rect = GetComponent<RectTransform>();
     }
 
-    public void OnBeginDrag(PointerEventData eventData) {
+    public void OnBeginDrag(PointerEventData eventData)
+    {
         position = rect.position;
         ushort index = (ushort)Mathf.Round((rect.localPosition.y + 35) / -75);
         type = (InstructionType)index;
     }
 
-    public void OnDrag(PointerEventData eventData) {
+    public void OnDrag(PointerEventData eventData)
+    {
         Vector3 newPosition = new Vector3(eventData.position.x, eventData.position.y, transform.position.z);
         rect.position = newPosition;
     }
 
-    public void OnEndDrag(PointerEventData eventData) {
+    public void OnEndDrag(PointerEventData eventData)
+    {
         if (rect.position.x < Screen.width / 2 && game.IncPurchaseCount() != -1) {
             float width = (rect.localPosition.x - Code_Area.GetComponent<RectTransform>().localPosition.x + 1218);
             ushort position = (Mathf.Round(rect.localPosition.y / -75) < 0) ? (ushort)0 : (ushort)Mathf.Round(rect.localPosition.y / -75);
@@ -44,20 +48,20 @@ public class Commodity_Block : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     break;
                 case InstructionType.Assign:
                     arg = new int[5];
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0;i < 3;i++)
                         arg[i] = transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value;
                     arg[3] = int.Parse(transform.GetChild(0).GetChild(5).GetComponent<InputField>().text);
                     arg[4] = transform.GetChild(0).GetChild(6).GetComponent<Dropdown>().value;
                     break;
                 case InstructionType.If:
                     arg = new int[4];
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0;i < 3;i++)
                         arg[i] = transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value;
                     arg[3] = int.Parse(transform.GetChild(0).GetChild(5).GetComponent<InputField>().text);
                     break;
                 case InstructionType.Loop:
                     arg = new int[4];
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0;i < 3;i++)
                         arg[i] = transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value;
                     arg[3] = int.Parse(transform.GetChild(0).GetChild(5).GetComponent<InputField>().text);
                     break;

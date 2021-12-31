@@ -1,7 +1,6 @@
 using System;
-using UnityEngine;
 
-public enum CharacterType:ushort { Owl, Koala, Kangaroo, Whale, Fox, Customized };
+public enum CharacterType : ushort { Owl, Koala, Kangaroo, Whale, Fox, Customized };
 
 public class Character {
 
@@ -70,7 +69,7 @@ public class Character {
         get { return _code; }
         set { _code = value; }
     }
-    
+
     private ushort _totalCost;
     public ushort TotalCost {
         get { return _totalCost; }
@@ -89,7 +88,8 @@ public class Character {
         set { _programCounter = value; }
     }
 
-    public Character(CharacterType type, int[] states = null) {
+    public Character(CharacterType type, int[] states = null)
+    {
         _type = type;
         _code = new Code();
         _variable = new int[5];
@@ -151,7 +151,8 @@ public class Character {
         _currentHP = _hp;
     }
 
-    public void Reset() {
+    public void Reset()
+    {
         _variable = new int[5];
         _food = new int[10];
         _totalCost = 0;

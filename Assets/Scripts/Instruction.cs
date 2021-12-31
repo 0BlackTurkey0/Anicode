@@ -1,8 +1,7 @@
-using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
-public enum InstructionType:ushort { Move, Attack, Assign, If, Loop, Swap }
+public enum InstructionType : ushort { Move, Attack, Assign, If, Loop, Swap }
 
 public class Instruction {
 
@@ -26,19 +25,22 @@ public class Instruction {
     // Loop {Logic, Source1, Source2, Constant}
     // Swap {Index1, Constant1, Index2, Constant2}
 
-    public Instruction(InstructionType type, int[] arguments = null) {
+    public Instruction(InstructionType type, int[] arguments = null)
+    {
         _type = type;
         if (arguments != null) _arguments = arguments.ToList();
         else _arguments = new List<int>();
     }
 
-    public override bool Equals(object ins) {
+    public override bool Equals(object ins)
+    {
         return (ins as Instruction).Type == _type && Enumerable.SequenceEqual((ins as Instruction).Arguments, _arguments);
     }
 
     public override int GetHashCode() => (_type, _arguments).GetHashCode();
 
-    public ushort GetInstuctionCost() {
+    public ushort GetInstuctionCost()
+    {
         switch (_type) {
             case InstructionType.Move:
                 return 2;

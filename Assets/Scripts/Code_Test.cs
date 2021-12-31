@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Code_Test : MonoBehaviour
-{
+public class Code_Test : MonoBehaviour {
     public ushort pos;
     public bool con;
     Code test;
 
-    void Start() {
+    void Start()
+    {
         test = new Code();
         con = true;
         Debug.Log("Start Test");
@@ -35,20 +35,19 @@ public class Code_Test : MonoBehaviour
         test.Display();
         */
     }
-    
-    void Update() {
+
+    void Update()
+    {
         pos = test.Next(con);
         Instruction target = test[pos];
         if (target != null) {
             Debug.Log(pos.ToString() + ":" + target.Type.ToString());
             if (target.Type == InstructionType.Loop)
-                if (target.Arguments[1] == 0)
-                {
+                if (target.Arguments[1] == 0) {
                     target.Arguments[1] = target.Arguments[0];
                     con = false;
                 }
-                else
-                {
+                else {
                     target.Arguments[1]--;
                     con = true;
                 }

@@ -7,15 +7,21 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 
-class Network {
+public class Network {
     public string localIP { get; private set; }
     public Dictionary<string, (string Name, int Status)> dict { get; private set; } = new Dictionary<string, (string, int)>();
     public DateTime responseTime { get; private set; }
     public string systemMessage { get; private set; } = null;
     public int playerStatus { get; private set; } = 0;
+    public bool isGuest { get; private set; }
+    public int finalDifficulty { get; set; } = -1;
     public string challengerIP { get; private set; } = null;
+    public bool isModeReceive { get; set; } = false;
     public GameMode challengerMode { get; private set; } = null;
-    public string challengerCode { get; private set; } = null;
+    public bool isCodeReceive { get; set; } = false;
+    public Code challengerCode { get; private set; } = null;
+    public bool isFoodReceive { get; set; } = false;
+    public int[] challengerFood { get; private set; } = new int[10];
 
     private UdpClient receivingClient;
     private UdpClient sendingClient;
@@ -23,7 +29,7 @@ class Network {
     private bool isNetworkRunning = true;
     private readonly string playerName;
     private readonly int playerRank;
-    private const int port = 8888;
+    private const int port = 8880;
 
     public Network(string name, int rank)    //建構子
     {
@@ -104,11 +110,28 @@ class Network {
                         break;
 
                     case MSG.MODE:
+                        isModeReceive = true;
                         challengerMode = receiveData.Mode;
                         break;
 
+                    case MSG.DIFFICULTY:
+                        finalDifficulty = receiveData.FinalDifficulty;
+                        if (finalDifficulty == -1)
+                            systemMessage = null;
+                        else
+                            systemMessage = SYS.READY;
+                        break;
+
                     case MSG.GAME:
+                        isCodeReceive = true;
                         challengerCode = receiveData.Code;
+                        systemMessage ??= SYS.GAME;
+                        playerStatus = 2;
+                        break;
+
+                    case MSG.FOOD:
+                        isFoodReceive = true;
+                        challengerFood = receiveData.Food;
                         systemMessage ??= SYS.GAME;
                         playerStatus = 2;
                         break;
@@ -135,8 +158,10 @@ class Network {
     public void Quit()  //關閉網路功能
     {
         try {
-            sendingClient.Close();
-            receivingClient.Close();
+            if (sendingClient != null)
+                sendingClient.Close();
+            if (receivingClient != null)
+                receivingClient.Close();
             isNetworkRunning = false;
         }
         catch (Exception ex) {
@@ -158,6 +183,12 @@ class Network {
         catch (Exception ex) {
             throw ex;
         }
+    }
+
+    public void IntoGame()
+    {
+        systemMessage = SYS.GAME;
+        playerStatus = 2;
     }
 
     public void ClearSystemMessage()
@@ -199,6 +230,7 @@ class Network {
     public void SendChallenge(string ip)    //對指定ip位置的使用者發起挑戰
     {
         try {
+            isGuest = true;
             playerStatus = 1;
             Data sendData = new Data {
                 Type = MSG.CHALLENGE,
@@ -215,6 +247,7 @@ class Network {
     public void AcceptChallenge()   //接受挑戰
     {
         try {
+            isGuest = false;
             Data sendData = new Data {
                 Type = MSG.ACCEPT,
                 Name = playerName
@@ -252,7 +285,26 @@ class Network {
                 Mode = mode
             };
             SendData(challengerIP, sendData);
-            systemMessage = SYS.GAME;
+            systemMessage = SYS.READY;
+        }
+        catch (Exception ex) {
+            throw ex;
+        }
+    }
+
+    public void SendFinalDifficulty()
+    {
+        try {
+            Data sendData = new Data {
+                Type = MSG.DIFFICULTY,
+                Name = playerName,
+                FinalDifficulty = finalDifficulty
+            };
+            SendData(challengerIP, sendData);
+            if (finalDifficulty == -1)
+                systemMessage = null;
+            else
+                systemMessage = SYS.READY;
         }
         catch (Exception ex) {
             throw ex;
@@ -274,13 +326,27 @@ class Network {
         }
     }
 
-    public void SendGameData(string code)   //傳送遊戲數據
+    public void SendGameData(Code code)   //傳送遊戲數據
     {
         try {
             Data sendData = new Data {
                 Type = MSG.GAME,
                 Name = playerName,
-                Code = code
+                Code = code,
+            };
+        }
+        catch (Exception ex) {
+            throw ex;
+        }
+    }
+
+    public void SendGameFood(int[] food)
+    {
+        try {
+            Data sendData = new Data {
+                Type = MSG.FOOD,
+                Name = playerName,
+                Food = food
             };
         }
         catch (Exception ex) {
