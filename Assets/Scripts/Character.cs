@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public enum CharacterType:ushort { Owl, Koala, Kangaroo, Whale, Fox };
+public enum CharacterType:ushort { Owl, Koala, Kangaroo, Whale, Fox, Customized };
 
 public class Character {
 
@@ -90,7 +89,7 @@ public class Character {
         set { _programCounter = value; }
     }
 
-    public Character(CharacterType type) {
+    public Character(CharacterType type, int[] states = null) {
         _type = type;
         _code = new Code();
         _variable = new int[5];
@@ -138,6 +137,15 @@ public class Character {
                 _attack_Def = 3;
                 _ability_Def = 3;
                 _speed = 7;
+                break;
+            case CharacterType.Customized:
+                if (states.Length != 6) throw new ArgumentException("Pass parameter with wrong size in Character.cs");
+                _hp = states[0];
+                _attack_Mag = states[1];
+                _ability_Mag = states[2];
+                _attack_Def = states[3];
+                _ability_Def = states[4];
+                _speed = states[5];
                 break;
         }
         _currentHP = _hp;

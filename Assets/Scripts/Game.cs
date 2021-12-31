@@ -38,14 +38,9 @@ public class Game : MonoBehaviour {
         get { return _isGuest; }
     }
 
-    private bool _battleStart;
-    public bool BattleStart {
-        get { return _battleStart; }
-    }
-
-    private bool _battleEnd;
-    public bool BattleEnd {
-        get { return _battleEnd; }
+    private bool _isDuel;
+    public bool _IsDuel {
+        get { return _isDuel; }
     }
 
     private bool _turn;
@@ -56,11 +51,13 @@ public class Game : MonoBehaviour {
     private bool _endGame;
     public bool EndGame {
         get { return _endGame; }
+        set { _endGame = value; }
     }
 
     private bool _winner;
     public bool Winner {
         get { return _winner; }
+        set { _winner = value; }
     }
 
     private ushort _costLimit;
@@ -78,6 +75,14 @@ public class Game : MonoBehaviour {
         get { return _time; }
     }
 
+    private bool _isBattle;
+    public bool IsBattle {
+        get { return _isBattle; }
+        set { _isBattle = value; }
+    }
+
+    private bool _battleStart;
+    private bool _battleEnd;
 
     [SerializeField] private Sprite[] Skin;
     [SerializeField] private Sprite[] Map;
@@ -110,11 +115,13 @@ public class Game : MonoBehaviour {
     [SerializeField] private GameObject Instruction_Swap;
 
     void Awake() {
-        //IsGuest = "" 傳入是否為申請對戰者 ""
+        //_isDuel = "" 傳入是否為多人對戰 ""
+        //if (_isDuel)_isGuest = "" 傳入是否為申請對戰者 ""
+        //_difficulty = "" 傳入難度 ""
         Players = new Character[2];
         CharacterType[] characterType = new CharacterType[2];
         //characterType = "" 取得角色資訊 ""
-        //Difficulty = "" 取得難度 ""
+        _isDuel = false; //暫定
         characterType[0] = CharacterType.Whale; //暫定
         characterType[1] = CharacterType.Kangaroo; //暫定
         _difficulty = DifficultyType.Hard; //暫定
@@ -378,6 +385,7 @@ public class Game : MonoBehaviour {
     }
 
     void Start() {
+        _isBattle = false;
         _round = 1;
         UpdateHP();
         UpdateLocation();
@@ -405,10 +413,12 @@ public class Game : MonoBehaviour {
         if (!_endGame) {
             if (_battleEnd) {
                 StartCoroutine(PrepareCode());
+                _isBattle = false;
                 _battleEnd = false;
             }
             if (_battleStart) {
                 StartCoroutine(RunCode());
+                _isBattle = true;
                 _battleStart = false;
             }
             if (PrepareTime.activeSelf) {
@@ -440,7 +450,7 @@ public class Game : MonoBehaviour {
         _purchaseCount = 0;
         Purchase.transform.GetChild(0).GetComponent<Text>().text = _purchaseCount.ToString() + " / 5";
         PlayerCode.transform.GetChild(2).gameObject.SetActive(false);
-        _time = _round * 15f + 20f;
+        _time = _round * 15f + 0f;//20f 0f
         yield return new WaitForSeconds(_time);
         _battleStart = true;
     }
@@ -467,10 +477,12 @@ public class Game : MonoBehaviour {
         EnemyHP.SetActive(true);
         PlayerCode.transform.GetChild(2).gameObject.SetActive(true);
         UpdateCode(0);
-        // 傳出己方資料
-        // Code Enemycode = "" 傳入對方資料 "";
-        // Players[1].code = Enemycode;
-        Players[1].Code.Insert(InstructionType.Move, 0, 0, new int[1] { 0 }); //暫定每回合+1 Move
+        if (_isDuel) {
+            // 傳出己方資料
+            // Code Enemycode = "" 傳入對方資料 "";
+            // Players[1].Code = Enemycode;
+        }
+        //Players[1].Code.Insert(InstructionType.Move, 0, 0, new int[1] { 0 }); //暫定每回合+1 Move
         UpdateCode(1);
         Players[0].Reset();
         Players[1].Reset();
@@ -478,16 +490,18 @@ public class Game : MonoBehaviour {
         UpdateCost(true);
         UpdateVariable();
         if (_difficulty == DifficultyType.Hard) {
-            if (!_isGuest) {
-                for (int i = 0; i < 10; i++) {
-                    int number = Random.Range(1, 15);
-                    Players[0].Food[i] = number;
-                    Players[1].Food[i] = number;
-                }
-                // "" 送出food資料 ""
+            for (int i = 0; i < 10; i++) {
+                int number = Random.Range(1, 15);
+                Players[0].Food[i] = number;
+                Players[1].Food[i] = number;
             }
-            else {
-                // "" 取得food資料 ""
+            if (_isDuel) {
+                if (!_isGuest) {
+                    // "" 送出food資料 ""
+                }
+                else {
+                    // "" 取得food資料 ""
+                }
             }
         }
         else {

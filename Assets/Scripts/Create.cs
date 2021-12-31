@@ -26,7 +26,7 @@ public class Create : MonoBehaviour
         //if (PlayerPrefs.GetInt("Record_First", 0) == 4)
         //    isFinal = true;
         isClick = false;
-        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefab/select_" + record.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_" + record.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
         buttonParent = gameObject.transform.GetChild(0).gameObject;
         for (int i = 1;i <= 3;i += 1)
             buttonParent.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(delegate () { StoryOnClick(); });
@@ -43,7 +43,7 @@ public class Create : MonoBehaviour
                         lastTag = 1;
                         Destroy(Prefab);
                         ind++;
-                        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefab/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+                        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
                     }
                     break;
                 case "2":   //進入關卡前畫面
@@ -72,7 +72,7 @@ public class Create : MonoBehaviour
                             record = storyNum;
                         lastTag = 4;
                         Destroy(Prefab);
-                        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefab/select_" + record.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+                        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_" + record.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
                         isEnd = true;
                     }
                     /*if (!isFinal && storyNum == 3) {
@@ -96,7 +96,7 @@ public class Create : MonoBehaviour
             storyNum = 3;
         Destroy(Prefab);
         lastTag = 4;
-        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefab/" + storyNum.ToString() + "-1.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-1.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
         isFinish = Prefab.transform.GetChild(1).gameObject.GetComponent<DialogSystem>().Finished;
     }
 
@@ -149,7 +149,7 @@ public class Create : MonoBehaviour
             lastTag = 2;
             Destroy(Prefab);
             ind++;
-            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefab/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
             yield return null;
             isRun = false;
         }
@@ -158,10 +158,10 @@ public class Create : MonoBehaviour
             int tmp = ind + 1;
             lastTag = 2;
             Destroy(Prefab);
-            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefab/" + storyNum.ToString() + "-" + tmp.ToString() + "-2.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + tmp.ToString() + "-2.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
             yield return new WaitForSecondsRealtime(2);
             Destroy(Prefab);
-            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefab/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
             isRun = false;
         }
     }
