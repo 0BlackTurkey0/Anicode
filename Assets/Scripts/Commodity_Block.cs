@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class Commodity_Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+
+    [SerializeField] private GameObject Code_Area;
+
     private InstructionType type;
     private RectTransform rect;
     private Vector2 position;
 
-    [SerializeField] private GameObject Code_Area;
     private Game game;
 
     void Start() {
@@ -31,8 +31,8 @@ public class Commodity_Block : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void OnEndDrag(PointerEventData eventData) {
         if (rect.position.x < Screen.width / 2 && game.IncPurchaseCount() != -1) {
             float width = (rect.localPosition.x - Code_Area.GetComponent<RectTransform>().localPosition.x + 1218);
-            ushort Position = Mathf.Round(rect.localPosition.y / -75) < 0 ? (ushort)0 : (ushort)Mathf.Round(rect.localPosition.y / -75);
-            ushort Level = Mathf.Round((width - 210) / 240) < 0 ? (ushort)0 : (ushort)Mathf.Round((width - 210) / 240);
+            ushort position = (Mathf.Round(rect.localPosition.y / -75) < 0) ? (ushort)0 : (ushort)Mathf.Round(rect.localPosition.y / -75);
+            ushort level = (Mathf.Round((width - 210) / 240) < 0) ? (ushort)0 : (ushort)Mathf.Round((width - 210) / 240);
             int[] arg;
             switch (type) {
                 case InstructionType.Move:
@@ -72,7 +72,7 @@ public class Commodity_Block : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     arg = null;
                     break;
             }
-            game.Players[0].code.Insert(type, Position, Level, arg);
+            game.Players[0].Code.Insert(type, position, level, arg);
             game.UpdateCode(0);
         }
         rect.position = position;

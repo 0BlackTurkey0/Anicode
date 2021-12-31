@@ -36,5 +36,6 @@
     <boolean>false</boolean>
     <boolean>false</boolean>
   </Skins>
+  <IsFullScreen>true</IsFullScreen>
   <VoiceVolume>1</VoiceVolume>
 </GameData>

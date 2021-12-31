@@ -1,35 +1,38 @@
 using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
 
 public enum InstructionType:ushort { Move, Attack, Assign, If, Loop, Swap }
 
 public class Instruction {
-    private InstructionType _Type;
+
+    private InstructionType _type;
     public InstructionType Type {
-        get { return _Type; }
-        set { _Type = value; }
+        get { return _type; }
+        set { _type = value; }
     }
-    private List<int> _Arguments;
+
+    private List<int> _arguments;
     public List<int> Arguments {
-        get { return _Arguments; }
-        set { _Arguments = value; }
+        get { return _arguments; }
+        set { _arguments = value; }
     }
-    // ***Arguments***
-    // Move {Direction and Color}
+
+    // ***Arguments Details***
+    // Move {Direction or Color or Both}
     // Attack {}
     // Assign {Arithmetic, Source1, Source2, Constant, Destination}
     // If {Logic, Source1, Source2, Constant}
     // Loop {Logic, Source1, Source2, Constant}
     // Swap {Index1, Constant1, Index2, Constant2}
+
     public Instruction(InstructionType type, int[] arguments = null) {
-        _Type = type;
-        if (arguments != null) _Arguments = arguments.ToList();
-        else _Arguments = new List<int>();
+        _type = type;
+        if (arguments != null) _arguments = arguments.ToList();
+        else _arguments = new List<int>();
     }
     
     public ushort GetInstuctionCost() {
-        switch (Type) {
+        switch (_type) {
             case InstructionType.Move:
                 return 2;
             case InstructionType.Attack:
