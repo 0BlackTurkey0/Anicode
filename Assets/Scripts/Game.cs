@@ -51,11 +51,13 @@ public class Game : MonoBehaviour {
     private bool _endGame;
     public bool EndGame {
         get { return _endGame; }
+        set { _endGame = value; }
     }
 
     private bool _winner;
     public bool Winner {
         get { return _winner; }
+        set { _winner = value; }
     }
 
     private ushort _costLimit;
@@ -71,6 +73,12 @@ public class Game : MonoBehaviour {
     private float _time;
     public float Time {
         get { return _time; }
+    }
+
+    private bool _isBattle;
+    public bool IsBattle {
+        get { return _isBattle; }
+        set { _isBattle = value; }
     }
 
     private bool _battleStart;
@@ -377,6 +385,7 @@ public class Game : MonoBehaviour {
     }
 
     void Start() {
+        _isBattle = false;
         _round = 1;
         UpdateHP();
         UpdateLocation();
@@ -404,10 +413,12 @@ public class Game : MonoBehaviour {
         if (!_endGame) {
             if (_battleEnd) {
                 StartCoroutine(PrepareCode());
+                _isBattle = false;
                 _battleEnd = false;
             }
             if (_battleStart) {
                 StartCoroutine(RunCode());
+                _isBattle = true;
                 _battleStart = false;
             }
             if (PrepareTime.activeSelf) {
@@ -439,7 +450,7 @@ public class Game : MonoBehaviour {
         _purchaseCount = 0;
         Purchase.transform.GetChild(0).GetComponent<Text>().text = _purchaseCount.ToString() + " / 5";
         PlayerCode.transform.GetChild(2).gameObject.SetActive(false);
-        _time = _round * 15f + 20f;
+        _time = _round * 15f + 0f;//20f 0f
         yield return new WaitForSeconds(_time);
         _battleStart = true;
     }
@@ -471,7 +482,7 @@ public class Game : MonoBehaviour {
             // Code Enemycode = "" 傳入對方資料 "";
             // Players[1].Code = Enemycode;
         }
-        Players[1].Code.Insert(InstructionType.Move, 0, 0, new int[1] { 0 }); //暫定每回合+1 Move
+        //Players[1].Code.Insert(InstructionType.Move, 0, 0, new int[1] { 0 }); //暫定每回合+1 Move
         UpdateCode(1);
         Players[0].Reset();
         Players[1].Reset();
@@ -479,16 +490,18 @@ public class Game : MonoBehaviour {
         UpdateCost(true);
         UpdateVariable();
         if (_difficulty == DifficultyType.Hard) {
-            if (!_isGuest) {
-                for (int i = 0; i < 10; i++) {
-                    int number = Random.Range(1, 15);
-                    Players[0].Food[i] = number;
-                    Players[1].Food[i] = number;
-                }
-                // "" 送出food資料 ""
+            for (int i = 0; i < 10; i++) {
+                int number = Random.Range(1, 15);
+                Players[0].Food[i] = number;
+                Players[1].Food[i] = number;
             }
-            else {
-                // "" 取得food資料 ""
+            if (_isDuel) {
+                if (!_isGuest) {
+                    // "" 送出food資料 ""
+                }
+                else {
+                    // "" 取得food資料 ""
+                }
             }
         }
         else {
