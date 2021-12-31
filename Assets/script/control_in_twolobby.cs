@@ -46,7 +46,7 @@ public class control_in_twolobby : MonoBehaviour
     {
         network = new Network(playerName);
 
-        JoinBtn.transform.GetComponent<Button>().enabled = false; //!!
+        JoinBtn.transform.GetComponent<Button>().enabled = true;    //!!!記得設回false
         MotionSetting.SetActive(false);
         WaitingListUpdate.SetActive(false);
         WaitingOpponentRespond.transform.GetChild(0).gameObject.SetActive(false);
