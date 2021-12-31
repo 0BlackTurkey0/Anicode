@@ -38,14 +38,9 @@ public class Game : MonoBehaviour {
         get { return _isGuest; }
     }
 
-    private bool _battleStart;
-    public bool BattleStart {
-        get { return _battleStart; }
-    }
-
-    private bool _battleEnd;
-    public bool BattleEnd {
-        get { return _battleEnd; }
+    private bool _isDuel;
+    public bool _IsDuel {
+        get { return _isDuel; }
     }
 
     private bool _turn;
@@ -78,6 +73,8 @@ public class Game : MonoBehaviour {
         get { return _time; }
     }
 
+    private bool _battleStart;
+    private bool _battleEnd;
 
     [SerializeField] private Sprite[] Skin;
     [SerializeField] private Sprite[] Map;
@@ -110,11 +107,13 @@ public class Game : MonoBehaviour {
     [SerializeField] private GameObject Instruction_Swap;
 
     void Awake() {
-        //IsGuest = "" 傳入是否為申請對戰者 ""
+        //_isDuel = "" 傳入是否為多人對戰 ""
+        //if (_isDuel)_isGuest = "" 傳入是否為申請對戰者 ""
+        //_difficulty = "" 傳入難度 ""
         Players = new Character[2];
         CharacterType[] characterType = new CharacterType[2];
         //characterType = "" 取得角色資訊 ""
-        //Difficulty = "" 取得難度 ""
+        _isDuel = false; //暫定
         characterType[0] = CharacterType.Whale; //暫定
         characterType[1] = CharacterType.Kangaroo; //暫定
         _difficulty = DifficultyType.Hard; //暫定
@@ -467,9 +466,11 @@ public class Game : MonoBehaviour {
         EnemyHP.SetActive(true);
         PlayerCode.transform.GetChild(2).gameObject.SetActive(true);
         UpdateCode(0);
-        // 傳出己方資料
-        // Code Enemycode = "" 傳入對方資料 "";
-        // Players[1].code = Enemycode;
+        if (_isDuel) {
+            // 傳出己方資料
+            // Code Enemycode = "" 傳入對方資料 "";
+            // Players[1].Code = Enemycode;
+        }
         Players[1].Code.Insert(InstructionType.Move, 0, 0, new int[1] { 0 }); //暫定每回合+1 Move
         UpdateCode(1);
         Players[0].Reset();

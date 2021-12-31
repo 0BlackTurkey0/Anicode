@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/lobby.unity
     guid: 833ff4901024c9c4e87ce659578511a8
   - enabled: 1
-    path: "Assets/Scenes/\u96D9\u4EBA\u6A21\u5F0F.unity"
+    path: Assets/Scenes/DuelMode.unity
     guid: d27078523bf337d48be0751253748b91
   - enabled: 1
-    path: "Assets/Scenes/\u55AE\u4EBA\u6A21\u5F0F.unity"
+    path: Assets/Scenes/SingleMode.unity
     guid: 4a4a8aff736dceb42969cb1da2d9e3c9
   - enabled: 1
     path: Assets/Scenes/animal-store_scene.unity
