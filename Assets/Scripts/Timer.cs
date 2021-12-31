@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,11 +16,10 @@ public class Timer : MonoBehaviour
 
     IEnumerator timer()
     {
-        while (i < 99)
-        {
+        while (i < 99) {
             i += 1;
             slider.value = i;
-            progressText.text = i.ToString()+" %";
+            progressText.text = i.ToString() + " %";
             yield return null;
         }
     }

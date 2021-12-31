@@ -5,6 +5,7 @@ public class Data
     public string Type { get; set; }
     public string Name { get; set; }
     public DateTime Time { get; set; }
+    public int Status { get; set; }
     public int Rank { get; set; }
     public GameMode Mode { get; set; } = new GameMode();
     public string Code { get; set; }

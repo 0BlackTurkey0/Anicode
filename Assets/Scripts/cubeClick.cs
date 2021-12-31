@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class cubeClick:MonoBehaviour
+public class CubeClick:MonoBehaviour
 {
     public void OnClick_Kangaroo()
     {

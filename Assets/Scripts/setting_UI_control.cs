@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class setting_UI_control : MonoBehaviour
+public class Setting_UI_Control : MonoBehaviour
 {
     public GameObject full_screen;
     public GameObject windows;
@@ -12,13 +10,13 @@ public class setting_UI_control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void ToFullScreen()

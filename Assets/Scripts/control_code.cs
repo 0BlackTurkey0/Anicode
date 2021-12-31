@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class control_code : MonoBehaviour
+public class Control_Code : MonoBehaviour
 {
     public GameObject preview_iamge;
     public Sprite picture;
