@@ -117,17 +117,18 @@ public class Game : MonoBehaviour {
 
     void Awake()
     {
-        NetworkHandler = GameObject.Find("Control").GetComponent<Control_in_Twolobby>();
         CharacterType[] characterType = new CharacterType[2];
         //_isDuel = "" 傳入是否為多人對戰 ""
         _isDuel = false; //暫定
         if (_isDuel) {
+            NetworkHandler = GameObject.Find("Control").GetComponent<Control_in_Twolobby>();
             _isGuest = NetworkHandler.network.isGuest;
             _difficulty = (DifficultyType)NetworkHandler.network.finalDifficulty;
             characterType[0] = (CharacterType)NetworkHandler.playerMode.Character;
             characterType[1] = (CharacterType)NetworkHandler.network.challengerMode.Character;
         }
         else {
+            _difficulty = DifficultyType.Hard;
             characterType[0] = CharacterType.Fox; //暫定
             characterType[1] = CharacterType.Kangaroo; //暫定
         }
@@ -439,7 +440,7 @@ public class Game : MonoBehaviour {
         else {
             // "" 回到雙人Scene ""
         }
-        if (!NetworkHandler.isConnect) {
+        if (_isDuel && !NetworkHandler.isConnect) {
             // "" 斷線畫面      ""
             // "" 回到雙人Scene ""
         }
@@ -464,7 +465,7 @@ public class Game : MonoBehaviour {
         _purchaseCount = 0;
         Purchase.transform.GetChild(0).GetComponent<Text>().text = _purchaseCount.ToString() + " / 5";
         PlayerCode.transform.GetChild(2).gameObject.SetActive(false);
-        _time = _round * 15f + 0f;//20f 0f
+        _time = _round * 15f + 20f;//20f 0f
         yield return new WaitForSeconds(_time);
         _battleStart = true;
     }
