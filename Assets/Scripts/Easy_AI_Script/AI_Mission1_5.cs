@@ -48,14 +48,14 @@ public class AI_Mission1_5 : MonoBehaviour
         {
             Debug.Log("You win");
             game.EndGame = true;
-            game.Winner = false;
+            game.Winner = true;
         }
 
         else if (game.Round == 4)
         {
             Debug.Log("You lose");
             game.EndGame = true;
-            game.Winner = true;
+            game.Winner = false;
         }
     }
     private void Check()

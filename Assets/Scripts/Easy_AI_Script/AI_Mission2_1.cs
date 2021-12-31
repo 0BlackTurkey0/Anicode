@@ -5,9 +5,10 @@ using UnityEngine;
 public class AI_Mission2_1 : MonoBehaviour
 {
     private Game game;
-    private bool endBattle = true;
+    private bool preStageBattle = true;
     private int preProgramCounter = -1;
     private bool Mission1 = false;
+    private bool Mission2 = false;
 
     private void Start()
     {
@@ -23,10 +24,11 @@ public class AI_Mission2_1 : MonoBehaviour
     {
         if (!game.IsBattle)
         {
-            if (endBattle)
+            if (preStageBattle)
             {
+                WinCheck();
                 AI_add_code();
-                endBattle = false;
+                preStageBattle = false;
             }
         }
         else
@@ -36,7 +38,23 @@ public class AI_Mission2_1 : MonoBehaviour
                 preProgramCounter = game.Players[0].ProgramCounter;
                 Check();
             }
+        }
+    }
 
+    private void WinCheck()
+    {
+        if (Mission1 && Mission2)
+        {
+            Debug.Log("You win");
+            game.EndGame = true;
+            game.Winner = true;
+        }
+
+        else if (game.Round == 4)
+        {
+            Debug.Log("You lose");
+            game.EndGame = true;
+            game.Winner = false;
         }
     }
 
@@ -51,23 +69,6 @@ public class AI_Mission2_1 : MonoBehaviour
                     Mission1 = true;
             }
         }
-       
-           
-
         Debug.Log(Mission1);
-
-        if (Mission1)
-        {
-            Debug.Log("You win");
-            game.EndGame = true;
-            game.Winner = false;
-        }
-
-        if (game.Round == 4)
-        {
-            Debug.Log("You lose");
-            game.EndGame = true;
-            game.Winner = true;
-        }
     }
 }
