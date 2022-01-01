@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Control : MonoBehaviour
-{
+public class Control : MonoBehaviour {
     public GameObject Ach1;
     public GameObject Ach2;
     public GameObject Ach3;
@@ -24,10 +21,10 @@ public class Control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-         Ach11.SetActive(false);
-         Ach12.SetActive(false);
-         Ach13.SetActive(false);
-         Ach14.SetActive(false);
+        Ach11.SetActive(false);
+        Ach12.SetActive(false);
+        Ach13.SetActive(false);
+        Ach14.SetActive(false);
     }
 
     // Update is called once per frame
@@ -40,7 +37,7 @@ public class Control : MonoBehaviour
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "在單人模式中完成入門難度晉級賽"; 
+        temp.text = "在單人模式中完成入門難度晉級賽";
     }
     public void Ach2_Show()
     {

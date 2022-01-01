@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class control_code : MonoBehaviour
-{
+public class Control_Code : MonoBehaviour {
     public GameObject preview_iamge;
     public Sprite picture;
     public GameObject ani_detail;
@@ -17,13 +14,13 @@ public class control_code : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     /*
     public void ChangeToKangaroo()
@@ -75,7 +72,7 @@ public class control_code : MonoBehaviour
         att_detail.SetActive(false);
         cod_detail.SetActive(false);
         ins_detail.SetActive(true);
-        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(500,-120,0);
+        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(500, -120, 0);
         intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 240);
         intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
         intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(220, 150);
@@ -93,7 +90,7 @@ public class control_code : MonoBehaviour
 
     }
     public void ShowKanText()
-    {   
+    {
         string content = Resources.Load<TextAsset>("kangaroo_Text").ToString();
         Debug.Log(content);
         GameObject.Find("introduceframe").transform.GetChild(0).gameObject.GetComponent<Text>().text = content;
@@ -105,7 +102,7 @@ public class control_code : MonoBehaviour
         Debug.Log(content);
         GameObject.Find("introduceframe").transform.GetChild(0).gameObject.GetComponent<Text>().text = content;
     }
-    
+
     public void ShowOwlText()
     {
         string content = Resources.Load<TextAsset>("owl_Text").ToString();

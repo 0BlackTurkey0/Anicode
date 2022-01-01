@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum DifficultyType:ushort { Start, Easy, Normal, Hard, NULL };
+public enum DifficultyType : ushort { Start, Easy, Normal, Hard, NULL };
 
 public class Game : MonoBehaviour {
 
@@ -69,7 +69,7 @@ public class Game : MonoBehaviour {
     public ushort PurchaseCount {
         get { return _purchaseCount; }
     }
-    
+
     private float _time;
     public float Time {
         get { return _time; }
@@ -113,18 +113,26 @@ public class Game : MonoBehaviour {
     [SerializeField] private GameObject Instruction_If;
     [SerializeField] private GameObject Instruction_Loop;
     [SerializeField] private GameObject Instruction_Swap;
+    private Control_in_Twolobby NetworkHandler;
 
-    void Awake() {
-        //_isDuel = "" 傳入是否為多人對戰 ""
-        //if (_isDuel)_isGuest = "" 傳入是否為申請對戰者 ""
-        //_difficulty = "" 傳入難度 ""
-        Players = new Character[2];
+    void Awake()
+    {
         CharacterType[] characterType = new CharacterType[2];
-        //characterType = "" 取得角色資訊 ""
+        //_isDuel = "" 傳入是否為多人對戰 ""
         _isDuel = false; //暫定
-        characterType[0] = CharacterType.Whale; //暫定
-        characterType[1] = CharacterType.Kangaroo; //暫定
-        _difficulty = DifficultyType.Hard; //暫定
+        if (_isDuel) {
+            NetworkHandler = GameObject.Find("Control").GetComponent<Control_in_Twolobby>();
+            _isGuest = NetworkHandler.network.isGuest;
+            _difficulty = (DifficultyType)NetworkHandler.network.finalDifficulty;
+            characterType[0] = (CharacterType)NetworkHandler.playerMode.Character;
+            characterType[1] = (CharacterType)NetworkHandler.network.challengerMode.Character;
+        }
+        else {
+            _difficulty = DifficultyType.Hard;
+            characterType[0] = CharacterType.Fox; //暫定
+            characterType[1] = CharacterType.Kangaroo; //暫定
+        }
+        Players = new Character[2];
         Players[0] = new Character(characterType[0]);
         Character1.GetComponent<Image>().sprite = Skin[(int)characterType[0]];
         Players[1] = new Character(characterType[1]);
@@ -384,7 +392,8 @@ public class Game : MonoBehaviour {
         }
     }
 
-    void Start() {
+    void Start()
+    {
         _isBattle = false;
         _round = 1;
         UpdateHP();
@@ -409,7 +418,8 @@ public class Game : MonoBehaviour {
         UpdateCode(0);
     }
 
-    void Update() {
+    void Update()
+    {
         if (!_endGame) {
             if (_battleEnd) {
                 StartCoroutine(PrepareCode());
@@ -428,11 +438,16 @@ public class Game : MonoBehaviour {
             }
         }
         else {
-            // "" 回到大廳Scene ""
+            // "" 回到雙人Scene ""
+        }
+        if (_isDuel && !NetworkHandler.isConnect) {
+            // "" 斷線畫面      ""
+            // "" 回到雙人Scene ""
         }
     }
 
-    private IEnumerator PrepareCode() {
+    private IEnumerator PrepareCode()
+    {
         PlayerCode.GetComponent<RectTransform>().anchoredPosition = new Vector3(350, 0);
         PlayerCode.GetComponent<RectTransform>().sizeDelta = new Vector2(650, 1000);
         EnemyCode.SetActive(false);
@@ -450,12 +465,13 @@ public class Game : MonoBehaviour {
         _purchaseCount = 0;
         Purchase.transform.GetChild(0).GetComponent<Text>().text = _purchaseCount.ToString() + " / 5";
         PlayerCode.transform.GetChild(2).gameObject.SetActive(false);
-        _time = _round * 15f + 0f;//20f 0f
+        _time = _round * 15f + 20f;//20f 0f
         yield return new WaitForSeconds(_time);
         _battleStart = true;
     }
 
-    private IEnumerator RunCode() {
+    private IEnumerator RunCode()
+    {
         _costLimit = (ushort)(_round * 5);
         _turn = (Players[0].Speed < Players[1].Speed);
         PlayerCode.GetComponent<RectTransform>().anchoredPosition = new Vector2(350, -250);
@@ -478,9 +494,37 @@ public class Game : MonoBehaviour {
         PlayerCode.transform.GetChild(2).gameObject.SetActive(true);
         UpdateCode(0);
         if (_isDuel) {
-            // 傳出己方資料
-            // Code Enemycode = "" 傳入對方資料 "";
-            // Players[1].Code = Enemycode;
+            if (!_isGuest && _difficulty == DifficultyType.Hard) {
+                for (int i = 0;i < 10;i++) {
+                    int number = Random.Range(1, 15);
+                    Players[0].Food[i] = number;
+                    Players[1].Food[i] = number;
+                }
+            }
+            NetworkHandler.network.SendGameData(Players[0].Code);
+            while (!NetworkHandler.network.isCodeReceive) {
+
+            }
+            NetworkHandler.network.isCodeReceive = false;
+            Players[1].Code = NetworkHandler.network.challengerCode;
+
+            if (!_isGuest) {
+                NetworkHandler.network.SendGameFood(Players[0].Food);
+            }
+            else {
+                while (!NetworkHandler.network.isFoodReceive) {
+
+                }
+                NetworkHandler.network.isFoodReceive = false;
+                Players[0].Food = NetworkHandler.network.challengerFood;
+                Players[1].Food = NetworkHandler.network.challengerFood;
+            }
+        }
+        else {
+            for (int i = 0;i < 10;i++) {
+                Players[0].Food[i] = 0;
+                Players[1].Food[i] = 0;
+            }
         }
         //Players[1].Code.Insert(InstructionType.Move, 0, 0, new int[1] { 0 }); //暫定每回合+1 Move
         UpdateCode(1);
@@ -489,27 +533,6 @@ public class Game : MonoBehaviour {
         UpdateCost(false);
         UpdateCost(true);
         UpdateVariable();
-        if (_difficulty == DifficultyType.Hard) {
-            for (int i = 0; i < 10; i++) {
-                int number = Random.Range(1, 15);
-                Players[0].Food[i] = number;
-                Players[1].Food[i] = number;
-            }
-            if (_isDuel) {
-                if (!_isGuest) {
-                    // "" 送出food資料 ""
-                }
-                else {
-                    // "" 取得food資料 ""
-                }
-            }
-        }
-        else {
-            for (int i = 0; i < 10; i++) {
-                Players[0].Food[i] = 0;
-                Players[1].Food[i] = 0;
-            }
-        }
         UpdateFood();
         yield return new WaitForSeconds(1f);
         Players[0].ProgramCounter = Players[0].Code.Next(true);
@@ -545,7 +568,8 @@ public class Game : MonoBehaviour {
         _battleEnd = true;
     }
 
-    private bool RunInstrucion(int active, Instruction target) {
+    private bool RunInstrucion(int active, Instruction target)
+    {
         int s1, s2;
         switch (target.Type) {
             case InstructionType.Move:
@@ -556,7 +580,7 @@ public class Game : MonoBehaviour {
                 return true;
             case InstructionType.Attack:
                 bool near = false;
-                for (int i = 0; i < 4; i++)
+                for (int i = 0;i < 4;i++)
                     if (Players[active].Pos == _neighbor[Players[1 - active].Pos, i])
                         near = true;
                 if (near) {
@@ -645,8 +669,7 @@ public class Game : MonoBehaviour {
                 else s1 = Players[active].Variable[target.Arguments[1] - 3];
                 if (target.Arguments[2] == 0) s2 = target.Arguments[3];
                 else s2 = Players[active].Variable[target.Arguments[2] - 1];
-                switch (target.Arguments[0])
-                {
+                switch (target.Arguments[0]) {
                     case 0: // ==
                         return (s1 == s2);
                     case 1: // !=
@@ -679,7 +702,8 @@ public class Game : MonoBehaviour {
         return true;
     }
 
-    public void UpdateCode(ushort num) {
+    public void UpdateCode(ushort num)
+    {
         foreach (Transform child in Code_Area[num].transform) Destroy(child.gameObject);
         ushort programCounter = 0;
         while (Players[num].Code[programCounter] != null) {
@@ -714,20 +738,20 @@ public class Game : MonoBehaviour {
                         instruction = Instantiate(Instruction_Assign_H);
                     else
                         instruction = Instantiate(Instruction_Assign_EN);
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0;i < 3;i++)
                         instruction.transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value = target.Arguments[i];
                     instruction.transform.GetChild(0).GetChild(5).GetComponent<InputField>().text = target.Arguments[3].ToString();
                     instruction.transform.GetChild(0).GetChild(6).GetComponent<Dropdown>().value = target.Arguments[4];
                     break;
                 case InstructionType.If:
                     instruction = Instantiate(Instruction_If);
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0;i < 3;i++)
                         instruction.transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value = target.Arguments[i];
                     instruction.transform.GetChild(0).GetChild(5).GetComponent<InputField>().text = target.Arguments[3].ToString();
                     break;
                 case InstructionType.Loop:
                     instruction = Instantiate(Instruction_Loop);
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0;i < 3;i++)
                         instruction.transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value = target.Arguments[i];
                     instruction.transform.GetChild(0).GetChild(5).GetComponent<InputField>().text = target.Arguments[3].ToString();
                     break;
@@ -750,46 +774,53 @@ public class Game : MonoBehaviour {
         //_Players[num].code.Display();
     }
 
-    private void UpdateCost(bool num) {
+    private void UpdateCost(bool num)
+    {
         if (!num)
             PlayerCode.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = Players[0].TotalCost.ToString() + " / " + _costLimit.ToString();
         else
-            EnemyCode.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = Players[1].TotalCost.ToString() + " / "  + _costLimit.ToString();
+            EnemyCode.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = Players[1].TotalCost.ToString() + " / " + _costLimit.ToString();
     }
 
-    private void UpdateLocation() {
+    private void UpdateLocation()
+    {
         Character1.GetComponent<RectTransform>().anchoredPosition = new Vector2(_location[Players[0].Pos, 0], _location[Players[0].Pos, 1]);
         Character2.GetComponent<RectTransform>().anchoredPosition = new Vector2(_location[Players[1].Pos, 0], _location[Players[1].Pos, 1]);
     }
 
-    private void UpdateHP() {
+    private void UpdateHP()
+    {
         PlayerHP.transform.GetChild(0).GetComponent<Text>().text = "HP: " + Players[0].CurrentHP.ToString();
         EnemyHP.transform.GetChild(0).GetComponent<Text>().text = "HP: " + Players[1].CurrentHP.ToString();
     }
 
-    private void UpdateVariable() {
-        for (int i = 0; i < 5; i++) {
+    private void UpdateVariable()
+    {
+        for (int i = 0;i < 5;i++) {
             PlayerVariable.transform.GetChild(i).GetComponent<Text>().text = Players[0].Variable[i].ToString();
             EnemyVariable.transform.GetChild(i).GetComponent<Text>().text = Players[1].Variable[i].ToString();
         }
     }
 
-    private void UpdateFood() {
-        for (int i = 0; i < 10; i++) {
+    private void UpdateFood()
+    {
+        for (int i = 0;i < 10;i++) {
             PlayerFood.transform.GetChild(i).GetComponent<Text>().text = Players[0].Food[i].ToString();
             EnemyFood.transform.GetChild(i).GetComponent<Text>().text = Players[1].Food[i].ToString();
         }
     }
 
-    private bool IsSorted(int num) {
-        for (int i = 0; i < 9; i++) {
+    private bool IsSorted(int num)
+    {
+        for (int i = 0;i < 9;i++) {
             if (Players[num].Food[i] > Players[num].Food[i + 1])
                 return false;
         }
         return true;
     }
 
-    public int IncPurchaseCount() {
+    public int IncPurchaseCount()
+    {
         if (_purchaseCount < 5) _purchaseCount++;
         else return -1;
         Purchase.transform.GetChild(0).GetComponent<Text>().text = _purchaseCount.ToString() + " / 5";

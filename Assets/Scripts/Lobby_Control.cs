@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEditor;
+using UnityEngine.UI;
 
-public class Lobby_Control : MonoBehaviour
-{
+public class Lobby_Control : MonoBehaviour {
     [SerializeField] GameObject ReviseNameWindow;
     [SerializeField] GameObject SingleMotionBtn;
     [SerializeField] GameObject DoubleMotionBtn;
@@ -30,7 +26,7 @@ public class Lobby_Control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void SingleMotionOnclick()
     {

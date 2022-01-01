@@ -17,19 +17,22 @@ public class Code {
             else return null;
         }
     }
-    
-    public Code(Code copy = null) {
+
+    public Code(Code copy = null)
+    {
         if (copy != null) _instructions = copy._instructions;
         else _instructions = new List<Tuple<Instruction, ushort>>();
         _records = new Stack<ushort>();
     }
 
-    public void Init() {
+    public void Init()
+    {
         _records.Clear();
         _programCounter = 0;
     }
 
-    public void Insert(InstructionType type, ushort position, ushort level, int[] arguments = null) {
+    public void Insert(InstructionType type, ushort position, ushort level, int[] arguments = null)
+    {
         if (position > _instructions.Count) position = (ushort)_instructions.Count;
         if (position == 0) level = 0;
         else if (level > _instructions[position - 1].Item2) {
@@ -45,7 +48,8 @@ public class Code {
         _instructions.Insert(position, New_Instruction);
     }
 
-    public void Delete(ushort position) {
+    public void Delete(ushort position)
+    {
         if (position >= _instructions.Count) position = (ushort)(_instructions.Count - 1);
         if (_instructions[position].Item1.Type == InstructionType.Loop || _instructions[position].Item1.Type == InstructionType.If) {
             ushort tmp = position;
@@ -55,7 +59,8 @@ public class Code {
         _instructions.RemoveAt(position);
     }
 
-    public void Change(ushort source, ushort destination, ushort level) {
+    public void Change(ushort source, ushort destination, ushort level)
+    {
         if (source >= _instructions.Count) source = (ushort)(_instructions.Count - 1);
         if (destination > _instructions.Count) destination = (ushort)_instructions.Count;
         if (_instructions[source].Item1.Type == InstructionType.Loop || _instructions[source].Item1.Type == InstructionType.If) {
@@ -65,7 +70,7 @@ public class Code {
                 if (source < destination) {
                     Insert(_instructions[source].Item1.Type, destination, level, _instructions[source].Item1.Arguments.ToArray());
                     level = _instructions[destination++].Item2;
-                    for (int i = source + 1; i <= end; i++) {
+                    for (int i = source + 1;i <= end;i++) {
                         int AddLevel = _instructions[i].Item2 - _instructions[source].Item2;
                         Insert(_instructions[i].Item1.Type, destination++, (ushort)(level + AddLevel), _instructions[i].Item1.Arguments.ToArray());
                     }
@@ -75,14 +80,14 @@ public class Code {
                     source++;
                     end++;
                     level = _instructions[destination++].Item2;
-                    for (int i = source + 1; i <= end; i += 2) {
+                    for (int i = source + 1;i <= end;i += 2) {
                         int AddLevel = _instructions[i].Item2 - _instructions[source].Item2;
                         Insert(_instructions[i].Item1.Type, destination++, (ushort)(level + AddLevel), _instructions[i].Item1.Arguments.ToArray());
                         source++;
                         end++;
                     }
                 }
-                for (int i = source; i <= end; i++)
+                for (int i = source;i <= end;i++)
                     Delete(source);
             }
         }
@@ -93,7 +98,8 @@ public class Code {
         }
     }
 
-    public ushort Next(bool condition = true) {
+    public ushort Next(bool condition = true)
+    {
         if (_programCounter > _instructions.Count) return _programCounter;
         if (!condition) {
             ushort tmp = _records.Pop();
@@ -119,7 +125,8 @@ public class Code {
         return _programCounter++;
     }
 
-    public ushort GetLevel(ushort index) {
+    public ushort GetLevel(ushort index)
+    {
         if (index < _instructions.Count) return _instructions[index].Item2;
         return 0;
     }
@@ -136,4 +143,3 @@ public class Code {
     }
     */
 }
- 

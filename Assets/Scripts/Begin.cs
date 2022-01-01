@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Begin : MonoBehaviour
-{
+public class Begin : MonoBehaviour {
     [Header("UI component")]
     public Text textLabel;
     //public Image faceImage;

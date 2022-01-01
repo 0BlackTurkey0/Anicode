@@ -3,8 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class singleStoryGame:MonoBehaviour
-{
+public class singleStoryGame : MonoBehaviour {
     private int progressState = 0;
     public static int status;
     public static string clickedButtonName;
@@ -298,7 +297,7 @@ public class singleStoryGame:MonoBehaviour
         GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 110);
         BG.SetActive(false);
 
-        ChooseCharactor();
+        ChooseCharacter();
         isShowText = false;
     }
 
@@ -341,7 +340,7 @@ public class singleStoryGame:MonoBehaviour
         GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 110);
         BG.SetActive(false);
 
-        ChooseCharactor();
+        ChooseCharacter();
         isShowText = false;
     }
 
@@ -384,7 +383,7 @@ public class singleStoryGame:MonoBehaviour
         GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 110);
         BG.SetActive(false);
 
-        ChooseCharactor();
+        ChooseCharacter();
         isShowText = false;
     }
 
@@ -399,13 +398,13 @@ public class singleStoryGame:MonoBehaviour
         yield return null;
     }
 
-    private void ChooseCharactor()
+    private void ChooseCharacter()
     {
         for (int i = 0;i < GameObject.Find("CHARACTER").transform.childCount;i += 1)
             GameObject.Find("CHARACTER").transform.GetChild(i).gameObject.SetActive(true);
     }
 
-    public static void HideCharactor()
+    public static void HideCharacter()
     {
         for (int i = 0;i < GameObject.Find("CHARACTER").transform.childCount;i += 1)
             GameObject.Find("CHARACTER").transform.GetChild(i).gameObject.SetActive(false);

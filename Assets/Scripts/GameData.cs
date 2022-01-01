@@ -51,7 +51,8 @@ public class GameData {
         set { _voiceVolume = value; }
     }
 
-    public GameData() {
+    public GameData()
+    {
         _name = "Guest";
         _rank = DifficultyType.NULL;
         _money = 0;
@@ -61,14 +62,16 @@ public class GameData {
         _voiceVolume = 1f;
     }
 
-    public void SaveData() {
+    public void SaveData()
+    {
         using (StreamWriter writer = new StreamWriter("./GameData.ac")) {
             var serializer = new XmlSerializer(GetType());
             serializer.Serialize(writer, this);
         }
     }
 
-    public void LoadData() {
+    public void LoadData()
+    {
         using (StreamReader reader = new StreamReader("./GameData.ac")) {
             var serializer = new XmlSerializer(GetType());
             GameData gameData = (GameData)serializer.Deserialize(reader);
@@ -76,7 +79,8 @@ public class GameData {
         }
     }
 
-    private void UpdateData(GameData gameData) {
+    private void UpdateData(GameData gameData)
+    {
         if (gameData._name.Length <= 6)
             _name = gameData._name;
         _rank = gameData._rank;

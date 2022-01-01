@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogSystem : MonoBehaviour
-{
-    // Start is called before the first frame update
-
+public class DialogSystem : MonoBehaviour {
     [Header("UI component")]
     public Text textLabel;
     public Image faceImage;
@@ -23,6 +20,7 @@ public class DialogSystem : MonoBehaviour
     private bool textFinished, cancelTyping, exit;
     private List<string> textList = new List<string>();
 
+    // Start is called before the first frame update
     void Start()
     {
         GetTextFromfile(textFile);
@@ -82,7 +80,7 @@ public class DialogSystem : MonoBehaviour
                 index++;
                 break;
             case "E\r":
-                 GameObject.Find("Panel").gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                GameObject.Find("Panel").gameObject.transform.GetChild(1).gameObject.SetActive(false);
                 index++;
                 break;
         }
