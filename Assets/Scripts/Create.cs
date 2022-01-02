@@ -37,9 +37,11 @@ public class Create : MonoBehaviour {
         if (Prefab != null && isClick == true) {
             switch (Prefab.tag) {
                 case "1":   //¦³¹ï¸Ü
-                    isFinish = Prefab.transform.GetChild(1).gameObject.GetComponent<DialogSystem>().Finished;
+                    //isFinish = Prefab.transform.GetChild(1).gameObject.GetComponent<DialogSystem>().Finished;
+                    isFinish = Prefab.transform.GetComponent<DialogSystem>().Finished;
                     if (Input.GetKeyDown(KeyCode.RightArrow) && isFinish) {
-                        lastTag = 1;
+                        if (storyNum == 3 && ind == 21) lastTag = 2; 
+                        else lastTag = 1;
                         Destroy(Prefab);
                         ind++;
                         Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
@@ -96,7 +98,8 @@ public class Create : MonoBehaviour {
         Destroy(Prefab);
         lastTag = 4;
         Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-1.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
-        isFinish = Prefab.transform.GetChild(1).gameObject.GetComponent<DialogSystem>().Finished;
+        //isFinish = Prefab.transform.GetChild(1).gameObject.GetComponent<DialogSystem>().Finished;
+        isFinish = Prefab.transform.GetComponent<DialogSystem>().Finished;
     }
 
     private IEnumerator UpdateIntoGame()
