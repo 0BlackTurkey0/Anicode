@@ -14,7 +14,22 @@ public class AI_Mission13 : MonoBehaviour
     }
     private void AI_add_code()
     {
-        game.Players[1].Code.Insert(InstructionType.Move, 0, 0, new int[1] { 0 });
+        if (game.Round == 1) {
+            game.Players[1].Code.Insert(InstructionType.If, 0, 0, new int[4] { 0, 0, 0, 1 });
+            game.Players[1].Code.Insert(InstructionType.Move, 1, 1, new int[1] { 1 });
+            game.Players[1].Code.Insert(InstructionType.Move, 2, 1, new int[1] { 2 });
+        }
+        else {
+            if (Random.Range(0, 2) == 0) {
+                game.Players[1].Code.Insert(InstructionType.If, (ushort)(game.Players[1].Code.Size + 1), 0, new int[4] { 0, 0, 0, 1 });
+                game.Players[1].Code.Insert(InstructionType.Move, (ushort)(game.Players[1].Code.Size + 1), 1, new int[1] { Random.Range(0, 4) });
+                game.Players[1].Code.Insert(InstructionType.Move, (ushort)(game.Players[1].Code.Size + 1), 1, new int[1] { Random.Range(0, 4) });
+            }
+            else {
+                game.Players[1].Code.Insert(InstructionType.If, (ushort)(game.Players[1].Code.Size + 1), 0, new int[4] { 1, 0, 0, 1 });
+                game.Players[1].Code.Insert(InstructionType.Attack, (ushort)(game.Players[1].Code.Size + 1), 1);
+            }
+        }
     }
 
     private void Update()

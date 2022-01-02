@@ -16,8 +16,32 @@ public class AI_Mission3 : MonoBehaviour
     }
     private void AI_add_code()
     {
-        game.Players[1].Code.Insert(InstructionType.Move, 0, 0, new int[1] { 0 });//
-        game.Players[1].Code.Insert(InstructionType.Attack, 1, 0);
+        if (game.Round == 1) {
+            game.Players[1].Code.Insert(InstructionType.Move, 0, 0, new int[1] { 1 });
+            game.Players[1].Code.Insert(InstructionType.Move, 1, 0, new int[1] { 2 });
+        }
+        else {
+            if (game.Round % 2 == 0) {
+                if (Random.Range(0, 2) == 0) {
+                    game.Players[1].Code.Insert(InstructionType.Move, (ushort)Random.Range(0, game.Players[1].Code.Size + 1), 0, new int[1] { Random.Range(0, 4) });
+                    game.Players[1].Code.Insert(InstructionType.Move, (ushort)Random.Range(0, game.Players[1].Code.Size + 1), 0, new int[1] { Random.Range(0, 4) });
+                    game.Players[1].Code.Insert(InstructionType.Move, (ushort)Random.Range(0, game.Players[1].Code.Size + 1), 0, new int[1] { Random.Range(0, 4) });
+                }
+                else {
+                    game.Players[1].Code.Insert(InstructionType.Move, (ushort)Random.Range(0, game.Players[1].Code.Size + 1), 0, new int[1] { Random.Range(0, 4) });
+                    game.Players[1].Code.Insert(InstructionType.Attack, (ushort)Random.Range(0, game.Players[1].Code.Size + 1), 0);
+                }
+            }
+            else {
+                if (Random.Range(0, 2) == 0) {
+                    game.Players[1].Code.Insert(InstructionType.Move, (ushort)Random.Range(0, game.Players[1].Code.Size + 1), 0, new int[1] { Random.Range(0, 4) });
+                    game.Players[1].Code.Insert(InstructionType.Move, (ushort)Random.Range(0, game.Players[1].Code.Size + 1), 0, new int[1] { Random.Range(0, 4) });
+                }
+                else {
+                    game.Players[1].Code.Insert(InstructionType.Attack, (ushort)Random.Range(0, game.Players[1].Code.Size + 1), 0);
+                }
+            }
+        }
     }
 
     private void Update()
