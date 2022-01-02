@@ -15,6 +15,7 @@ public class Lobby_Control : MonoBehaviour {
     [SerializeField] GameObject PlayerName;
     [SerializeField] Text RevisePlayerName;
     [SerializeField] GameObject RevisePlayerNamePlaceholder;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,41 +29,42 @@ public class Lobby_Control : MonoBehaviour {
     {
 
     }
+
     public void SingleMotionOnclick()
     {
         SceneManager.LoadScene(2);
     }
+
     public void DoubleMotionOnClick()
     {
         SceneManager.LoadScene(1);
     }
+
     public void StoreOnClick()
     {
         SceneManager.LoadScene(3);
     }
+
     public void AchievementOnclick()
     {
         SceneManager.LoadScene(5);
     }
+
     public void BookOnClick()
     {
         SceneManager.LoadScene(6);
     }
+
     public void SettingOnClick()
     {
         SceneManager.LoadScene(4);
     }
+
     public void ReviseNameOnClick()
     {
         ReviseNameWindow.SetActive(true);
-        SingleMotionBtn.SetActive(false);
-        DoubleMotionBtn.SetActive(false);
-        StoreBtn.SetActive(false);
-        ReviseNameBtn.SetActive(false);
-        BookBtn.SetActive(false);
-        AchievementBtn.SetActive(false);
-        SettingBtn.SetActive(false);
     }
+
     public void ReviseNameConfirm()
     {
         if (RevisePlayerName.text.Length > 9 || RevisePlayerName.text.Length == 0) {

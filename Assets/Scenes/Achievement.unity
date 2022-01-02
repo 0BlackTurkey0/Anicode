@@ -5438,7 +5438,7 @@ GameObject:
   - component: {fileID: 1965861012}
   - component: {fileID: 1965861011}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: AspectRatioField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5580,7 +5580,7 @@ GameObject:
   - component: {fileID: 1984994703}
   - component: {fileID: 1984994702}
   m_Layer: 5
-  m_Name: background
+  m_Name: "(\u5716\u7247)\u80CC\u666F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

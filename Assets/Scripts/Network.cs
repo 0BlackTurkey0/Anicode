@@ -26,10 +26,10 @@ public class Network {
     private UdpClient receivingClient;
     private UdpClient sendingClient;
     private Thread receivingThread;
-    private bool isNetworkRunning = true;
+    private bool isNetworkRunning;
     private readonly string playerName;
     private readonly int playerRank;
-    private const int port = 8880;
+    private const int port = 8888;
 
     public Network(string name, int rank)    //建構子
     {
@@ -38,7 +38,13 @@ public class Network {
         playerRank = rank;
         InitSender();
         InitReceiver();
+        isNetworkRunning = true;
     }
+
+	~Network()
+	{
+        Quit();
+	}
 
     private void InitSender()   //初始化傳送用的UDP
     {
@@ -141,6 +147,7 @@ public class Network {
             }
         }
         catch (Exception ex) {
+            Quit();
             throw ex;
         }
     }
@@ -156,6 +163,11 @@ public class Network {
             throw ex;
         }
     }
+
+    public bool IsRun()
+	{
+        return isNetworkRunning;
+	}
 
     public void Quit()  //關閉網路功能
     {

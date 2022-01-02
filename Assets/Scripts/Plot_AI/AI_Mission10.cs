@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 //3回合內使用雙層loop完成一次行動
 public class AI_Mission10:MonoBehaviour
@@ -8,7 +6,7 @@ public class AI_Mission10:MonoBehaviour
     private bool preStageBattle = true;
     private int preProgramCounter = -1;
     private bool Mission1 = false;
-    private bool Mission2 = false;
+    //private bool Mission2 = false;
     private int loop_Level1 = 0;
     private int loop_Level2 = 0;
     private bool loop_Flag1 = false;
