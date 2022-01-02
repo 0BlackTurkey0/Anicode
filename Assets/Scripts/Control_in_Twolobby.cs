@@ -49,12 +49,12 @@ public class Control_in_Twolobby : MonoBehaviour {
             network = new Network(playerName, playerRank);
 
         JoinButton.transform.GetComponent<Button>().enabled = false;
-        ModeSetting.transform.GetChild(0).gameObject.SetActive(false);
-        WaitingListUpdate.transform.GetChild(0).gameObject.SetActive(false);
-        HintWhenBusy.transform.GetChild(0).gameObject.SetActive(false);
-        BothNoSameDifficulty.transform.GetChild(0).gameObject.SetActive(false);
-        WaitingOpponentRespond.transform.GetChild(0).gameObject.SetActive(false);
-        RespondAcceptOrNot.transform.GetChild(0).gameObject.SetActive(false);
+        ModeSetting.SetActive(false);
+        WaitingListUpdate.SetActive(false);
+        HintWhenBusy.SetActive(false);
+        BothNoSameDifficulty.SetActive(false);
+        WaitingOpponentRespond.SetActive(false);
+        RespondAcceptOrNot.SetActive(false);
         StartCoroutine(UpdateNetwork());
     }
 
@@ -83,13 +83,13 @@ public class Control_in_Twolobby : MonoBehaviour {
                     break;
 
                 case SYS.DENY:
-                    WaitingOpponentRespond.transform.GetChild(0).gameObject.SetActive(false);
+                    WaitingOpponentRespond.SetActive(false);
                     break;
 
                 case SYS.READY:
                     Debug.Log("###");
                     if (network.isGuest) {
-                        WaitingOpponentRespond.transform.GetChild(0).gameObject.SetActive(false);
+                        WaitingOpponentRespond.SetActive(false);
                         while (!network.isModeReceive) {
 
                         }
@@ -145,7 +145,7 @@ public class Control_in_Twolobby : MonoBehaviour {
             yield return new WaitForSeconds(1);
         }
         SearchButton.GetComponent<Button>().enabled = true;
-        WaitingListUpdate.transform.GetChild(0).gameObject.SetActive(false);
+        WaitingListUpdate.SetActive(false);
     }
 
     private IEnumerator UpdateStatus()
@@ -165,24 +165,24 @@ public class Control_in_Twolobby : MonoBehaviour {
 
     private IEnumerator ReceiveChallenge()  //接收來自別人的挑戰
     {
-        RespondAcceptOrNot.transform.GetChild(0).gameObject.SetActive(true);
-        RespondAcceptOrNot.transform.GetChild(0).GetChild(1).GetComponent<Text>().text = playerList[network.challengerIP].Item1 + ":";
+        RespondAcceptOrNot.SetActive(true);
+        RespondAcceptOrNot.transform.GetChild(1).GetComponent<Text>().text = playerList[network.challengerIP].Item1 + ":";
         int countTime = 10;
         while (countTime >= 0) {
-            RespondAcceptOrNot.transform.GetChild(0).GetChild(3).GetComponent<Text>().text = countTime.ToString();
+            RespondAcceptOrNot.transform.GetChild(3).GetComponent<Text>().text = countTime.ToString();
             yield return new WaitForSeconds(1);
             countTime -= 1;
         }
-        RespondAcceptOrNot.transform.GetChild(0).GetChild(3).GetComponent<Text>().text = null;
+        RespondAcceptOrNot.transform.GetChild(3).GetComponent<Text>().text = null;
         if (!isResponseChanllenge)
             network.DenyChallenge();
-        RespondAcceptOrNot.transform.GetChild(0).gameObject.SetActive(false);
+        RespondAcceptOrNot.SetActive(false);
     }
     //---------------------------------------------------------------------------------------------------------------
 
     public void ShowModeSetting()
     {
-        ModeSetting.transform.GetChild(0).gameObject.SetActive(true);
+        ModeSetting.SetActive(true);
     }
 
     public void SetMode(GameMode mode)
@@ -201,7 +201,7 @@ public class Control_in_Twolobby : MonoBehaviour {
             network.finalDifficulty = temp[random.Next(temp.Count)];
         }
         else {
-            BothNoSameDifficulty.transform.GetChild(0).gameObject.SetActive(true);
+            BothNoSameDifficulty.SetActive(true);
             network.finalDifficulty = -1;
         }
         network.SendFinalDifficulty();
@@ -222,18 +222,18 @@ public class Control_in_Twolobby : MonoBehaviour {
 
     public void OnClick_CancelInModeSetting()
     {
-        ModeSetting.transform.GetChild(0).gameObject.SetActive(false);
+        ModeSetting.SetActive(false);
     }
 
     public void OnClick_ConfirmInModeSetting()
     {
-        ModeSetting.transform.GetChild(0).gameObject.SetActive(false);
+        ModeSetting.SetActive(false);
         JoinButton.transform.GetComponent<Button>().enabled = true;
     }
 
     public void OnClick_Search()
     {
-        WaitingListUpdate.transform.GetChild(0).gameObject.SetActive(true);
+        WaitingListUpdate.SetActive(true);//.transform.GetChild(0).gameObject.SetActive(true);
 
         network.SearchUser();
         StartCoroutine(UpdateList());
@@ -251,10 +251,10 @@ public class Control_in_Twolobby : MonoBehaviour {
             seletedIndex = -1;
             if (status == 0) {
                 network.SendChallenge(ip);
-                WaitingOpponentRespond.transform.GetChild(0).gameObject.SetActive(true);
+                WaitingOpponentRespond.SetActive(true);
             }
             else {
-                HintWhenBusy.transform.GetChild(0).gameObject.SetActive(true);
+                HintWhenBusy.SetActive(true);
             }
         }
     }
@@ -263,13 +263,13 @@ public class Control_in_Twolobby : MonoBehaviour {
     {
         network.AcceptChallenge();
         isResponseChanllenge = true;
-        RespondAcceptOrNot.transform.GetChild(0).gameObject.SetActive(false);
+        RespondAcceptOrNot.SetActive(false);
     }
 
     public void OnClick_Deny() //拒絕挑戰
     {
         network.DenyChallenge();
-        RespondAcceptOrNot.transform.GetChild(0).gameObject.SetActive(false);
+        RespondAcceptOrNot.SetActive(false);
     }
 
     private void OnClick_Select(int index)
@@ -279,12 +279,12 @@ public class Control_in_Twolobby : MonoBehaviour {
 
     public void OnClick_ConfirmInHintWhenBusy()
     {
-        HintWhenBusy.transform.GetChild(0).gameObject.SetActive(false);
+        HintWhenBusy.SetActive(false);
     }
 
     public void OnClick_ConfirmInBothNoSameDifficulty()
     {
-        BothNoSameDifficulty.transform.GetChild(0).gameObject.SetActive(false);
+        BothNoSameDifficulty.SetActive(false);
     }
 
     public void ReturnToLobby()
