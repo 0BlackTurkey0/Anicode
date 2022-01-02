@@ -33,7 +33,8 @@ public class DialogSystem : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Space) && index == textList.Count) {
             exit = true;
-            gameObject.SetActive(false);
+            GameObject.Find("Panel").SetActive(false);
+            GameObject.Find("Hint").gameObject.transform.GetChild(0).gameObject.SetActive(true);
             index = 0;
             return;
         }
@@ -62,6 +63,8 @@ public class DialogSystem : MonoBehaviour {
         textFinished = false;
         textLabel.text = "";
         GameObject.Find("Panel").gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        GameObject.Find("Hint").gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        GameObject.Find("Panel").SetActive(true);
         switch (textList[index]) {
             case "A\r":
                 faceImage.sprite = face01;

@@ -3157,7 +3157,7 @@ GameObject:
   - component: {fileID: 626740467}
   - component: {fileID: 626740468}
   m_Layer: 5
-  m_Name: Aspect
+  m_Name: AspectRatioField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

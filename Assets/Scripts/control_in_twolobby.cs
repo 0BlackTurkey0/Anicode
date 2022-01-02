@@ -45,7 +45,7 @@ public class Control_in_Twolobby : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
-        if (network == null)
+        if (network == null || !network.IsRun())
             network = new Network(playerName, playerRank);
 
         JoinButton.transform.GetComponent<Button>().enabled = false;
@@ -133,9 +133,9 @@ public class Control_in_Twolobby : MonoBehaviour {
                         temp.name = item.Key;
                         temp.transform.GetChild(0).gameObject.GetComponent<Text>().text = item.Key;
                         temp.transform.GetChild(1).gameObject.GetComponent<Text>().text = playerRankType[playerRank];
-                        temp.transform.GetChild(2).gameObject.GetComponent<Text>().text = item.Value.Name;
                         temp.transform.GetChild(3).gameObject.GetComponent<Text>().text = statusType[item.Value.Status];
                     }
+                    temp.transform.GetChild(2).gameObject.GetComponent<Text>().text = item.Value.Name;
                     temp.transform.localPosition = new Vector2(600, posY);
                     temp.GetComponent<Button>().onClick.RemoveAllListeners();
                     temp.GetComponent<Button>().onClick.AddListener(delegate () { OnClick_Select(temp.transform.GetSiblingIndex()); });

@@ -12,7 +12,7 @@ public class AI_Mission3_1 : MonoBehaviour
     private bool loop_Flag = false;
     private int loop_Level = 0;
     private int assign_Level = 0;
-    private int move_Level = 0;
+    //private int move_Level = 0;
 
     private void Start()
     {

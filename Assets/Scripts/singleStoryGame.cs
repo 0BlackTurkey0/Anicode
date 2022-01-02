@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class singleStoryGame : MonoBehaviour {
+public class SingleStoryGame : MonoBehaviour {
     private int progressState = 0;
     public static int status;
     public static string clickedButtonName;

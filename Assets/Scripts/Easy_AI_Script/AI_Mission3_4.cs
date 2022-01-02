@@ -12,7 +12,7 @@ public class AI_Mission3_4 : MonoBehaviour
     //private bool Mission3 = false;
     private bool if_Flag = false;
     private int if_Level = 0;
-    private int assign_Level = 0;
+    //private int assign_Level = 0;
     private int attack_Level = 0;
     private void Start()
     {
