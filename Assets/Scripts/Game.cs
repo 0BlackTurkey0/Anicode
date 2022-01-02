@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum DifficultyType : ushort { Start, Easy, Normal, Hard, NULL };
 
@@ -113,19 +114,21 @@ public class Game : MonoBehaviour {
     [SerializeField] private GameObject Instruction_If;
     [SerializeField] private GameObject Instruction_Loop;
     [SerializeField] private GameObject Instruction_Swap;
-    private Control_in_Twolobby NetworkHandler;
+    private Control_in_Twolobby networkHandler;
+    private ApplicationHandler applicationHandler;
 
     void Awake()
     {
+        applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
         CharacterType[] characterType = new CharacterType[2];
-        //_isDuel = "" 傳入是否為多人對戰 ""
-        _isDuel = false; //暫定
+        _isDuel = applicationHandler.IsDuel;
+        //_isDuel = false; //暫定
         if (_isDuel) {
-            NetworkHandler = GameObject.Find("Control").GetComponent<Control_in_Twolobby>();
-            _isGuest = NetworkHandler.network.isGuest;
-            _difficulty = (DifficultyType)NetworkHandler.network.finalDifficulty;
-            characterType[0] = (CharacterType)NetworkHandler.playerMode.Character;
-            characterType[1] = (CharacterType)NetworkHandler.network.challengerMode.Character;
+            networkHandler = GameObject.Find("Control").GetComponent<Control_in_Twolobby>();
+            _isGuest = networkHandler.network.isGuest;
+            _difficulty = (DifficultyType)networkHandler.network.finalDifficulty;
+            characterType[0] = (CharacterType)networkHandler.playerMode.Character;
+            characterType[1] = (CharacterType)networkHandler.network.challengerMode.Character;
         }
         else {
             _difficulty = DifficultyType.Hard;
@@ -438,11 +441,11 @@ public class Game : MonoBehaviour {
             }
         }
         else {
-            // "" 回到雙人Scene ""
+            SceneManager.LoadScene(0);
         }
-        if (_isDuel && !NetworkHandler.isConnect) {
+        if (_isDuel && !networkHandler.isConnect) {
             // "" 斷線畫面      ""
-            // "" 回到雙人Scene ""
+            SceneManager.LoadScene(0);
         }
     }
 
@@ -501,23 +504,23 @@ public class Game : MonoBehaviour {
                     Players[1].Food[i] = number;
                 }
             }
-            NetworkHandler.network.SendGameData(Players[0].Code);
-            while (!NetworkHandler.network.isCodeReceive) {
+            networkHandler.network.SendGameData(Players[0].Code);
+            while (!networkHandler.network.isCodeReceive) {
 
             }
-            NetworkHandler.network.isCodeReceive = false;
-            Players[1].Code = NetworkHandler.network.challengerCode;
+            networkHandler.network.isCodeReceive = false;
+            Players[1].Code = networkHandler.network.challengerCode;
 
             if (!_isGuest) {
-                NetworkHandler.network.SendGameFood(Players[0].Food);
+                networkHandler.network.SendGameFood(Players[0].Food);
             }
             else {
-                while (!NetworkHandler.network.isFoodReceive) {
+                while (!networkHandler.network.isFoodReceive) {
 
                 }
-                NetworkHandler.network.isFoodReceive = false;
-                Players[0].Food = NetworkHandler.network.challengerFood;
-                Players[1].Food = NetworkHandler.network.challengerFood;
+                networkHandler.network.isFoodReceive = false;
+                Players[0].Food = networkHandler.network.challengerFood;
+                Players[1].Food = networkHandler.network.challengerFood;
             }
         }
         else {
@@ -526,7 +529,6 @@ public class Game : MonoBehaviour {
                 Players[1].Food[i] = 0;
             }
         }
-        //Players[1].Code.Insert(InstructionType.Move, 0, 0, new int[1] { 0 }); //暫定每回合+1 Move
         UpdateCode(1);
         Players[0].Reset();
         Players[1].Reset();

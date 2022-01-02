@@ -1012,7 +1012,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1458860958}
-  - component: {fileID: 1458860959}
   m_Layer: 5
   m_Name: story
   m_TagString: 1
@@ -1044,21 +1043,6 @@ RectTransform:
   m_AnchoredPosition: {x: -13.025085, y: 56.002106}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1458860959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458860957}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282275d37b0538647911a20d3f77e47f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textLabel: {fileID: 2092109011}
-  textFile: {fileID: 4900000, guid: ce6874234d652cb48987bd4d3ca6da48, type: 3}
-  textSpeed: 0.07
 --- !u!1 &1761183178
 GameObject:
   m_ObjectHideFlags: 0

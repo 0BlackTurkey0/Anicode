@@ -497,8 +497,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 188354484}
-        m_TargetAssemblyTypeName: Control_in_SingleMotion, Assembly-CSharp
-        m_MethodName: ClickEasySingleMotion
+        m_TargetAssemblyTypeName: Control_in_SingleMode, Assembly-CSharp
+        m_MethodName: ClickSimpleMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

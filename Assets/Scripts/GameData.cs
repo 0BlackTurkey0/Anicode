@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -51,6 +52,33 @@ public class GameData {
         set { _voiceVolume = value; }
     }
 
+    private bool[] _isIntro_Single;
+
+    public bool[] IsIntro_Single {
+        get { return _isIntro_Single; }
+        set { _isIntro_Single = value; }
+    }
+
+    private int _schedule_Simple;
+
+    public int Schedule_Simple {
+        get { 
+            if (_schedule_Simple == 4)
+                return 3;
+            return _schedule_Simple;
+        }
+        set { _schedule_Simple = value; }
+    }
+
+    private int _schedule_Single;
+
+    public int Schedule_Single {
+        get { return _schedule_Single; }
+        set { _schedule_Single = value; }
+    }
+
+    //單人2種進度
+
     public GameData()
     {
         _name = "Guest";
@@ -60,6 +88,9 @@ public class GameData {
         _skins = new bool[15];
         _isFullScreen = true;
         _voiceVolume = 1f;
+        _isIntro_Single = new bool[4];
+        _schedule_Simple = 0;
+        _schedule_Single = 0;
     }
 
     public void SaveData()
@@ -74,23 +105,29 @@ public class GameData {
     {
         using (StreamReader reader = new StreamReader("./GameData.ac")) {
             var serializer = new XmlSerializer(GetType());
-            GameData gameData = (GameData)serializer.Deserialize(reader);
+            GameData gameData = serializer.Deserialize(reader) as GameData;
             UpdateData(gameData);
         }
     }
 
     private void UpdateData(GameData gameData)
     {
-        if (gameData._name.Length <= 6)
-            _name = gameData._name;
-        _rank = gameData._rank;
-        if (gameData._money >= 0)
-            _money = gameData._money;
-        if (gameData._achievements.Length <= 14)
-            _achievements = gameData._achievements;
-        if (gameData._skins.Length <= 15)
-            _skins = gameData._skins;
-        if (gameData._voiceVolume >= 0 && gameData._voiceVolume <= 1)
-            _voiceVolume = gameData._voiceVolume;
+        if (gameData.Name.Length <= 6)
+            _name = gameData.Name;
+        if (Enum.IsDefined(typeof(DifficultyType), gameData.Rank))
+            _rank = gameData.Rank;
+        if (gameData.Money >= 0)
+            _money = gameData.Money;
+        if (gameData.Achievements.Length <= 14)
+            _achievements = gameData.Achievements;
+        if (gameData.Skins.Length <= 15)
+            _skins = gameData.Skins;
+        if (gameData.VoiceVolume >= 0 && gameData.VoiceVolume <= 1)
+            _voiceVolume = gameData.VoiceVolume;
+        _isIntro_Single = gameData.IsIntro_Single;
+        if (gameData.Schedule_Simple >= 0 && gameData.Schedule_Simple <= 4)
+            _schedule_Simple = gameData.Schedule_Simple;
+        if (gameData.Schedule_Single >= 0 && gameData.Schedule_Single < (1 << 17))
+            _schedule_Single = gameData.Schedule_Single;
     }
 }

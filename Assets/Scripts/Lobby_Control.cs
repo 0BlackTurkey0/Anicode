@@ -14,12 +14,17 @@ public class Lobby_Control : MonoBehaviour {
     [SerializeField] GameObject WarningOnPlayerNameWindow;
     [SerializeField] GameObject PlayerName;
     [SerializeField] Text RevisePlayerName;
-    [SerializeField] GameObject RevisePlayerNamePlaceholder;
+
+    private ApplicationHandler applicationHandler;
+
+    void Awake() {
+        applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        RevisePlayerNamePlaceholder.GetComponent<Text>().text = PlayerName.GetComponent<Text>().text;
+        PlayerName.GetComponent<Text>().text = applicationHandler.GameData.Name;
         ReviseNameWindow.SetActive(false);
         WarningOnPlayerNameWindow.SetActive(false);
     }
@@ -63,16 +68,19 @@ public class Lobby_Control : MonoBehaviour {
     public void ReviseNameOnClick()
     {
         ReviseNameWindow.SetActive(true);
+        ReviseNameWindow.transform.GetChild(2).GetComponent<InputField>().text = applicationHandler.GameData.Name;
     }
 
     public void ReviseNameConfirm()
     {
-        if (RevisePlayerName.text.Length > 9 || RevisePlayerName.text.Length == 0) {
+        if (RevisePlayerName.text.Length > 6 || RevisePlayerName.text.Length == 0) {
             WarningOnPlayerNameWindow.SetActive(true);
         }
         else {
+            applicationHandler.GameData.Name = RevisePlayerName.text;
+            applicationHandler.GameData.SaveData();
             PlayerName.GetComponent<Text>().text = RevisePlayerName.text;
-            RevisePlayerNamePlaceholder.GetComponent<Text>().text = PlayerName.GetComponent<Text>().text;
+            RevisePlayerName.GetComponent<Text>().text = PlayerName.GetComponent<Text>().text;
             RevisePlayerName.text.Remove(0, PlayerName.GetComponent<Text>().text.Length);
             ReviseNameWindow.SetActive(false);
             SingleMotionBtn.SetActive(true);
@@ -87,7 +95,6 @@ public class Lobby_Control : MonoBehaviour {
 
     public void ReviseNameCancel()
     {
-        RevisePlayerNamePlaceholder.GetComponent<Text>().text = PlayerName.GetComponent<Text>().text;
         RevisePlayerName.text = "";
         ReviseNameWindow.SetActive(false);
         SingleMotionBtn.SetActive(true);
@@ -101,7 +108,6 @@ public class Lobby_Control : MonoBehaviour {
     public void WarningOnPlayerNameRealizeOnClick()
     {
         WarningOnPlayerNameWindow.SetActive(false);
-        RevisePlayerNamePlaceholder.GetComponent<Text>().text = PlayerName.GetComponent<Text>().text; ;
         RevisePlayerName.text = "";
     }
     public void ExceptForLobbyReturnOnClick()

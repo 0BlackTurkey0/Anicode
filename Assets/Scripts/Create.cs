@@ -6,18 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class Create : MonoBehaviour {
     private GameObject Prefab;
-    private int record {
-        get {
-            int temp = PlayerPrefs.GetInt("Record_First", 0);
-            if (temp == 4)
-                temp = 3;
-            return temp;
-        }
-        set { PlayerPrefs.SetInt("Record_First", value); }
-    }
     private int ind, storyNum, lastTag;
     private bool isClick, isFinish, isRun, isEnd;// isFinal;
     private GameObject buttonParent;
+    private ApplicationHandler applicationHandler;
+
+    void Awake() {
+        applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +21,7 @@ public class Create : MonoBehaviour {
         //if (PlayerPrefs.GetInt("Record_First", 0) == 4)
         //    isFinal = true;
         isClick = false;
-        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_" + record.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_" + applicationHandler.GameData.Schedule_Simple.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
         buttonParent = gameObject.transform.GetChild(0).gameObject;
         for (int i = 1;i <= 3;i += 1)
             buttonParent.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(delegate () { StoryOnClick(); });
@@ -69,11 +65,13 @@ public class Create : MonoBehaviour {
                     if (Input.GetKeyDown(KeyCode.RightArrow) && isFinish && lastTag == 2) {
                         if (storyNum < 4)
                             storyNum++;
-                        if (storyNum > record && storyNum < 5)
-                            record = storyNum;
+                        if (storyNum > applicationHandler.GameData.Schedule_Simple && storyNum < 5) {
+                            applicationHandler.GameData.Schedule_Simple = storyNum;
+                            applicationHandler.GameData.SaveData();
+                        }
                         lastTag = 4;
                         Destroy(Prefab);
-                        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_" + record.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+                        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_" + applicationHandler.GameData.Schedule_Simple.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
                         isEnd = true;
                     }
                     /*if (!isFinal && storyNum == 3) {

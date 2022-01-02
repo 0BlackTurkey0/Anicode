@@ -4,22 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SingleStoryGame : MonoBehaviour {
-    private int progressState = 0;
     public static int status;
     public static string clickedButtonName;
     private bool isShowText = true;
     private bool isClick = false;
-    private int[] isFirst = new int[4];
     private bool isBigCubeClick = false;
     private int currentPos = 0;
     private string[] ColorPriority = { "Orange", "Green", "Blue", "Red" };
+    private ApplicationHandler applicationHandler;
+
+    void Awake() {
+        applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         status = 0;     //Set!!
-        for (int i = 0;i < 4;i += 1)
-            isFirst[i] = PlayerPrefs.GetInt("isFirst" + i.ToString(), 1);   //Set!!
         StartCoroutine(ShowIntro());
     }
 
@@ -53,11 +54,12 @@ public class SingleStoryGame : MonoBehaviour {
             isShowText = true;
         }
         if (status == 6) {
-            if (0 <= currentPos && currentPos < 4 && isFirst[currentPos] == 1) {    //apply it while first click big cube
+            if (0 <= currentPos && currentPos < 4 && applicationHandler.GameData.IsIntro_Single[currentPos] == true) {    //apply it while first click big cube
                 StartCoroutine(ShowChapterContent());
                 status = 0;
                 isShowText = true;
-                isFirst[currentPos] = 0;
+                applicationHandler.GameData.IsIntro_Single[currentPos] = false;
+                applicationHandler.GameData.SaveData();
                 PlayerPrefs.SetInt("isFirst" + currentPos.ToString(), 1);
             }
             else {
@@ -69,8 +71,10 @@ public class SingleStoryGame : MonoBehaviour {
 
     public void FinishLevel(int levelNum)   //call this while finish game sucessfully
     {
-        if (0 < levelNum && levelNum <= 16)
-            progressState |= 1 << levelNum;
+        if (0 < levelNum && levelNum <= 16) {
+            applicationHandler.GameData.Schedule_Single |= 1 << levelNum;
+            applicationHandler.GameData.SaveData();
+        }
     }
 
     public void CompleteSkeleton()          //call this while complete skeleton
@@ -80,24 +84,24 @@ public class SingleStoryGame : MonoBehaviour {
 
     private IEnumerator UpdateIcon()
     {
-        if (status == 1 && 0 <= progressState && progressState < 1 << 17) {
+        if (status == 1 && 0 <= applicationHandler.GameData.Schedule_Single && applicationHandler.GameData.Schedule_Single < 1 << 17) {
             for (int i = 0;i < 4;i += 1)
                 GameObject.Find("CUBE").transform.Find("cube" + ColorPriority[i]).gameObject.SetActive(true);
             GameObject.Find("CUBE").transform.Find("skeleton").gameObject.SetActive(true);
 
             int tempNum = 14;
             for (int i = 0;i < 4;i += 1) {
-                if ((progressState & tempNum) == tempNum) {
+                if ((applicationHandler.GameData.Schedule_Single & tempNum) == tempNum) {
                     GameObject.Find("GRAYFLAG").transform.Find("grayFlag" + i.ToString()).gameObject.SetActive(true);
                     for (int j = 1;j <= 3;j += 1)
                         GameObject.Find("PURPLEFLAG").transform.Find("purpleFlag" + (i * 4 + j).ToString()).gameObject.SetActive(false);
                     currentPos = i * 4 + 4;
-                    if ((progressState & 1 << (i * 4 + 4)) > 0)
+                    if ((applicationHandler.GameData.Schedule_Single & 1 << (i * 4 + 4)) > 0)
                         currentPos = i + 1;
                 }
-                else if ((progressState & tempNum) > 0) {
+                else if ((applicationHandler.GameData.Schedule_Single & tempNum) > 0) {
                     for (int j = 1;j <= 3;j += 1)
-                        if ((progressState & 1 << (i * 4 + j)) > 0)
+                        if ((applicationHandler.GameData.Schedule_Single & 1 << (i * 4 + j)) > 0)
                             GameObject.Find("PURPLEFLAG").transform.Find("purpleFlag" + (i * 4 + j).ToString()).gameObject.SetActive(true);
                     currentPos = i;
                 }
@@ -105,7 +109,7 @@ public class SingleStoryGame : MonoBehaviour {
             }
 
             for (int i = 0;i <= 2;i += 1) {
-                if ((progressState & 1 << (i * 4 + 4)) > 0) {
+                if ((applicationHandler.GameData.Schedule_Single & 1 << (i * 4 + 4)) > 0) {
                     GameObject.Find("FOOTPRINT").transform.Find("footprint" + (i * 4 + 4).ToString()).gameObject.SetActive(false);
                     GameObject.Find("FOOTPRINT").transform.Find("footcomplete" + (i * 4 + 4).ToString()).gameObject.SetActive(true);
                 }
@@ -149,7 +153,7 @@ public class SingleStoryGame : MonoBehaviour {
             for (int i = 0;i < 4;i += 1) {
                 if (isBigCubeClick) {
                     for (int j = 1;j <= 3;j += 1) {
-                        if ((progressState & 1 << (i * 4 + j)) == 0 && currentPos == i)
+                        if ((applicationHandler.GameData.Schedule_Single & 1 << (i * 4 + j)) == 0 && currentPos == i)
                             GameObject.Find("CUBE").transform.Find("cube" + ColorPriority[i]).Find("cube" + (i * 4 + j).ToString()).gameObject.GetComponent<Button>().enabled = true;
                         else
                             GameObject.Find("CUBE").transform.Find("cube" + ColorPriority[i]).Find("cube" + (i * 4 + j).ToString()).gameObject.GetComponent<Button>().enabled = false;
@@ -168,7 +172,7 @@ public class SingleStoryGame : MonoBehaviour {
                         tempObject.transform.GetChild(j).gameObject.SetActive(false);
                 }
                 if ((i * 4 + 4) < 16) {
-                    if ((progressState & 1 << (i * 4 + 4)) == 0 && currentPos == (i * 4 + 4)) {
+                    if ((applicationHandler.GameData.Schedule_Single & 1 << (i * 4 + 4)) == 0 && currentPos == (i * 4 + 4)) {
                         GameObject.Find("FOOTPRINT").transform.Find("footprint" + (i * 4 + 4).ToString()).gameObject.GetComponent<Button>().enabled = true;
                         isBigCubeClick = false;
                     }
@@ -177,7 +181,7 @@ public class SingleStoryGame : MonoBehaviour {
                     }
                 }
                 else if ((i * 4 + 4) == 16) {
-                    if ((progressState & 1 << 16) == 0 && currentPos == 16) {
+                    if ((applicationHandler.GameData.Schedule_Single & 1 << 16) == 0 && currentPos == 16) {
                         GameObject.Find("skeleton").GetComponent<Button>().enabled = true;
                         isBigCubeClick = false;
                     }

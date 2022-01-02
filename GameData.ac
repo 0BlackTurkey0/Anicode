@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Name>Guest</Name>
+  <Name>www</Name>
   <Rank>NULL</Rank>
   <Money>0</Money>
   <Achievements>
@@ -38,4 +38,12 @@
   </Skins>
   <IsFullScreen>true</IsFullScreen>
   <VoiceVolume>1</VoiceVolume>
+  <IsIntro_Single>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
+  </IsIntro_Single>
+  <Schedule_Simple>0</Schedule_Simple>
+  <Schedule_Single>0</Schedule_Single>
 </GameData>

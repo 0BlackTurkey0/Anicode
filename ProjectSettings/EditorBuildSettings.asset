@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/Scenes/IllustratedBook.unity
     guid: 5d2bfb46c98e7904f936751907c2e791
   - enabled: 1
-    path: Assets/Scenes/STORY.unity
+    path: Assets/Scenes/SimpleStory.unity
     guid: a88fbeabf2c9cd14b8119b776f7cf482
   - enabled: 1
     path: Assets/Scenes/Battle.unity

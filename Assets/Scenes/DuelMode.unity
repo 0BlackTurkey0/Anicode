@@ -2640,7 +2640,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1076482894}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control_in_Twolobby, Assembly-CSharp
         m_MethodName: OnClick_ConfirmInHintWhenBusy
         m_Mode: 1
@@ -3690,7 +3690,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1076482894}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control_in_Twolobby, Assembly-CSharp
         m_MethodName: ReturnToLobby
         m_Mode: 1
@@ -4452,7 +4452,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1076482894}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control_in_Twolobby, Assembly-CSharp
         m_MethodName: ShowModeSetting
         m_Mode: 1
@@ -4818,7 +4818,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1076482894}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control_in_Twolobby, Assembly-CSharp
         m_MethodName: OnClick_ConfirmInBothNoSameDifficulty
         m_Mode: 1
@@ -5193,7 +5193,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1076482894}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: control_in_twolobby, Assembly-CSharp
         m_MethodName: OnClick_Accept
         m_Mode: 1
@@ -10369,60 +10369,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1067276327}
   m_CullTransparentMesh: 1
---- !u!1 &1076482893
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1076482895}
-  - component: {fileID: 1076482894}
-  m_Layer: 0
-  m_Name: Control
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1076482894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1076482893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c93425280a7120f409f31a9e467821b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerNameObject: {fileID: 0}
-  ModeSetting: {fileID: 982115254}
-  PlayerListContent: {fileID: 1086346623}
-  WaitingListUpdate: {fileID: 43874390}
-  HintWhenBusy: {fileID: 158445803}
-  BothNoSameDifficulty: {fileID: 30655420}
-  WaitingOpponentRespond: {fileID: 1350166136}
-  RespondAcceptOrNot: {fileID: 1272924302}
-  JoinButton: {fileID: 1179826934}
-  SearchButton: {fileID: 1225687243}
-  PlayerBarPrefab: {fileID: 803821149117633790, guid: 62bf4c0a9eac82245b4333c9a1f7d707, type: 3}
---- !u!4 &1076482895
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1076482893}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1078288701
 GameObject:
   m_ObjectHideFlags: 0
@@ -11315,7 +11261,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1076482894}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: control_in_twolobby, Assembly-CSharp
         m_MethodName: OnClick_Challenge
         m_Mode: 1
@@ -11989,7 +11935,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1076482894}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: control_in_twolobby, Assembly-CSharp
         m_MethodName: OnClick_Search
         m_Mode: 1
@@ -16194,7 +16140,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1076482894}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control_in_Twolobby, Assembly-CSharp
         m_MethodName: OnClick_ConfirmInModeSetting
         m_Mode: 1
@@ -17871,7 +17817,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1076482894}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: control_in_twolobby, Assembly-CSharp
         m_MethodName: OnClick_Deny
         m_Mode: 1
@@ -19569,7 +19515,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1076482894}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control_in_Twolobby, Assembly-CSharp
         m_MethodName: OnClick_CancelInModeSetting
         m_Mode: 1
@@ -19589,6 +19535,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227611340164754284}
   m_CullTransparentMesh: 1
+--- !u!114 &1599079255858847032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599079255858847035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c93425280a7120f409f31a9e467821b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNameObject: {fileID: 0}
+  ModeSetting: {fileID: 982115254}
+  PlayerListContent: {fileID: 1086346623}
+  WaitingListUpdate: {fileID: 43874390}
+  HintWhenBusy: {fileID: 158445803}
+  BothNoSameDifficulty: {fileID: 30655420}
+  WaitingOpponentRespond: {fileID: 1350166136}
+  RespondAcceptOrNot: {fileID: 1272924302}
+  JoinButton: {fileID: 1179826934}
+  SearchButton: {fileID: 1225687243}
+  PlayerBarPrefab: {fileID: 803821149117633790, guid: 62bf4c0a9eac82245b4333c9a1f7d707, type: 3}
+--- !u!4 &1599079255858847033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599079255858847035}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1599079255858847035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1599079255858847033}
+  - component: {fileID: 1599079255858847032}
+  m_Layer: 0
+  m_Name: Control
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!114 &2324670866845942748
 MonoBehaviour:
   m_ObjectHideFlags: 0
