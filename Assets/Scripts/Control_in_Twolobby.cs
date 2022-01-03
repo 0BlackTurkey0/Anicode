@@ -29,8 +29,8 @@ public class Control_in_Twolobby : MonoBehaviour {
     private int playerRank;
     private Dictionary<string, (string, int, int)> playerList { get { return network.dict; } }
     
-    private readonly string[] playerRankType = { "¤Jªù", "Â²³æ", "´¶³q", "§xÃø" };
-    private readonly string[] statusType = { "¶¢¸m", "¦£¸L", "¹ï¾Ô¤¤" };
+    private readonly string[] playerRankType = { "ï¿½Jï¿½ï¿½", "Â²ï¿½ï¿½", "ï¿½ï¿½ï¿½q", "ï¿½xï¿½ï¿½" };
+    private readonly string[] statusType = { "ï¿½ï¿½ï¿½m", "ï¿½ï¿½ï¿½L", "ï¿½ï¿½Ô¤ï¿½" };
 
     private int seletedIndex = -1;
     private bool isResponseChanllenge = false, isUpdateStatus = false;
@@ -48,7 +48,7 @@ public class Control_in_Twolobby : MonoBehaviour {
     void Start()
     {
         PlayerNameObject.text = applicationHandler.GameData.Name;
-        RankObject.text = "¶¥¯Å : " + playerRankType[(int)(DifficultyType)applicationHandler.GameData.Rank];
+        RankObject.text = "ï¿½ï¿½ï¿½ï¿½ : " + playerRankType[(int)(DifficultyType)applicationHandler.GameData.Rank];
         DiamondObject.text = applicationHandler.GameData.Money.ToString();
             
         ModeSetting.SetActive(false);
@@ -72,7 +72,7 @@ public class Control_in_Twolobby : MonoBehaviour {
         Debug.Log("!!!");
     }
 
-    private IEnumerator UpdateNetwork()    //ÂÇ¥ÑsystemMessage­È¨Ó½T»{ª¬ºA
+    private IEnumerator UpdateNetwork()    //ï¿½Ç¥ï¿½systemMessageï¿½È¨Ó½Tï¿½{ï¿½ï¿½ï¿½A
     {
         while (true) {
             switch (network.systemMessage) {
@@ -170,7 +170,7 @@ public class Control_in_Twolobby : MonoBehaviour {
         }
     }
 
-    private IEnumerator ReceiveChallenge()  //±µ¦¬¨Ó¦Û§O¤Hªº¬D¾Ô
+    private IEnumerator ReceiveChallenge()  //ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦Û§Oï¿½Hï¿½ï¿½ï¿½Dï¿½ï¿½
     {
         RespondAcceptOrNot.SetActive(true);
         RespondAcceptOrNot.transform.GetChild(1).GetComponent<Text>().text = playerList[network.challengerIP].Item1 + ":";
@@ -224,7 +224,7 @@ public class Control_in_Twolobby : MonoBehaviour {
     {
         network.SendConnection();
         DateTime LocalTime = DateTime.Now;
-        if (LocalTime.Second % 5 == 0) {    //¨C¤­¬íÄÁ½T»{¹ï¤â¬O§_Â_½u
+        if (LocalTime.Second % 5 == 0) {    //ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Tï¿½{ï¿½ï¿½ï¿½Oï¿½_ï¿½_ï¿½u
             DateTime tempTime = network.responseTime;
             if (DateTime.Compare(LocalTime, tempTime.AddSeconds(5)) == 1)
                 network.isConnect = false;
@@ -261,11 +261,11 @@ public class Control_in_Twolobby : MonoBehaviour {
         ModeSettingHint.SetActive(true);
     }
 
-    public void OnClick_Challenge()   //µo°_¬D¾Ô
+    public void OnClick_Challenge()   //ï¿½oï¿½_ï¿½Dï¿½ï¿½
     {
         if (seletedIndex != -1) {
             string ip = PlayerListContent.transform.GetChild(seletedIndex).GetChild(0).gameObject.GetComponent<Text>().text;
-            int status = Convert.ToInt32(playerList[ip].Item2);
+            int status = Convert.ToInt32(playerList[ip].Item3);
             //Debug.Log(ip);
             seletedIndex = -1;
             if (status == 0) {
@@ -278,14 +278,14 @@ public class Control_in_Twolobby : MonoBehaviour {
         }
     }
 
-    public void OnClick_Accept()  //±µ¨ü¬D¾Ô
+    public void OnClick_Accept()  //ï¿½ï¿½ï¿½ï¿½ï¿½Dï¿½ï¿½
     {
         network.AcceptChallenge();
         isResponseChanllenge = true;
         RespondAcceptOrNot.SetActive(false);
     }
 
-    public void OnClick_Deny() //©Úµ´¬D¾Ô
+    public void OnClick_Deny() //ï¿½Úµï¿½ï¿½Dï¿½ï¿½
     {
         network.DenyChallenge();
         RespondAcceptOrNot.SetActive(false);
