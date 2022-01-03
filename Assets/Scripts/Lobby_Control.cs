@@ -13,6 +13,8 @@ public class Lobby_Control : MonoBehaviour {
     [SerializeField] GameObject SettingBtn;
     [SerializeField] GameObject WarningOnPlayerNameWindow;
     [SerializeField] GameObject PlayerName;
+    [SerializeField] Text MoneyText;
+    [SerializeField] Text LevelText;
     [SerializeField] Text RevisePlayerName;
 
     private ApplicationHandler applicationHandler;
@@ -25,6 +27,26 @@ public class Lobby_Control : MonoBehaviour {
     void Start()
     {
         PlayerName.GetComponent<Text>().text = applicationHandler.GameData.Name;
+        LevelText.text = "階級 : ";
+        switch (applicationHandler.GameData.Rank) {
+            case DifficultyType.NULL:
+                LevelText.text += "無";
+                break;
+            case DifficultyType.Start:
+                LevelText.text += "入門";
+                break;
+            case DifficultyType.Easy:
+                LevelText.text += "簡單";
+                break;
+            case DifficultyType.Normal:
+                LevelText.text += "普通";
+                break;
+            case DifficultyType.Hard:
+                LevelText.text += "困難";
+                break;
+        }
+        
+        MoneyText.text = applicationHandler.GameData.Money.ToString();
         ReviseNameWindow.SetActive(false);
         WarningOnPlayerNameWindow.SetActive(false);
     }
@@ -73,7 +95,7 @@ public class Lobby_Control : MonoBehaviour {
 
     public void ReviseNameConfirm()
     {
-        if (RevisePlayerName.text.Length > 6 || RevisePlayerName.text.Length == 0) {
+        if (RevisePlayerName.text.Length > 8 || RevisePlayerName.text.Length == 0) {
             WarningOnPlayerNameWindow.SetActive(true);
         }
         else {

@@ -36,6 +36,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Start.unity
     guid: 0ea40ee119502074da2856820df6ea65
   - enabled: 1
-    path: Assets/Scenes/SingleStory.unity
-    guid: 134c39048a46bb04c9f91ccc03a248ca
+    path: Assets/Scenes/DontDestroyOnLoad.unity
+    guid: 77564afbaec0a3e4caf1de03d00ead0f
   m_configObjects: {}

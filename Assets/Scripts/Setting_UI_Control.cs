@@ -5,11 +5,17 @@ public class Setting_UI_Control : MonoBehaviour {
     public GameObject full_screen;
     public GameObject windows;
     public Slider slider;
-    public AudioSource BGM;
+
+    private ApplicationHandler applicationHandler;
+
+    void Awake()
+    {
+        applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
+    }
     // Start is called before the first frame update
     void Start()
     {
-
+        slider.value = applicationHandler.GameData.VoiceVolume;
     }
 
     // Update is called once per frame
@@ -20,22 +26,29 @@ public class Setting_UI_Control : MonoBehaviour {
 
     public void ToFullScreen()
     {
+        applicationHandler.GameData.IsFullScreen = true;
+        applicationHandler.GameData.SaveData();
         Screen.fullScreen = true;
     }
 
     public void ToWindows()
     {
+        applicationHandler.GameData.IsFullScreen = false;
+        applicationHandler.GameData.SaveData();
         Screen.fullScreen = false;
     }
     public void Volume()
     {
-        BGM.volume = slider.value;
+        applicationHandler.GameData.VoiceVolume = slider.value;
+        applicationHandler.GameData.SaveData();
     }
 
-    public void ToRest()
+    public void ToReset()
     {
-        slider.value = (float)0.25;
-        BGM.volume = slider.value;
+        applicationHandler.GameData.VoiceVolume = 0.5f;
+        applicationHandler.GameData.IsFullScreen = true;
+        applicationHandler.GameData.SaveData();
+        slider.value = 0.5f;
         Screen.fullScreen = true;
     }
 }
