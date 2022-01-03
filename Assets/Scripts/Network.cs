@@ -16,7 +16,9 @@ public class Network : MonoBehaviour {
     public DateTime responseTime { get; private set; }
     public string systemMessage { get; private set; } = null;
     public int playerStatus { get; private set; } = 0;
+    public GameMode playerMode { get; private set; } = null;
     public bool isGuest { get; private set; }
+    public bool isConnect { get; set; } = true;
     public int finalDifficulty { get; set; } = -1;
     public string challengerIP { get; private set; } = null;
     public bool isModeReceive { get; set; } = false;
@@ -33,7 +35,7 @@ public class Network : MonoBehaviour {
     private bool isNetworkRunning;
     private string playerName;
     private int playerRank;
-    private const int port = 8880;
+    private const int port = 8888;
 
     void Awake()
     {
@@ -52,7 +54,8 @@ public class Network : MonoBehaviour {
         StartCoroutine(UpdatePlayerInfo());
     }
 
-    private IEnumerator UpdatePlayerInfo() {
+    private IEnumerator UpdatePlayerInfo()
+    {
         while (true) {
             if (SceneManager.GetActiveScene().buildIndex == 1) {
                 yield return new WaitForSeconds(1);
@@ -110,7 +113,7 @@ public class Network : MonoBehaviour {
                             var (Name, Status) = dict[responseIP];
                             Name = receiveData.Name;
                             Status = receiveData.Status;
-                            
+
                             dict[responseIP] = (Name, Status);
                         }
                         else {
@@ -310,13 +313,13 @@ public class Network : MonoBehaviour {
         }
     }
 
-    public void SendModeSetting(GameMode mode)  //傳送戰鬥前設定
+    public void SendModeSetting()  //傳送戰鬥前設定
     {
         try {
             Data sendData = new Data {
                 Type = MSG.MODE,
                 Name = playerName,
-                Mode = mode
+                Mode = playerMode
             };
             SendData(challengerIP, sendData);
             systemMessage = SYS.READY;
@@ -388,5 +391,10 @@ public class Network : MonoBehaviour {
         catch (Exception ex) {
             throw ex;
         }
+    }
+
+    public void SetMode(GameMode mode)
+    {
+        playerMode = mode;
     }
 }

@@ -115,7 +115,6 @@ public class Game : MonoBehaviour {
     [SerializeField] private GameObject Instruction_Loop;
     [SerializeField] private GameObject Instruction_Swap;
     private ApplicationHandler applicationHandler;
-    private Control_in_Twolobby control_In_Twolobby;
     private Network networkHandler;
     
 
@@ -126,11 +125,10 @@ public class Game : MonoBehaviour {
         _isDuel = applicationHandler.IsDuel;
         //_isDuel = false; //暫定
         if (_isDuel) {
-            control_In_Twolobby = GameObject.Find("Control").GetComponent<Control_in_Twolobby>();
             networkHandler = GameObject.Find("Network").GetComponent<Network>();
             _isGuest = networkHandler.isGuest;
             _difficulty = (DifficultyType)networkHandler.finalDifficulty;
-            characterType[0] = (CharacterType)control_In_Twolobby.playerMode.Character;
+            characterType[0] = (CharacterType)networkHandler.playerMode.Character;
             characterType[1] = (CharacterType)networkHandler.challengerMode.Character;
         }
         else {
@@ -452,7 +450,7 @@ public class Game : MonoBehaviour {
             }
             SceneManager.LoadScene(10);
         }
-        if (_isDuel && !control_In_Twolobby.isConnect) {
+        if (_isDuel && !networkHandler.isConnect) {
             // "" 斷線畫面      ""
             SceneManager.LoadScene(0);
         }
