@@ -47,7 +47,7 @@ public class Network : MonoBehaviour {
     {
         localIP = Dns.GetHostEntry(Dns.GetHostName()).AddressList.ToList().Where(p => p.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault().ToString();
         playerName = applicationHandler.GameData.Name;
-        playerRank = (int)(DifficultyType)applicationHandler.GameData.Rank;
+        playerRank = (int)applicationHandler.GameData.Rank;
         InitSender();
         InitReceiver();
         isNetworkRunning = true;
@@ -132,14 +132,14 @@ public class Network : MonoBehaviour {
                         break;
 
                     case MSG.CHALLENGE:
-                        systemMessage = SYS.CHALLENGE;
+                        systemMessage ??= SYS.CHALLENGE;
                         playerStatus = 1;
                         challengerMode = receiveData.Mode;
                         challengerIP = responseIP;
                         break;
 
                     case MSG.ACCEPT:
-                        systemMessage = SYS.ACCEPT;
+                        systemMessage ??= SYS.ACCEPT;
                         isModeReceive = true;
                         playerStatus = 2;
                         challengerMode = receiveData.Mode;
@@ -165,14 +165,14 @@ public class Network : MonoBehaviour {
                     case MSG.GAME:
                         isCodeReceive = true;
                         challengerCode = new Code(receiveData.Code);
-                        systemMessage ??= SYS.GAME;
+                        systemMessage = SYS.GAME;
                         playerStatus = 2;
                         break;
 
                     case MSG.FOOD:
                         isFoodReceive = true;
                         challengerFood = receiveData.Food;
-                        systemMessage ??= SYS.GAME;
+                        systemMessage = SYS.GAME;
                         playerStatus = 2;
                         break;
                 }
