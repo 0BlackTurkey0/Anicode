@@ -260,7 +260,8 @@ public class Network : MonoBehaviour {
         try {
             Data sendData = new Data {
                 Type = MSG.STATUS,
-                Name = playerName
+                Name = playerName,
+                Status = playerStatus
             };
             SendData(ip, sendData);
         }
