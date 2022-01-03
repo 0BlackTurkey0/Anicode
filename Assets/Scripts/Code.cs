@@ -7,6 +7,21 @@ public class Code {
     private Stack<ushort> _records;
     private ushort _programCounter;
 
+    /*public List<Tuple<Instruction, ushort>> Instructions {
+        get { return _instructions; }
+        set { _instructions = value; } 
+    }
+
+    public Stack<ushort> Records {
+        get { return _records; }
+        set { _records = value; }
+    }
+
+    public ushort ProgramCounter {
+        get { return _programCounter; }
+        set { _programCounter = value; }
+    }*/
+
     public ushort Size {
         get { return (ushort)_instructions.Count; }
     }

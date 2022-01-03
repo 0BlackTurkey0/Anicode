@@ -511,17 +511,22 @@ public class Game : MonoBehaviour {
                     Players[1].Food[i] = number;
                 }
             }
+            Debug.Log(1);
             networkHandler.SendGameData(Players[0].Code);
+            Debug.Log(2);
             while (!networkHandler.isCodeReceive) {
 
             }
+            Debug.Log(3);
             networkHandler.isCodeReceive = false;
-            Players[1].Code = networkHandler.challengerCode;
+            Players[1].Code = new Code(networkHandler.challengerCode);
 
             if (!_isGuest) {
                 networkHandler.SendGameFood(Players[0].Food);
+                Debug.Log(4);
             }
             else {
+                Debug.Log(5);
                 while (!networkHandler.isFoodReceive) {
 
                 }
@@ -529,6 +534,7 @@ public class Game : MonoBehaviour {
                 Players[0].Food = networkHandler.challengerFood;
                 Players[1].Food = networkHandler.challengerFood;
             }
+            Debug.Log(6);
         }
         else {
             for (int i = 0;i < 10;i++) {

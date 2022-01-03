@@ -24,7 +24,7 @@ public class Network : MonoBehaviour {
     public bool isModeReceive { get; set; } = false;
     public GameMode challengerMode { get; private set; } = null;
     public bool isCodeReceive { get; set; } = false;
-    public Code challengerCode { get; private set; } = null;
+    public Code challengerCode { get; set; } = null;
     public bool isFoodReceive { get; set; } = false;
     public int[] challengerFood { get; private set; } = new int[10];
 
@@ -35,7 +35,7 @@ public class Network : MonoBehaviour {
     private bool isNetworkRunning;
     private string playerName;
     private int playerRank;
-    private const int port = 8888;
+    private const int port = 8880;
 
     void Awake()
     {
@@ -56,6 +56,7 @@ public class Network : MonoBehaviour {
 
     void OnApplicationQuit()
     {
+        Debug.Log("!!!");
         Quit();
     }
 
@@ -105,8 +106,9 @@ public class Network : MonoBehaviour {
                 responseIP = endPoint.Address.ToString();
                 if (responseIP == localIP) continue;    //過濾廣播後傳給自己的封包
                 //if (challengerIP != null && responseIP != challengerIP) continue;   //進入對戰後過濾非對手的封包
-                Data receiveData = JsonSerializer.Deserialize<Data>(Encoding.UTF8.GetString(bytes));
                 Debug.Log(Encoding.UTF8.GetString(bytes));
+                Data receiveData = JsonSerializer.Deserialize<Data>(Encoding.UTF8.GetString(bytes));
+                
                 switch (receiveData.Type) {
                     case MSG.REQUEST:
                         SendResponse(responseIP);
@@ -162,7 +164,7 @@ public class Network : MonoBehaviour {
 
                     case MSG.GAME:
                         isCodeReceive = true;
-                        challengerCode = receiveData.Code;
+                        challengerCode = new Code(receiveData.Code);
                         systemMessage ??= SYS.GAME;
                         playerStatus = 2;
                         break;
@@ -201,8 +203,6 @@ public class Network : MonoBehaviour {
             if (receivingClient != null)
                 receivingClient.Close();
             isNetworkRunning = false;
-            if (receivingThread != null)
-                receivingThread = null;
         }
         catch (Exception ex) {
             throw ex;
@@ -313,8 +313,9 @@ public class Network : MonoBehaviour {
                 Name = playerName
             };
             SendData(challengerIP, sendData);
-            systemMessage = null;
+            systemMessage = SYS.DENY;
             challengerIP = null;
+            playerStatus = 0;
         }
         catch (Exception ex) {
             throw ex;

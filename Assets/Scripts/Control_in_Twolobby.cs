@@ -69,7 +69,7 @@ public class Control_in_Twolobby : MonoBehaviour {
 
     private void OnApplicationQuit()
     {
-        Debug.Log("!!!");
+        
     }
 
     private IEnumerator UpdateNetwork()    //ÂÇ¥ÑsystemMessage­È¨Ó½T»{ª¬ºA
