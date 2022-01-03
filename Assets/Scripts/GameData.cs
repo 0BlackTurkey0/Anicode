@@ -112,7 +112,7 @@ public class GameData {
 
     private void UpdateData(GameData gameData)
     {
-        if (gameData.Name.Length <= 6)
+        if (gameData.Name.Length >= 1 && gameData.Name.Length <= 8)
             _name = gameData.Name;
         if (Enum.IsDefined(typeof(DifficultyType), gameData.Rank))
             _rank = gameData.Rank;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ApplicationHandler : MonoBehaviour {
 
@@ -24,10 +25,11 @@ public class ApplicationHandler : MonoBehaviour {
     }
 
     void Start() {
-
+        Screen.fullScreen = _gameData.IsFullScreen;
+        SceneManager.LoadScene(0);
     }
     
     void Update() {
-        
+        gameObject.transform.GetChild(2).GetComponent<AudioSource>().volume = _gameData.VoiceVolume;
     }
 }
