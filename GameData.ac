@@ -37,7 +37,7 @@
     <boolean>false</boolean>
   </Skins>
   <IsFullScreen>true</IsFullScreen>
-  <VoiceVolume>1</VoiceVolume>
+  <VoiceVolume>0</VoiceVolume>
   <IsIntro_Single>
     <boolean>false</boolean>
     <boolean>false</boolean>

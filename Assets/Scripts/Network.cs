@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 
 public class Network : MonoBehaviour {
     public string localIP { get; private set; }
-    public Dictionary<string, (string Name, int Status)> dict { get; private set; } = new Dictionary<string, (string, int)>();
+    public Dictionary<string, (string Name, int Rank, int Status)> dict { get; private set; } = new Dictionary<string, (string, int, int)>();
     public DateTime responseTime { get; private set; }
     public string systemMessage { get; private set; } = null;
     public int playerStatus { get; private set; } = 0;
@@ -114,13 +114,14 @@ public class Network : MonoBehaviour {
 
                     case MSG.RESPONSE:
                         if (dict.ContainsKey(responseIP)) {
-                            var (Name, Status) = dict[responseIP];
+                            var (Name, Rank, Status) = dict[responseIP];
                             Name = receiveData.Name;
+                            Rank = receiveData.Rank;
                             Status = receiveData.Status;
-                            dict[responseIP] = (Name, Status);
+                            dict[responseIP] = (Name, Rank, Status);
                         }
                         else {
-                            dict.Add(responseIP, (receiveData.Name, receiveData.Status));
+                            dict.Add(responseIP, (receiveData.Name, receiveData.Rank, receiveData.Status));
                         }
                         break;
 
@@ -131,11 +132,15 @@ public class Network : MonoBehaviour {
                     case MSG.CHALLENGE:
                         systemMessage = SYS.CHALLENGE;
                         playerStatus = 1;
+                        playerMode = receiveData.Mode;
                         challengerIP = responseIP;
                         break;
 
                     case MSG.ACCEPT:
                         systemMessage = SYS.ACCEPT;
+                        isModeReceive = true;
+                        playerStatus = 2;
+                        playerMode = receiveData.Mode;
                         break;
 
                     case MSG.DENY:
@@ -147,15 +152,10 @@ public class Network : MonoBehaviour {
                         responseTime = receiveData.Time;
                         break;
 
-                    case MSG.MODE:
-                        isModeReceive = true;
-                        challengerMode = receiveData.Mode;
-                        break;
-
                     case MSG.DIFFICULTY:
                         finalDifficulty = receiveData.FinalDifficulty;
                         if (finalDifficulty == -1)
-                            systemMessage = null;
+                            systemMessage = SYS.MODE;
                         else
                             systemMessage = SYS.READY;
                         break;
@@ -216,7 +216,9 @@ public class Network : MonoBehaviour {
             //dict.Add("192.168.1.101", ("hahaha", 0));
             Data sendData = new Data {
                 Type = MSG.REQUEST,
-                Name = playerName
+                Name = playerName,
+                Rank = playerRank,
+                Status = playerStatus
             };
             SendData("255.255.255.255", sendData);
         }
@@ -274,7 +276,8 @@ public class Network : MonoBehaviour {
             playerStatus = 1;
             Data sendData = new Data {
                 Type = MSG.CHALLENGE,
-                Name = playerName
+                Name = playerName,
+                Mode = playerMode
             };
             challengerIP = ip;
             SendData(ip, sendData);
@@ -290,7 +293,8 @@ public class Network : MonoBehaviour {
             isGuest = false;
             Data sendData = new Data {
                 Type = MSG.ACCEPT,
-                Name = playerName
+                Name = playerName,
+                Mode = playerMode
             };
             SendData(challengerIP, sendData);
             systemMessage = SYS.ACCEPT;
@@ -325,7 +329,7 @@ public class Network : MonoBehaviour {
                 Mode = playerMode
             };
             SendData(challengerIP, sendData);
-            systemMessage = SYS.READY;
+            systemMessage = SYS.MODE;
         }
         catch (Exception ex) {
             throw ex;

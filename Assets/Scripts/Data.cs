@@ -3,9 +3,9 @@ using System;
 public class Data {
     public string Type { get; set; }
     public string Name { get; set; }
-    public DateTime Time { get; set; }
-    public int Status { get; set; }
     public int Rank { get; set; }
+    public int Status { get; set; }
+    public DateTime Time { get; set; }
     public GameMode Mode { get; set; } = new GameMode();
     public int FinalDifficulty { get; set; }
     public Code Code { get; set; }

@@ -27,7 +27,7 @@ public class Control_in_Twolobby : MonoBehaviour {
     [SerializeField] GameObject PlayerBarPrefab;
 
     private int playerRank;
-    private Dictionary<string, (string, int)> playerList { get { return network.dict; } }
+    private Dictionary<string, (string, int, int)> playerList { get { return network.dict; } }
     
     private readonly string[] playerRankType = { "入門", "簡單", "普通", "困難" };
     private readonly string[] statusType = { "閒置", "忙碌", "對戰中" };
@@ -82,15 +82,7 @@ public class Control_in_Twolobby : MonoBehaviour {
                     break;
 
                 case SYS.ACCEPT:
-                    network.SendModeSetting();
-                    break;
-
-                case SYS.DENY:
-                    WaitingOpponentRespond.SetActive(false);
-                    break;
-
-                case SYS.MODE:
-                    Debug.Log("###");
+                    //network.SendModeSetting();
                     if (network.isGuest) {
                         WaitingOpponentRespond.SetActive(false);
                         while (!network.isModeReceive) {
@@ -101,6 +93,16 @@ public class Control_in_Twolobby : MonoBehaviour {
                     else {
                         DecideDifficulty();
                     }
+                    break;
+
+                case SYS.DENY:
+                    WaitingOpponentRespond.SetActive(false);
+                    break;
+
+                case SYS.MODE:
+                    Debug.Log("###");
+                    ShowBothNoSameDifficulty();
+                    network.DenyChallenge();
                     break;
 
                 case SYS.READY:
@@ -131,13 +133,13 @@ public class Control_in_Twolobby : MonoBehaviour {
             PlayerListContent.GetComponent<RectTransform>().sizeDelta = new Vector2(0, height);
             if (playerList.Count > 0) {
                 int posY = -50;
-                foreach (KeyValuePair<string, (string Name, int Status)> item in playerList) {
+                foreach (KeyValuePair<string, (string Name, int Rank, int Status)> item in playerList) {
                     GameObject temp = PlayerListContent.transform.Find(item.Key)?.gameObject;
                     if (temp == null) {
                         temp = Instantiate(PlayerBarPrefab, PlayerListContent.transform);
                         temp.name = item.Key;
                         temp.transform.GetChild(0).gameObject.GetComponent<Text>().text = item.Key;
-                        temp.transform.GetChild(1).gameObject.GetComponent<Text>().text = playerRankType[playerRank];
+                        temp.transform.GetChild(1).gameObject.GetComponent<Text>().text = playerRankType[item.Value.Rank];
                         temp.transform.GetChild(3).gameObject.GetComponent<Text>().text = statusType[item.Value.Status];
                     }
                     temp.transform.GetChild(2).gameObject.GetComponent<Text>().text = item.Value.Name;
@@ -188,6 +190,11 @@ public class Control_in_Twolobby : MonoBehaviour {
     public void ShowModeSetting()
     {
         ModeSetting.SetActive(true);
+    }
+
+    private void ShowBothNoSameDifficulty()
+    {
+        BothNoSameDifficulty.SetActive(true);
     }
 
     private void DecideDifficulty()
