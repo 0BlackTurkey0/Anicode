@@ -54,6 +54,11 @@ public class Network : MonoBehaviour {
         StartCoroutine(UpdatePlayerInfo());
     }
 
+    void OnApplicationQuit()
+    {
+        Quit();
+    }
+
     private IEnumerator UpdatePlayerInfo()
     {
         while (true) {
