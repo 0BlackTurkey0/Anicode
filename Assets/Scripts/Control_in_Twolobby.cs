@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Control_in_Twolobby : MonoBehaviour {
-    [Header("Information")]
+    
+    private bool isFirstLoad = false;
+    
+    [Header("PlayerInfo")]
     [SerializeField] Text PlayerNameObject;
     [SerializeField] Text RankObject;
     [SerializeField] Text DiamondObject;
@@ -26,7 +29,7 @@ public class Control_in_Twolobby : MonoBehaviour {
     [Header("Prefab")]
     [SerializeField] GameObject PlayerBarPrefab;
 
-    public Network network;
+    //public Network network;
     public GameMode playerMode { get; private set; } = new GameMode();
     public bool isConnect { get; private set; } = true;
     private bool isConstruct;
@@ -40,11 +43,13 @@ public class Control_in_Twolobby : MonoBehaviour {
     private int seletedIndex = -1;
     private bool isResponseChanllenge = false, isUpdateStatus = false;
     private ApplicationHandler applicationHandler;
+    private Network network;
 
     void Awake()
     {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
-        DontDestroyOnLoad(gameObject);
+        network = GameObject.Find("Network").GetComponent<Network>();
+        //DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
@@ -53,19 +58,7 @@ public class Control_in_Twolobby : MonoBehaviour {
         PlayerNameObject.text = applicationHandler.GameData.Name;
         RankObject.text = "¶¥¯Å : " + playerRankType[(int)(DifficultyType)applicationHandler.GameData.Rank];
         DiamondObject.text = applicationHandler.GameData.Money.ToString();
-        playerName = applicationHandler.GameData.Name;
-        playerRank = (int)(DifficultyType)applicationHandler.GameData.Rank;
-
-        Debug.Log(isConstruct + "%^&");
-        if (!isConstruct) {
-            network = new Network(playerName, playerRank);
-            isConstruct = true;
-            Debug.Log("!@#");
-        }
-        else if (!network.IsRun()) {
-            Debug.Log(network.IsRun());
-        }
-        
+            
         ModeSetting.SetActive(false);
         WaitingListUpdate.SetActive(false);
         HintWhenBusy.SetActive(false);
@@ -74,7 +67,6 @@ public class Control_in_Twolobby : MonoBehaviour {
         RespondAcceptOrNot.SetActive(false);
         ModeSettingHint.SetActive(false);
         StartCoroutine(UpdateNetwork());
-        StartCoroutine(Counter());
     }
 
     // Update is called once per frame
@@ -86,16 +78,6 @@ public class Control_in_Twolobby : MonoBehaviour {
     private void OnApplicationQuit()
     {
         Debug.Log("!!!");
-    }
-
-    private IEnumerator Counter()
-    {
-        int i = 0;
-        while (true) {
-            Debug.Log(i.ToString() + isConstruct);
-            yield return new WaitForSeconds(1);
-            i += 1;
-        }
     }
 
     private IEnumerator UpdateNetwork()    //ÂÇ¥ÑsystemMessage­È¨Ó½T»{ª¬ºA
@@ -124,12 +106,12 @@ public class Control_in_Twolobby : MonoBehaviour {
                         }
                         network.isModeReceive = false;
                         network.IntoGame();
-                        //SceneManager.LoadScene();
+                        SceneManager.LoadScene(8);
                     }
                     else {
                         DecideDifficulty();
                         network.IntoGame();
-                        //SceneManager.LoadScene();
+                        SceneManager.LoadScene(8);
                     }
                     break;
 

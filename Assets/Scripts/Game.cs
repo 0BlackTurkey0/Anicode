@@ -114,8 +114,10 @@ public class Game : MonoBehaviour {
     [SerializeField] private GameObject Instruction_If;
     [SerializeField] private GameObject Instruction_Loop;
     [SerializeField] private GameObject Instruction_Swap;
-    private Control_in_Twolobby networkHandler;
     private ApplicationHandler applicationHandler;
+    private Control_in_Twolobby control_In_Twolobby;
+    private Network networkHandler;
+    
 
     void Awake()
     {
@@ -124,11 +126,12 @@ public class Game : MonoBehaviour {
         _isDuel = applicationHandler.IsDuel;
         //_isDuel = false; //暫定
         if (_isDuel) {
-            networkHandler = GameObject.Find("Control").GetComponent<Control_in_Twolobby>();
-            _isGuest = networkHandler.network.isGuest;
-            _difficulty = (DifficultyType)networkHandler.network.finalDifficulty;
-            characterType[0] = (CharacterType)networkHandler.playerMode.Character;
-            characterType[1] = (CharacterType)networkHandler.network.challengerMode.Character;
+            control_In_Twolobby = GameObject.Find("Control").GetComponent<Control_in_Twolobby>();
+            networkHandler = GameObject.Find("Network").GetComponent<Network>();
+            _isGuest = networkHandler.isGuest;
+            _difficulty = (DifficultyType)networkHandler.finalDifficulty;
+            characterType[0] = (CharacterType)control_In_Twolobby.playerMode.Character;
+            characterType[1] = (CharacterType)networkHandler.challengerMode.Character;
         }
         else {
             _difficulty = DifficultyType.Hard;
@@ -443,7 +446,7 @@ public class Game : MonoBehaviour {
         else {
             SceneManager.LoadScene(0);
         }
-        if (_isDuel && !networkHandler.isConnect) {
+        if (_isDuel && !control_In_Twolobby.isConnect) {
             // "" 斷線畫面      ""
             SceneManager.LoadScene(0);
         }
@@ -504,23 +507,23 @@ public class Game : MonoBehaviour {
                     Players[1].Food[i] = number;
                 }
             }
-            networkHandler.network.SendGameData(Players[0].Code);
-            while (!networkHandler.network.isCodeReceive) {
+            networkHandler.SendGameData(Players[0].Code);
+            while (!networkHandler.isCodeReceive) {
 
             }
-            networkHandler.network.isCodeReceive = false;
-            Players[1].Code = networkHandler.network.challengerCode;
+            networkHandler.isCodeReceive = false;
+            Players[1].Code = networkHandler.challengerCode;
 
             if (!_isGuest) {
-                networkHandler.network.SendGameFood(Players[0].Food);
+                networkHandler.SendGameFood(Players[0].Food);
             }
             else {
-                while (!networkHandler.network.isFoodReceive) {
+                while (!networkHandler.isFoodReceive) {
 
                 }
-                networkHandler.network.isFoodReceive = false;
-                Players[0].Food = networkHandler.network.challengerFood;
-                Players[1].Food = networkHandler.network.challengerFood;
+                networkHandler.isFoodReceive = false;
+                Players[0].Food = networkHandler.challengerFood;
+                Players[1].Food = networkHandler.challengerFood;
             }
         }
         else {
