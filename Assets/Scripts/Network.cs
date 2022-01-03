@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -6,8 +7,10 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Network {
+public class Network : MonoBehaviour {
     public string localIP { get; private set; }
     public Dictionary<string, (string Name, int Status)> dict { get; private set; } = new Dictionary<string, (string, int)>();
     public DateTime responseTime { get; private set; }
@@ -23,43 +26,65 @@ public class Network {
     public bool isFoodReceive { get; set; } = false;
     public int[] challengerFood { get; private set; } = new int[10];
 
-    private UdpClient receivingClient;
-    private UdpClient sendingClient;
-    private Thread receivingThread;
+    private ApplicationHandler applicationHandler;
+    private UdpClient receivingClient = null;
+    private UdpClient sendingClient = null;
+    private Thread receivingThread = null;
     private bool isNetworkRunning;
-    private readonly string playerName;
-    private readonly int playerRank;
-    private const int port = 8888;
+    private string playerName;
+    private int playerRank;
+    private const int port = 8880;
 
-    public Network(string name, int rank)    //建構子
+    void Awake()
+    {
+        applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void Start()
     {
         localIP = Dns.GetHostEntry(Dns.GetHostName()).AddressList.ToList().Where(p => p.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault().ToString();
-        playerName = name;
-        playerRank = rank;
+        playerName = applicationHandler.GameData.Name;
+        playerRank = (int)(DifficultyType)applicationHandler.GameData.Rank;
         InitSender();
         InitReceiver();
         isNetworkRunning = true;
+        StartCoroutine(UpdatePlayerInfo());
     }
 
-	~Network()
-	{
-        Quit();
-	}
+    private IEnumerator UpdatePlayerInfo() {
+        while (true) {
+            if (SceneManager.GetActiveScene().buildIndex == 1) {
+                Debug.Log("!@#");
+                yield return new WaitForSeconds(1);
+                playerName = applicationHandler.GameData.Name;
+                playerRank = (int)(DifficultyType)applicationHandler.GameData.Rank;
+            }
+            else {
+                yield return null;
+            }
+        }
+    }
 
     private void InitSender()   //初始化傳送用的UDP
     {
-        sendingClient = new UdpClient {
-            EnableBroadcast = true
-        };
+        if (sendingClient == null) {
+            sendingClient = new UdpClient {
+                EnableBroadcast = true
+            };
+        }
     }
 
     private void InitReceiver() //初始化接收用的UDP和thread
     {
-        receivingClient = new UdpClient(port);
-        receivingThread = new Thread(Receiver) {
-            IsBackground = true
-        };
-        receivingThread.Start();
+        if (receivingClient == null)
+            receivingClient = new UdpClient(port);
+        if (receivingThread == null) {
+            receivingThread = new Thread(Receiver) {
+                IsBackground = true
+            };
+            receivingThread.Start();
+        }
     }
 
     private void Receiver() //接收資料
@@ -147,7 +172,6 @@ public class Network {
             }
         }
         catch (Exception ex) {
-            Quit();
             throw ex;
         }
     }
@@ -164,11 +188,6 @@ public class Network {
         }
     }
 
-    public bool IsRun()
-	{
-        return isNetworkRunning;
-	}
-
     public void Quit()  //關閉網路功能
     {
         try {
@@ -177,6 +196,8 @@ public class Network {
             if (receivingClient != null)
                 receivingClient.Close();
             isNetworkRunning = false;
+            if (receivingThread != null)
+                receivingThread = null;
         }
         catch (Exception ex) {
             throw ex;
@@ -348,6 +369,7 @@ public class Network {
                 Name = playerName,
                 Code = code,
             };
+            SendData(challengerIP, sendData);
         }
         catch (Exception ex) {
             throw ex;
@@ -362,6 +384,7 @@ public class Network {
                 Name = playerName,
                 Food = food
             };
+            SendData(challengerIP, sendData);
         }
         catch (Exception ex) {
             throw ex;
