@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
+using UnityEngine;
 
 public class Network {
     public string localIP { get; private set; }
@@ -23,43 +24,44 @@ public class Network {
     public bool isFoodReceive { get; set; } = false;
     public int[] challengerFood { get; private set; } = new int[10];
 
-    private UdpClient receivingClient;
-    private UdpClient sendingClient;
-    private Thread receivingThread;
+    private UdpClient receivingClient = null;
+    private UdpClient sendingClient = null;
+    private Thread receivingThread = null;
     private bool isNetworkRunning;
-    private readonly string playerName;
-    private readonly int playerRank;
-    private const int port = 8888;
+    private string playerName;
+    private int playerRank;
+    private const int port = 8880;
 
     public Network(string name, int rank)    //建構子
     {
         localIP = Dns.GetHostEntry(Dns.GetHostName()).AddressList.ToList().Where(p => p.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault().ToString();
         playerName = name;
         playerRank = rank;
+        Debug.Log("123");
         InitSender();
         InitReceiver();
         isNetworkRunning = true;
     }
-
-	~Network()
-	{
-        Quit();
-	}
-
+    
     private void InitSender()   //初始化傳送用的UDP
     {
-        sendingClient = new UdpClient {
-            EnableBroadcast = true
-        };
+        if (sendingClient == null) {
+            sendingClient = new UdpClient {
+                EnableBroadcast = true
+            };
+        }
     }
 
     private void InitReceiver() //初始化接收用的UDP和thread
     {
-        receivingClient = new UdpClient(port);
-        receivingThread = new Thread(Receiver) {
-            IsBackground = true
-        };
-        receivingThread.Start();
+        if (receivingClient == null)
+            receivingClient = new UdpClient(port);
+        if (receivingThread == null) {
+            receivingThread = new Thread(Receiver) {
+                IsBackground = true
+            };
+            receivingThread.Start();
+        }
     }
 
     private void Receiver() //接收資料
@@ -147,7 +149,6 @@ public class Network {
             }
         }
         catch (Exception ex) {
-            Quit();
             throw ex;
         }
     }
@@ -177,6 +178,8 @@ public class Network {
             if (receivingClient != null)
                 receivingClient.Close();
             isNetworkRunning = false;
+            if (receivingThread != null)
+                receivingThread = null;
         }
         catch (Exception ex) {
             throw ex;

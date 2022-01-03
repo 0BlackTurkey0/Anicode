@@ -7,7 +7,9 @@ using UnityEngine.UI;
 
 public class Control_in_Twolobby : MonoBehaviour {
     [Header("Information")]
-    [SerializeField] GameObject playerNameObject;     //TBD 抓取使用者名稱
+    [SerializeField] Text PlayerNameObject;
+    [SerializeField] Text RankObject;
+    [SerializeField] Text DiamondObject;
     [Header("Panel")]
     [SerializeField] GameObject ModeSetting;
     [SerializeField] GameObject PlayerListContent;
@@ -16,46 +18,63 @@ public class Control_in_Twolobby : MonoBehaviour {
     [SerializeField] GameObject BothNoSameDifficulty;
     [SerializeField] GameObject WaitingOpponentRespond;
     [SerializeField] GameObject RespondAcceptOrNot;
+    [SerializeField] GameObject ModeSettingHint;
     [Header("Button")]
     [SerializeField] GameObject JoinButton;
     [SerializeField] GameObject SearchButton;
+    [SerializeField] GameObject NoneModeSettingButton;
     [Header("Prefab")]
     [SerializeField] GameObject PlayerBarPrefab;
 
-    public Network network = null;
+    public Network network;
     public GameMode playerMode { get; private set; } = new GameMode();
     public bool isConnect { get; private set; } = true;
+    private bool isConstruct;
     private string playerName;
+    private int playerRank;
     private Dictionary<string, (string, int)> playerList { get { return network.dict; } }
-    private int playerRank {
-        get { return PlayerPrefs.GetInt("Rank", 0); }
-        set { PlayerPrefs.SetInt("Rank", value); }
-    }
+    
     private readonly string[] playerRankType = { "入門", "簡單", "普通", "困難" };
     private readonly string[] statusType = { "閒置", "忙碌", "對戰中" };
 
     private int seletedIndex = -1;
     private bool isResponseChanllenge = false, isUpdateStatus = false;
+    private ApplicationHandler applicationHandler;
 
     void Awake()
     {
+        applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
         DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if (network == null || !network.IsRun())
-            network = new Network(playerName, playerRank);
+        PlayerNameObject.text = applicationHandler.GameData.Name;
+        RankObject.text = "階級 : " + playerRankType[(int)(DifficultyType)applicationHandler.GameData.Rank];
+        DiamondObject.text = applicationHandler.GameData.Money.ToString();
+        playerName = applicationHandler.GameData.Name;
+        playerRank = (int)(DifficultyType)applicationHandler.GameData.Rank;
 
-        JoinButton.transform.GetComponent<Button>().enabled = false;
+        Debug.Log(isConstruct + "%^&");
+        if (!isConstruct) {
+            network = new Network(playerName, playerRank);
+            isConstruct = true;
+            Debug.Log("!@#");
+        }
+        else if (!network.IsRun()) {
+            Debug.Log(network.IsRun());
+        }
+        
         ModeSetting.SetActive(false);
         WaitingListUpdate.SetActive(false);
         HintWhenBusy.SetActive(false);
         BothNoSameDifficulty.SetActive(false);
         WaitingOpponentRespond.SetActive(false);
         RespondAcceptOrNot.SetActive(false);
+        ModeSettingHint.SetActive(false);
         StartCoroutine(UpdateNetwork());
+        StartCoroutine(Counter());
     }
 
     // Update is called once per frame
@@ -66,7 +85,17 @@ public class Control_in_Twolobby : MonoBehaviour {
 
     private void OnApplicationQuit()
     {
-        network.Quit();
+        Debug.Log("!!!");
+    }
+
+    private IEnumerator Counter()
+    {
+        int i = 0;
+        while (true) {
+            Debug.Log(i.ToString() + isConstruct);
+            yield return new WaitForSeconds(1);
+            i += 1;
+        }
     }
 
     private IEnumerator UpdateNetwork()    //藉由systemMessage值來確認狀態
@@ -228,7 +257,8 @@ public class Control_in_Twolobby : MonoBehaviour {
     public void OnClick_ConfirmInModeSetting()
     {
         ModeSetting.SetActive(false);
-        JoinButton.transform.GetComponent<Button>().enabled = true;
+        //JoinButton.transform.GetComponent<Button>().enabled = true;
+        NoneModeSettingButton.SetActive(false);
     }
 
     public void OnClick_Search()
@@ -240,6 +270,11 @@ public class Control_in_Twolobby : MonoBehaviour {
         if (!isUpdateStatus)
             StartCoroutine(UpdateStatus());
         SearchButton.GetComponent<Button>().enabled = false;
+    }
+
+    public void OnCLick_NoneModeSetting()
+    {
+        ModeSettingHint.SetActive(true);
     }
 
     public void OnClick_Challenge()   //發起挑戰
@@ -285,6 +320,11 @@ public class Control_in_Twolobby : MonoBehaviour {
     public void OnClick_ConfirmInBothNoSameDifficulty()
     {
         BothNoSameDifficulty.SetActive(false);
+    }
+
+    public void OnClick_ConfirmInModeSettingHint()
+    {
+        ModeSettingHint.SetActive(false);
     }
 
     public void ReturnToLobby()
