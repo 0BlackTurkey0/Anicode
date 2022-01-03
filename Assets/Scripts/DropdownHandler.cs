@@ -13,6 +13,12 @@ public class DropdownHandler : MonoBehaviour {
     [SerializeField] GameObject ConfirmBtn;
     [SerializeField] GameObject ChoosingRankHint;
     private int CharacterNum;
+    private Network network;
+
+    void Awake()
+    {
+        network = GameObject.Find("Network").GetComponent<Network>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -199,6 +205,6 @@ public class DropdownHandler : MonoBehaviour {
             Difficulty = difficulty,
             Character = CharacterNum
         };
-        GameObject.Find("Control").GetComponent<Control_in_Twolobby>().SetMode(mode);
+        network.SetMode(mode);
     }
 }

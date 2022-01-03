@@ -6,9 +6,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Control_in_Twolobby : MonoBehaviour {
-    
-    private bool isFirstLoad = false;
-    
     [Header("PlayerInfo")]
     [SerializeField] Text PlayerNameObject;
     [SerializeField] Text RankObject;
@@ -29,11 +26,6 @@ public class Control_in_Twolobby : MonoBehaviour {
     [Header("Prefab")]
     [SerializeField] GameObject PlayerBarPrefab;
 
-    //public Network network;
-    public GameMode playerMode { get; private set; } = new GameMode();
-    public bool isConnect { get; private set; } = true;
-    private bool isConstruct;
-    private string playerName;
     private int playerRank;
     private Dictionary<string, (string, int)> playerList { get { return network.dict; } }
     
@@ -90,7 +82,7 @@ public class Control_in_Twolobby : MonoBehaviour {
                     break;
 
                 case SYS.ACCEPT:
-                    network.SendModeSetting(playerMode);
+                    network.SendModeSetting();
                     break;
 
                 case SYS.DENY:
@@ -198,16 +190,11 @@ public class Control_in_Twolobby : MonoBehaviour {
         ModeSetting.SetActive(true);
     }
 
-    public void SetMode(GameMode mode)
-    {
-        playerMode = mode;
-    }
-
     private void DecideDifficulty()
     {
         List<int> temp = new List<int>();
         for (int i = 0;i < 4;i += 1)
-            if (playerMode.Difficulty[i] && network.challengerMode.Difficulty[i])
+            if (network.playerMode.Difficulty[i] && network.challengerMode.Difficulty[i])
                 temp.Add(i);
         if (temp.Count > 0) {
             System.Random random = new System.Random();
@@ -227,9 +214,9 @@ public class Control_in_Twolobby : MonoBehaviour {
         if (LocalTime.Second % 5 == 0) {    //每五秒鐘確認對手是否斷線
             DateTime tempTime = network.responseTime;
             if (DateTime.Compare(LocalTime, tempTime.AddSeconds(5)) == 1)
-                isConnect = false;
+                network.isConnect = false;
             else
-                isConnect = true;
+                network.isConnect = true;
         }
     }
 
