@@ -165,7 +165,7 @@ public class Control_in_Twolobby : MonoBehaviour {
             yield return new WaitForSeconds(1);
             if (playerList.Count > 0)
                 for (int i = 0;i < PlayerListContent.transform.childCount;i += 1)
-                    PlayerListContent.transform.GetChild(i).GetChild(3).gameObject.GetComponent<Text>().text = statusType[playerList[PlayerListContent.transform.GetChild(i).gameObject.name].Item2];
+                    PlayerListContent.transform.GetChild(i).GetChild(3).gameObject.GetComponent<Text>().text = statusType[playerList[PlayerListContent.transform.GetChild(i).gameObject.name].Item3];
             yield return new WaitForSeconds(5);
         }
     }
