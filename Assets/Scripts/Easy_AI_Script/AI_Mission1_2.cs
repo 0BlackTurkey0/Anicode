@@ -20,6 +20,7 @@ public class AI_Mission1_2 : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(game.Round);
         if (!game.IsBattle)
         {
             if (preStageBattle)

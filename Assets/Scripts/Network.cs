@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -6,60 +7,100 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Network {
+public class Network : MonoBehaviour
+{
     public string localIP { get; private set; }
-    public Dictionary<string, (string Name, int Status)> dict { get; private set; } = new Dictionary<string, (string, int)>();
+    public Dictionary<string, (string Name, int Rank, int Status)> dict { get; private set; } = new Dictionary<string, (string, int, int)>();
     public DateTime responseTime { get; private set; }
     public string systemMessage { get; private set; } = null;
     public int playerStatus { get; private set; } = 0;
+    public GameMode playerMode { get; private set; } = null;
     public bool isGuest { get; private set; }
+    public bool isConnect { get; set; } = true;
     public int finalDifficulty { get; set; } = -1;
     public string challengerIP { get; private set; } = null;
     public bool isModeReceive { get; set; } = false;
     public GameMode challengerMode { get; private set; } = null;
     public bool isCodeReceive { get; set; } = false;
-    public Code challengerCode { get; private set; } = null;
+    public Code challengerCode { get; set; } = null;
     public bool isFoodReceive { get; set; } = false;
     public int[] challengerFood { get; private set; } = new int[10];
 
-    private UdpClient receivingClient;
-    private UdpClient sendingClient;
-    private Thread receivingThread;
+    private ApplicationHandler applicationHandler;
+    private UdpClient receivingClient = null;
+    private UdpClient sendingClient = null;
+    private Thread receivingThread = null;
     private bool isNetworkRunning;
-    private readonly string playerName;
-    private readonly int playerRank;
-    private const int port = 8888;
+    private string playerName;
+    private int playerRank;
+    private const int port = 8880;
 
-    public Network(string name, int rank)    //建構子
+    void Awake()
+    {
+        applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void Start()
     {
         localIP = Dns.GetHostEntry(Dns.GetHostName()).AddressList.ToList().Where(p => p.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault().ToString();
-        playerName = name;
-        playerRank = rank;
+        playerName = applicationHandler.GameData.Name;
+        playerRank = (int)(DifficultyType)applicationHandler.GameData.Rank;
         InitSender();
         InitReceiver();
         isNetworkRunning = true;
+        StartCoroutine(UpdatePlayerInfo());
     }
 
-	~Network()
-	{
+    void OnApplicationQuit()
+    {
+        Debug.Log("!!!");
         Quit();
-	}
+    }
+
+    private IEnumerator UpdatePlayerInfo()
+    {
+        while (true)
+        {
+            if (SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                yield return new WaitForSeconds(1);
+                playerName = applicationHandler.GameData.Name;
+                playerRank = (int)(DifficultyType)applicationHandler.GameData.Rank;
+            }
+            else
+            {
+                yield return null;
+            }
+        }
+    }
 
     private void InitSender()   //初始化傳送用的UDP
     {
-        sendingClient = new UdpClient {
-            EnableBroadcast = true
-        };
+        if (sendingClient == null)
+        {
+            sendingClient = new UdpClient
+            {
+                EnableBroadcast = true
+            };
+        }
     }
 
     private void InitReceiver() //初始化接收用的UDP和thread
     {
-        receivingClient = new UdpClient(port);
-        receivingThread = new Thread(Receiver) {
-            IsBackground = true
-        };
-        receivingThread.Start();
+        if (receivingClient == null)
+            receivingClient = new UdpClient(port);
+        if (receivingThread == null)
+        {
+            receivingThread = new Thread(Receiver)
+            {
+                IsBackground = true
+            };
+            receivingThread.Start();
+        }
     }
 
     private void Receiver() //接收資料
@@ -67,30 +108,35 @@ public class Network {
         IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, port);
         string responseIP;
 
-        try {
-            while (isNetworkRunning) {
+        try
+        {
+            while (isNetworkRunning)
+            {
                 byte[] bytes = receivingClient.Receive(ref endPoint);
                 responseIP = endPoint.Address.ToString();
                 if (responseIP == localIP) continue;    //過濾廣播後傳給自己的封包
                 //if (challengerIP != null && responseIP != challengerIP) continue;   //進入對戰後過濾非對手的封包
+                Debug.Log(Encoding.UTF8.GetString(bytes));
                 Data receiveData = JsonSerializer.Deserialize<Data>(Encoding.UTF8.GetString(bytes));
 
-                switch (receiveData.Type) {
+                switch (receiveData.Type)
+                {
                     case MSG.REQUEST:
                         SendResponse(responseIP);
                         break;
 
                     case MSG.RESPONSE:
-                        if (dict.ContainsKey(responseIP)) {
-                            //throw new NullReferenceException();
-                            var (Name, Status) = dict[responseIP];
+                        if (dict.ContainsKey(responseIP))
+                        {
+                            var (Name, Rank, Status) = dict[responseIP];
                             Name = receiveData.Name;
+                            Rank = receiveData.Rank;
                             Status = receiveData.Status;
-                            
-                            dict[responseIP] = (Name, Status);
+                            dict[responseIP] = (Name, Rank, Status);
                         }
-                        else {
-                            dict.Add(responseIP, (receiveData.Name, receiveData.Status));
+                        else
+                        {
+                            dict.Add(responseIP, (receiveData.Name, receiveData.Rank, receiveData.Status));
                         }
                         break;
 
@@ -101,11 +147,15 @@ public class Network {
                     case MSG.CHALLENGE:
                         systemMessage = SYS.CHALLENGE;
                         playerStatus = 1;
+                        challengerMode = receiveData.Mode;
                         challengerIP = responseIP;
                         break;
 
                     case MSG.ACCEPT:
                         systemMessage = SYS.ACCEPT;
+                        isModeReceive = true;
+                        playerStatus = 2;
+                        challengerMode = receiveData.Mode;
                         break;
 
                     case MSG.DENY:
@@ -117,22 +167,17 @@ public class Network {
                         responseTime = receiveData.Time;
                         break;
 
-                    case MSG.MODE:
-                        isModeReceive = true;
-                        challengerMode = receiveData.Mode;
-                        break;
-
                     case MSG.DIFFICULTY:
                         finalDifficulty = receiveData.FinalDifficulty;
                         if (finalDifficulty == -1)
-                            systemMessage = null;
+                            systemMessage = SYS.MODE;
                         else
                             systemMessage = SYS.READY;
                         break;
 
                     case MSG.GAME:
                         isCodeReceive = true;
-                        challengerCode = receiveData.Code;
+                        challengerCode = new Code(receiveData.Code);
                         systemMessage ??= SYS.GAME;
                         playerStatus = 2;
                         break;
@@ -146,55 +191,59 @@ public class Network {
                 }
             }
         }
-        catch (Exception ex) {
-            Quit();
+        catch (Exception ex)
+        {
             throw ex;
         }
     }
 
     private void SendData(string ip, Data data)  //傳送資料給指定的ip位置
     {
-        try {
+        try
+        {
             IPEndPoint ipep = new IPEndPoint(IPAddress.Parse(ip), port);
             byte[] bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(data));
             sendingClient.Send(bytes, bytes.Length, ipep);
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw ex;
         }
     }
 
-    public bool IsRun()
-	{
-        return isNetworkRunning;
-	}
-
     public void Quit()  //關閉網路功能
     {
-        try {
+        try
+        {
             if (sendingClient != null)
                 sendingClient.Close();
             if (receivingClient != null)
                 receivingClient.Close();
             isNetworkRunning = false;
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw ex;
         }
     }
 
     public void SearchUser()  //搜尋線上使用者
     {
-        try {
+        try
+        {
             dict.Clear();
             //dict.Add("192.168.1.101", ("hahaha", 0));
-            Data sendData = new Data {
+            Data sendData = new Data
+            {
                 Type = MSG.REQUEST,
-                Name = playerName
+                Name = playerName,
+                Rank = playerRank,
+                Status = playerStatus
             };
             SendData("255.255.255.255", sendData);
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw ex;
         }
     }
@@ -213,8 +262,10 @@ public class Network {
 
     private void SendResponse(string ip)
     {
-        try {
-            Data sendData = new Data {
+        try
+        {
+            Data sendData = new Data
+            {
                 Type = MSG.RESPONSE,
                 Name = playerName,
                 Rank = playerRank,
@@ -222,94 +273,116 @@ public class Network {
             };
             SendData(ip, sendData);
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw ex;
         }
     }
 
     public void SendStatus(string ip)
     {
-        try {
-            Data sendData = new Data {
+        try
+        {
+            Data sendData = new Data
+            {
                 Type = MSG.STATUS,
-                Name = playerName
+                Name = playerName,
+                Status = playerStatus
             };
             SendData(ip, sendData);
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw ex;
         }
     }
 
     public void SendChallenge(string ip)    //對指定ip位置的使用者發起挑戰
     {
-        try {
+        try
+        {
             isGuest = true;
             playerStatus = 1;
-            Data sendData = new Data {
+            Data sendData = new Data
+            {
                 Type = MSG.CHALLENGE,
-                Name = playerName
+                Name = playerName,
+                Mode = playerMode
             };
             challengerIP = ip;
             SendData(ip, sendData);
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw ex;
         }
     }
 
     public void AcceptChallenge()   //接受挑戰
     {
-        try {
+        try
+        {
             isGuest = false;
-            Data sendData = new Data {
+            Data sendData = new Data
+            {
                 Type = MSG.ACCEPT,
-                Name = playerName
+                Name = playerName,
+                Mode = playerMode
             };
             SendData(challengerIP, sendData);
             systemMessage = SYS.ACCEPT;
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw ex;
         }
     }
 
     public void DenyChallenge() //接受挑戰
     {
-        try {
-            Data sendData = new Data {
+        try
+        {
+            Data sendData = new Data
+            {
                 Type = MSG.DENY,
                 Name = playerName
             };
             SendData(challengerIP, sendData);
-            systemMessage = null;
+            systemMessage = SYS.DENY;
             challengerIP = null;
+            playerStatus = 0;
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw ex;
         }
     }
 
-    public void SendModeSetting(GameMode mode)  //傳送戰鬥前設定
+    public void SendModeSetting()  //傳送戰鬥前設定
     {
-        try {
-            Data sendData = new Data {
+        try
+        {
+            Data sendData = new Data
+            {
                 Type = MSG.MODE,
                 Name = playerName,
-                Mode = mode
+                Mode = playerMode
             };
             SendData(challengerIP, sendData);
-            systemMessage = SYS.READY;
+            systemMessage = SYS.MODE;
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw ex;
         }
     }
 
     public void SendFinalDifficulty()
     {
-        try {
-            Data sendData = new Data {
+        try
+        {
+            Data sendData = new Data
+            {
                 Type = MSG.DIFFICULTY,
                 Name = playerName,
                 FinalDifficulty = finalDifficulty
@@ -320,51 +393,68 @@ public class Network {
             else
                 systemMessage = SYS.READY;
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw ex;
         }
     }
 
     public void SendConnection()    //確認連線狀態
     {
-        try {
-            Data sendData = new Data {
+        try
+        {
+            Data sendData = new Data
+            {
                 Type = MSG.CONNECT,
                 Name = playerName,
                 Time = DateTime.Now
             };
             SendData(challengerIP, sendData);
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw ex;
         }
     }
 
     public void SendGameData(Code code)   //傳送遊戲數據
     {
-        try {
-            Data sendData = new Data {
+        try
+        {
+            Data sendData = new Data
+            {
                 Type = MSG.GAME,
                 Name = playerName,
                 Code = code,
             };
+            SendData(challengerIP, sendData);
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw ex;
         }
     }
 
     public void SendGameFood(int[] food)
     {
-        try {
-            Data sendData = new Data {
+        try
+        {
+            Data sendData = new Data
+            {
                 Type = MSG.FOOD,
                 Name = playerName,
                 Food = food
             };
+            SendData(challengerIP, sendData);
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw ex;
         }
+    }
+
+    public void SetMode(GameMode mode)
+    {
+        playerMode = mode;
     }
 }

@@ -18,26 +18,55 @@ public class Create : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
-        //if (PlayerPrefs.GetInt("Record_First", 0) == 4)
-        //    isFinal = true;
+        applicationHandler.IsSimpleBattle = false;
+        applicationHandler.IsSimple = true;
         isClick = false;
-        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_" + applicationHandler.GameData.Schedule_Simple.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
-        buttonParent = gameObject.transform.GetChild(0).gameObject;
-        for (int i = 1;i <= 3;i += 1)
-            buttonParent.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(delegate () { StoryOnClick(); });
+        ind = applicationHandler.GameData.Schedule_SimpleChange;
+        storyNum = applicationHandler.GameData.Schedule_Simple;
+        if (ind == 0) //一個story結束後下一次載入select場景
+        {
+            if (applicationHandler.GameData._SimpleIsFinish == true) //已經玩過一輪
+                Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_3.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+            else
+                Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_" + applicationHandler.GameData.Schedule_Simple.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+            buttonParent = gameObject.transform.GetChild(0).gameObject;
+            for (int i = 1; i <= 3; i += 1)
+                buttonParent.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(delegate () { StoryOnClick(); });
+        }
+        else //只結束小關卡
+        {
+            if (applicationHandler.GameData.IswinForSimple) //打贏AI
+            {
+                ind++;
+                Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+                isClick = true;
+                isRun = false;
+                isFinish = true;
+            }
+            else //打輸AI
+            {
+                ind++;
+                Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + "-2" + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+                isClick = true;
+                isRun = false;
+                isFinish = true;
+            }
+            
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Prefab != null && isClick == true) {
+            //Debug.Log(2222);
             switch (Prefab.tag) {
                 case "1":   //有對話
                     //isFinish = Prefab.transform.GetChild(1).gameObject.GetComponent<DialogSystem>().Finished;
                     isFinish = Prefab.transform.GetComponent<DialogSystem>().Finished;
                     if (Input.GetKeyDown(KeyCode.RightArrow) && isFinish) {
-                        if (storyNum == 3 && ind == 21) lastTag = 2; 
-                        else lastTag = 1;
+                        //if (storyNum == 3 && ind == 21) lastTag = 2; 
+                        //else lastTag = 1;
                         Destroy(Prefab);
                         ind++;
                         Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
@@ -45,12 +74,15 @@ public class Create : MonoBehaviour {
                     break;
                 case "2":   //進入關卡前畫面
                     if (!isRun && isFinish) {
+                        applicationHandler.GameData.Schedule_SimpleChange = ind;
+                        applicationHandler.GameData.SaveData();
                         StartCoroutine(UpdateIntoGame());
                         isRun = true;
                     }
                     break;
                 case "3":   //關卡結束時畫面
                     if (!isRun && isFinish) {
+                        //Debug.Log(1);
                         StartCoroutine(UpdateExitGame());
                         isRun = true;
                     }
@@ -61,17 +93,24 @@ public class Create : MonoBehaviour {
                         buttonParent = gameObject.transform.GetChild(0).gameObject;
                         for (int i = 1;i <= 3;i += 1)
                             buttonParent.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(delegate () { StoryOnClick(); });
+
                     }
-                    if (Input.GetKeyDown(KeyCode.RightArrow) && isFinish && lastTag == 2) {
+                    if (Input.GetKeyDown(KeyCode.RightArrow) && isFinish) {
                         if (storyNum < 4)
                             storyNum++;
                         if (storyNum > applicationHandler.GameData.Schedule_Simple && storyNum < 5) {
                             applicationHandler.GameData.Schedule_Simple = storyNum;
                             applicationHandler.GameData.SaveData();
                         }
-                        lastTag = 4;
+                        //lastTag = 4;
                         Destroy(Prefab);
-                        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_" + applicationHandler.GameData.Schedule_Simple.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+                        ind = 0;
+                        applicationHandler.GameData.Schedule_SimpleChange = ind;
+                        applicationHandler.GameData.SaveData();
+                        if(applicationHandler.GameData._SimpleIsFinish == true) //已經玩過一輪
+                            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_3.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+                        else
+                            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_" + applicationHandler.GameData.Schedule_Simple.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
                         isEnd = true;
                     }
                     /*if (!isFinal && storyNum == 3) {
@@ -93,8 +132,15 @@ public class Create : MonoBehaviour {
             storyNum = 2;
         else if (button.name == "story3")
             storyNum = 3;
+        if(storyNum >= 2)
+        {
+            applicationHandler.GameData._SimpleIsFinish = true;
+            applicationHandler.GameData.SaveData();
+        }
+        applicationHandler.GameData.Schedule_Simple = storyNum;
+        applicationHandler.GameData.SaveData();
         Destroy(Prefab);
-        lastTag = 4;
+        //lastTag = 4;
         Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-1.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
         //isFinish = Prefab.transform.GetChild(1).gameObject.GetComponent<DialogSystem>().Finished;
         isFinish = Prefab.transform.GetComponent<DialogSystem>().Finished;
@@ -104,35 +150,18 @@ public class Create : MonoBehaviour {
     {
         yield return new WaitForSecondsRealtime(2);
         // 進入AI
+        applicationHandler.GameData.IswinForSimple = false;
+        applicationHandler.GameData.SaveData();
+        applicationHandler.IsSimpleBattle = true;
+        ConnectAI();
         SceneManager.LoadScene("Battle");
-        /*bool isSuccess = true;  //判斷對戰結果
-        if (Prefab.tag == "2")
-            SceneManager.LoadScene("Battle");
-        if (isSuccess) {
-            lastTag = 2;
-            Destroy(Prefab);
-            ind++;
-            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefab/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
-            yield return null;
-            isRun = false;
-        }
-        else {
-            int tmp = ind + 1;
-            lastTag = 2;
-            Destroy(Prefab);
-            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefab/" + storyNum.ToString() + "-" + tmp.ToString() + "-2.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
-            yield return new WaitForSecondsRealtime(2);
-            Destroy(Prefab);
-            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefab/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
-            isRun = false;
-        }*/
     }
     public void OnClick()
     {
-        SceneManager.LoadScene("lobby");
+        SceneManager.LoadScene("Lobby");
     }
     /*private IEnumerator UpdateFinal()
-    {
+    { 
         storyNum = 4;
         Destroy(Prefab);
         Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/3-22.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
@@ -143,24 +172,119 @@ public class Create : MonoBehaviour {
     private IEnumerator UpdateExitGame()
     {
         yield return new WaitForSecondsRealtime(2);
-        bool isSuccess = true;  //判斷對戰結果
-        if (isSuccess) {
-            lastTag = 2;
+        if (applicationHandler.GameData.IswinForSimple)
+        {//成功
+
             Destroy(Prefab);
+            applicationHandler.GameData.Schedule_SimpleChange = ind;
+            applicationHandler.GameData.SaveData();
             ind++;
             Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
-            yield return null;
             isRun = false;
         }
-        else {
-            int tmp = ind + 1;
-            lastTag = 2;
+        else
+        {//失敗
             Destroy(Prefab);
-            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + tmp.ToString() + "-2.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
-            yield return new WaitForSecondsRealtime(2);
-            Destroy(Prefab);
+            ind --;
             Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+            applicationHandler.GameData.Schedule_SimpleChange = ind;
+            applicationHandler.GameData.SaveData();
             isRun = false;
+        }
+    }
+
+    private void ConnectAI()
+    {
+        applicationHandler.IsDuel = false;
+        if (storyNum == 1 && ind == 2)
+        {
+            applicationHandler.CharaType[0] = CharacterType.Fox;
+            applicationHandler.CharaType[1] = CharacterType.Kangaroo;
+            applicationHandler.DiffiType = DifficultyType.Start;
+        }
+        else if (storyNum == 1 && ind == 6)
+        {
+            applicationHandler.CharaType[0] = CharacterType.Fox;
+            applicationHandler.CharaType[1] = CharacterType.Kangaroo;
+            applicationHandler.DiffiType = DifficultyType.Start;
+        }
+        else if (storyNum == 1 && ind == 9)
+        {
+            applicationHandler.CharaType[0] = CharacterType.Fox;
+            applicationHandler.CharaType[1] = CharacterType.Kangaroo;
+            applicationHandler.DiffiType = DifficultyType.Start;
+        }
+        else if (storyNum == 1 && ind == 12)
+        {
+            applicationHandler.CharaType[0] = CharacterType.Fox;
+            applicationHandler.CharaType[1] = CharacterType.Kangaroo;
+            applicationHandler.DiffiType = DifficultyType.Start;
+        }
+        else if (storyNum == 1 && ind == 16)
+        {
+            applicationHandler.CharaType[0] = CharacterType.Fox;
+            applicationHandler.CharaType[1] = CharacterType.Kangaroo;
+            applicationHandler.DiffiType = DifficultyType.Start;
+        }
+        else if (storyNum == 2 && ind == 3)
+        {
+            applicationHandler.CharaType[0] = CharacterType.Kangaroo;
+            applicationHandler.CharaType[1] = CharacterType.Kangaroo;
+            applicationHandler.DiffiType = DifficultyType.Easy;
+        }
+        else if (storyNum == 2 && ind == 8)
+        {
+            applicationHandler.CharaType[0] = CharacterType.Kangaroo;
+            applicationHandler.CharaType[1] = CharacterType.Kangaroo;
+            applicationHandler.DiffiType = DifficultyType.Easy;
+        }
+        else if (storyNum == 2 && ind == 11)
+        {
+            applicationHandler.CharaType[0] = CharacterType.Kangaroo;
+            applicationHandler.CharaType[1] = CharacterType.Kangaroo;
+            applicationHandler.DiffiType = DifficultyType.Easy;
+        }
+        else if (storyNum == 2 && ind == 15)
+        {
+            applicationHandler.CharaType[0] = CharacterType.Kangaroo;
+            applicationHandler.CharaType[1] = CharacterType.Kangaroo;
+            applicationHandler.DiffiType = DifficultyType.Easy;
+        }
+        else if (storyNum == 2 && ind == 19)
+        {
+            applicationHandler.CharaType[0] = CharacterType.Kangaroo;
+            applicationHandler.CharaType[1] = CharacterType.Kangaroo;
+            applicationHandler.DiffiType = DifficultyType.Easy;
+        }
+        else if (storyNum == 3 && ind == 2)
+        {
+            applicationHandler.CharaType[0] = CharacterType.Koala;
+            applicationHandler.CharaType[1] = CharacterType.Kangaroo;
+            applicationHandler.DiffiType = DifficultyType.Normal;
+        }
+        else if (storyNum == 3 && ind == 7)
+        {
+            applicationHandler.CharaType[0] = CharacterType.Koala;
+            applicationHandler.CharaType[1] = CharacterType.Kangaroo;
+            applicationHandler.DiffiType = DifficultyType.Normal;
+        }
+        else if (storyNum == 3 && ind == 11)
+        {
+            applicationHandler.CharaType[0] = CharacterType.Koala;
+            applicationHandler.CharaType[1] = CharacterType.Kangaroo;
+            applicationHandler.DiffiType = DifficultyType.Normal;
+        }
+        else if (storyNum == 3 && ind == 15)
+        {
+            applicationHandler.CharaType[0] = CharacterType.Koala;
+            applicationHandler.CharaType[1] = CharacterType.Kangaroo;
+            applicationHandler.DiffiType = DifficultyType.Normal;
+        }
+        else if (storyNum == 3 && ind == 19)
+        {
+            applicationHandler.CharaType[0] = CharacterType.Koala;
+            applicationHandler.CharaType[1] = CharacterType.Kangaroo;
+            applicationHandler.DiffiType = DifficultyType.Normal;
         }
     }
 }

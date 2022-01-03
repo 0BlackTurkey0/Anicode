@@ -44,6 +44,9 @@
     <boolean>false</boolean>
     <boolean>false</boolean>
   </IsIntro_Single>
-  <Schedule_Simple>0</Schedule_Simple>
+  <Schedule_Simple>1</Schedule_Simple>
+  <Schedule_SimpleChange>6</Schedule_SimpleChange>
+  <IswinForSimple>true</IswinForSimple>
+  <_SimpleIsFinish>false</_SimpleIsFinish>
   <Schedule_Single>0</Schedule_Single>
 </GameData>

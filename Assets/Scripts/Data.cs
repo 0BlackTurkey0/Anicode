@@ -1,14 +1,15 @@
 using System;
 
-public class Data {
+public class Data
+{
     public string Type { get; set; }
     public string Name { get; set; }
-    public DateTime Time { get; set; }
-    public int Status { get; set; }
     public int Rank { get; set; }
+    public int Status { get; set; }
+    public DateTime Time { get; set; }
     public GameMode Mode { get; set; } = new GameMode();
     public int FinalDifficulty { get; set; }
-    public Code Code { get; set; }
+    public Code Code { get; set; } = new Code();
     public int[] Food { get; set; } = new int[10];
 }
 
@@ -17,6 +18,7 @@ public class SYS    //系統狀態
     public const string CHALLENGE = "CHALLENGE";
     public const string ACCEPT = "ACCEPT";
     public const string DENY = "DENY";
+    public const string MODE = "MODE";
     public const string READY = "READY";
     public const string GAME = "GAME";
 }
@@ -36,7 +38,8 @@ public class MSG    //封包類型
     public const string FOOD = "FOO";           //遊戲食物
 }
 
-public class GameMode {
+public class GameMode
+{
     public bool[] Difficulty { get; set; } = new bool[4];    //簡單:0 初級:1 中級:2 困難:3
     public int Character { get; set; } = 0;
 }

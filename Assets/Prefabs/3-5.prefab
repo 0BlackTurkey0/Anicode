@@ -668,7 +668,7 @@ MonoBehaviour:
   textSpeed: 0.07
   face01: {fileID: 21300000, guid: 83f8a4eb80df6d74a8062651720c4e35, type: 3}
   face02: {fileID: 21300000, guid: 10138505e841daf448cc11fdf64ab330, type: 3}
-  face03: {fileID: 0}
+  face03: {fileID: 21300000, guid: 685ffa25ea3f56648bbc13d61a8a038c, type: 3}
   face04: {fileID: 0}
   face05: {fileID: 0}
 --- !u!1 &5446922270591475910
@@ -688,7 +688,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4240737091803203142
 RectTransform:
   m_ObjectHideFlags: 0

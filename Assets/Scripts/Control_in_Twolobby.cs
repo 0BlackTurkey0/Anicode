@@ -5,9 +5,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Control_in_Twolobby : MonoBehaviour {
-    [Header("Information")]
-    [SerializeField] GameObject playerNameObject;     //TBD 抓取使用者名稱
+public class Control_in_Twolobby : MonoBehaviour
+{
+    [Header("PlayerInfo")]
+    [SerializeField] Text PlayerNameObject;
+    [SerializeField] Text RankObject;
+    [SerializeField] Text DiamondObject;
     [Header("Panel")]
     [SerializeField] GameObject ModeSetting;
     [SerializeField] GameObject PlayerListContent;
@@ -16,45 +19,46 @@ public class Control_in_Twolobby : MonoBehaviour {
     [SerializeField] GameObject BothNoSameDifficulty;
     [SerializeField] GameObject WaitingOpponentRespond;
     [SerializeField] GameObject RespondAcceptOrNot;
+    [SerializeField] GameObject ModeSettingHint;
     [Header("Button")]
     [SerializeField] GameObject JoinButton;
     [SerializeField] GameObject SearchButton;
+    [SerializeField] GameObject NoneModeSettingButton;
     [Header("Prefab")]
     [SerializeField] GameObject PlayerBarPrefab;
 
-    public Network network = null;
-    public GameMode playerMode { get; private set; } = new GameMode();
-    public bool isConnect { get; private set; } = true;
-    private string playerName;
-    private Dictionary<string, (string, int)> playerList { get { return network.dict; } }
-    private int playerRank {
-        get { return PlayerPrefs.GetInt("Rank", 0); }
-        set { PlayerPrefs.SetInt("Rank", value); }
-    }
+    private int playerRank;
+    private Dictionary<string, (string, int, int)> playerList { get { return network.dict; } }
+
     private readonly string[] playerRankType = { "入門", "簡單", "普通", "困難" };
     private readonly string[] statusType = { "閒置", "忙碌", "對戰中" };
 
     private int seletedIndex = -1;
     private bool isResponseChanllenge = false, isUpdateStatus = false;
+    private ApplicationHandler applicationHandler;
+    private Network network;
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
+        network = GameObject.Find("Network").GetComponent<Network>();
+        //DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if (network == null || !network.IsRun())
-            network = new Network(playerName, playerRank);
+        PlayerNameObject.text = applicationHandler.GameData.Name;
+        RankObject.text = "階級 : " + playerRankType[(int)(DifficultyType)applicationHandler.GameData.Rank];
+        DiamondObject.text = applicationHandler.GameData.Money.ToString();
 
-        JoinButton.transform.GetComponent<Button>().enabled = false;
         ModeSetting.SetActive(false);
         WaitingListUpdate.SetActive(false);
         HintWhenBusy.SetActive(false);
         BothNoSameDifficulty.SetActive(false);
         WaitingOpponentRespond.SetActive(false);
         RespondAcceptOrNot.SetActive(false);
+        ModeSettingHint.SetActive(false);
         StartCoroutine(UpdateNetwork());
     }
 
@@ -66,42 +70,51 @@ public class Control_in_Twolobby : MonoBehaviour {
 
     private void OnApplicationQuit()
     {
-        network.Quit();
+
     }
 
     private IEnumerator UpdateNetwork()    //藉由systemMessage值來確認狀態
     {
-        while (true) {
-            switch (network.systemMessage) {
+        while (true)
+        {
+            switch (network.systemMessage)
+            {
                 case SYS.CHALLENGE:
                     StartCoroutine(ReceiveChallenge());
                     network.ClearSystemMessage();
                     break;
 
                 case SYS.ACCEPT:
-                    network.SendModeSetting(playerMode);
+                    //network.SendModeSetting();
+                    if (network.isGuest)
+                    {
+                        WaitingOpponentRespond.SetActive(false);
+                        while (!network.isModeReceive)
+                        {
+
+                        }
+                        network.isModeReceive = false;
+                    }
+                    else
+                    {
+                        DecideDifficulty();
+                    }
                     break;
 
                 case SYS.DENY:
                     WaitingOpponentRespond.SetActive(false);
                     break;
 
-                case SYS.READY:
+                case SYS.MODE:
                     Debug.Log("###");
-                    if (network.isGuest) {
-                        WaitingOpponentRespond.SetActive(false);
-                        while (!network.isModeReceive) {
+                    ShowBothNoSameDifficulty();
+                    network.DenyChallenge();
+                    break;
 
-                        }
-                        network.isModeReceive = false;
-                        network.IntoGame();
-                        //SceneManager.LoadScene();
-                    }
-                    else {
-                        DecideDifficulty();
-                        network.IntoGame();
-                        //SceneManager.LoadScene();
-                    }
+                case SYS.READY:
+                    network.IntoGame();
+                    applicationHandler.IsDuel = true;
+                    SceneManager.LoadScene(8);
                     break;
 
                 case SYS.GAME:
@@ -115,8 +128,10 @@ public class Control_in_Twolobby : MonoBehaviour {
     private IEnumerator UpdateList()
     {
         int loop = 4;
-        while (loop-- > 0) {
-            for (int i = 0;i < PlayerListContent.transform.childCount;i += 1) {
+        while (loop-- > 0)
+        {
+            for (int i = 0; i < PlayerListContent.transform.childCount; i += 1)
+            {
                 GameObject temp = PlayerListContent.transform.GetChild(i).gameObject;
                 if (playerList.Count > 0 && !playerList.ContainsKey(temp.name))
                     Destroy(temp);
@@ -124,15 +139,18 @@ public class Control_in_Twolobby : MonoBehaviour {
 
             int height = playerList.Count > 5 ? playerList.Count * 100 : 500;
             PlayerListContent.GetComponent<RectTransform>().sizeDelta = new Vector2(0, height);
-            if (playerList.Count > 0) {
+            if (playerList.Count > 0)
+            {
                 int posY = -50;
-                foreach (KeyValuePair<string, (string Name, int Status)> item in playerList) {
+                foreach (KeyValuePair<string, (string Name, int Rank, int Status)> item in playerList)
+                {
                     GameObject temp = PlayerListContent.transform.Find(item.Key)?.gameObject;
-                    if (temp == null) {
+                    if (temp == null)
+                    {
                         temp = Instantiate(PlayerBarPrefab, PlayerListContent.transform);
                         temp.name = item.Key;
                         temp.transform.GetChild(0).gameObject.GetComponent<Text>().text = item.Key;
-                        temp.transform.GetChild(1).gameObject.GetComponent<Text>().text = playerRankType[playerRank];
+                        temp.transform.GetChild(1).gameObject.GetComponent<Text>().text = playerRankType[item.Value.Rank];
                         temp.transform.GetChild(3).gameObject.GetComponent<Text>().text = statusType[item.Value.Status];
                     }
                     temp.transform.GetChild(2).gameObject.GetComponent<Text>().text = item.Value.Name;
@@ -151,14 +169,15 @@ public class Control_in_Twolobby : MonoBehaviour {
     private IEnumerator UpdateStatus()
     {
         isUpdateStatus = true;
-        while (isUpdateStatus) {
+        while (isUpdateStatus)
+        {
             if (playerList.Count > 0)
-                for (int i = 0;i < PlayerListContent.transform.childCount;i += 1)
+                for (int i = 0; i < PlayerListContent.transform.childCount; i += 1)
                     network.SendStatus(PlayerListContent.transform.GetChild(i).gameObject.name);
             yield return new WaitForSeconds(1);
             if (playerList.Count > 0)
-                for (int i = 0;i < PlayerListContent.transform.childCount;i += 1)
-                    PlayerListContent.transform.GetChild(i).GetChild(3).gameObject.GetComponent<Text>().text = statusType[playerList[PlayerListContent.transform.GetChild(i).gameObject.name].Item2];
+                for (int i = 0; i < PlayerListContent.transform.childCount; i += 1)
+                    PlayerListContent.transform.GetChild(i).GetChild(3).gameObject.GetComponent<Text>().text = statusType[playerList[PlayerListContent.transform.GetChild(i).gameObject.name].Item3];
             yield return new WaitForSeconds(5);
         }
     }
@@ -168,7 +187,8 @@ public class Control_in_Twolobby : MonoBehaviour {
         RespondAcceptOrNot.SetActive(true);
         RespondAcceptOrNot.transform.GetChild(1).GetComponent<Text>().text = playerList[network.challengerIP].Item1 + ":";
         int countTime = 10;
-        while (countTime >= 0) {
+        while (countTime >= 0)
+        {
             RespondAcceptOrNot.transform.GetChild(3).GetComponent<Text>().text = countTime.ToString();
             yield return new WaitForSeconds(1);
             countTime -= 1;
@@ -185,22 +205,32 @@ public class Control_in_Twolobby : MonoBehaviour {
         ModeSetting.SetActive(true);
     }
 
-    public void SetMode(GameMode mode)
+    private void ShowBothNoSameDifficulty()
     {
-        playerMode = mode;
+        BothNoSameDifficulty.SetActive(true);
     }
 
     private void DecideDifficulty()
     {
         List<int> temp = new List<int>();
-        for (int i = 0;i < 4;i += 1)
-            if (playerMode.Difficulty[i] && network.challengerMode.Difficulty[i])
-                temp.Add(i);
-        if (temp.Count > 0) {
-            System.Random random = new System.Random();
-            network.finalDifficulty = temp[random.Next(temp.Count)];
+        if (network.playerMode != null && network.challengerMode != null)
+        {
+            for (int i = 0; i < 4; i += 1)
+                if (network.playerMode.Difficulty[i] && network.challengerMode.Difficulty[i])
+                    temp.Add(i);
+            if (temp.Count > 0)
+            {
+                System.Random random = new System.Random();
+                network.finalDifficulty = temp[random.Next(temp.Count)];
+            }
+            else
+            {
+                BothNoSameDifficulty.SetActive(true);
+                network.finalDifficulty = -1;
+            }
         }
-        else {
+        else
+        {
             BothNoSameDifficulty.SetActive(true);
             network.finalDifficulty = -1;
         }
@@ -211,12 +241,13 @@ public class Control_in_Twolobby : MonoBehaviour {
     {
         network.SendConnection();
         DateTime LocalTime = DateTime.Now;
-        if (LocalTime.Second % 5 == 0) {    //每五秒鐘確認對手是否斷線
+        if (LocalTime.Second % 5 == 0)
+        {    //每五秒鐘確認對手是否斷線
             DateTime tempTime = network.responseTime;
             if (DateTime.Compare(LocalTime, tempTime.AddSeconds(5)) == 1)
-                isConnect = false;
+                network.isConnect = false;
             else
-                isConnect = true;
+                network.isConnect = true;
         }
     }
 
@@ -228,7 +259,8 @@ public class Control_in_Twolobby : MonoBehaviour {
     public void OnClick_ConfirmInModeSetting()
     {
         ModeSetting.SetActive(false);
-        JoinButton.transform.GetComponent<Button>().enabled = true;
+        //JoinButton.transform.GetComponent<Button>().enabled = true;
+        NoneModeSettingButton.SetActive(false);
     }
 
     public void OnClick_Search()
@@ -242,18 +274,26 @@ public class Control_in_Twolobby : MonoBehaviour {
         SearchButton.GetComponent<Button>().enabled = false;
     }
 
+    public void OnCLick_NoneModeSetting()
+    {
+        ModeSettingHint.SetActive(true);
+    }
+
     public void OnClick_Challenge()   //發起挑戰
     {
-        if (seletedIndex != -1) {
+        if (seletedIndex != -1)
+        {
             string ip = PlayerListContent.transform.GetChild(seletedIndex).GetChild(0).gameObject.GetComponent<Text>().text;
-            int status = Convert.ToInt32(playerList[ip].Item2);
+            int status = Convert.ToInt32(playerList[ip].Item3);
             //Debug.Log(ip);
             seletedIndex = -1;
-            if (status == 0) {
+            if (status == 0)
+            {
                 network.SendChallenge(ip);
                 WaitingOpponentRespond.SetActive(true);
             }
-            else {
+            else
+            {
                 HintWhenBusy.SetActive(true);
             }
         }
@@ -285,6 +325,11 @@ public class Control_in_Twolobby : MonoBehaviour {
     public void OnClick_ConfirmInBothNoSameDifficulty()
     {
         BothNoSameDifficulty.SetActive(false);
+    }
+
+    public void OnClick_ConfirmInModeSettingHint()
+    {
+        ModeSettingHint.SetActive(false);
     }
 
     public void ReturnToLobby()

@@ -485,7 +485,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1262797675}
   m_HandleRect: {fileID: 1262797674}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2089,7 +2089,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1649831402}
   m_HandleRect: {fileID: 1649831401}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -8794,7 +8794,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 604378721}
   m_HandleRect: {fileID: 604378720}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -10262,7 +10262,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1217161287
 Transform:
   m_ObjectHideFlags: 0
@@ -15498,6 +15498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1925410668}
   - component: {fileID: 1925410667}
+  - component: {fileID: 1925410669}
   m_Layer: 0
   m_Name: tmpobj
   m_TagString: Untagged
@@ -15512,7 +15513,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925410666}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3ed73cfaa2f0f94b8b84dbbf8aa2033, type: 3}
   m_Name: 
@@ -15531,6 +15532,18 @@ Transform:
   m_Father: {fileID: 1217161287}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1925410669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925410666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8f979533d0caf04f8ffbb035b16305f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1946936622
 GameObject:
   m_ObjectHideFlags: 0
