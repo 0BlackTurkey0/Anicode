@@ -193,12 +193,18 @@ public class Control_in_Twolobby : MonoBehaviour {
     private void DecideDifficulty()
     {
         List<int> temp = new List<int>();
-        for (int i = 0;i < 4;i += 1)
-            if (network.playerMode.Difficulty[i] && network.challengerMode.Difficulty[i])
-                temp.Add(i);
-        if (temp.Count > 0) {
-            System.Random random = new System.Random();
-            network.finalDifficulty = temp[random.Next(temp.Count)];
+        if (network.playerMode != null && network.challengerMode != null) {
+            for (int i = 0;i < 4;i += 1)
+                if (network.playerMode.Difficulty[i] && network.challengerMode.Difficulty[i])
+                    temp.Add(i);
+            if (temp.Count > 0) {
+                System.Random random = new System.Random();
+                network.finalDifficulty = temp[random.Next(temp.Count)];
+            }
+            else {
+                BothNoSameDifficulty.SetActive(true);
+                network.finalDifficulty = -1;
+            }
         }
         else {
             BothNoSameDifficulty.SetActive(true);
