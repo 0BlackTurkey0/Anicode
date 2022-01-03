@@ -132,7 +132,7 @@ public class Network : MonoBehaviour {
                     case MSG.CHALLENGE:
                         systemMessage = SYS.CHALLENGE;
                         playerStatus = 1;
-                        playerMode = receiveData.Mode;
+                        challengerMode = receiveData.Mode;
                         challengerIP = responseIP;
                         break;
 
@@ -140,7 +140,7 @@ public class Network : MonoBehaviour {
                         systemMessage = SYS.ACCEPT;
                         isModeReceive = true;
                         playerStatus = 2;
-                        playerMode = receiveData.Mode;
+                        challengerMode = receiveData.Mode;
                         break;
 
                     case MSG.DENY:

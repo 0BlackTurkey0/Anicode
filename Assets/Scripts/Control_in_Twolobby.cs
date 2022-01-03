@@ -265,7 +265,7 @@ public class Control_in_Twolobby : MonoBehaviour {
     {
         if (seletedIndex != -1) {
             string ip = PlayerListContent.transform.GetChild(seletedIndex).GetChild(0).gameObject.GetComponent<Text>().text;
-            int status = Convert.ToInt32(playerList[ip].Item2);
+            int status = Convert.ToInt32(playerList[ip].Item3);
             //Debug.Log(ip);
             seletedIndex = -1;
             if (status == 0) {
