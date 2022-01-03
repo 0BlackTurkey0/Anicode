@@ -55,7 +55,6 @@ public class Network : MonoBehaviour {
     private IEnumerator UpdatePlayerInfo() {
         while (true) {
             if (SceneManager.GetActiveScene().buildIndex == 1) {
-                Debug.Log("!@#");
                 yield return new WaitForSeconds(1);
                 playerName = applicationHandler.GameData.Name;
                 playerRank = (int)(DifficultyType)applicationHandler.GameData.Rank;
@@ -99,7 +98,7 @@ public class Network : MonoBehaviour {
                 if (responseIP == localIP) continue;    //過濾廣播後傳給自己的封包
                 //if (challengerIP != null && responseIP != challengerIP) continue;   //進入對戰後過濾非對手的封包
                 Data receiveData = JsonSerializer.Deserialize<Data>(Encoding.UTF8.GetString(bytes));
-
+                Debug.Log(Encoding.UTF8.GetString(bytes));
                 switch (receiveData.Type) {
                     case MSG.REQUEST:
                         SendResponse(responseIP);

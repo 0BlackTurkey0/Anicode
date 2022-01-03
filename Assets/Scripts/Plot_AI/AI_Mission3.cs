@@ -58,9 +58,10 @@ public class AI_Mission3 : MonoBehaviour
         else
         {
             if (!preStageBattle) preStageBattle = true;
-            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter) {
-                Check();
+            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter)
+            {
                 preProgramCounter = game.Players[0].ProgramCounter;
+                Check();
             }
 
         }

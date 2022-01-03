@@ -27,8 +27,4 @@ public class Control_in_SingleMode : MonoBehaviour {
             SceneManager.LoadScene(9);
     }
 
-    public void ClickSingleMode()
-    {
-        SceneManager.LoadScene(10);
-    }
 }
