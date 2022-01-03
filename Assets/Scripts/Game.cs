@@ -131,9 +131,9 @@ public class Game : MonoBehaviour {
             characterType[1] = (CharacterType)networkHandler.network.challengerMode.Character;
         }
         else {
-            _difficulty = DifficultyType.Hard;
-            characterType[0] = CharacterType.Fox; //暫定
-            characterType[1] = CharacterType.Kangaroo; //暫定
+            _difficulty = applicationHandler.DiffiType;
+            characterType[0] = applicationHandler.CharaType[0];
+            characterType[1] = applicationHandler.CharaType[1];
         }
         Players = new Character[2];
         Players[0] = new Character(characterType[0]);
@@ -441,7 +441,13 @@ public class Game : MonoBehaviour {
             }
         }
         else {
-            SceneManager.LoadScene(0);
+            if (_winner) {
+                if (0 < applicationHandler.Challenge && applicationHandler.Challenge <= 16) {
+                    applicationHandler.GameData.Schedule_Single |= 1 << (applicationHandler.Challenge + 1);
+                    applicationHandler.GameData.SaveData();
+                }
+            }
+            SceneManager.LoadScene(10);
         }
         if (_isDuel && !networkHandler.isConnect) {
             // "" 斷線畫面      ""
@@ -468,7 +474,7 @@ public class Game : MonoBehaviour {
         _purchaseCount = 0;
         Purchase.transform.GetChild(0).GetComponent<Text>().text = _purchaseCount.ToString() + " / 5";
         PlayerCode.transform.GetChild(2).gameObject.SetActive(false);
-        _time = _round * 15f + 20f;//20f 0f
+        _time = _round * 5f + 5f;
         yield return new WaitForSeconds(_time);
         _battleStart = true;
     }

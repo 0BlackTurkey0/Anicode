@@ -45,5 +45,5 @@
     <boolean>false</boolean>
   </IsIntro_Single>
   <Schedule_Simple>0</Schedule_Simple>
-  <Schedule_Single>0</Schedule_Single>
+  <Schedule_Single>4</Schedule_Single>
 </GameData>

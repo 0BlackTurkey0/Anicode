@@ -8,7 +8,7 @@ public class AI_Mission3 : MonoBehaviour
     private bool preStageBattle = true;
     private int preProgramCounter = -1;
     private bool Mission1 = false;
-    private int cnt = 0;
+    public int cnt = 0;
 
     private void Start()
     {
@@ -58,11 +58,9 @@ public class AI_Mission3 : MonoBehaviour
         else
         {
             if (!preStageBattle) preStageBattle = true;
-            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter)
-            {
-                preProgramCounter = game.Players[0].ProgramCounter;
-
+            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter) {
                 Check();
+                preProgramCounter = game.Players[0].ProgramCounter;
             }
 
         }
@@ -84,7 +82,7 @@ public class AI_Mission3 : MonoBehaviour
                 for (int i = 0;i < 4;i++) {
                     if (game.Neighbor[game.Players[0].Pos, i] == game.Players[1].Pos) {
                         cnt++;
-                        if(cnt > 4) {
+                        if(cnt > 2) {
                             Mission1 = true;
                         }
                     }
