@@ -114,11 +114,9 @@ public class Network : MonoBehaviour {
 
                     case MSG.RESPONSE:
                         if (dict.ContainsKey(responseIP)) {
-                            //throw new NullReferenceException();
                             var (Name, Status) = dict[responseIP];
                             Name = receiveData.Name;
                             Status = receiveData.Status;
-
                             dict[responseIP] = (Name, Status);
                         }
                         else {

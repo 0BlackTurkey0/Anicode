@@ -17,6 +17,7 @@ public class SYS    //系統狀態
     public const string CHALLENGE = "CHALLENGE";
     public const string ACCEPT = "ACCEPT";
     public const string DENY = "DENY";
+    public const string MODE = "MODE";
     public const string READY = "READY";
     public const string GAME = "GAME";
 }

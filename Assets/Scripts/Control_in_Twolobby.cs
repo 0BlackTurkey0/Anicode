@@ -89,7 +89,7 @@ public class Control_in_Twolobby : MonoBehaviour {
                     WaitingOpponentRespond.SetActive(false);
                     break;
 
-                case SYS.READY:
+                case SYS.MODE:
                     Debug.Log("###");
                     if (network.isGuest) {
                         WaitingOpponentRespond.SetActive(false);
@@ -97,16 +97,16 @@ public class Control_in_Twolobby : MonoBehaviour {
 
                         }
                         network.isModeReceive = false;
-                        network.IntoGame();
-                        applicationHandler.IsDuel = true;
-                        SceneManager.LoadScene(8);
                     }
                     else {
                         DecideDifficulty();
-                        network.IntoGame();
-                        applicationHandler.IsDuel = true;
-                        SceneManager.LoadScene(8);
                     }
+                    break;
+
+                case SYS.READY:
+                    network.IntoGame();
+                    applicationHandler.IsDuel = true;
+                    SceneManager.LoadScene(8);
                     break;
 
                 case SYS.GAME:
