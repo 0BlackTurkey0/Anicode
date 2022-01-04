@@ -139,23 +139,20 @@ public class Game : MonoBehaviour
     private ApplicationHandler applicationHandler;
     private Network networkHandler;
 
-
     void Awake()
     {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
         CharacterType[] characterType = new CharacterType[2];
         _isDuel = applicationHandler.IsDuel;
         //_isDuel = false; //暫定
-        if (_isDuel)
-        {
+        if (_isDuel) {
             networkHandler = GameObject.Find("Network").GetComponent<Network>();
             _isGuest = networkHandler.isGuest;
             _difficulty = (DifficultyType)networkHandler.finalDifficulty;
             characterType[0] = (CharacterType)networkHandler.playerMode.Character;
             characterType[1] = (CharacterType)networkHandler.challengerMode.Character;
         }
-        else
-        {
+        else {
             IsSimple = applicationHandler.IsSimple;
             _difficulty = applicationHandler.DiffiType;
             characterType[0] = applicationHandler.CharaType[0];
@@ -485,7 +482,7 @@ public class Game : MonoBehaviour
             {
                 {
                     //簡易、劇情單人模式依據勝負更新進度以及SCENE跳轉 - applicationHandler
-                    if (_winner == true)
+                    if (_winner)
                     {
                         applicationHandler.GameData.IswinForSimple = true;
                         applicationHandler.GameData.SaveData();
@@ -512,7 +509,6 @@ public class Game : MonoBehaviour
                 }
                 SceneManager.LoadScene(10);
             }
-            
         }
         if (_isDuel && !networkHandler.isConnect)
         {
@@ -584,24 +580,20 @@ public class Game : MonoBehaviour
             Debug.Log(1);
             networkHandler.SendGameData(Players[0].Code);
             Debug.Log(2);
-            while (!networkHandler.isCodeReceive)
-            {
+            while (!networkHandler.isCodeReceive) {
 
             }
             Debug.Log(3);
             networkHandler.isCodeReceive = false;
             Players[1].Code = new Code(networkHandler.challengerCode);
 
-            if (!_isGuest)
-            {
+            if (!_isGuest) {
                 networkHandler.SendGameFood(Players[0].Food);
                 Debug.Log(4);
             }
-            else
-            {
+            else {
                 Debug.Log(5);
-                while (!networkHandler.isFoodReceive)
-                {
+                while (!networkHandler.isFoodReceive) {
 
                 }
                 networkHandler.isFoodReceive = false;

@@ -18,7 +18,6 @@ public class Create : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
-        applicationHandler.IsSimpleBattle = false;
         applicationHandler.IsSimple = true;
         isClick = false;
         ind = applicationHandler.GameData.Schedule_SimpleChange;
@@ -152,8 +151,8 @@ public class Create : MonoBehaviour {
         // ¶i¤JAI
         applicationHandler.GameData.IswinForSimple = false;
         applicationHandler.GameData.SaveData();
-        applicationHandler.IsSimpleBattle = true;
         ConnectAI();
+        applicationHandler.IsDuel = false;
         SceneManager.LoadScene("Battle");
     }
     public void OnClick()
@@ -195,7 +194,6 @@ public class Create : MonoBehaviour {
 
     private void ConnectAI()
     {
-        applicationHandler.IsDuel = false;
         if (storyNum == 1 && ind == 2)
         {
             applicationHandler.CharaType[0] = CharacterType.Fox;

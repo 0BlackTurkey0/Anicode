@@ -35,13 +35,11 @@ public class DropdownHandler : MonoBehaviour
     }
     void Update()
     {
-        if (EnteranceToggle.GetComponent<Toggle>().isOn == false && EasyToggle.GetComponent<Toggle>().isOn == false && NormalToggle.GetComponent<Toggle>().isOn == false && DifficultToggle.GetComponent<Toggle>().isOn == false)
-        {
+        if (EnteranceToggle.GetComponent<Toggle>().isOn == false && EasyToggle.GetComponent<Toggle>().isOn == false && NormalToggle.GetComponent<Toggle>().isOn == false && DifficultToggle.GetComponent<Toggle>().isOn == false) {
             ChoosingRankHint.SetActive(true);
             ConfirmBtn.transform.GetComponent<Button>().enabled = false;
         }
-        else
-        {
+        else {
             ChoosingRankHint.SetActive(false);
             ConfirmBtn.transform.GetComponent<Button>().enabled = true;
         }

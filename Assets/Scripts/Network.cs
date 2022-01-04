@@ -10,8 +10,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Network : MonoBehaviour
-{
+public class Network : MonoBehaviour {
     public string localIP { get; private set; }
     public Dictionary<string, (string Name, int Rank, int Status)> dict { get; private set; } = new Dictionary<string, (string, int, int)>();
     public DateTime responseTime { get; private set; }
@@ -48,7 +47,7 @@ public class Network : MonoBehaviour
     {
         localIP = Dns.GetHostEntry(Dns.GetHostName()).AddressList.ToList().Where(p => p.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault().ToString();
         playerName = applicationHandler.GameData.Name;
-        playerRank = (int)(DifficultyType)applicationHandler.GameData.Rank;
+        playerRank = (int)applicationHandler.GameData.Rank;
         InitSender();
         InitReceiver();
         isNetworkRunning = true;
@@ -63,16 +62,13 @@ public class Network : MonoBehaviour
 
     private IEnumerator UpdatePlayerInfo()
     {
-        while (true)
-        {
-            if (SceneManager.GetActiveScene().buildIndex == 1)
-            {
+        while (true) {
+            if (SceneManager.GetActiveScene().buildIndex == 1) {
                 yield return new WaitForSeconds(1);
                 playerName = applicationHandler.GameData.Name;
                 playerRank = (int)(DifficultyType)applicationHandler.GameData.Rank;
             }
-            else
-            {
+            else {
                 yield return null;
             }
         }
@@ -80,10 +76,8 @@ public class Network : MonoBehaviour
 
     private void InitSender()   //初始化傳送用的UDP
     {
-        if (sendingClient == null)
-        {
-            sendingClient = new UdpClient
-            {
+        if (sendingClient == null) {
+            sendingClient = new UdpClient {
                 EnableBroadcast = true
             };
         }
@@ -93,10 +87,8 @@ public class Network : MonoBehaviour
     {
         if (receivingClient == null)
             receivingClient = new UdpClient(port);
-        if (receivingThread == null)
-        {
-            receivingThread = new Thread(Receiver)
-            {
+        if (receivingThread == null) {
+            receivingThread = new Thread(Receiver) {
                 IsBackground = true
             };
             receivingThread.Start();
@@ -118,24 +110,20 @@ public class Network : MonoBehaviour
                 //if (challengerIP != null && responseIP != challengerIP) continue;   //進入對戰後過濾非對手的封包
                 Debug.Log(Encoding.UTF8.GetString(bytes));
                 Data receiveData = JsonSerializer.Deserialize<Data>(Encoding.UTF8.GetString(bytes));
-
-                switch (receiveData.Type)
-                {
+                switch (receiveData.Type) {
                     case MSG.REQUEST:
                         SendResponse(responseIP);
                         break;
 
                     case MSG.RESPONSE:
-                        if (dict.ContainsKey(responseIP))
-                        {
+                        if (dict.ContainsKey(responseIP)) {
                             var (Name, Rank, Status) = dict[responseIP];
                             Name = receiveData.Name;
                             Rank = receiveData.Rank;
                             Status = receiveData.Status;
                             dict[responseIP] = (Name, Rank, Status);
                         }
-                        else
-                        {
+                        else {
                             dict.Add(responseIP, (receiveData.Name, receiveData.Rank, receiveData.Status));
                         }
                         break;
@@ -145,14 +133,14 @@ public class Network : MonoBehaviour
                         break;
 
                     case MSG.CHALLENGE:
-                        systemMessage = SYS.CHALLENGE;
+                        systemMessage ??= SYS.CHALLENGE;
                         playerStatus = 1;
                         challengerMode = receiveData.Mode;
                         challengerIP = responseIP;
                         break;
 
                     case MSG.ACCEPT:
-                        systemMessage = SYS.ACCEPT;
+                        systemMessage ??= SYS.ACCEPT;
                         isModeReceive = true;
                         playerStatus = 2;
                         challengerMode = receiveData.Mode;
@@ -178,21 +166,20 @@ public class Network : MonoBehaviour
                     case MSG.GAME:
                         isCodeReceive = true;
                         challengerCode = new Code(receiveData.Code);
-                        systemMessage ??= SYS.GAME;
+                        systemMessage = SYS.GAME;
                         playerStatus = 2;
                         break;
 
                     case MSG.FOOD:
                         isFoodReceive = true;
                         challengerFood = receiveData.Food;
-                        systemMessage ??= SYS.GAME;
+                        systemMessage = SYS.GAME;
                         playerStatus = 2;
                         break;
                 }
             }
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             throw ex;
         }
     }

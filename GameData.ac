@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Name>Noob</Name>
+  <Name>dwad</Name>
   <Rank>Normal</Rank>
   <Money>2745675</Money>
   <Achievements>
@@ -37,7 +37,7 @@
     <boolean>false</boolean>
   </Skins>
   <IsFullScreen>true</IsFullScreen>
-  <VoiceVolume>0.476530671</VoiceVolume>
+  <VoiceVolume>0.0183860771</VoiceVolume>
   <IsIntro_Single>
     <boolean>false</boolean>
     <boolean>false</boolean>
@@ -45,7 +45,7 @@
     <boolean>false</boolean>
   </IsIntro_Single>
   <Schedule_Simple>1</Schedule_Simple>
-  <Schedule_SimpleChange>6</Schedule_SimpleChange>
+  <Schedule_SimpleChange>10</Schedule_SimpleChange>
   <IswinForSimple>true</IswinForSimple>
   <_SimpleIsFinish>false</_SimpleIsFinish>
   <Schedule_Single>0</Schedule_Single>

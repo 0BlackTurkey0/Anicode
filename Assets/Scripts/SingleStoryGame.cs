@@ -60,20 +60,11 @@ public class SingleStoryGame : MonoBehaviour {
                 isShowText = true;
                 applicationHandler.GameData.IsIntro_Single[currentPos] = false;
                 applicationHandler.GameData.SaveData();
-                PlayerPrefs.SetInt("isFirst" + currentPos.ToString(), 1);
             }
             else {
                 StartCoroutine(Clicked_BigCube());
                 status = 1;
             }
-        }
-    }
-
-    public void FinishLevel(int levelNum)   //call this while finish game sucessfully
-    {
-        if (0 < levelNum && levelNum <= 16) {
-            applicationHandler.GameData.Schedule_Single |= 1 << levelNum;
-            applicationHandler.GameData.SaveData();
         }
     }
 
