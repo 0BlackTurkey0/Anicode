@@ -1,3 +1,3 @@
-type：討伐
+goal:5回合內到角落4個點
 area：平原
 target：蜘蛛

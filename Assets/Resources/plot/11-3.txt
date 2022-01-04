@@ -1,3 +1,3 @@
-type：討伐
+goal:3回合內loop10次
 area：冰原
 target：北極熊

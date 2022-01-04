@@ -325,7 +325,7 @@ public class Network : MonoBehaviour {
                 Mode = playerMode
             };
             SendData(challengerIP, sendData);
-            systemMessage = SYS.READY;
+            systemMessage = SYS.MODE;
         }
         catch (Exception ex) {
             throw ex;

@@ -1,3 +1,4 @@
-type：討伐
+goal:常規戰鬥
 area：平原
 target：紅毛猩猩
+敵方每回合恢復100hp
