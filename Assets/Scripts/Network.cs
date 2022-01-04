@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 
 public class Network : MonoBehaviour {
     public string localIP { get; private set; }
-    public Dictionary<string, (string Name, int Status)> dict { get; private set; } = new Dictionary<string, (string, int)>();
+    public Dictionary<string, (string Name, int Rank, int Status)> dict { get; private set; } = new Dictionary<string, (string, int, int)>();
     public DateTime responseTime { get; private set; }
     public string systemMessage { get; private set; } = null;
     public int playerStatus { get; private set; } = 0;
@@ -24,7 +24,7 @@ public class Network : MonoBehaviour {
     public bool isModeReceive { get; set; } = false;
     public GameMode challengerMode { get; private set; } = null;
     public bool isCodeReceive { get; set; } = false;
-    public Code challengerCode { get; private set; } = null;
+    public Code challengerCode { get; set; } = null;
     public bool isFoodReceive { get; set; } = false;
     public int[] challengerFood { get; private set; } = new int[10];
 
@@ -35,7 +35,7 @@ public class Network : MonoBehaviour {
     private bool isNetworkRunning;
     private string playerName;
     private int playerRank;
-    private const int port = 8888;
+    private const int port = 8880;
 
     void Awake()
     {
@@ -47,7 +47,7 @@ public class Network : MonoBehaviour {
     {
         localIP = Dns.GetHostEntry(Dns.GetHostName()).AddressList.ToList().Where(p => p.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault().ToString();
         playerName = applicationHandler.GameData.Name;
-        playerRank = (int)(DifficultyType)applicationHandler.GameData.Rank;
+        playerRank = (int)applicationHandler.GameData.Rank;
         InitSender();
         InitReceiver();
         isNetworkRunning = true;
@@ -56,6 +56,7 @@ public class Network : MonoBehaviour {
 
     void OnApplicationQuit()
     {
+        Debug.Log("!!!");
         Quit();
     }
 
@@ -105,8 +106,9 @@ public class Network : MonoBehaviour {
                 responseIP = endPoint.Address.ToString();
                 if (responseIP == localIP) continue;    //過濾廣播後傳給自己的封包
                 //if (challengerIP != null && responseIP != challengerIP) continue;   //進入對戰後過濾非對手的封包
-                Data receiveData = JsonSerializer.Deserialize<Data>(Encoding.UTF8.GetString(bytes));
                 Debug.Log(Encoding.UTF8.GetString(bytes));
+                Data receiveData = JsonSerializer.Deserialize<Data>(Encoding.UTF8.GetString(bytes));
+                
                 switch (receiveData.Type) {
                     case MSG.REQUEST:
                         SendResponse(responseIP);
@@ -114,13 +116,14 @@ public class Network : MonoBehaviour {
 
                     case MSG.RESPONSE:
                         if (dict.ContainsKey(responseIP)) {
-                            var (Name, Status) = dict[responseIP];
+                            var (Name, Rank, Status) = dict[responseIP];
                             Name = receiveData.Name;
+                            Rank = receiveData.Rank;
                             Status = receiveData.Status;
-                            dict[responseIP] = (Name, Status);
+                            dict[responseIP] = (Name, Rank, Status);
                         }
                         else {
-                            dict.Add(responseIP, (receiveData.Name, receiveData.Status));
+                            dict.Add(responseIP, (receiveData.Name, receiveData.Rank, receiveData.Status));
                         }
                         break;
 
@@ -129,13 +132,17 @@ public class Network : MonoBehaviour {
                         break;
 
                     case MSG.CHALLENGE:
-                        systemMessage = SYS.CHALLENGE;
+                        systemMessage ??= SYS.CHALLENGE;
                         playerStatus = 1;
+                        challengerMode = receiveData.Mode;
                         challengerIP = responseIP;
                         break;
 
                     case MSG.ACCEPT:
-                        systemMessage = SYS.ACCEPT;
+                        systemMessage ??= SYS.ACCEPT;
+                        isModeReceive = true;
+                        playerStatus = 2;
+                        challengerMode = receiveData.Mode;
                         break;
 
                     case MSG.DENY:
@@ -147,30 +154,25 @@ public class Network : MonoBehaviour {
                         responseTime = receiveData.Time;
                         break;
 
-                    case MSG.MODE:
-                        isModeReceive = true;
-                        challengerMode = receiveData.Mode;
-                        break;
-
                     case MSG.DIFFICULTY:
                         finalDifficulty = receiveData.FinalDifficulty;
                         if (finalDifficulty == -1)
-                            systemMessage = null;
+                            systemMessage = SYS.MODE;
                         else
                             systemMessage = SYS.READY;
                         break;
 
                     case MSG.GAME:
                         isCodeReceive = true;
-                        challengerCode = receiveData.Code;
-                        systemMessage ??= SYS.GAME;
+                        challengerCode = new Code(receiveData.Code);
+                        systemMessage = SYS.GAME;
                         playerStatus = 2;
                         break;
 
                     case MSG.FOOD:
                         isFoodReceive = true;
                         challengerFood = receiveData.Food;
-                        systemMessage ??= SYS.GAME;
+                        systemMessage = SYS.GAME;
                         playerStatus = 2;
                         break;
                 }
@@ -201,8 +203,6 @@ public class Network : MonoBehaviour {
             if (receivingClient != null)
                 receivingClient.Close();
             isNetworkRunning = false;
-            if (receivingThread != null)
-                receivingThread = null;
         }
         catch (Exception ex) {
             throw ex;
@@ -216,7 +216,9 @@ public class Network : MonoBehaviour {
             //dict.Add("192.168.1.101", ("hahaha", 0));
             Data sendData = new Data {
                 Type = MSG.REQUEST,
-                Name = playerName
+                Name = playerName,
+                Rank = playerRank,
+                Status = playerStatus
             };
             SendData("255.255.255.255", sendData);
         }
@@ -258,7 +260,8 @@ public class Network : MonoBehaviour {
         try {
             Data sendData = new Data {
                 Type = MSG.STATUS,
-                Name = playerName
+                Name = playerName,
+                Status = playerStatus
             };
             SendData(ip, sendData);
         }
@@ -274,7 +277,8 @@ public class Network : MonoBehaviour {
             playerStatus = 1;
             Data sendData = new Data {
                 Type = MSG.CHALLENGE,
-                Name = playerName
+                Name = playerName,
+                Mode = playerMode
             };
             challengerIP = ip;
             SendData(ip, sendData);
@@ -290,7 +294,8 @@ public class Network : MonoBehaviour {
             isGuest = false;
             Data sendData = new Data {
                 Type = MSG.ACCEPT,
-                Name = playerName
+                Name = playerName,
+                Mode = playerMode
             };
             SendData(challengerIP, sendData);
             systemMessage = SYS.ACCEPT;
@@ -308,8 +313,9 @@ public class Network : MonoBehaviour {
                 Name = playerName
             };
             SendData(challengerIP, sendData);
-            systemMessage = null;
+            systemMessage = SYS.DENY;
             challengerIP = null;
+            playerStatus = 0;
         }
         catch (Exception ex) {
             throw ex;

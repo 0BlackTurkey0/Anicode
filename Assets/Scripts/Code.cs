@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 public class Code {
 
@@ -7,10 +8,17 @@ public class Code {
     private Stack<ushort> _records;
     private ushort _programCounter;
 
+    public List<Tuple<Instruction, ushort>> Instructions {
+        get { return _instructions; }
+        set { _instructions = value; } 
+    } 
+
+    [JsonIgnore]
     public ushort Size {
         get { return (ushort)_instructions.Count; }
     }
 
+    [JsonIgnore]
     public Instruction this[ushort index] {
         get {
             if (index < _instructions.Count) return _instructions[index].Item1;
@@ -18,11 +26,20 @@ public class Code {
         }
     }
 
+    [JsonConstructor]
+    public Code(List<Tuple<Instruction, ushort>> Instructions)
+    {
+        _instructions = Instructions;
+        _records = new Stack<ushort>();
+        _programCounter = 0;
+    }
+
     public Code(Code copy = null)
     {
         if (copy != null) _instructions = copy._instructions;
         else _instructions = new List<Tuple<Instruction, ushort>>();
         _records = new Stack<ushort>();
+        _programCounter = 0;
     }
 
     public void Init()
