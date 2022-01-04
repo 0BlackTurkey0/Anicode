@@ -1,3 +1,3 @@
-type：討伐
+goal:攻擊到敵人3次
 area：平原
 target：犀牛
