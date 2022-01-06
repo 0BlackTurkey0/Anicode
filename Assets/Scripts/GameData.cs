@@ -89,7 +89,7 @@ public class GameData {
 
     private bool _simpleIsFinish; //判斷簡單AI是否完成過一輪
 
-    public bool _SimpleIsFinish
+    public bool SimpleIsFinish
     {
         get { return _simpleIsFinish; }
         set { _simpleIsFinish = value; }
@@ -157,7 +157,7 @@ public class GameData {
         if (gameData.Schedule_SimpleChange >= 0 && gameData.Schedule_SimpleChange <= 22)
             _schedule_SimpleChange = gameData.Schedule_SimpleChange;
         _iswinForSimple = gameData.IswinForSimple;
-        _simpleIsFinish = gameData._SimpleIsFinish;
+        _simpleIsFinish = gameData.SimpleIsFinish;
         if (gameData.Schedule_Single >= 0 && gameData.Schedule_Single < (1 << 17))
             _schedule_Single = gameData.Schedule_Single;
     }

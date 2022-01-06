@@ -38,7 +38,6 @@ public class ControlStatus : MonoBehaviour
             case DifficultyType.Hard:
                 LevelText.text += "困難";
                 break;
-
         }
         MoneyText.text = applicationHandler.GameData.Money.ToString();
     }

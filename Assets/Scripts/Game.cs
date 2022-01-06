@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -106,6 +107,7 @@ public class Game : MonoBehaviour
 
     private bool _battleStart;
     private bool _battleEnd;
+    private bool _isRunEndProcess;
 
     [SerializeField] private Sprite[] Skin;
     [SerializeField] private Sprite[] Map;
@@ -438,6 +440,7 @@ public class Game : MonoBehaviour
         UpdateFood();
         _battleStart = false;
         _battleEnd = true;
+        _isRunEndProcess = false;
         _endGame = false;
         _costLimit = 0;
         _purchaseCount = 0;
@@ -466,9 +469,11 @@ public class Game : MonoBehaviour
             }
             if (_battleStart)
             {
+                Players[0].Reset();
+                Players[1].Reset();
                 if (_difficulty == DifficultyType.Hard) {
                     for (int i = 0;i < 10;i++) {
-                        int number = Random.Range(1, 15);
+                        int number = UnityEngine.Random.Range(1, 15);
                         Players[0].Food[i] = number;
                         Players[1].Food[i] = number;
                     }
@@ -487,11 +492,9 @@ public class Game : MonoBehaviour
                         Players[1].Code = new Code(networkHandler.challengerCode);
                         if (_isGuest)
                         {
-                            Players[0].Food = networkHandler.challengerFood;
-                            Players[1].Food = networkHandler.challengerFood;
+                            Array.Copy(networkHandler.challengerFood, Players[0].Food, 10);
+                            Array.Copy(networkHandler.challengerFood, Players[1].Food, 10);
                         }
-                        networkHandler.isCodeReceive = false;
-                        networkHandler.isFoodReceive = false;
                         StartCoroutine(RunCode());
                         _isBattle = true;
                         _battleStart = false;
@@ -510,37 +513,10 @@ public class Game : MonoBehaviour
                 else PrepareTime.GetComponent<Text>().text = "0.0";
             }
         }
-        else
+        else if (!_isRunEndProcess)
         {
+            _isRunEndProcess = true;
             StartCoroutine(GameEnd());
-            if (_isSimple)//�@���Ҧ�
-            {
-                if (_winner)
-                {
-                    applicationHandler.GameData.IswinForSimple = true;
-                    applicationHandler.GameData.SaveData();
-                    applicationHandler.IsSimple = false;
-                }
-                else
-                {
-                    applicationHandler.GameData.IswinForSimple = false;
-                    applicationHandler.GameData.SaveData();
-                    applicationHandler.IsSimple = false;
-                }
-                SceneManager.LoadScene(7);
-            }
-            else//�D�ԼҦ�
-            {
-                if (_winner)
-                {
-                    if (0 <= applicationHandler.Challenge && applicationHandler.Challenge < 16)
-                    {
-                        applicationHandler.GameData.Schedule_Single |= 1 << applicationHandler.Challenge + 1;
-                        applicationHandler.GameData.SaveData();
-                    }
-                }
-                SceneManager.LoadScene(10);
-            }
         }
         if (_isDuel && !networkHandler.isConnect)
         {
@@ -569,15 +545,7 @@ public class Game : MonoBehaviour
         Purchase.transform.GetChild(0).GetComponent<Text>().text = _purchaseCount.ToString() + " / 5";
         PlayerCode.transform.GetChild(2).gameObject.SetActive(false);
         _time = _round * 5f + 2f;
-        yield return new WaitForSeconds(_time);
-        _battleStart = true;
-    }
-
-    private IEnumerator RunCode()
-    {
-        _costLimit = (ushort)(_round * 5);
-        _turn = (Players[0].Speed < Players[1].Speed);
-        PlayerCode.GetComponent<RectTransform>().anchoredPosition = new Vector2(350, -250);
+        yield return new WaitForSeconds(_time); PlayerCode.GetComponent<RectTransform>().anchoredPosition = new Vector2(350, -250);
         PlayerCode.GetComponent<RectTransform>().sizeDelta = new Vector2(650, 500);
         EnemyCode.SetActive(true);
         Store.SetActive(false);
@@ -598,14 +566,23 @@ public class Game : MonoBehaviour
         EnemyHP.SetActive(true);
         PlayerCode.transform.GetChild(2).gameObject.SetActive(true);
         UpdateCode(0);
+        _battleStart = true;
+    }
+
+    private IEnumerator RunCode()
+    {
+        _costLimit = (ushort)(_round * 5);
+        _turn = (Players[0].Speed < Players[1].Speed);
         UpdateCode(1);
-        Players[0].Reset();
-        Players[1].Reset();
         UpdateCost(false);
         UpdateCost(true);
         UpdateVariable();
         UpdateFood();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
+        if (_isDuel) {
+            networkHandler.isCodeReceive = false;
+            networkHandler.isFoodReceive = false;
+        }
         Players[0].ProgramCounter = Players[0].Code.Next(true);
         Players[1].ProgramCounter = Players[1].Code.Next(true);
         while ((Players[0].Code[Players[0].ProgramCounter] != null || Players[1].Code[Players[1].ProgramCounter] != null) && !_endGame)
@@ -648,6 +625,12 @@ public class Game : MonoBehaviour
     private IEnumerator GameEnd() {
         yield return new WaitForSeconds(2f);
         if (_isDuel) {
+            if (_winner)
+                applicationHandler.GameData.Money += 15;
+            else
+                applicationHandler.GameData.Money += 5;
+            applicationHandler.IsDuel = false;
+            applicationHandler.GameData.SaveData();
             SceneManager.LoadScene(1);
         }
         else {
@@ -656,6 +639,8 @@ public class Game : MonoBehaviour
                 {
                     if (_winner) {
                         applicationHandler.GameData.IswinForSimple = true;
+                        if (!applicationHandler.GameData.SimpleIsFinish)
+                            applicationHandler.GameData.Money += 5;
                         applicationHandler.GameData.SaveData();
                         applicationHandler.IsSimple = false;
                     }
@@ -672,6 +657,7 @@ public class Game : MonoBehaviour
                 if (_winner) {
                     if (0 <= applicationHandler.Challenge && applicationHandler.Challenge < 16) {
                         applicationHandler.GameData.Schedule_Single |= 1 << (applicationHandler.Challenge + 1);
+                        applicationHandler.GameData.Money += 10;
                         applicationHandler.GameData.SaveData();
                     }
                 }

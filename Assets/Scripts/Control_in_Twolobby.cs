@@ -29,8 +29,8 @@ public class Control_in_Twolobby : MonoBehaviour {
 
     private int playerRank;
     private Dictionary<string, (string, int, int)> playerList { get { return network.dict; } }
-    private readonly string[] playerRankType = { "�J��", "²��", "���q", "�x��" };
-    private readonly string[] statusType = { "���m", "���L", "��Ԥ�" };
+    private readonly string[] playerRankType = { "入門", "簡單", "普通", "困難" };
+    private readonly string[] statusType = { "閒置", "忙碌", "對戰中" };
 
     private int seletedIndex = -1;
     private bool isResponseChanllenge = false, isUpdateStatus = false, isNotOverTime = false;
@@ -48,7 +48,7 @@ public class Control_in_Twolobby : MonoBehaviour {
     void Start()
     {
         PlayerNameObject.text = applicationHandler.GameData.Name;
-        RankObject.text = "���� : " + playerRankType[(int)applicationHandler.GameData.Rank];
+        RankObject.text = "階級 : " + playerRankType[(int)applicationHandler.GameData.Rank];
         DiamondObject.text = applicationHandler.GameData.Money.ToString();
         ModeSetting.SetActive(false);
         WaitingListUpdate.SetActive(false);
@@ -65,7 +65,7 @@ public class Control_in_Twolobby : MonoBehaviour {
 
     }
 
-    private IEnumerator UpdateNetwork()    //�ǥ�systemMessage�ȨӽT�{���A
+    private IEnumerator UpdateNetwork()    //藉由systemMessage值來確認狀態
     {
         while (true) {
             switch (network.systemMessage) {
@@ -91,10 +91,12 @@ public class Control_in_Twolobby : MonoBehaviour {
                 case SYS.DENY:
                     WaitingOpponentRespond.SetActive(false);
                     HintWhenDeny.SetActive(true);
+                    network.ClearSystemMessage();
                     break;
 
                 case SYS.MODE:
                     BothNoSameDifficulty.SetActive(true);
+                    network.ClearSystemMessage();
                     //network.DenyChallenge();
                     break;
 
@@ -164,7 +166,7 @@ public class Control_in_Twolobby : MonoBehaviour {
         }
     }
 
-    private IEnumerator ReceiveChallenge()  //�����ӦۧO�H���D��
+    private IEnumerator ReceiveChallenge()  //接收來自別人的挑戰
     {
         RespondAcceptOrNot.SetActive(true);
         RespondAcceptOrNot.transform.GetChild(1).GetComponent<Text>().text = playerList[network.challengerIP].Item1 + ":";
@@ -222,7 +224,7 @@ public class Control_in_Twolobby : MonoBehaviour {
     {
         network.SendConnection();
         DateTime LocalTime = DateTime.Now;
-        if (LocalTime.Second % 5 == 0) {    //�C�������T�{���O�_�_�u
+        if (LocalTime.Second % 5 == 0) {    //每五秒確認對手是否斷線
             DateTime tempTime = network.responseTime;
             if (DateTime.Compare(LocalTime, tempTime.AddSeconds(5)) == 1)
                 network.isConnect = false;
@@ -258,7 +260,7 @@ public class Control_in_Twolobby : MonoBehaviour {
         ModeSettingHint.SetActive(true);
     }
 
-    public void OnClick_Challenge()   //�o�_�D��
+    public void OnClick_Challenge()   //發起挑戰
     {
         if (seletedIndex != -1) {
             string ip = PlayerListContent.transform.GetChild(seletedIndex).GetChild(0).gameObject.GetComponent<Text>().text;
@@ -275,14 +277,14 @@ public class Control_in_Twolobby : MonoBehaviour {
         }
     }
 
-    public void OnClick_Accept()    //�����D��
+    public void OnClick_Accept()    //接收挑戰
     {
         network.AcceptChallenge();
         isResponseChanllenge = true;
         RespondAcceptOrNot.SetActive(false);
     }
 
-    public void OnClick_Deny()      //�ڵ��D��
+    public void OnClick_Deny()      //拒絕挑戰
     {
         network.DenyChallenge();
         RespondAcceptOrNot.SetActive(false);

@@ -1,2 +1,1 @@
-基礎指令
-move、attack
+新增Move、Attack

@@ -35,7 +35,7 @@ public class Network : MonoBehaviour {
     private bool isNetworkOn, isNetworkRunning;
     private string playerName;
     private int playerRank;
-    private const int port = 8880;
+    private const int port = 8888;
 
     void Awake()
     {
@@ -131,10 +131,12 @@ public class Network : MonoBehaviour {
                             break;
 
                         case MSG.ACCEPT:
-                            systemMessage ??= SYS.ACCEPT;
-                            isModeReceive = true;
-                            playerStatus = 2;
-                            challengerMode = receiveData.Mode;
+                            if (challengerIP != null) {
+                                systemMessage ??= SYS.ACCEPT;
+                                isModeReceive = true;
+                                playerStatus = 2;
+                                challengerMode = receiveData.Mode;
+                            }
                             break;
 
                         case MSG.DENY:
@@ -169,7 +171,7 @@ public class Network : MonoBehaviour {
 
                         case MSG.FOOD:
                             isFoodReceive = true;
-                            challengerFood = receiveData.Food;
+                            Array.Copy(receiveData.Food, challengerFood, 10);
                             systemMessage = SYS.GAME;
                             playerStatus = 2;
                             break;
@@ -386,6 +388,8 @@ public class Network : MonoBehaviour {
     {
         systemMessage = SYS.DENY;
         playerStatus = 0;
+        challengerIP = null;
+        challengerMode = null;
     }
 
     public void SetMode(GameMode mode)

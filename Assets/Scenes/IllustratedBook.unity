@@ -782,7 +782,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5b8e0fe0b1e242f4eb71f4d39a113537, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 55e29d9a03fe24caba914d7134c713c5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3539,6 +3539,29 @@ MonoBehaviour:
   PlayerName: {fileID: 1276805398}
   MoneyText: {fileID: 1379525008}
   LevelText: {fileID: 2075472212}
+  BananaBtn: {fileID: 0}
+  GrapeBtn: {fileID: 0}
+  CherryBtn: {fileID: 0}
+  AvocadoBtn: {fileID: 0}
+  PearBtn: {fileID: 0}
+  OrangeBtn: {fileID: 0}
+  StrawberryBtn: {fileID: 0}
+  TomatoBtn: {fileID: 0}
+  BaconBtn: {fileID: 0}
+  ChickenBtn: {fileID: 0}
+  TroutBtn: {fileID: 0}
+  FishBtn: {fileID: 0}
+  BlowfishBtn: {fileID: 0}
+  MeatBtn: {fileID: 0}
+  SchnitzelBtn: {fileID: 0}
+  HamBtn: {fileID: 0}
+  JemBtn: {fileID: 0}
+  PotionBtn: {fileID: 0}
+  ScrollBtn: {fileID: 0}
+  SwordBtn: {fileID: 0}
+  HerbBtn: {fileID: 0}
+  ConfirmSurface: {fileID: 0}
+  ConfirmBtn: {fileID: 0}
 --- !u!1 &928197445
 GameObject:
   m_ObjectHideFlags: 0
