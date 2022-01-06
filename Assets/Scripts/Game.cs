@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -106,6 +107,7 @@ public class Game : MonoBehaviour
 
     private bool _battleStart;
     private bool _battleEnd;
+    private bool _isRunEndProcess;
 
     [SerializeField] private Sprite[] Skin;
     [SerializeField] private Sprite[] Map;
@@ -438,6 +440,7 @@ public class Game : MonoBehaviour
         UpdateFood();
         _battleStart = false;
         _battleEnd = true;
+        _isRunEndProcess = false;
         _endGame = false;
         _costLimit = 0;
         _purchaseCount = 0;
@@ -466,9 +469,11 @@ public class Game : MonoBehaviour
             }
             if (_battleStart)
             {
+                Players[0].Reset();
+                Players[1].Reset();
                 if (_difficulty == DifficultyType.Hard) {
                     for (int i = 0;i < 10;i++) {
-                        int number = Random.Range(1, 15);
+                        int number = UnityEngine.Random.Range(1, 15);
                         Players[0].Food[i] = number;
                         Players[1].Food[i] = number;
                     }
@@ -487,8 +492,8 @@ public class Game : MonoBehaviour
                         Players[1].Code = new Code(networkHandler.challengerCode);
                         if (_isGuest)
                         {
-                            Players[0].Food = networkHandler.challengerFood;
-                            Players[1].Food = networkHandler.challengerFood;
+                            Array.Copy(networkHandler.challengerFood, Players[0].Food, 10);
+                            Array.Copy(networkHandler.challengerFood, Players[1].Food, 10);
                         }
                         networkHandler.isCodeReceive = false;
                         networkHandler.isFoodReceive = false;
@@ -510,8 +515,9 @@ public class Game : MonoBehaviour
                 else PrepareTime.GetComponent<Text>().text = "0.0";
             }
         }
-        else
+        else if (!_isRunEndProcess)
         {
+            _isRunEndProcess = true;
             StartCoroutine(GameEnd());
             if (_isSimple)//�@���Ҧ�
             {
@@ -599,8 +605,6 @@ public class Game : MonoBehaviour
         PlayerCode.transform.GetChild(2).gameObject.SetActive(true);
         UpdateCode(0);
         UpdateCode(1);
-        Players[0].Reset();
-        Players[1].Reset();
         UpdateCost(false);
         UpdateCost(true);
         UpdateVariable();

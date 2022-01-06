@@ -1959,7 +1959,7 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: "\u72D0\u72F8"
+    - m_Text: "\u8C93\u982D\u9DF9"
       m_Image: {fileID: 0}
     - m_Text: "\u7121\u5C3E\u718A"
       m_Image: {fileID: 0}
@@ -1967,7 +1967,7 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: "\u9BE8\u9B5A"
       m_Image: {fileID: 0}
-    - m_Text: "\u8C93\u982D\u9DF9"
+    - m_Text: "\u72D0\u72F8"
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
