@@ -1,5 +1,5 @@
 using UnityEngine;
-//3¦^¦X¤º¨Ï¥ÎÂù¼hloop§¹¦¨¤@¦¸¦æ°Ê
+//3ï¿½^ï¿½Xï¿½ï¿½ï¿½Ï¥ï¿½ï¿½ï¿½ï¿½hloopï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½
 public class AI_Mission10:MonoBehaviour
 {
     private Game game;

@@ -7,7 +7,6 @@ public class Control_Code : MonoBehaviour {
     public GameObject ani_detail;
     public GameObject att_detail;
     public GameObject ins_detail;
-    public GameObject cod_detail;
     public GameObject intro_frame;
     public TextAsset TxtFile;
 
@@ -48,8 +47,8 @@ public class Control_Code : MonoBehaviour {
     {
         att_detail.SetActive(false);
         ins_detail.SetActive(false);
-        cod_detail.SetActive(false);
         ani_detail.SetActive(true);
+        GameObject.Find("introduceframe").transform.GetChild(0).gameObject.GetComponent<Text>().text = "";
         intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(-300, -200, 0);
         intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(400, 200);
         intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
@@ -59,8 +58,8 @@ public class Control_Code : MonoBehaviour {
     {
         ani_detail.SetActive(false);
         ins_detail.SetActive(false);
-        cod_detail.SetActive(false);
         att_detail.SetActive(true);
+        GameObject.Find("introduceframe").transform.GetChild(0).gameObject.GetComponent<Text>().text = "";
         intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(-300, -200, 0);
         intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(400, 200);
         intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
@@ -70,8 +69,8 @@ public class Control_Code : MonoBehaviour {
     {
         ani_detail.SetActive(false);
         att_detail.SetActive(false);
-        cod_detail.SetActive(false);
         ins_detail.SetActive(true);
+        GameObject.Find("introduceframe").transform.GetChild(0).gameObject.GetComponent<Text>().text = "";
         intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(500, -120, 0);
         intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 240);
         intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
@@ -82,11 +81,11 @@ public class Control_Code : MonoBehaviour {
         ani_detail.SetActive(false);
         att_detail.SetActive(false);
         ins_detail.SetActive(false);
-        cod_detail.SetActive(true);
-        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(500, -120, 0);
-        intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 240);
+        GameObject.Find("introduceframe").transform.GetChild(0).gameObject.GetComponent<Text>().text = "";
+        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(-300, -100, 0);
+        intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(600, 300);
         intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
-        intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(220, 150);
+        intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(520, 200);
 
     }
     public void ShowKanText()

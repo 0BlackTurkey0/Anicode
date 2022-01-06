@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class Data {
     public string Type { get; set; }
@@ -8,7 +9,7 @@ public class Data {
     public DateTime Time { get; set; }
     public GameMode Mode { get; set; } = new GameMode();
     public int FinalDifficulty { get; set; }
-    public Code Code { get; set; }
+    public Code Code { get; set; } = new Code(new List<Tuple<Instruction, ushort>>(), 0);
     public int[] Food { get; set; } = new int[10];
 }
 
