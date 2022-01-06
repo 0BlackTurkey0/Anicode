@@ -514,7 +514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7655168232965902479
 RectTransform:
   m_ObjectHideFlags: 0
@@ -629,7 +629,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textLabel: {fileID: 532793442295550130}
   faceImage: {fileID: 532793443714423820}
-  textFile: {fileID: 4900000, guid: 408475d5b55cf0b419d64b65b558196a, type: 3}
+  textFile: {fileID: 4900000, guid: cc4262e792cab39478ac5bf0c8ce9bc3, type: 3}
   index: 10
   textSpeed: 0.07
   face01: {fileID: 21300000, guid: 83f8a4eb80df6d74a8062651720c4e35, type: 3}

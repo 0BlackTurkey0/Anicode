@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using UnityEngine;
 
 public class Code {
 
@@ -9,27 +11,15 @@ public class Code {
 
     public List<Tuple<Instruction, ushort>> Instructions {
         get { return _instructions; }
-        set { _instructions = value; }
-    }
-    
-    /*
-    public Stack<ushort> Records
-    {
-        get { return _records; }
-        set { _records = value; }
-    }
+        set { _instructions = value; } 
+    } 
 
-    public ushort ProgramCounter
-    {
-        get { return _programCounter; }
-        set { _programCounter = value; }
-    }
-    */
-
+    [JsonIgnore]
     public ushort Size {
         get { return (ushort)_instructions.Count; }
     }
 
+    [JsonIgnore]
     public Instruction this[ushort index] {
         get {
             if (index < _instructions.Count) return _instructions[index].Item1;
@@ -37,16 +27,18 @@ public class Code {
         }
     }
 
-    public Code(Code copy = null)
+    [JsonConstructor]
+    public Code(List<Tuple<Instruction, ushort>> instructions)
     {
-        _instructions = new List<Tuple<Instruction, ushort>>(copy.Instructions);
+        _instructions = new List<Tuple<Instruction, ushort>>(instructions);
         _records = new Stack<ushort>();
         _programCounter = 0;
     }
 
-    public Code(List<Tuple<Instruction, ushort>> Instructions, ushort Size)
+    public Code(Code copy = null)
     {
-        _instructions = new List<Tuple<Instruction, ushort>>(Instructions);
+        if (copy != null) _instructions = new List<Tuple<Instruction, ushort>>(copy.Instructions);
+        else _instructions = new List<Tuple<Instruction, ushort>>();
         _records = new Stack<ushort>();
         _programCounter = 0;
     }
@@ -156,8 +148,6 @@ public class Code {
         if (index < _instructions.Count) return _instructions[index].Item2;
         return 0;
     }
-
-    /*
     public void Display() {
         System.Text.StringBuilder display = new System.Text.StringBuilder();
         foreach (var i in _instructions) {
@@ -167,5 +157,4 @@ public class Code {
         }
         Debug.Log(display.ToString());
     }
-    */
 }

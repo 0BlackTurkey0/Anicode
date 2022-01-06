@@ -70,6 +70,30 @@ public class GameData {
         set { _schedule_Simple = value; }
     }
 
+    private int _schedule_SimpleChange;
+
+    public int Schedule_SimpleChange
+    {
+        get { return _schedule_SimpleChange; }
+        set { _schedule_SimpleChange = value; }
+    }
+
+    private bool _iswinForSimple; //判斷是否打贏AI
+
+    public bool IswinForSimple
+    {
+        get { return _iswinForSimple; }
+        set { _iswinForSimple = value; }
+    }
+
+    private bool _simpleIsFinish; //判斷簡單AI是否完成過一輪
+
+    public bool _SimpleIsFinish
+    {
+        get { return _simpleIsFinish; }
+        set { _simpleIsFinish = value; }
+    }
+
     private int _schedule_Single;
 
     public int Schedule_Single {
@@ -90,6 +114,8 @@ public class GameData {
         _voiceVolume = 1f;
         _isIntro_Single = new bool[4];
         _schedule_Simple = 0;
+        _schedule_SimpleChange = 0;
+        _iswinForSimple = false;
         _schedule_Single = 0;
     }
 
@@ -127,6 +153,10 @@ public class GameData {
         _isIntro_Single = gameData.IsIntro_Single;
         if (gameData.Schedule_Simple >= 0 && gameData.Schedule_Simple <= 4)
             _schedule_Simple = gameData.Schedule_Simple;
+        if (gameData.Schedule_SimpleChange >= 0 && gameData.Schedule_SimpleChange <= 22)
+            _schedule_SimpleChange = gameData.Schedule_SimpleChange;
+        _iswinForSimple = gameData.IswinForSimple;
+        _simpleIsFinish = gameData._SimpleIsFinish;
         if (gameData.Schedule_Single >= 0 && gameData.Schedule_Single < (1 << 17))
             _schedule_Single = gameData.Schedule_Single;
     }

@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DropdownHandler : MonoBehaviour {
+public class DropdownHandler : MonoBehaviour
+{
     [SerializeField] Text CharacterText;
     [SerializeField] GameObject CharacterDropDown;
     [SerializeField] GameObject CharacterAttribute;
@@ -46,7 +47,8 @@ public class DropdownHandler : MonoBehaviour {
 
     public void EnteranceToggle_sOn()
     {
-        if (EnteranceToggle.GetComponent<Toggle>().isOn == true) {
+        if (EnteranceToggle.GetComponent<Toggle>().isOn == true)
+        {
             CharacterAttribute.transform.GetChild(0).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(1).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(2).gameObject.SetActive(false);
@@ -65,7 +67,8 @@ public class DropdownHandler : MonoBehaviour {
 
     public void EasyToggle_sOn()
     {
-        if (EasyToggle.GetComponent<Toggle>().isOn == true) {
+        if (EasyToggle.GetComponent<Toggle>().isOn == true)
+        {
             CharacterAttribute.transform.GetChild(0).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(1).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(2).gameObject.SetActive(false);
@@ -84,7 +87,8 @@ public class DropdownHandler : MonoBehaviour {
 
     public void NormalToggle_sOn()
     {
-        if (NormalToggle.GetComponent<Toggle>().isOn == true) {
+        if (NormalToggle.GetComponent<Toggle>().isOn == true)
+        {
             CharacterAttribute.transform.GetChild(0).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(1).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(2).gameObject.SetActive(false);
@@ -102,7 +106,8 @@ public class DropdownHandler : MonoBehaviour {
     }
     public void DifficultToggle_sOn()
     {
-        if (DifficultToggle.GetComponent<Toggle>().isOn == true) {
+        if (DifficultToggle.GetComponent<Toggle>().isOn == true)
+        {
             CharacterAttribute.transform.GetChild(0).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(1).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(2).gameObject.SetActive(false);
@@ -124,7 +129,8 @@ public class DropdownHandler : MonoBehaviour {
         int index = dropdown.value;
         CharacterNum = index;
         CharacterText.text = dropdown.options[index].text;
-        if (CharacterText.text == "狐狸") {
+        if (CharacterText.text == "狐狸")
+        {
             CharacterAttribute.transform.GetChild(0).gameObject.SetActive(true);
             CharacterAttribute.transform.GetChild(1).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(2).gameObject.SetActive(false);
@@ -137,7 +143,8 @@ public class DropdownHandler : MonoBehaviour {
             CharacterAttribute.transform.GetChild(9).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(10).gameObject.SetActive(false);
         }
-        else if (CharacterText.text == "無尾熊") {
+        else if (CharacterText.text == "無尾熊")
+        {
             CharacterAttribute.transform.GetChild(1).gameObject.SetActive(true);
             CharacterAttribute.transform.GetChild(0).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(2).gameObject.SetActive(false);
@@ -150,7 +157,8 @@ public class DropdownHandler : MonoBehaviour {
             CharacterAttribute.transform.GetChild(9).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(10).gameObject.SetActive(false);
         }
-        else if (CharacterText.text == "袋鼠") {
+        else if (CharacterText.text == "袋鼠")
+        {
             CharacterAttribute.transform.GetChild(2).gameObject.SetActive(true);
             CharacterAttribute.transform.GetChild(1).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(0).gameObject.SetActive(false);
@@ -163,7 +171,8 @@ public class DropdownHandler : MonoBehaviour {
             CharacterAttribute.transform.GetChild(9).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(10).gameObject.SetActive(false);
         }
-        else if (CharacterText.text == "鯨魚") {
+        else if (CharacterText.text == "鯨魚")
+        {
             CharacterAttribute.transform.GetChild(3).gameObject.SetActive(true);
             CharacterAttribute.transform.GetChild(1).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(2).gameObject.SetActive(false);
@@ -175,7 +184,8 @@ public class DropdownHandler : MonoBehaviour {
             CharacterAttribute.transform.GetChild(9).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(10).gameObject.SetActive(false);
         }
-        else if (CharacterText.text == "貓頭鷹") {
+        else if (CharacterText.text == "貓頭鷹")
+        {
             CharacterAttribute.transform.GetChild(4).gameObject.SetActive(true);
             CharacterAttribute.transform.GetChild(1).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(2).gameObject.SetActive(false);
@@ -201,7 +211,8 @@ public class DropdownHandler : MonoBehaviour {
             difficulty[2] = true;
         if (DifficultToggle.GetComponent<Toggle>().isOn == true)
             difficulty[3] = true;
-        GameMode mode = new GameMode {
+        GameMode mode = new GameMode
+        {
             Difficulty = difficulty,
             Character = CharacterNum
         };

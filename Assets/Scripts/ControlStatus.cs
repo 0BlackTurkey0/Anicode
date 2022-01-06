@@ -29,6 +29,10 @@ public class ControlStatus : MonoBehaviour
     [SerializeField] GameObject ScrollBtn;
     [SerializeField] GameObject SwordBtn;
     [SerializeField] GameObject HerbBtn;
+    [SerializeField] GameObject ConfirmSurface;
+    [SerializeField] GameObject ConfirmBtn;
+    private int Money;
+    private int Price;
 
     private ApplicationHandler applicationHandler;
 
@@ -59,7 +63,9 @@ public class ControlStatus : MonoBehaviour
             case DifficultyType.Hard:
                 LevelText.text += "�x��";
                 break;
+             
         }
+        Money = applicationHandler.GameData.Money;
 
         MoneyText.text = applicationHandler.GameData.Money.ToString();
     }
@@ -71,31 +77,41 @@ public class ControlStatus : MonoBehaviour
     }
     public void BananaBtn_OnClick()
     {
-
+        Price = 100;
     }
     public void GrapeBtn_OnClick()
     {
+
+        Price = 100;
     }
     public void CherryBtn_OnClick()
     {
+
+        Price = 100;
     }
     public void AvocadoBtn_OnClick()
     {
+        Price = 100;
     }
     public void PearBtn_OnClick()
     {
+        Price = 100;
     }
     public void OrangeBtn_OnClick()
     {
+        Price = 100;
     }
     public void StrawberryBtn_OnClick()
     {
+        Price = 100;
     }
     public void TomatoBtn_OnClick()
     {
+        Price = 100;
     }
     public void BaconBtn_OnClick()
     {
+        Price = 100;
     }
     public void ChickenBtn_OnClick()
     {
@@ -132,6 +148,17 @@ public class ControlStatus : MonoBehaviour
     }
     public void HerbBtn_OnClick()
     {
+        Price = 100;
+        Purchase(20);
     }
-    public void 
+    public void ConfirmBtn_OnClick(int num, int price)
+    {
+
+        applicationHandler.GameData.
+    }
+    public void Purchase(int num , int price)
+    {
+        ConfirmSurface.SetActive(true);
+        ConfirmBtn.OnClick(num , price);
+    }
 }

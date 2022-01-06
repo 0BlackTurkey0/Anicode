@@ -15,7 +15,7 @@ public class AI_Mission3_3 : MonoBehaviour
     private int assign_Level = 0;
     private int move_Level = 0;
 
-    private void Start()
+    private void OnEnable()
     {
         game = GameObject.Find("GameHandler").gameObject.GetComponent<Game>();
     }
@@ -38,8 +38,12 @@ public class AI_Mission3_3 : MonoBehaviour
         }
         else
         {
-            if (!preStageBattle) preStageBattle = true;
-            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter)
+            if (!preStageBattle)
+            {
+                preStageBattle = true;
+                preProgramCounter = -1;
+            }
+            if (game.Players[0].ProgramCounter != preProgramCounter)
             {
                 preProgramCounter = game.Players[0].ProgramCounter;
                 Check();
@@ -68,31 +72,26 @@ public class AI_Mission3_3 : MonoBehaviour
         //在loop裡面包assign和move
         if (game.Players[0].Code[(ushort)preProgramCounter] != null)
         {
-            if (game.Players[0].Code[(ushort)preProgramCounter].Type == InstructionType.Loop && loop_Flag == false)
+            //loop v2 < 2
+            if (game.Players[0].Code[(ushort)preProgramCounter].Equals(new Instruction(InstructionType.Loop, new int[4] { 3, 4, 0, 2 })) && loop_Flag == false)
             {
-                //loop 敵方血量 > v4 
-                if (game.Players[0].Code[(ushort)preProgramCounter].Arguments[0] == 2 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[1] == 2 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[2] == 4)
-                {
-                    Mission1 = true;
-                    loop_Flag = true;
-                    loop_Level = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
-                }
+                Mission1 = true;
+                loop_Flag = true;
+                loop_Level = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
             }
-            if (game.Players[0].Code[(ushort)preProgramCounter].Type == InstructionType.Assign)
+            //assign v2 + 1 = v2
+            if (game.Players[0].Code[(ushort)preProgramCounter].Equals(new Instruction(InstructionType.Assign, new int[5] { 0, 2, 0, 1, 1 })))
             {
-                //assign v4 + C = v4
-                if (game.Players[0].Code[(ushort)preProgramCounter].Arguments[0] == 0 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[1] == 4 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[2] == 0 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[4] == 3)
-                {
-                    assign_Level = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
-                    if (assign_Level > loop_Level && loop_Flag)
-                        Mission2 = true;
-                    else
-                        loop_Flag = false;
-                }
+                assign_Level = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
+                if (assign_Level > loop_Level && loop_Flag)
+                    Mission2 = true;
+                else
+                    loop_Flag = false;
             }
+
             if (game.Players[0].Code[(ushort)preProgramCounter].Equals(new Instruction(InstructionType.Move, new int[1] { 1 })))
             {
-                // move(下)
+                // move 黃色
                 move_Level = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
                 if (move_Level > loop_Level && loop_Flag)
                     Mission3 = true;

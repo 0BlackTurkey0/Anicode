@@ -1,3 +1,3 @@
-type：收服
+goal：3回合內使用雙層loop完成一次行動
 area：冰原
 target：渡渡鳥

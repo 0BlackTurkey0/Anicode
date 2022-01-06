@@ -41,6 +41,7 @@ public class Setting_UI_Control : MonoBehaviour {
     {
         applicationHandler.GameData.VoiceVolume = slider.value;
         applicationHandler.GameData.SaveData();
+        applicationHandler.transform.GetChild(2).GetComponent<AudioSource>().volume = slider.value;
     }
 
     public void ToReset()

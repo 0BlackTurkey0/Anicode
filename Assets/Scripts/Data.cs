@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 
-public class Data {
+public class Data
+{
     public string Type { get; set; }
     public string Name { get; set; }
     public int Rank { get; set; }
@@ -9,7 +10,7 @@ public class Data {
     public DateTime Time { get; set; }
     public GameMode Mode { get; set; } = new GameMode();
     public int FinalDifficulty { get; set; }
-    public Code Code { get; set; } = new Code(new List<Tuple<Instruction, ushort>>(), 0);
+    public Code Code { get; set; } = new Code();
     public int[] Food { get; set; } = new int[10];
 }
 
@@ -38,7 +39,8 @@ public class MSG    //封包類型
     public const string FOOD = "FOO";           //遊戲食物
 }
 
-public class GameMode {
+public class GameMode
+{
     public bool[] Difficulty { get; set; } = new bool[4];    //簡單:0 初級:1 中級:2 困難:3
     public int Character { get; set; } = 0;
 }

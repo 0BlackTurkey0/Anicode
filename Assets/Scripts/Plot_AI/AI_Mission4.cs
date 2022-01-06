@@ -8,7 +8,7 @@ public class AI_Mission4 : MonoBehaviour
     private bool preStageBattle = true;
     private int preProgramCounter = -1;
 
-    private void Start()
+    private void OnEnable()
     {
         game = GameObject.Find("GameHandler").gameObject.GetComponent<Game>();
     }
@@ -56,6 +56,7 @@ public class AI_Mission4 : MonoBehaviour
         {
             if (!preStageBattle) {
                 preStageBattle = true;
+                preProgramCounter = -1;
                 if (game.Players[1].CurrentHP + 100 <= game.Players[1].Hp)
                     game.Players[1].CurrentHP += 100;
                 else

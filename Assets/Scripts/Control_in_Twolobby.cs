@@ -15,6 +15,7 @@ public class Control_in_Twolobby : MonoBehaviour {
     [SerializeField] GameObject PlayerListContent;
     [SerializeField] GameObject WaitingListUpdate;
     [SerializeField] GameObject HintWhenBusy;
+    [SerializeField] GameObject HintWhenDeny;
     [SerializeField] GameObject BothNoSameDifficulty;
     [SerializeField] GameObject WaitingOpponentRespond;
     [SerializeField] GameObject RespondAcceptOrNot;
@@ -28,12 +29,11 @@ public class Control_in_Twolobby : MonoBehaviour {
 
     private int playerRank;
     private Dictionary<string, (string, int, int)> playerList { get { return network.dict; } }
-    
     private readonly string[] playerRankType = { "�J��", "²��", "���q", "�x��" };
     private readonly string[] statusType = { "���m", "���L", "��Ԥ�" };
 
     private int seletedIndex = -1;
-    private bool isResponseChanllenge = false, isUpdateStatus = false;
+    private bool isResponseChanllenge = false, isUpdateStatus = false, isNotOverTime = false;
     private ApplicationHandler applicationHandler;
     private Network network;
 
@@ -48,9 +48,8 @@ public class Control_in_Twolobby : MonoBehaviour {
     void Start()
     {
         PlayerNameObject.text = applicationHandler.GameData.Name;
-        RankObject.text = "���� : " + playerRankType[(int)(DifficultyType)applicationHandler.GameData.Rank];
+        RankObject.text = "���� : " + playerRankType[(int)applicationHandler.GameData.Rank];
         DiamondObject.text = applicationHandler.GameData.Money.ToString();
-            
         ModeSetting.SetActive(false);
         WaitingListUpdate.SetActive(false);
         HintWhenBusy.SetActive(false);
@@ -61,15 +60,9 @@ public class Control_in_Twolobby : MonoBehaviour {
         StartCoroutine(UpdateNetwork());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void OnApplicationQuit()
     {
-        Debug.Log("!!!");
+
     }
 
     private IEnumerator UpdateNetwork()    //�ǥ�systemMessage�ȨӽT�{���A
@@ -82,8 +75,8 @@ public class Control_in_Twolobby : MonoBehaviour {
                     break;
 
                 case SYS.ACCEPT:
-                    //network.SendModeSetting();
                     if (network.isGuest) {
+                        isNotOverTime = true;
                         WaitingOpponentRespond.SetActive(false);
                         while (!network.isModeReceive) {
 
@@ -97,12 +90,12 @@ public class Control_in_Twolobby : MonoBehaviour {
 
                 case SYS.DENY:
                     WaitingOpponentRespond.SetActive(false);
+                    HintWhenDeny.SetActive(true);
                     break;
 
                 case SYS.MODE:
-                    Debug.Log("###");
-                    ShowBothNoSameDifficulty();
-                    network.DenyChallenge();
+                    BothNoSameDifficulty.SetActive(true);
+                    //network.DenyChallenge();
                     break;
 
                 case SYS.READY:
@@ -131,6 +124,7 @@ public class Control_in_Twolobby : MonoBehaviour {
 
             int height = playerList.Count > 5 ? playerList.Count * 100 : 500;
             PlayerListContent.GetComponent<RectTransform>().sizeDelta = new Vector2(0, height);
+
             if (playerList.Count > 0) {
                 int posY = -50;
                 foreach (KeyValuePair<string, (string Name, int Rank, int Status)> item in playerList) {
@@ -139,10 +133,10 @@ public class Control_in_Twolobby : MonoBehaviour {
                         temp = Instantiate(PlayerBarPrefab, PlayerListContent.transform);
                         temp.name = item.Key;
                         temp.transform.GetChild(0).gameObject.GetComponent<Text>().text = item.Key;
-                        temp.transform.GetChild(1).gameObject.GetComponent<Text>().text = playerRankType[item.Value.Rank];
-                        temp.transform.GetChild(3).gameObject.GetComponent<Text>().text = statusType[item.Value.Status];
                     }
+                    temp.transform.GetChild(1).gameObject.GetComponent<Text>().text = playerRankType[item.Value.Rank];
                     temp.transform.GetChild(2).gameObject.GetComponent<Text>().text = item.Value.Name;
+                    temp.transform.GetChild(3).gameObject.GetComponent<Text>().text = statusType[item.Value.Status];
                     temp.transform.localPosition = new Vector2(600, posY);
                     temp.GetComponent<Button>().onClick.RemoveAllListeners();
                     temp.GetComponent<Button>().onClick.AddListener(delegate () { OnClick_Select(temp.transform.GetSiblingIndex()); });
@@ -151,7 +145,7 @@ public class Control_in_Twolobby : MonoBehaviour {
             }
             yield return new WaitForSeconds(1);
         }
-        SearchButton.GetComponent<Button>().enabled = true;
+        //SearchButton.GetComponent<Button>().enabled = true;
         WaitingListUpdate.SetActive(false);
     }
 
@@ -166,7 +160,7 @@ public class Control_in_Twolobby : MonoBehaviour {
             if (playerList.Count > 0)
                 for (int i = 0;i < PlayerListContent.transform.childCount;i += 1)
                     PlayerListContent.transform.GetChild(i).GetChild(3).gameObject.GetComponent<Text>().text = statusType[playerList[PlayerListContent.transform.GetChild(i).gameObject.name].Item3];
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(1);
         }
     }
 
@@ -183,18 +177,22 @@ public class Control_in_Twolobby : MonoBehaviour {
         RespondAcceptOrNot.transform.GetChild(3).GetComponent<Text>().text = null;
         if (!isResponseChanllenge)
             network.DenyChallenge();
+        isResponseChanllenge = false;
         RespondAcceptOrNot.SetActive(false);
+    }
+
+    private IEnumerator DetectOverTime()
+    {
+        yield return new WaitForSeconds(15);
+        if (!isNotOverTime)
+            network.OverTimeDeny();
+        isNotOverTime = false;
     }
     //---------------------------------------------------------------------------------------------------------------
 
     public void ShowModeSetting()
     {
         ModeSetting.SetActive(true);
-    }
-
-    private void ShowBothNoSameDifficulty()
-    {
-        BothNoSameDifficulty.SetActive(true);
     }
 
     private void DecideDifficulty()
@@ -205,7 +203,7 @@ public class Control_in_Twolobby : MonoBehaviour {
                 if (network.playerMode.Difficulty[i] && network.challengerMode.Difficulty[i])
                     temp.Add(i);
             if (temp.Count > 0) {
-                System.Random random = new System.Random();
+                var random = new System.Random();
                 network.finalDifficulty = temp[random.Next(temp.Count)];
             }
             else {
@@ -247,16 +245,15 @@ public class Control_in_Twolobby : MonoBehaviour {
 
     public void OnClick_Search()
     {
-        WaitingListUpdate.SetActive(true);//.transform.GetChild(0).gameObject.SetActive(true);
-
+        WaitingListUpdate.SetActive(true);
         network.SearchUser();
         StartCoroutine(UpdateList());
         if (!isUpdateStatus)
             StartCoroutine(UpdateStatus());
-        SearchButton.GetComponent<Button>().enabled = false;
+        //SearchButton.GetComponent<Button>().enabled = false;
     }
 
-    public void OnCLick_NoneModeSetting()
+    public void OnClick_NoneModeSetting()
     {
         ModeSettingHint.SetActive(true);
     }
@@ -266,11 +263,11 @@ public class Control_in_Twolobby : MonoBehaviour {
         if (seletedIndex != -1) {
             string ip = PlayerListContent.transform.GetChild(seletedIndex).GetChild(0).gameObject.GetComponent<Text>().text;
             int status = Convert.ToInt32(playerList[ip].Item3);
-            //Debug.Log(ip);
             seletedIndex = -1;
             if (status == 0) {
                 network.SendChallenge(ip);
                 WaitingOpponentRespond.SetActive(true);
+                StartCoroutine(DetectOverTime());
             }
             else {
                 HintWhenBusy.SetActive(true);
@@ -278,14 +275,14 @@ public class Control_in_Twolobby : MonoBehaviour {
         }
     }
 
-    public void OnClick_Accept()  //�����D��
+    public void OnClick_Accept()    //�����D��
     {
         network.AcceptChallenge();
         isResponseChanllenge = true;
         RespondAcceptOrNot.SetActive(false);
     }
 
-    public void OnClick_Deny() //�ڵ��D��
+    public void OnClick_Deny()      //�ڵ��D��
     {
         network.DenyChallenge();
         RespondAcceptOrNot.SetActive(false);
@@ -299,6 +296,11 @@ public class Control_in_Twolobby : MonoBehaviour {
     public void OnClick_ConfirmInHintWhenBusy()
     {
         HintWhenBusy.SetActive(false);
+    }
+
+    public void OnClick_ConfirmInHintWhenDeny()
+    {
+        HintWhenDeny.SetActive(false);
     }
 
     public void OnClick_ConfirmInBothNoSameDifficulty()

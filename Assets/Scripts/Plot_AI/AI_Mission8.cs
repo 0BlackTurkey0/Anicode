@@ -9,7 +9,7 @@ public class AI_Mission8 : MonoBehaviour
     private int preProgramCounter = -1;
 
 
-    private void Start()
+    private void OnEnable()
     {
         game = GameObject.Find("GameHandler").gameObject.GetComponent<Game>();
     }
@@ -47,7 +47,8 @@ public class AI_Mission8 : MonoBehaviour
         {
             if (!preStageBattle) {
                 preStageBattle = true;
-                if(game.Players[0].CurrentHP - game.Round * 20 >= 0)
+                preProgramCounter = -1;
+                if (game.Players[0].CurrentHP - game.Round * 20 >= 0)
                     game.Players[0].CurrentHP -= game.Round * 20;
                 else {
                     game.Players[0].CurrentHP = 0;
