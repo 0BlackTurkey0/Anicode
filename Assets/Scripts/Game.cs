@@ -483,18 +483,18 @@ public class Game : MonoBehaviour
                     networkHandler.SendGameData(Players[0].Code);
                     if (!_isGuest)
                         networkHandler.SendGameFood(Players[0].Food);
-                    else {
-                        Players[0].Food = networkHandler.challengerFood;
-                        Players[1].Food = networkHandler.challengerFood;
-                    }
-                    if (networkHandler.isCodeReceive) {
-                        if ((_isGuest && networkHandler.isFoodReceive) || !_isGuest) {
-                            networkHandler.isCodeReceive = false;
-                            networkHandler.isFoodReceive = false;
-                            StartCoroutine(RunCode());
-                            _isBattle = true;
-                            _battleStart = false;
+                    if (networkHandler.isCodeReceive && ((_isGuest && networkHandler.isFoodReceive) || !_isGuest)) {
+                        Players[1].Code = new Code(networkHandler.challengerCode);
+                        if (_isGuest)
+                        {
+                            Players[0].Food = networkHandler.challengerFood;
+                            Players[1].Food = networkHandler.challengerFood;
                         }
+                        networkHandler.isCodeReceive = false;
+                        networkHandler.isFoodReceive = false;
+                        StartCoroutine(RunCode());
+                        _isBattle = true;
+                        _battleStart = false;
                     }
                 }
                 else {
@@ -513,6 +513,34 @@ public class Game : MonoBehaviour
         else
         {
             StartCoroutine(GameEnd());
+            if (_isSimple)//劇情模式
+            {
+                if (_winner)
+                {
+                    applicationHandler.GameData.IswinForSimple = true;
+                    applicationHandler.GameData.SaveData();
+                    applicationHandler.IsSimple = false;
+                }
+                else
+                {
+                    applicationHandler.GameData.IswinForSimple = false;
+                    applicationHandler.GameData.SaveData();
+                    applicationHandler.IsSimple = false;
+                }
+                SceneManager.LoadScene(7);
+            }
+            else//挑戰模式
+            {
+                if (_winner)
+                {
+                    if (0 <= applicationHandler.Challenge && applicationHandler.Challenge < 16)
+                    {
+                        applicationHandler.GameData.Schedule_Single |= 1 << applicationHandler.Challenge + 1;
+                        applicationHandler.GameData.SaveData();
+                    }
+                }
+                SceneManager.LoadScene(10);
+            }
         }
         if (_isDuel && !networkHandler.isConnect)
         {
@@ -540,7 +568,7 @@ public class Game : MonoBehaviour
         _purchaseCount = 0;
         Purchase.transform.GetChild(0).GetComponent<Text>().text = _purchaseCount.ToString() + " / 5";
         PlayerCode.transform.GetChild(2).gameObject.SetActive(false);
-        _time = _round * 5f + 5f;
+        _time = _round * 5f + 2f;
         yield return new WaitForSeconds(_time);
         _battleStart = true;
     }
@@ -570,7 +598,6 @@ public class Game : MonoBehaviour
         EnemyHP.SetActive(true);
         PlayerCode.transform.GetChild(2).gameObject.SetActive(true);
         UpdateCode(0);
-        Players[1].Code = new Code(networkHandler.challengerCode);
         UpdateCode(1);
         Players[0].Reset();
         Players[1].Reset();

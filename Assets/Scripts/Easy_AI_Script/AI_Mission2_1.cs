@@ -8,9 +8,8 @@ public class AI_Mission2_1 : MonoBehaviour
     private bool preStageBattle = true;
     private int preProgramCounter = -1;
     private bool Mission1 = false;
-    private bool Mission2 = false;
 
-    private void Start()
+    private void OnEnable()
     {
         game = GameObject.Find("GameHandler").gameObject.GetComponent<Game>();
     }
@@ -33,17 +32,23 @@ public class AI_Mission2_1 : MonoBehaviour
         }
         else
         {
-            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter)
+            if (!preStageBattle)
+            {
+                preStageBattle = true;
+                preProgramCounter = -1;
+            }
+            if (game.Players[0].ProgramCounter != preProgramCounter)
             {
                 preProgramCounter = game.Players[0].ProgramCounter;
                 Check();
             }
+
         }
     }
 
     private void WinCheck()
     {
-        if (Mission1 && Mission2)
+        if (Mission1)
         {
             Debug.Log("You win");
             game.EndGame = true;

@@ -23,6 +23,7 @@ public class DialogSystem : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
+        GameObject.Find("Hint").gameObject.transform.GetChild(0).gameObject.SetActive(false);
         GetTextFromfile(textFile);
         textFinished = true;
         exit = false;
@@ -65,42 +66,29 @@ public class DialogSystem : MonoBehaviour {
         textFinished = false;
         textLabel.text = "";
         gameObject.transform.GetChild(1).gameObject.SetActive(true);
-        //GameObject.Find("Panel").gameObject.transform.GetChild(1).gameObject.SetActive(true);
         GameObject.Find("Hint").gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        //if (Input.GetKeyDown(KeyCode.RightArrow) && index == textList.Count)
-        //  GameObject.Find("Hint").gameObject.transform.GetChild(0).gameObject.SetActive(false);
         switch (textList[index]) {
             case "A\r":
-                //GameObject.Find("Panel").SetActive(true);
-                //GameObject.Find("Panel").gameObject.transform.GetChild(1).gameObject.SetActive(true);
                 gameObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
                 faceImage.sprite = face01;
                 index++;
                 break;
             case "B\r":
-                //GameObject.Find("Panel").SetActive(true);
-                //GameObject.Find("Panel").gameObject.transform.GetChild(1).gameObject.SetActive(true);
                 gameObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
                 faceImage.sprite = face02;
                 index++;
                 break;
             case "C\r":
-                //GameObject.Find("Panel").SetActive(true);
-                //GameObject.Find("Panel").gameObject.transform.GetChild(1).gameObject.SetActive(true);
                 gameObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
                 faceImage.sprite = face03;
                 index++;
                 break;
             case "D\r":
-                //GameObject.Find("Panel").SetActive(true);
-                //GameObject.Find("Panel").gameObject.transform.GetChild(1).gameObject.SetActive(true);
                 gameObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
                 faceImage.sprite = face04;
                 index++;
                 break;
             case "E\r":
-                //GameObject.Find("Panel").SetActive(true);
-                //GameObject.Find("Panel").gameObject.transform.GetChild(1).gameObject.SetActive(false);
                 gameObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
                 index++;
                 break;

@@ -15,7 +15,7 @@ public class AI_Mission2_5 : MonoBehaviour
     private int assign_Level = 0;
     private int move_Level = 0;
 
-    private void Start()
+    private void OnEnable()
     {
         game = GameObject.Find("GameHandler").gameObject.GetComponent<Game>();
     }
@@ -38,8 +38,12 @@ public class AI_Mission2_5 : MonoBehaviour
         }
         else
         {
-            if (!preStageBattle) preStageBattle = true;
-            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter)
+            if (!preStageBattle)
+            {
+                preStageBattle = true;
+                preProgramCounter = -1;
+            }
+            if (game.Players[0].ProgramCounter != preProgramCounter)
             {
                 preProgramCounter = game.Players[0].ProgramCounter;
                 Check();

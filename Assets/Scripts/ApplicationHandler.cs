@@ -36,6 +36,11 @@ public class ApplicationHandler : MonoBehaviour {
     }
 
     private bool isActiveAI;
+    public bool IsActiveAI
+    {
+        get { return isActiveAI; }
+        set { isActiveAI = value; }
+    }
 
     private bool _isSimple; //判斷簡單還是劇情
     public bool IsSimple
@@ -143,7 +148,6 @@ public class ApplicationHandler : MonoBehaviour {
                 for (int i = 0; i < 15; i++)
                     gameObject.transform.GetChild(0).GetChild(i).gameObject.SetActive(false);
                 isActiveAI = false;
-
             }
         }
         else

@@ -10,7 +10,7 @@ public class AI_Mission3 : MonoBehaviour
     private bool Mission1 = false;
     public int cnt = 0;
 
-    private void Start()
+    private void OnEnable()
     {
         game = GameObject.Find("GameHandler").gameObject.GetComponent<Game>();
     }
@@ -57,7 +57,11 @@ public class AI_Mission3 : MonoBehaviour
         }
         else
         {
-            if (!preStageBattle) preStageBattle = true;
+            if (!preStageBattle)
+            {
+                preStageBattle = true;
+                preProgramCounter = -1;
+            }
             if (game.Players[0].ProgramCounter != (ushort)preProgramCounter)
             {
                 preProgramCounter = game.Players[0].ProgramCounter;

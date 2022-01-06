@@ -13,7 +13,7 @@ public class AI_Mission3_5 : MonoBehaviour
     //private int assign_Level = 0;
     private int move_Level = 0;
 
-    private void Start()
+    private void OnEnable()
     {
         game = GameObject.Find("GameHandler").gameObject.GetComponent<Game>();
     }
@@ -36,8 +36,12 @@ public class AI_Mission3_5 : MonoBehaviour
         }
         else
         {
-            if (!preStageBattle) preStageBattle = true;
-            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter)
+            if (!preStageBattle)
+            {
+                preStageBattle = true;
+                preProgramCounter = -1;
+            }
+            if (game.Players[0].ProgramCounter != preProgramCounter)
             {
                 preProgramCounter = game.Players[0].ProgramCounter;
                 Check();
@@ -72,19 +76,17 @@ public class AI_Mission3_5 : MonoBehaviour
                 if (game.Players[0].Code[(ushort)preProgramCounter].Arguments[0] == 0 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[1] == 1 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[2] == 0 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[4] == 0)
                     Mission1 = true;
             }
-            if (game.Players[0].Code[(ushort)preProgramCounter].Type == InstructionType.Loop && loop_Flag == false)
+            //loop 雙方距離 < 2
+            if (game.Players[0].Code[(ushort)preProgramCounter].Equals(new Instruction(InstructionType.Loop, new int[4] { 3, 0, 0, 2 })) && loop_Flag == false)
             {
-                //loop 雙方距離 < v1 
-                if (game.Players[0].Code[(ushort)preProgramCounter].Arguments[0] == 3 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[1] == 0 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[2] == 1)
-                {
-                    Mission2 = true;
-                    loop_Flag = true;
-                    loop_Level = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
-                }
+                Mission2 = true;
+                loop_Flag = true;
+                loop_Level = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
             }
-            if (game.Players[0].Code[(ushort)preProgramCounter].Equals(new Instruction(InstructionType.Move, new int[1] { 0 })))
+
+            if (game.Players[0].Code[(ushort)preProgramCounter].Equals(new Instruction(InstructionType.Move, new int[1] { 2 })))
             {
-                // move(上)
+                // move 綠色
                 move_Level = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
                 if (move_Level > loop_Level && loop_Flag)
                     Mission3 = true;

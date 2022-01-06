@@ -5,11 +5,11 @@ using UnityEngine;
 public class AI_Mission2_2 : MonoBehaviour
 {
     private Game game;
-    private bool endBattle = true;
+    private bool preStageBattle = true;
     private int preProgramCounter = -1;
     private bool Mission1 = false;
 
-    private void Start()
+    private void OnEnable()
     {
         game = GameObject.Find("GameHandler").gameObject.GetComponent<Game>();
     }
@@ -23,16 +23,21 @@ public class AI_Mission2_2 : MonoBehaviour
     {
         if (!game.IsBattle)
         {
-            if (endBattle)
+            if (preStageBattle)
             {
                 WinCheck();
                 AI_add_code();
-                endBattle = false;
+                preStageBattle = false;
             }
         }
         else
         {
-            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter)
+            if (!preStageBattle)
+            {
+                preStageBattle = true;
+                preProgramCounter = -1;
+            }
+            if (game.Players[0].ProgramCounter != preProgramCounter)
             {
                 preProgramCounter = game.Players[0].ProgramCounter;
                 Check();
@@ -50,7 +55,7 @@ public class AI_Mission2_2 : MonoBehaviour
             game.Winner = true;
         }
 
-        if (game.Round == 4)
+        else if (game.Round == 4)
         {
             Debug.Log("You lose");
             game.EndGame = true;
