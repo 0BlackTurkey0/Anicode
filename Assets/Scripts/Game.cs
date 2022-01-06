@@ -651,10 +651,9 @@ public class Game : MonoBehaviour
             SceneManager.LoadScene(1);
         }
         else {
-            if (_isSimple)//判斷是否是單人模式
+            if (_isSimple)//劇情模式
             {
                 {
-                    //簡易、劇情單人模式依據勝負更新進度以及SCENE跳轉 - applicationHandler
                     if (_winner) {
                         applicationHandler.GameData.IswinForSimple = true;
                         applicationHandler.GameData.SaveData();
@@ -668,10 +667,10 @@ public class Game : MonoBehaviour
                     SceneManager.LoadScene(7);
                 }
             }
-            else//單人劇情模式
+            else//挑戰模式
             {
                 if (_winner) {
-                    if (0 < applicationHandler.Challenge && applicationHandler.Challenge <= 16) {
+                    if (0 <= applicationHandler.Challenge && applicationHandler.Challenge < 16) {
                         applicationHandler.GameData.Schedule_Single |= 1 << (applicationHandler.Challenge + 1);
                         applicationHandler.GameData.SaveData();
                     }

@@ -37,7 +37,7 @@
     <boolean>false</boolean>
   </Skins>
   <IsFullScreen>true</IsFullScreen>
-  <VoiceVolume>0.0183860771</VoiceVolume>
+  <VoiceVolume>0</VoiceVolume>
   <IsIntro_Single>
     <boolean>false</boolean>
     <boolean>false</boolean>
@@ -48,5 +48,5 @@
   <Schedule_SimpleChange>0</Schedule_SimpleChange>
   <IswinForSimple>true</IswinForSimple>
   <_SimpleIsFinish>true</_SimpleIsFinish>
-  <Schedule_Single>14</Schedule_Single>
+  <Schedule_Single>2</Schedule_Single>
 </GameData>
