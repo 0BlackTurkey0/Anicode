@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using UnityEngine;
 
 public class Code {
 
@@ -27,16 +28,16 @@ public class Code {
     }
 
     [JsonConstructor]
-    public Code(List<Tuple<Instruction, ushort>> Instructions)
+    public Code(List<Tuple<Instruction, ushort>> instructions)
     {
-        _instructions = Instructions;
+        _instructions = new List<Tuple<Instruction, ushort>>(instructions);
         _records = new Stack<ushort>();
         _programCounter = 0;
     }
 
     public Code(Code copy = null)
     {
-        if (copy != null) _instructions = copy._instructions;
+        if (copy != null) _instructions = new List<Tuple<Instruction, ushort>>(copy.Instructions);
         else _instructions = new List<Tuple<Instruction, ushort>>();
         _records = new Stack<ushort>();
         _programCounter = 0;
@@ -147,8 +148,6 @@ public class Code {
         if (index < _instructions.Count) return _instructions[index].Item2;
         return 0;
     }
-
-    /*
     public void Display() {
         System.Text.StringBuilder display = new System.Text.StringBuilder();
         foreach (var i in _instructions) {
@@ -158,5 +157,4 @@ public class Code {
         }
         Debug.Log(display.ToString());
     }
-    */
 }
