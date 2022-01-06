@@ -131,10 +131,12 @@ public class Network : MonoBehaviour {
                             break;
 
                         case MSG.ACCEPT:
-                            systemMessage ??= SYS.ACCEPT;
-                            isModeReceive = true;
-                            playerStatus = 2;
-                            challengerMode = receiveData.Mode;
+                            if (challengerIP != null) {
+                                systemMessage ??= SYS.ACCEPT;
+                                isModeReceive = true;
+                                playerStatus = 2;
+                                challengerMode = receiveData.Mode;
+                            }
                             break;
 
                         case MSG.DENY:
@@ -386,6 +388,8 @@ public class Network : MonoBehaviour {
     {
         systemMessage = SYS.DENY;
         playerStatus = 0;
+        challengerIP = null;
+        challengerMode = null;
     }
 
     public void SetMode(GameMode mode)

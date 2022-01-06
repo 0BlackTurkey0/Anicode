@@ -91,6 +91,7 @@ public class Control_in_Twolobby : MonoBehaviour {
                 case SYS.DENY:
                     WaitingOpponentRespond.SetActive(false);
                     HintWhenDeny.SetActive(true);
+                    network.ClearSystemMessage();
                     break;
 
                 case SYS.MODE:
