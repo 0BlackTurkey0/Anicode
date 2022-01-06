@@ -169,7 +169,7 @@ public class Network : MonoBehaviour {
 
                         case MSG.FOOD:
                             isFoodReceive = true;
-                            challengerFood = receiveData.Food;
+                            Array.Copy(receiveData.Food, challengerFood, 10);
                             systemMessage = SYS.GAME;
                             playerStatus = 2;
                             break;
