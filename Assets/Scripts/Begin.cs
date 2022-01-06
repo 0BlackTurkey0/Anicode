@@ -84,8 +84,10 @@ public class Begin : MonoBehaviour {
 
     private void PlayStory()
     {
-        if (applicationHandler.GameData.Schedule_Simple == 1)
+        if (applicationHandler.GameData.Schedule_Simple == 1) {
+            applicationHandler.GameData.IswinForSimple = true;
             SceneManager.LoadScene("SimpleStory");
+        }
     }
 
     public void OnClick()

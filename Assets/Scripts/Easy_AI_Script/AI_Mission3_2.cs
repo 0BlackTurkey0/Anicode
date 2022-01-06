@@ -9,12 +9,14 @@ public class AI_Mission3_2 : MonoBehaviour
     private int preProgramCounter = -1;
     private bool Mission1 = false;
     private bool Mission2 = false;
+    private bool Mission3 = false;
     private bool loop_Flag = false;
     private int loop_Level = 0;
     //private int assign_Level = 0;
-    private int move_Level = 0;
+    private int move_Level1 = 0;
+    private int move_Level2 = 0;
 
-    private void Start()
+    private void OnEnable()
     {
         game = GameObject.Find("GameHandler").gameObject.GetComponent<Game>();
     }
@@ -37,8 +39,12 @@ public class AI_Mission3_2 : MonoBehaviour
         }
         else
         {
-            if (!preStageBattle) preStageBattle = true;
-            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter)
+            if (!preStageBattle)
+            {
+                preStageBattle = true;
+                preProgramCounter = -1;
+            }
+            if (game.Players[0].ProgramCounter != preProgramCounter)
             {
                 preProgramCounter = game.Players[0].ProgramCounter;
                 Check();
@@ -48,7 +54,7 @@ public class AI_Mission3_2 : MonoBehaviour
     }
     private void WinCheck()
     {
-        if (Mission1 && Mission2)
+        if (Mission1 && Mission2 && Mission3)
         {
             Debug.Log("You win");
             game.EndGame = true;
@@ -67,22 +73,29 @@ public class AI_Mission3_2 : MonoBehaviour
         //在loop裡面包move
         if (game.Players[0].Code[(ushort)preProgramCounter] != null)
         {
-            if (game.Players[0].Code[(ushort)preProgramCounter].Type == InstructionType.Loop && loop_Flag == false)
+            //loop v5 < 10 
+            if (game.Players[0].Code[(ushort)preProgramCounter].Equals(new Instruction(InstructionType.Loop, new int[4] { 3, 7, 0, 10 })) && loop_Flag == false)
             {
-                //loop 我方生命 > v3 
-                if (game.Players[0].Code[(ushort)preProgramCounter].Arguments[0] == 2 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[1] == 1 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[2] == 3)
-                {
-                    Mission1 = true;
-                    loop_Flag = true;
-                    loop_Level = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
-                }
+                Mission1 = true;
+                loop_Flag = true;
+                loop_Level = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
             }
+
             if (game.Players[0].Code[(ushort)preProgramCounter].Equals(new Instruction(InstructionType.Move, new int[1] { 0 })))
             {
-                // move(上)
-                move_Level = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
-                if (move_Level > loop_Level && loop_Flag)
+                // move 紅色
+                move_Level1 = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
+                if (move_Level1 > loop_Level && loop_Flag)
                     Mission2 = true;
+                else
+                    loop_Flag = false;
+            }
+            if (game.Players[0].Code[(ushort)preProgramCounter].Equals(new Instruction(InstructionType.Move, new int[1] { 3 })))
+            {
+                // move 藍色
+                move_Level2 = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
+                if (move_Level2 > loop_Level && loop_Flag)
+                    Mission3 = true;
                 else
                     loop_Flag = false;
             }
@@ -91,5 +104,7 @@ public class AI_Mission3_2 : MonoBehaviour
         Debug.Log(Mission1);
         Debug.Log("Mission2 : ");
         Debug.Log(Mission2);
+        Debug.Log("Mission3 : ");
+        Debug.Log(Mission3);
     }
 }

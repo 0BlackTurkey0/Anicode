@@ -14,7 +14,7 @@ public class AI_Mission3_1 : MonoBehaviour
     private int assign_Level = 0;
     //private int move_Level = 0;
 
-    private void Start()
+    private void OnEnable()
     {
         game = GameObject.Find("GameHandler").gameObject.GetComponent<Game>();
     }
@@ -37,8 +37,12 @@ public class AI_Mission3_1 : MonoBehaviour
         }
         else
         {
-            if (!preStageBattle) preStageBattle = true;
-            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter)
+            if (!preStageBattle)
+            {
+                preStageBattle = true;
+                preProgramCounter = -1;
+            }
+            if (game.Players[0].ProgramCounter != preProgramCounter)
             {
                 preProgramCounter = game.Players[0].ProgramCounter;
                 Check();
@@ -67,17 +71,33 @@ public class AI_Mission3_1 : MonoBehaviour
         //在loop裡面包assign
         if (game.Players[0].Code[(ushort)preProgramCounter] != null)
         {
-            if (game.Players[0].Code[(ushort)preProgramCounter].Type == InstructionType.Loop && loop_Flag == false)
+            /*if (game.Players[0].Code[(ushort)preProgramCounter].Type == InstructionType.Loop && loop_Flag == false)
             {
-                //loop v3 < 10 
+                //loop v3 < C 
                 if (game.Players[0].Code[(ushort)preProgramCounter].Arguments[0] == 3 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[1] == 5 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[2] == 0)
                 {
                     Mission1 = true;
                     loop_Flag = true;
                     loop_Level = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
                 }
+            }*/
+            //loop v3 < 3 
+            if (game.Players[0].Code[(ushort)preProgramCounter].Equals(new Instruction(InstructionType.Loop, new int[4] { 3, 5, 0, 3 })) && loop_Flag == false)
+            {
+                Mission1 = true;
+                loop_Flag = true;
+                loop_Level = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
             }
-            if (game.Players[0].Code[(ushort)preProgramCounter].Type == InstructionType.Assign)
+            //assign v3 + 2 = v3
+            if (game.Players[0].Code[(ushort)preProgramCounter].Equals(new Instruction(InstructionType.Assign, new int[5] { 0, 3, 0, 2, 2 })))
+            {
+                assign_Level = game.Players[0].Code.GetLevel((ushort)preProgramCounter);
+                if (assign_Level > loop_Level && loop_Flag)
+                    Mission2 = true;
+                else
+                    loop_Flag = false;
+            }
+            /*if (game.Players[0].Code[(ushort)preProgramCounter].Type == InstructionType.Assign)
             {
                 //assign v3 + C = v3
                 if (game.Players[0].Code[(ushort)preProgramCounter].Arguments[0] == 0 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[1] == 3 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[2] == 0 && game.Players[0].Code[(ushort)preProgramCounter].Arguments[4] == 2)
@@ -88,7 +108,7 @@ public class AI_Mission3_1 : MonoBehaviour
                     else
                         loop_Flag = false;
                 }
-            }
+            }*/
         }
         Debug.Log("Mission1 : ");
         Debug.Log(Mission1);

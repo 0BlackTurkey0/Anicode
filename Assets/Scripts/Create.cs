@@ -50,7 +50,6 @@ public class Create : MonoBehaviour {
                 isRun = false;
                 isFinish = true;
             }
-            
         }
     }
 
@@ -64,8 +63,6 @@ public class Create : MonoBehaviour {
                     //isFinish = Prefab.transform.GetChild(1).gameObject.GetComponent<DialogSystem>().Finished;
                     isFinish = Prefab.transform.GetComponent<DialogSystem>().Finished;
                     if (Input.GetKeyDown(KeyCode.RightArrow) && isFinish) {
-                        //if (storyNum == 3 && ind == 21) lastTag = 2; 
-                        //else lastTag = 1;
                         Destroy(Prefab);
                         ind++;
                         Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
@@ -87,13 +84,13 @@ public class Create : MonoBehaviour {
                     }
                     break;
                 case "4":   //結束故事返回選擇畫面
-                    if (isEnd) {
+                    /*if (isEnd) {
                         isEnd = false;
                         buttonParent = gameObject.transform.GetChild(0).gameObject;
                         for (int i = 1;i <= 3;i += 1)
                             buttonParent.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(delegate () { StoryOnClick(); });
 
-                    }
+                    }*/
                     if (Input.GetKeyDown(KeyCode.RightArrow) && isFinish) {
                         if (storyNum < 4)
                             storyNum++;
@@ -101,7 +98,6 @@ public class Create : MonoBehaviour {
                             applicationHandler.GameData.Schedule_Simple = storyNum;
                             applicationHandler.GameData.SaveData();
                         }
-                        //lastTag = 4;
                         Destroy(Prefab);
                         ind = 0;
                         applicationHandler.GameData.Schedule_SimpleChange = ind;
@@ -112,9 +108,16 @@ public class Create : MonoBehaviour {
                             Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_" + applicationHandler.GameData.Schedule_Simple.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
                         isEnd = true;
                     }
-                    /*if (!isFinal && storyNum == 3) {
-                        StartCoroutine(UpdateFinal());
-                    }*/
+                    break;
+                case "5":
+                    if (isEnd)
+                    {
+                        isEnd = false;
+                        buttonParent = gameObject.transform.GetChild(0).gameObject;
+                        for (int i = 1; i <= 3; i += 1)
+                            buttonParent.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(delegate () { StoryOnClick(); });
+
+                    }
                     break;
             }
         }
@@ -137,6 +140,7 @@ public class Create : MonoBehaviour {
             applicationHandler.GameData.SaveData();
         }
         applicationHandler.GameData.Schedule_Simple = storyNum;
+        applicationHandler.GameData.Schedule_SimpleChange = ind;
         applicationHandler.GameData.SaveData();
         Destroy(Prefab);
         //lastTag = 4;
@@ -159,21 +163,11 @@ public class Create : MonoBehaviour {
     {
         SceneManager.LoadScene("Lobby");
     }
-    /*private IEnumerator UpdateFinal()
-    { 
-        storyNum = 4;
-        Destroy(Prefab);
-        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/3-22.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
-        yield return new WaitForSecondsRealtime(3);
-        isFinal = true;
-    }*/
-
     private IEnumerator UpdateExitGame()
     {
         yield return new WaitForSecondsRealtime(2);
         if (applicationHandler.GameData.IswinForSimple)
         {//成功
-
             Destroy(Prefab);
             applicationHandler.GameData.Schedule_SimpleChange = ind;
             applicationHandler.GameData.SaveData();

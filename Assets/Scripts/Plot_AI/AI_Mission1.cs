@@ -10,7 +10,7 @@ public class AI_Mission1 : MonoBehaviour
     private bool Mission1 = false;
     private bool[] table;
 
-    private void Start()
+    private void OnEnable()
     {
         game = GameObject.Find("GameHandler").gameObject.GetComponent<Game>();
         table = new bool[16];
@@ -44,7 +44,6 @@ public class AI_Mission1 : MonoBehaviour
             }
         }
     }
-
     private void Update()
     {
         if (!game.IsBattle)
@@ -58,11 +57,14 @@ public class AI_Mission1 : MonoBehaviour
         }
         else
         {
-            if (!preStageBattle) preStageBattle = true;
-            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter)
+            if (!preStageBattle)
+            {
+                preStageBattle = true;
+                preProgramCounter = -1;
+            }
+            if (game.Players[0].ProgramCounter != preProgramCounter)
             {
                 preProgramCounter = game.Players[0].ProgramCounter;
-
                 Check();
             }
 
