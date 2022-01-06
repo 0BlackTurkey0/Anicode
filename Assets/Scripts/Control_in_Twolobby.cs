@@ -96,6 +96,7 @@ public class Control_in_Twolobby : MonoBehaviour {
 
                 case SYS.MODE:
                     BothNoSameDifficulty.SetActive(true);
+                    network.ClearSystemMessage();
                     //network.DenyChallenge();
                     break;
 

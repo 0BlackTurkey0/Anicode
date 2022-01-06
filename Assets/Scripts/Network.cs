@@ -35,7 +35,7 @@ public class Network : MonoBehaviour {
     private bool isNetworkOn, isNetworkRunning;
     private string playerName;
     private int playerRank;
-    private const int port = 8880;
+    private const int port = 8888;
 
     void Awake()
     {
