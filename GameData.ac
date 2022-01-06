@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-<<<<<<< HEAD
-  <Name>Reset</Name>
-=======
   <Name>= =</Name>
->>>>>>> 828d6a033202e90d238169b845aa0c82dd22878e
   <Rank>Normal</Rank>
   <Money>2745675</Money>
   <Achievements>
@@ -48,14 +44,9 @@
     <boolean>false</boolean>
     <boolean>false</boolean>
   </IsIntro_Single>
-<<<<<<< HEAD
-  <Schedule_Simple>1</Schedule_Simple>
-  <Schedule_Single>4</Schedule_Single>
-=======
   <Schedule_Simple>3</Schedule_Simple>
   <Schedule_SimpleChange>0</Schedule_SimpleChange>
   <IswinForSimple>true</IswinForSimple>
   <_SimpleIsFinish>true</_SimpleIsFinish>
   <Schedule_Single>2</Schedule_Single>
->>>>>>> 828d6a033202e90d238169b845aa0c82dd22878e
 </GameData>

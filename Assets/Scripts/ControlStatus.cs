@@ -36,13 +36,13 @@ public class ControlStatus : MonoBehaviour
 
     private ApplicationHandler applicationHandler;
 
-    void Awake()
+    /*void Awake()
     {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
-    }
+    }*/
 
     // Start is called before the first frame update
-    void Start()
+    /*void Start()
     {
         PlayerName.text = applicationHandler.GameData.Name;
         LevelText.text = "���� : ";
@@ -71,7 +71,7 @@ public class ControlStatus : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         
     }
@@ -147,18 +147,20 @@ public class ControlStatus : MonoBehaviour
     {
     }
     public void HerbBtn_OnClick()
-    {
+    { 
         Price = 100;
-        Purchase(20);
+        Purchase(21 , price);
     }
-    public void ConfirmBtn_OnClick(int num, int price)
+    public void ConfirmBtn_OnClick(int Num, int Price)
     {
+        if(Mnoey > Price)
+        {
 
-        applicationHandler.GameData.
+        }
     }
-    public void Purchase(int num , int price)
+    public void Purchase(int Num , int Price)
     {
         ConfirmSurface.SetActive(true);
         ConfirmBtn.OnClick(num , price);
-    }
+    }*/
 }
