@@ -595,6 +595,7 @@ public class Game : MonoBehaviour
         PlayerHP.SetActive(true);
         EnemyHP.SetActive(true);
         PlayerCode.transform.GetChild(2).gameObject.SetActive(true);
+        UpdateCode(0);
         _battleStart = true;
     }
 
@@ -602,7 +603,6 @@ public class Game : MonoBehaviour
     {
         _costLimit = (ushort)(_round * 5);
         _turn = (Players[0].Speed < Players[1].Speed);
-        UpdateCode(0);
         UpdateCode(1);
         UpdateCost(false);
         UpdateCost(true);
