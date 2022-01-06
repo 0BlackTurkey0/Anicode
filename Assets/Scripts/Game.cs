@@ -495,8 +495,6 @@ public class Game : MonoBehaviour
                             Array.Copy(networkHandler.challengerFood, Players[0].Food, 10);
                             Array.Copy(networkHandler.challengerFood, Players[1].Food, 10);
                         }
-                        networkHandler.isCodeReceive = false;
-                        networkHandler.isFoodReceive = false;
                         StartCoroutine(RunCode());
                         _isBattle = true;
                         _battleStart = false;
@@ -519,34 +517,6 @@ public class Game : MonoBehaviour
         {
             _isRunEndProcess = true;
             StartCoroutine(GameEnd());
-            if (_isSimple)//�@���Ҧ�
-            {
-                if (_winner)
-                {
-                    applicationHandler.GameData.IswinForSimple = true;
-                    applicationHandler.GameData.SaveData();
-                    applicationHandler.IsSimple = false;
-                }
-                else
-                {
-                    applicationHandler.GameData.IswinForSimple = false;
-                    applicationHandler.GameData.SaveData();
-                    applicationHandler.IsSimple = false;
-                }
-                SceneManager.LoadScene(7);
-            }
-            else//�D�ԼҦ�
-            {
-                if (_winner)
-                {
-                    if (0 <= applicationHandler.Challenge && applicationHandler.Challenge < 16)
-                    {
-                        applicationHandler.GameData.Schedule_Single |= 1 << applicationHandler.Challenge + 1;
-                        applicationHandler.GameData.SaveData();
-                    }
-                }
-                SceneManager.LoadScene(10);
-            }
         }
         if (_isDuel && !networkHandler.isConnect)
         {
@@ -608,7 +578,11 @@ public class Game : MonoBehaviour
         UpdateCost(true);
         UpdateVariable();
         UpdateFood();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
+        if (_isDuel) {
+            networkHandler.isCodeReceive = false;
+            networkHandler.isFoodReceive = false;
+        }
         Players[0].ProgramCounter = Players[0].Code.Next(true);
         Players[1].ProgramCounter = Players[1].Code.Next(true);
         while ((Players[0].Code[Players[0].ProgramCounter] != null || Players[1].Code[Players[1].ProgramCounter] != null) && !_endGame)
@@ -651,6 +625,12 @@ public class Game : MonoBehaviour
     private IEnumerator GameEnd() {
         yield return new WaitForSeconds(2f);
         if (_isDuel) {
+            if (_winner)
+                applicationHandler.GameData.Money += 15;
+            else
+                applicationHandler.GameData.Money += 5;
+            applicationHandler.IsDuel = false;
+            applicationHandler.GameData.SaveData();
             SceneManager.LoadScene(1);
         }
         else {
@@ -659,6 +639,8 @@ public class Game : MonoBehaviour
                 {
                     if (_winner) {
                         applicationHandler.GameData.IswinForSimple = true;
+                        if (!applicationHandler.GameData.SimpleIsFinish)
+                            applicationHandler.GameData.Money += 5;
                         applicationHandler.GameData.SaveData();
                         applicationHandler.IsSimple = false;
                     }
@@ -675,6 +657,7 @@ public class Game : MonoBehaviour
                 if (_winner) {
                     if (0 <= applicationHandler.Challenge && applicationHandler.Challenge < 16) {
                         applicationHandler.GameData.Schedule_Single |= 1 << (applicationHandler.Challenge + 1);
+                        applicationHandler.GameData.Money += 10;
                         applicationHandler.GameData.SaveData();
                     }
                 }

@@ -24,7 +24,7 @@ public class Create : MonoBehaviour {
         storyNum = applicationHandler.GameData.Schedule_Simple;
         if (ind == 0) //story挡Ω更select初春
         {
-            if (applicationHandler.GameData._SimpleIsFinish == true) //竒筁近
+            if (applicationHandler.GameData.SimpleIsFinish == true) //竒筁近
                 Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_3.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
             else
                 Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_" + applicationHandler.GameData.Schedule_Simple.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
@@ -102,7 +102,7 @@ public class Create : MonoBehaviour {
                         ind = 0;
                         applicationHandler.GameData.Schedule_SimpleChange = ind;
                         applicationHandler.GameData.SaveData();
-                        if(applicationHandler.GameData._SimpleIsFinish == true) //竒筁近
+                        if(applicationHandler.GameData.SimpleIsFinish == true) //竒筁近
                             Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_3.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
                         else
                             Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_" + applicationHandler.GameData.Schedule_Simple.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
@@ -136,7 +136,7 @@ public class Create : MonoBehaviour {
             storyNum = 3;
         if(storyNum >= 2)
         {
-            applicationHandler.GameData._SimpleIsFinish = true;
+            applicationHandler.GameData.SimpleIsFinish = true;
             applicationHandler.GameData.SaveData();
         }
         applicationHandler.GameData.Schedule_Simple = storyNum;

@@ -2,7 +2,7 @@
 <GameData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Name>= =</Name>
   <Rank>Normal</Rank>
-  <Money>2745675</Money>
+  <Money>25</Money>
   <Achievements>
     <boolean>false</boolean>
     <boolean>false</boolean>
@@ -44,9 +44,9 @@
     <boolean>false</boolean>
     <boolean>false</boolean>
   </IsIntro_Single>
-  <Schedule_Simple>3</Schedule_Simple>
+  <Schedule_Simple>2</Schedule_Simple>
   <Schedule_SimpleChange>0</Schedule_SimpleChange>
   <IswinForSimple>true</IswinForSimple>
-  <_SimpleIsFinish>true</_SimpleIsFinish>
+  <SimpleIsFinish>false</SimpleIsFinish>
   <Schedule_Single>2</Schedule_Single>
 </GameData>

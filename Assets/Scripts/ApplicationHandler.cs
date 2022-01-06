@@ -75,6 +75,7 @@ public class ApplicationHandler : MonoBehaviour {
     void Start() {
         Screen.fullScreen = _gameData.IsFullScreen;
         gameObject.transform.GetChild(2).GetComponent<AudioSource>().volume = _gameData.VoiceVolume;
+        _isDuel = false;
         SceneManager.LoadScene(0);
     }
 
