@@ -465,9 +465,42 @@ public class Game : MonoBehaviour
             }
             if (_battleStart)
             {
-                StartCoroutine(RunCode());
-                _isBattle = true;
-                _battleStart = false;
+                if (_difficulty == DifficultyType.Hard) {
+                    for (int i = 0;i < 10;i++) {
+                        int number = Random.Range(1, 15);
+                        Players[0].Food[i] = number;
+                        Players[1].Food[i] = number;
+                    }
+                }
+                else {
+                    for (int i = 0;i < 10;i++) {
+                        Players[0].Food[i] = 0;
+                        Players[1].Food[i] = 0;
+                    }
+                }
+                if (_isDuel) {
+                    networkHandler.SendGameData(Players[0].Code);
+                    if (!_isGuest)
+                        networkHandler.SendGameFood(Players[0].Food);
+                    else {
+                        Players[0].Food = networkHandler.challengerFood;
+                        Players[1].Food = networkHandler.challengerFood;
+                    }
+                    if (networkHandler.isCodeReceive) {
+                        if ((_isGuest && networkHandler.isFoodReceive) || !_isGuest) {
+                            networkHandler.isCodeReceive = false;
+                            networkHandler.isFoodReceive = false;
+                            StartCoroutine(RunCode());
+                            _isBattle = true;
+                            _battleStart = false;
+                        }
+                    }
+                }
+                else {
+                    StartCoroutine(RunCode());
+                    _isBattle = true;
+                    _battleStart = false;
+                }
             }
             if (PrepareTime.activeSelf)
             {
@@ -536,43 +569,7 @@ public class Game : MonoBehaviour
         EnemyHP.SetActive(true);
         PlayerCode.transform.GetChild(2).gameObject.SetActive(true);
         UpdateCode(0);
-        if (_isDuel)
-        {
-            if (!_isGuest && _difficulty == DifficultyType.Hard)
-            {
-                for (int i = 0; i < 10; i++)
-                {
-                    int number = Random.Range(1, 15);
-                    Players[0].Food[i] = number;
-                    Players[1].Food[i] = number;
-                }
-            }
-            networkHandler.SendGameData(Players[0].Code);
-            while (!networkHandler.isCodeReceive) {
-                
-            }
-            networkHandler.isCodeReceive = false;
-            Players[1].Code = new Code(networkHandler.challengerCode);
-            if (!_isGuest) {
-                networkHandler.SendGameFood(Players[0].Food);
-            }
-            else {
-                while (!networkHandler.isFoodReceive) {
-
-                }
-                networkHandler.isFoodReceive = false;
-                Players[0].Food = networkHandler.challengerFood;
-                Players[1].Food = networkHandler.challengerFood;
-            }
-        }
-        else
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                Players[0].Food[i] = 0;
-                Players[1].Food[i] = 0;
-            }
-        }
+        Players[1].Code = new Code(networkHandler.challengerCode);
         UpdateCode(1);
         Players[0].Reset();
         Players[1].Reset();
