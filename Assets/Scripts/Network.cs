@@ -56,7 +56,7 @@ public class Network : MonoBehaviour {
         if (receivingClient == null)
             receivingClient = new UdpClient(port);
         isNetworkOn = true;
-        isNetworkRunning = true;
+        isNetworkRunning = false;
         if (receivingThread == null) {
             receivingThread = new Thread(Receiver) {
                 IsBackground = true
@@ -185,7 +185,7 @@ public class Network : MonoBehaviour {
     private IEnumerator UpdateNetwork()
     {
         while (true) {
-            if (SceneManager.GetActiveScene().name == "DuelMode") {
+            if (SceneManager.GetActiveScene().name == "DuelMode" || SceneManager.GetActiveScene().name == "Battle") {
                 playerName = applicationHandler.GameData.Name;
                 playerRank = (int)applicationHandler.GameData.Rank;
                 isNetworkRunning = true;
