@@ -38,26 +38,6 @@ public class buttonWhale : MonoBehaviour
         owlImage.SetActive(false);
         koalaImage.SetActive(false);
         foxImage.SetActive(false);
-
-        redKangarooImage.SetActive(false);
-        blueKangarooImage.SetActive(false);
-        greenKangarooImage.SetActive(false);
-
-        redWhaleImage.SetActive(false);
-        blueWhaleImage.SetActive(false);
-        greenWhaleImage.SetActive(false);
-
-        redOwlImage.SetActive(false);
-        blueOwlImage.SetActive(false);
-        greenOwlImage.SetActive(false);
-
-        redKoalaImage.SetActive(false);
-        blueKoalaImage.SetActive(false);
-        greenKoalaImage.SetActive(false);
-
-        redFoxImage.SetActive(false);
-        blueFoxImage.SetActive(false);
-        greenFoxImage.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -82,5 +62,21 @@ public class buttonWhale : MonoBehaviour
         redKangarooImage.SetActive(false);
         blueKangarooImage.SetActive(false);
         greenKangarooImage.SetActive(false);
+
+        redWhaleImage.SetActive(false);
+        blueWhaleImage.SetActive(false);
+        greenWhaleImage.SetActive(false);
+
+        redOwlImage.SetActive(false);
+        blueOwlImage.SetActive(false);
+        greenOwlImage.SetActive(false);
+
+        redKoalaImage.SetActive(false);
+        blueKoalaImage.SetActive(false);
+        greenKoalaImage.SetActive(false);
+
+        redFoxImage.SetActive(false);
+        blueFoxImage.SetActive(false);
+        greenFoxImage.SetActive(false);
     }
 }

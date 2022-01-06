@@ -144,7 +144,7 @@ public class Game : MonoBehaviour
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
         CharacterType[] characterType = new CharacterType[2];
         _isDuel = applicationHandler.IsDuel;
-        //_isDuel = false; //¼È©w
+        //_isDuel = false; //ï¿½È©w
         if (_isDuel) {
             networkHandler = GameObject.Find("Network").GetComponent<Network>();
             _isGuest = networkHandler.isGuest;
@@ -195,7 +195,7 @@ public class Game : MonoBehaviour
                     {52, -21},
                     {184, -21}
                 };
-                _neighbor = new int[16, 4] { // 0:¤W, 1:¤U, 2:¥ª, 3:¥k 
+                _neighbor = new int[16, 4] { // 0:ï¿½W, 1:ï¿½U, 2:ï¿½ï¿½, 3:ï¿½k 
                     {0, 4, 0, 1},
                     {1, 5, 0, 2},
                     {2, 6, 1, 3},
@@ -270,7 +270,7 @@ public class Game : MonoBehaviour
                     {41, 14},
                     {157, 14}
                 };
-                _neighbor = new int[16, 4] { // 0:¤W, 1:¤U, 2:¥ª, 3:¥k 
+                _neighbor = new int[16, 4] { // 0:ï¿½W, 1:ï¿½U, 2:ï¿½ï¿½, 3:ï¿½k 
                     {12, 4, 3, 1},
                     {13, 5, 0, 2},
                     {14, 6, 1, 3},
@@ -335,7 +335,7 @@ public class Game : MonoBehaviour
                     {7, 54},
                     {251, 46},
                 };
-                _neighbor = new int[6, 4] { // 0:¬õ, 1:¶À, 2:ºñ, 3:ÂÅ 
+                _neighbor = new int[6, 4] { // 0:ï¿½ï¿½, 1:ï¿½ï¿½, 2:ï¿½ï¿½, 3:ï¿½ï¿½ 
                     {1, 2, 5, 3},
                     {0, 4, 3, 2},
                     {5, 0, 4, 1},
@@ -386,7 +386,7 @@ public class Game : MonoBehaviour
                     {227, 158},
                     {122, 247}
                 };
-                _neighbor = new int[12, 4] { // 0:¬õ¶¶, 1:¬õ°f, 2:ÂÅ¶¶, 3:ÂÅ°f 
+                _neighbor = new int[12, 4] { // 0:ï¿½ï¿½ï¿½ï¿½, 1:ï¿½ï¿½ï¿½f, 2:ï¿½Å¶ï¿½, 3:ï¿½Å°f 
                     {1, 2, 1, 3},
                     {5, 0, 3, 0},
                     {0, 6, 4, 6},
@@ -513,7 +513,7 @@ public class Game : MonoBehaviour
         else
         {
             StartCoroutine(GameEnd());
-            if (_isSimple)//¼@±¡¼Ò¦¡
+            if (_isSimple)//ï¿½@ï¿½ï¿½ï¿½Ò¦ï¿½
             {
                 if (_winner)
                 {
@@ -529,7 +529,7 @@ public class Game : MonoBehaviour
                 }
                 SceneManager.LoadScene(7);
             }
-            else//¬D¾Ô¼Ò¦¡
+            else//ï¿½Dï¿½Ô¼Ò¦ï¿½
             {
                 if (_winner)
                 {
@@ -544,7 +544,7 @@ public class Game : MonoBehaviour
         }
         if (_isDuel && !networkHandler.isConnect)
         {
-            // "" Â_½uµe­±      ""
+            // "" ï¿½_ï¿½uï¿½eï¿½ï¿½      ""
             SceneManager.LoadScene(0);
         }
     }
@@ -651,7 +651,7 @@ public class Game : MonoBehaviour
             SceneManager.LoadScene(1);
         }
         else {
-            if (_isSimple)//¼@±¡¼Ò¦¡
+            if (_isSimple)//ï¿½@ï¿½ï¿½ï¿½Ò¦ï¿½
             {
                 {
                     if (_winner) {
@@ -667,7 +667,7 @@ public class Game : MonoBehaviour
                     SceneManager.LoadScene(7);
                 }
             }
-            else//¬D¾Ô¼Ò¦¡
+            else//ï¿½Dï¿½Ô¼Ò¦ï¿½
             {
                 if (_winner) {
                     if (0 <= applicationHandler.Challenge && applicationHandler.Challenge < 16) {

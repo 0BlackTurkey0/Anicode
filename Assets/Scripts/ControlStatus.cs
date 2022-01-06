@@ -20,26 +20,26 @@ public class ControlStatus : MonoBehaviour
     void Start()
     {
         PlayerName.text = applicationHandler.GameData.Name;
-        LevelText.text = "¶¥¯Å : ";
+        LevelText.text = "éšŽç´š : ";
         switch (applicationHandler.GameData.Rank)
         {
             case DifficultyType.NULL:
-                LevelText.text += "µL";
+                LevelText.text += "ç„¡";
                 break;
             case DifficultyType.Start:
-                LevelText.text += "¤Jªù";
+                LevelText.text += "å…¥é–€";
                 break;
             case DifficultyType.Easy:
-                LevelText.text += "Â²³æ";
+                LevelText.text += "ç°¡å–®";
                 break;
             case DifficultyType.Normal:
-                LevelText.text += "´¶³q";
+                LevelText.text += "æ™®é€š";
                 break;
             case DifficultyType.Hard:
-                LevelText.text += "§xÃø";
+                LevelText.text += "å›°é›£";
                 break;
+             
         }
-
         MoneyText.text = applicationHandler.GameData.Money.ToString();
     }
 

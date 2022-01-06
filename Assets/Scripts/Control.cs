@@ -21,10 +21,6 @@ public class Control : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
-        Ach11.SetActive(false);
-        Ach12.SetActive(false);
-        Ach13.SetActive(false);
-        Ach14.SetActive(false);
     }
 
     // Update is called once per frame
@@ -37,85 +33,85 @@ public class Control : MonoBehaviour {
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "¦b³æ¤H¼Ò¦¡¤¤§¹¦¨¤JªùÃø«×®Ê¯ÅÁÉ";
+        temp.text = "ï¿½bï¿½ï¿½Hï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½×®Ê¯ï¿½ï¿½ï¿½";
     }
     public void Ach2_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "¦b³æ¤H¼Ò¦¡¤¤§¹¦¨Â²³æÃø«×®Ê¯ÅÁÉ";
+        temp.text = "ï¿½bï¿½ï¿½Hï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â²ï¿½ï¿½ï¿½ï¿½ï¿½×®Ê¯ï¿½ï¿½ï¿½";
     }
     public void Ach3_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "¦b³æ¤H¼Ò¦¡¤¤§¹¦¨´¶³qÃø«×®Ê¯ÅÁÉ";
+        temp.text = "ï¿½bï¿½ï¿½Hï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½qï¿½ï¿½ï¿½×®Ê¯ï¿½ï¿½ï¿½";
     }
     public void Ach4_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "¦b³æ¤H¼Ò¦¡¤¤§¹¦¨§xÃøÃø«×®Ê¯ÅÁÉ";
+        temp.text = "ï¿½bï¿½ï¿½Hï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½×®Ê¯ï¿½ï¿½ï¿½";
     }
     public void Ach5_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "¦bÂù¤H¼Ò¦¡¤¤ªº¤@¦^¦X¤º°õ¦æ4¦¸¥H¤Wªº°j°é(Loop)«ü¥O";
+        temp.text = "ï¿½bï¿½ï¿½ï¿½Hï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½^ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½ï¿½Hï¿½Wï¿½ï¿½ï¿½jï¿½ï¿½(Loop)ï¿½ï¿½ï¿½O";
     }
     public void Ach6_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "¦bÂù¤H¼Ò¦¡¤¤ªº¤@¦^¦X¤º°õ¦æ8¦¸¥H¤Wªº±ø¥ó(If...Else...)«ü¥O";
+        temp.text = "ï¿½bï¿½ï¿½ï¿½Hï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½^ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½ï¿½Hï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(If...Else...)ï¿½ï¿½ï¿½O";
     }
     public void Ach7_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "¦bÂù¤H¼Ò¦¡¤¤ªº¤@¦^¦X¤º³y¦¨100ÂI¥H¤Wªº¶Ë®`";
+        temp.text = "ï¿½bï¿½ï¿½ï¿½Hï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½^ï¿½Xï¿½ï¿½ï¿½yï¿½ï¿½100ï¿½Iï¿½Hï¿½Wï¿½ï¿½ï¿½Ë®`";
     }
     public void Ach8_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "¦bÂù¤H¼Ò¦¡¤¤ªº¤@¦^¦X¤º°õ¦æ15¦¸¥H¤Wªººâ¼Æ¹Bºâ¤l";
+        temp.text = "ï¿½bï¿½ï¿½ï¿½Hï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½^ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½15ï¿½ï¿½ï¿½Hï¿½Wï¿½ï¿½ï¿½ï¿½Æ¹Bï¿½ï¿½l";
     }
     public void Ach9_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "¦bÂù¤H¼Ò¦¡¤¤ªº¤@¦^¦X¤º°õ¦æ25¦¸¥H¤WªºÅÞ¿è©ÎÃö«Y¹Bºâ¤l";
+        temp.text = "ï¿½bï¿½ï¿½ï¿½Hï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½^ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½25ï¿½ï¿½ï¿½Hï¿½Wï¿½ï¿½ï¿½Þ¿ï¿½ï¿½ï¿½ï¿½ï¿½Yï¿½Bï¿½ï¿½l";
     }
     public void Ach10_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "¦bÂù¤H¼Ò¦¡¤¤ªº¤@¦^¦X¤º°õ¦æ7ºØ¥H¤Wªº¯S®í«ü¥O";
+        temp.text = "ï¿½bï¿½ï¿½ï¿½Hï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½^ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½7ï¿½Ø¥Hï¿½Wï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½O";
     }
     public void Ach11_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "¦bÂù¤H¼Ò¦¡¤¤¦^¦X¼Æ¹F¨ì8¥H¤W";
+        temp.text = "ï¿½bï¿½ï¿½ï¿½Hï¿½Ò¦ï¿½ï¿½ï¿½ï¿½^ï¿½Xï¿½Æ¹Fï¿½ï¿½8ï¿½Hï¿½W";
     }
     public void Ach12_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "¦bÂù¤H¼Ò¦¡¤¤§¹¦¨ÃD¥Ø";
+        temp.text = "ï¿½bï¿½ï¿½ï¿½Hï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Dï¿½ï¿½";
     }
     public void Ach13_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "¦bÂù¤H¼Ò¦¡¤¤¨ú±o³Ó§Q";
+        temp.text = "ï¿½bï¿½ï¿½ï¿½Hï¿½Ò¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½Ó§Q";
     }
     public void Ach14_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "¦bÂù¤H¼Ò¦¡¤¤²Ö¿n¨ú±o10¦¸³Ó§Q";
+        temp.text = "ï¿½bï¿½ï¿½ï¿½Hï¿½Ò¦ï¿½ï¿½ï¿½ï¿½Ö¿nï¿½ï¿½ï¿½o10ï¿½ï¿½ï¿½Ó§Q";
     }
 
     public void CloseButton2_OnClick()

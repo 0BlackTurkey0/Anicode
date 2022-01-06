@@ -35,7 +35,7 @@ public class Network : MonoBehaviour {
     private bool isNetworkOn, isNetworkRunning;
     private string playerName;
     private int playerRank;
-    private const int port = 8888;
+    private const int port = 8880;
 
     void Awake()
     {
@@ -209,7 +209,6 @@ public class Network : MonoBehaviour {
             throw ex;
         }
     }
-
     public void SearchUser()  //搜尋線上使用者
     {
         try {
@@ -306,7 +305,7 @@ public class Network : MonoBehaviour {
                 Type = MSG.DENY
             };
             SendData(challengerIP, sendData);
-            systemMessage = null;
+            systemMessage = SYS.DENY;
             challengerIP = null;
             challengerMode = null;
             playerStatus = 0;
