@@ -31,11 +31,12 @@ public class GameData {
         set { _achievements = value; }
     }
 
-    private bool[] _skins;
+    private bool[] _items;
 
-    public bool[] Skins {
-        get { return _skins; }
-        set { _skins = value; }
+    public bool[] Items
+    {
+        get { return _items; }
+        set { _items = value; }
     }
 
     private bool _isFullScreen;
@@ -109,7 +110,7 @@ public class GameData {
         _rank = DifficultyType.NULL;
         _money = 0;
         _achievements = new bool[14];
-        _skins = new bool[15];
+        _items = new bool[34];
         _isFullScreen = true;
         _voiceVolume = 1f;
         _isIntro_Single = new bool[4];
@@ -146,8 +147,8 @@ public class GameData {
             _money = gameData.Money;
         if (gameData.Achievements.Length <= 14)
             _achievements = gameData.Achievements;
-        if (gameData.Skins.Length <= 15)
-            _skins = gameData.Skins;
+        if (gameData.Items.Length <= 34)
+            _items = gameData.Items;
         if (gameData.VoiceVolume >= 0 && gameData.VoiceVolume <= 1)
             _voiceVolume = gameData.VoiceVolume;
         _isIntro_Single = gameData.IsIntro_Single;
