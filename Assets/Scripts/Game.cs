@@ -153,6 +153,7 @@ public class Game : MonoBehaviour
             characterType[1] = (CharacterType)networkHandler.challengerMode.Character;
         }
         else {
+            _isGuest = false;
             IsSimple = applicationHandler.IsSimple;
             _difficulty = applicationHandler.DiffiType;
             characterType[0] = applicationHandler.CharaType[0];
@@ -619,32 +620,37 @@ public class Game : MonoBehaviour
 
     private IEnumerator GameEnd() {
         yield return new WaitForSeconds(2f);
-        if (_isSimple)//判斷是否是單人模式
-            {
-            {
-                //簡易、劇情單人模式依據勝負更新進度以及SCENE跳轉 - applicationHandler
-                if (_winner) {
-                    applicationHandler.GameData.IswinForSimple = true;
-                    applicationHandler.GameData.SaveData();
-                    applicationHandler.IsSimple = false;
-                }
-                else {
-                    applicationHandler.GameData.IswinForSimple = false;
-                    applicationHandler.GameData.SaveData();
-                    applicationHandler.IsSimple = false;
-                }
-                SceneManager.LoadScene(7);
-            }
+        if (_isDuel) {
+            SceneManager.LoadScene(1);
         }
-        else//單人劇情模式
-        {
-            if (_winner) {
-                if (0 < applicationHandler.Challenge && applicationHandler.Challenge <= 16) {
-                    applicationHandler.GameData.Schedule_Single |= 1 << (applicationHandler.Challenge + 1);
-                    applicationHandler.GameData.SaveData();
+        else {
+            if (_isSimple)//判斷是否是單人模式
+            {
+                {
+                    //簡易、劇情單人模式依據勝負更新進度以及SCENE跳轉 - applicationHandler
+                    if (_winner) {
+                        applicationHandler.GameData.IswinForSimple = true;
+                        applicationHandler.GameData.SaveData();
+                        applicationHandler.IsSimple = false;
+                    }
+                    else {
+                        applicationHandler.GameData.IswinForSimple = false;
+                        applicationHandler.GameData.SaveData();
+                        applicationHandler.IsSimple = false;
+                    }
+                    SceneManager.LoadScene(7);
                 }
             }
-            SceneManager.LoadScene(10);
+            else//單人劇情模式
+            {
+                if (_winner) {
+                    if (0 < applicationHandler.Challenge && applicationHandler.Challenge <= 16) {
+                        applicationHandler.GameData.Schedule_Single |= 1 << (applicationHandler.Challenge + 1);
+                        applicationHandler.GameData.SaveData();
+                    }
+                }
+                SceneManager.LoadScene(10);
+            }
         }
     }
 
