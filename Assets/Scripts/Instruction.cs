@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,10 +26,18 @@ public class Instruction {
     // Loop {Logic, Source1, Source2, Constant}
     // Swap {Index1, Constant1, Index2, Constant2}
 
+    [JsonConstructor]
+    public Instruction(InstructionType type, List<int> arguments = null)
+    {
+        _type = type;
+        if (arguments != null) _arguments = new List<int>(arguments);
+        else _arguments = new List<int>();
+    }
+
     public Instruction(InstructionType type, int[] arguments = null)
     {
         _type = type;
-        if (arguments != null) _arguments = arguments.ToList();
+        if (arguments != null) _arguments = new List<int>(arguments.ToList());
         else _arguments = new List<int>();
     }
 

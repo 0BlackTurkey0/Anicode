@@ -478,37 +478,7 @@ public class Game : MonoBehaviour
         }
         else
         {
-            if (_isSimple)//判斷是否是單人模式
-            {
-                {
-                    //簡易、劇情單人模式依據勝負更新進度以及SCENE跳轉 - applicationHandler
-                    if (_winner)
-                    {
-                        applicationHandler.GameData.IswinForSimple = true;
-                        applicationHandler.GameData.SaveData();
-                        applicationHandler.IsSimple = false;
-                    }
-                    else
-                    {
-                        applicationHandler.GameData.IswinForSimple = false;
-                        applicationHandler.GameData.SaveData();
-                        applicationHandler.IsSimple = false;
-                    }
-                    SceneManager.LoadScene(7);
-                }
-            }
-            else//單人劇情模式
-            {
-                if (_winner)
-                {
-                    if (0 < applicationHandler.Challenge && applicationHandler.Challenge <= 16)
-                    {
-                        applicationHandler.GameData.Schedule_Single |= 1 << (applicationHandler.Challenge + 1);
-                        applicationHandler.GameData.SaveData();
-                    }
-                }
-                SceneManager.LoadScene(10);
-            }
+            StartCoroutine(GameEnd());
         }
         if (_isDuel && !networkHandler.isConnect)
         {
@@ -577,22 +547,16 @@ public class Game : MonoBehaviour
                     Players[1].Food[i] = number;
                 }
             }
-            Debug.Log(1);
             networkHandler.SendGameData(Players[0].Code);
-            Debug.Log(2);
             while (!networkHandler.isCodeReceive) {
-
+                
             }
-            Debug.Log(3);
             networkHandler.isCodeReceive = false;
             Players[1].Code = new Code(networkHandler.challengerCode);
-
             if (!_isGuest) {
                 networkHandler.SendGameFood(Players[0].Food);
-                Debug.Log(4);
             }
             else {
-                Debug.Log(5);
                 while (!networkHandler.isFoodReceive) {
 
                 }
@@ -600,7 +564,6 @@ public class Game : MonoBehaviour
                 Players[0].Food = networkHandler.challengerFood;
                 Players[1].Food = networkHandler.challengerFood;
             }
-            Debug.Log(6);
         }
         else
         {
@@ -655,6 +618,37 @@ public class Game : MonoBehaviour
         }
         _round++;
         _battleEnd = true;
+    }
+
+    private IEnumerator GameEnd() {
+        yield return new WaitForSeconds(2f);
+        if (_isSimple)//判斷是否是單人模式
+            {
+            {
+                //簡易、劇情單人模式依據勝負更新進度以及SCENE跳轉 - applicationHandler
+                if (_winner) {
+                    applicationHandler.GameData.IswinForSimple = true;
+                    applicationHandler.GameData.SaveData();
+                    applicationHandler.IsSimple = false;
+                }
+                else {
+                    applicationHandler.GameData.IswinForSimple = false;
+                    applicationHandler.GameData.SaveData();
+                    applicationHandler.IsSimple = false;
+                }
+                SceneManager.LoadScene(7);
+            }
+        }
+        else//單人劇情模式
+        {
+            if (_winner) {
+                if (0 < applicationHandler.Challenge && applicationHandler.Challenge <= 16) {
+                    applicationHandler.GameData.Schedule_Single |= 1 << (applicationHandler.Challenge + 1);
+                    applicationHandler.GameData.SaveData();
+                }
+            }
+            SceneManager.LoadScene(10);
+        }
     }
 
     private bool RunInstrucion(int active, Instruction target)
