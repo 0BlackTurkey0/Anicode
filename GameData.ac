@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Name>= =</Name>
+  <Name>WTF</Name>
   <Rank>Normal</Rank>
   <Money>2745675</Money>
   <Achievements>
@@ -45,7 +45,7 @@
     <boolean>false</boolean>
   </IsIntro_Single>
   <Schedule_Simple>3</Schedule_Simple>
-  <Schedule_SimpleChange>20</Schedule_SimpleChange>
+  <Schedule_SimpleChange>0</Schedule_SimpleChange>
   <IswinForSimple>true</IswinForSimple>
   <_SimpleIsFinish>true</_SimpleIsFinish>
   <Schedule_Single>14</Schedule_Single>

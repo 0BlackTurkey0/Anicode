@@ -94,7 +94,5 @@ public class AI_Mission1 : MonoBehaviour
 
         if (temp)
             Mission1 = true;
-        Debug.Log(Mission1);
     }
-
 }
