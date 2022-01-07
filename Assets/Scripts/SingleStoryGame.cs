@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SingleStoryGame : MonoBehaviour {
     public static int status;
@@ -403,5 +404,10 @@ public class SingleStoryGame : MonoBehaviour {
     {
         for (int i = 0;i < GameObject.Find("CHARACTER").transform.childCount;i += 1)
             GameObject.Find("CHARACTER").transform.GetChild(i).gameObject.SetActive(false);
+    }
+
+    public void GoBack()
+    {
+        SceneManager.LoadScene("Lobby");
     }
 }

@@ -12,4 +12,9 @@ public class ControlGoBackLobby : MonoBehaviour {
     {
         SceneManager.LoadScene(0);
     }
+
+    public void ExitFromGame()
+    {
+        Application.Quit();
+    }
 }

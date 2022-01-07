@@ -10,11 +10,19 @@ public class GameData {
         set { _name = value; }
     }
 
-    private DifficultyType _rank;
-
     public DifficultyType Rank {
-        get { return _rank; }
-        set { _rank = value; }
+        get {
+            if ((_schedule_Single & (1 << 16)) == (1 << 16))
+                return DifficultyType.Hard;
+            else if ((_schedule_Single & (1 << 12)) == (1 << 12))
+                return DifficultyType.Normal;
+            else if ((_schedule_Single & (1 << 8)) == (1 << 8))
+                return DifficultyType.Easy;
+            else if ((_schedule_Single & (1 << 4)) == (1 << 4))
+                return DifficultyType.Start;
+            else
+                return DifficultyType.NULL;
+        }
     }
 
     private int _money;
@@ -22,13 +30,6 @@ public class GameData {
     public int Money {
         get { return _money; }
         set { _money = value; }
-    }
-
-    private bool[] _achievements;
-
-    public bool[] Achievements {
-        get { return _achievements; }
-        set { _achievements = value; }
     }
 
     private bool[] _items;
@@ -107,9 +108,7 @@ public class GameData {
     public GameData()
     {
         _name = "Guest";
-        _rank = DifficultyType.NULL;
         _money = 0;
-        _achievements = new bool[14];
         _items = new bool[34];
         _isFullScreen = true;
         _voiceVolume = 1f;
@@ -141,12 +140,8 @@ public class GameData {
     {
         if (gameData.Name.Length >= 1 && gameData.Name.Length <= 8)
             _name = gameData.Name;
-        if (Enum.IsDefined(typeof(DifficultyType), gameData.Rank))
-            _rank = gameData.Rank;
         if (gameData.Money >= 0)
             _money = gameData.Money;
-        if (gameData.Achievements.Length <= 14)
-            _achievements = gameData.Achievements;
         if (gameData.Items.Length <= 34)
             _items = gameData.Items;
         if (gameData.VoiceVolume >= 0 && gameData.VoiceVolume <= 1)
