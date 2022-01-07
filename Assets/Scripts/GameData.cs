@@ -54,6 +54,13 @@ public class GameData {
         set { _voiceVolume = value; }
     }
 
+    private bool _firstIntro_Single;
+    public bool FirstIntro_Single
+    {
+        get { return _firstIntro_Single; }
+        set { _firstIntro_Single = value; }
+    }
+
     private bool[] _isIntro_Single;
 
     public bool[] IsIntro_Single {
@@ -112,7 +119,8 @@ public class GameData {
         _items = new bool[34];
         _isFullScreen = true;
         _voiceVolume = 1f;
-        _isIntro_Single = new bool[4];
+        _firstIntro_Single = true;
+        _isIntro_Single = new bool[4] { true, true, true, true };
         _schedule_Simple = 0;
         _schedule_SimpleChange = 0;
         _iswinForSimple = false;
@@ -143,10 +151,11 @@ public class GameData {
         if (gameData.Money >= 0)
             _money = gameData.Money;
         if (gameData.Items.Length <= 34)
-            _items = gameData.Items;
+            Array.Copy(gameData.Items, _items, 34);
         if (gameData.VoiceVolume >= 0 && gameData.VoiceVolume <= 1)
             _voiceVolume = gameData.VoiceVolume;
-        _isIntro_Single = gameData.IsIntro_Single;
+        _firstIntro_Single = gameData.FirstIntro_Single;
+        Array.Copy(gameData.IsIntro_Single, _isIntro_Single, 4);
         if (gameData.Schedule_Simple >= 0 && gameData.Schedule_Simple <= 4)
             _schedule_Simple = gameData.Schedule_Simple;
         if (gameData.Schedule_SimpleChange >= 0 && gameData.Schedule_SimpleChange <= 22)

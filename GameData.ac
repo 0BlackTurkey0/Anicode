@@ -40,11 +40,12 @@
   </Items>
   <IsFullScreen>true</IsFullScreen>
   <VoiceVolume>0</VoiceVolume>
+  <FirstIntro_Single>true</FirstIntro_Single>
   <IsIntro_Single>
-    <boolean>false</boolean>
-    <boolean>false</boolean>
-    <boolean>false</boolean>
-    <boolean>false</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
   </IsIntro_Single>
   <Schedule_Simple>0</Schedule_Simple>
   <Schedule_SimpleChange>0</Schedule_SimpleChange>
