@@ -556,7 +556,7 @@ public class Game : MonoBehaviour
         _purchaseCount = 0;
         Purchase.transform.GetChild(0).GetComponent<Text>().text = _purchaseCount.ToString() + " / 5";
         PlayerCode.transform.GetChild(2).gameObject.SetActive(false);
-        _time = _round * 5f + 2f;
+        _time = _round * 10f + 10f;
         yield return new WaitForSeconds(_time); PlayerCode.GetComponent<RectTransform>().anchoredPosition = new Vector2(350, -250);
         PlayerCode.GetComponent<RectTransform>().sizeDelta = new Vector2(650, 500);
         EnemyCode.SetActive(true);
