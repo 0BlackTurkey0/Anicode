@@ -613,7 +613,6 @@ public class Game : MonoBehaviour {
             }
             applicationHandler.IsDuel = false;
             applicationHandler.GameData.SaveData();
-            //SceneManager.LoadScene("DuelMode");
         }
         else {
             if (_isSimple)//�@���Ҧ�
@@ -909,14 +908,14 @@ public class Game : MonoBehaviour {
     {
         WinnerPanel.SetActive(false);
         networkHandler.FinishGame();
-        SceneManager.LoadScene("DuelMode");
+        SceneManager.LoadScene("DualMode");
     }
 
     public void OnClick_ConfirmInLoserPanel()
     {
         LoserPanel.SetActive(false);
         networkHandler.FinishGame();
-        SceneManager.LoadScene("DuelMode");
+        SceneManager.LoadScene("DualMode");
     }
 
     public void OnClick_ConfirmInDisconnectPanel()

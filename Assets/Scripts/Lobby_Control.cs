@@ -64,7 +64,7 @@ public class Lobby_Control : MonoBehaviour {
 
     public void DoubleMotionOnClick()
     {
-        SceneManager.LoadScene("DuelMode");
+        SceneManager.LoadScene("DualMode");
     }
 
     public void StoreOnClick()
