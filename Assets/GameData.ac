@@ -39,7 +39,7 @@
     <boolean>false</boolean>
   </Items>
   <IsFullScreen>true</IsFullScreen>
-  <VoiceVolume>1</VoiceVolume>
+  <VoiceVolume>0</VoiceVolume>
   <FirstIntro_Single>true</FirstIntro_Single>
   <IsIntro_Single>
     <boolean>true</boolean>
@@ -48,8 +48,8 @@
     <boolean>true</boolean>
   </IsIntro_Single>
   <Schedule_Simple>1</Schedule_Simple>
-  <Schedule_SimpleChange>3</Schedule_SimpleChange>
-  <IswinForSimple>true</IswinForSimple>
+  <Schedule_SimpleChange>2</Schedule_SimpleChange>
+  <IswinForSimple>false</IswinForSimple>
   <SimpleIsFinish>false</SimpleIsFinish>
   <Schedule_Single>0</Schedule_Single>
 </GameData>
