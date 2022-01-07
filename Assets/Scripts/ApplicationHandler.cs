@@ -76,8 +76,8 @@ public class ApplicationHandler : MonoBehaviour {
     void Awake() {
         DontDestroyOnLoad(gameObject);
         _gameData = new GameData();
-        DirectoryInfo dir = new DirectoryInfo(Application.dataPath + "/GameData.ac");
-        if (dir.Exists)
+        FileInfo file = new FileInfo(Application.dataPath + "/GameData.ac");
+        if (file.Exists)
             _gameData.LoadData();
         else
             _gameData.SaveData();

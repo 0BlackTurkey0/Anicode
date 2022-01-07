@@ -52,8 +52,6 @@ public class Begin : MonoBehaviour {
                 else if (!textFinished)   //¥¿¦b¥´¦r
                     cancelTyping = !cancelTyping;
             }
-            if (Input.GetKeyDown(KeyCode.Escape) && applicationHandler.GameData.Schedule_Simple == 0)
-                Application.Quit();
         }
     }
 
@@ -85,7 +83,7 @@ public class Begin : MonoBehaviour {
     private void PlayStory()
     {
         if (applicationHandler.GameData.Schedule_Simple == 1) {
-            applicationHandler.GameData.IswinForSimple = true;
+            applicationHandler.GameData.SaveData();
             SceneManager.LoadScene("SimpleStory");
         }
     }
