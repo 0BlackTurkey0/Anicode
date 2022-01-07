@@ -164,8 +164,20 @@ public class Game : MonoBehaviour
         Players = new Character[2];
         Players[0] = new Character(characterType[0]);
         Character1.GetComponent<Image>().sprite = Skin[(int)characterType[0]];
-        Players[1] = new Character(characterType[1]);
-        Character2.GetComponent<Image>().sprite = Skin[(int)characterType[1]];
+        if (!applicationHandler.IsDuel && characterType[1] == CharacterType.Customized) {
+            if (!applicationHandler.IsSimple) {
+                Players[1] = new Character(CharacterType.Customized, applicationHandler.CharacProperty);
+                Character2.GetComponent<Image>().sprite = Skin[applicationHandler.Challenge + 5];
+            }
+            else {
+                Players[1] = new Character(CharacterType.Customized, new int[6] { 9999, 1, 1, 1, 1, 0 });
+                Character2.GetComponent<Image>().sprite = Skin[21];
+            }
+        }
+        else {
+            Players[1] = new Character(characterType[1]);
+            Character2.GetComponent<Image>().sprite = Skin[(int)characterType[1]];
+        }
         BattleGround.GetComponent<Image>().sprite = Map[(int)_difficulty];
         switch (_difficulty)
         {
