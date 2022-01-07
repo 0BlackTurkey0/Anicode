@@ -155,12 +155,10 @@ public class Network : MonoBehaviour {
                                 systemMessage = SYS.MODE;
                                 challengerIP = null;
                                 challengerMode = null;
-                                finalDifficulty = -1;
                                 playerStatus = 0;
                             }
                             else {
                                 systemMessage = SYS.READY;
-                                finalDifficulty = -1;
                                 playerStatus = 1;
                             }
                             break;
