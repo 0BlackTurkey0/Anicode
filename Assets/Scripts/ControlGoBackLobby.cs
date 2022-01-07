@@ -10,7 +10,7 @@ public class ControlGoBackLobby : MonoBehaviour {
 
     public void ReturnToLobby()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Lobby");
     }
 
     public void ExitFromGame()

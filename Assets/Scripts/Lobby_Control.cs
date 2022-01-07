@@ -59,32 +59,32 @@ public class Lobby_Control : MonoBehaviour {
 
     public void SingleMotionOnclick()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("SingleMode");
     }
 
     public void DoubleMotionOnClick()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("DuelMode");
     }
 
     public void StoreOnClick()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene("AnimalStore");
     }
 
     public void AchievementOnclick()
     {
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene("Achievement");
     }
 
     public void BookOnClick()
     {
-        SceneManager.LoadScene(6);
+        SceneManager.LoadScene("IllustratedBook");
     }
 
     public void SettingOnClick()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene("Setting");
     }
 
     public void ReviseNameOnClick()
@@ -134,6 +134,6 @@ public class Lobby_Control : MonoBehaviour {
     }
     public void ExceptForLobbyReturnOnClick()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Lobby");
     }
 }

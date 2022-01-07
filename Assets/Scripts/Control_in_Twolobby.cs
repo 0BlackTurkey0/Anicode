@@ -103,7 +103,7 @@ public class Control_in_Twolobby : MonoBehaviour {
                 case SYS.READY:
                     network.IntoGame();
                     applicationHandler.IsDuel = true;
-                    SceneManager.LoadScene(8);
+                    SceneManager.LoadScene("Battle");
                     break;
 
                 case SYS.GAME:
@@ -317,6 +317,6 @@ public class Control_in_Twolobby : MonoBehaviour {
 
     public void ReturnToLobby()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Lobby");
     }
 }

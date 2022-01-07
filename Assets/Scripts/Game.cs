@@ -533,7 +533,7 @@ public class Game : MonoBehaviour
         if (_isDuel && !networkHandler.isConnect)
         {
             // "" �_�u�e��      ""
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("Lobby");
         }
     }
 
@@ -643,7 +643,7 @@ public class Game : MonoBehaviour
                 applicationHandler.GameData.Money += 5;
             applicationHandler.IsDuel = false;
             applicationHandler.GameData.SaveData();
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("DuelMode");
         }
         else {
             if (_isSimple)//�@���Ҧ�
@@ -661,7 +661,7 @@ public class Game : MonoBehaviour
                         applicationHandler.GameData.SaveData();
                         applicationHandler.IsSimple = false;
                     }
-                    SceneManager.LoadScene(7);
+                    SceneManager.LoadScene("SimpleStory");
                 }
             }
             else//�D�ԼҦ�
@@ -673,7 +673,7 @@ public class Game : MonoBehaviour
                         applicationHandler.GameData.SaveData();
                     }
                 }
-                SceneManager.LoadScene(10);
+                SceneManager.LoadScene("SingleStory");
             }
         }
     }

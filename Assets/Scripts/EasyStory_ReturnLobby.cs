@@ -5,6 +5,6 @@ public class EasyStory_ReturnLobby : MonoBehaviour
 {
     public void Return()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("SingleMode");
     }
 }

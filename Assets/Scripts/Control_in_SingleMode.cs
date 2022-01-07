@@ -11,20 +11,20 @@ public class Control_in_SingleMode : MonoBehaviour {
 
     public void ReturnToLobby()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Lobby");
     }
 
     public void ClickSingleMode()
     {
-        SceneManager.LoadScene(10);
+        SceneManager.LoadScene("SingleStory");
     }
 
     public void ClickSimpleMode()
     {
         if (0 < applicationHandler.GameData.Schedule_Simple && applicationHandler.GameData.Schedule_Simple < 5)
-            SceneManager.LoadScene(7);
+            SceneManager.LoadScene("SimpleStory");
         else
-            SceneManager.LoadScene(9);
+            SceneManager.LoadScene("Start");
     }
 
 }

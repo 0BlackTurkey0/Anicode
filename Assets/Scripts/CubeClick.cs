@@ -19,7 +19,7 @@ public class CubeClick : MonoBehaviour {
         SetAniProperty();
         applicationHandler.DiffiType = (DifficultyType)((Convert.ToInt32(SingleStoryGame.clickedButtonName) - 1) / 4);
         applicationHandler.Challenge = Convert.ToInt32(SingleStoryGame.clickedButtonName) - 1;
-        SceneManager.LoadScene(8);
+        SceneManager.LoadScene("Battle");
     }
 
     public void OnClick_Whale()
@@ -31,7 +31,7 @@ public class CubeClick : MonoBehaviour {
         SetAniProperty();
         applicationHandler.DiffiType = (DifficultyType)((Convert.ToInt32(SingleStoryGame.clickedButtonName) - 1) / 4);
         applicationHandler.Challenge = Convert.ToInt32(SingleStoryGame.clickedButtonName) - 1;
-        SceneManager.LoadScene(8);
+        SceneManager.LoadScene("Battle");
     }
 
     public void OnClick_Owl()
@@ -43,7 +43,7 @@ public class CubeClick : MonoBehaviour {
         SetAniProperty();
         applicationHandler.DiffiType = (DifficultyType)((Convert.ToInt32(SingleStoryGame.clickedButtonName) - 1) / 4);
         applicationHandler.Challenge = Convert.ToInt32(SingleStoryGame.clickedButtonName) - 1;
-        SceneManager.LoadScene(8);
+        SceneManager.LoadScene("Battle");
     }
 
     public void OnClick_Koala()
@@ -55,7 +55,7 @@ public class CubeClick : MonoBehaviour {
         SetAniProperty();
         applicationHandler.DiffiType = (DifficultyType)((Convert.ToInt32(SingleStoryGame.clickedButtonName) - 1) / 4);
         applicationHandler.Challenge = Convert.ToInt32(SingleStoryGame.clickedButtonName) - 1;
-        SceneManager.LoadScene(8);
+        SceneManager.LoadScene("Battle");
     }
 
     public void OnClick_Fox()
@@ -67,7 +67,7 @@ public class CubeClick : MonoBehaviour {
         SetAniProperty();
         applicationHandler.DiffiType = (DifficultyType)((Convert.ToInt32(SingleStoryGame.clickedButtonName) - 1) / 4);
         applicationHandler.Challenge = Convert.ToInt32(SingleStoryGame.clickedButtonName) - 1;
-        SceneManager.LoadScene(8);
+        SceneManager.LoadScene("Battle");
     }
 
     public void OnClick_BigCube()
