@@ -49,10 +49,10 @@ public class Control_Code : MonoBehaviour {
         att_detail.SetActive(false);
         ins_detail.SetActive(true);
         GameObject.Find("Content").gameObject.GetComponent<Text>().text = "";
-        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(500, -120, 0);
-        intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 240);
+        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(450, -60, 0);
+        intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(400, 310);
         intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
-        intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(220, 150);
+        intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(350, 200);
     }
     public void ChangeToCodeChallenge()
     {
@@ -60,10 +60,13 @@ public class Control_Code : MonoBehaviour {
         att_detail.SetActive(false);
         ins_detail.SetActive(false);
         GameObject.Find("Content").gameObject.GetComponent<Text>().text = "";
-        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(-300, -100, 0);
+        intro_frame.GetComponent<RectTransform>().anchoredPosition = new Vector3(-120, -100, 0);
         intro_frame.GetComponent<RectTransform>().sizeDelta = new Vector2(600, 300);
         intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
-        intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(520, 200);
+        intro_frame.transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(500, 200);
+        string content = Resources.Load<TextAsset>("challenge_Text").ToString();
+        Debug.Log(content);
+        GameObject.Find("Content").gameObject.GetComponent<Text>().text = content;
 
     }
     public void ShowKanText()
@@ -158,39 +161,9 @@ public class Control_Code : MonoBehaviour {
         Debug.Log(content);
         GameObject.Find("Content").gameObject.GetComponent<Text>().text = content;
     }
-    public void ShowAndText()
+    public void ShowSwapText()
     {
-        string content = Resources.Load<TextAsset>("and_Text").ToString();
-        Debug.Log(content);
-        GameObject.Find("Content").gameObject.GetComponent<Text>().text = content;
-    }
-    public void ShowOrText()
-    {
-        string content = Resources.Load<TextAsset>("or_Text").ToString();
-        Debug.Log(content);
-        GameObject.Find("Content").gameObject.GetComponent<Text>().text = content;
-    }
-    public void ShowGCDText()
-    {
-        string content = Resources.Load<TextAsset>("GCD_Text").ToString();
-        Debug.Log(content);
-        GameObject.Find("Content").gameObject.GetComponent<Text>().text = content;
-    }
-    public void ShowLCMText()
-    {
-        string content = Resources.Load<TextAsset>("LCM_Text").ToString();
-        Debug.Log(content);
-        GameObject.Find("Content").gameObject.GetComponent<Text>().text = content;
-    }
-    public void ShowSortText()
-    {
-        string content = Resources.Load<TextAsset>("sort_Text").ToString();
-        Debug.Log(content);
-        GameObject.Find("Content").gameObject.GetComponent<Text>().text = content;
-    }
-    public void ShowMinText()
-    {
-        string content = Resources.Load<TextAsset>("min_Text").ToString();
+        string content = Resources.Load<TextAsset>("swap_Text").ToString();
         Debug.Log(content);
         GameObject.Find("Content").gameObject.GetComponent<Text>().text = content;
     }
