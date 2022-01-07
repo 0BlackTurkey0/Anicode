@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class DialogSystem : MonoBehaviour {
     [Header("UI component")]
@@ -32,7 +33,7 @@ public class DialogSystem : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && index == textList.Count) {
+        if (Keyboard.current.spaceKey.isPressed && index == textList.Count) {
             exit = true;
             //GameObject.Find("Panel").SetActive(false);
             gameObject.transform.GetChild(1).gameObject.SetActive(false);
@@ -42,7 +43,7 @@ public class DialogSystem : MonoBehaviour {
         }
         //if(Input.GetKeyDown(KeyCode.RightArrow) && index == textList.Count)
           //  GameObject.Find("Hint").gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        if (Input.GetKeyDown(KeyCode.Space) && !exit) {
+        if (Keyboard.current.spaceKey.isPressed && !exit) {
             if (textFinished && !cancelTyping)//打完目前這行要繼續下一行
                 StartCoroutine(SetTextUI());
             else if (!textFinished)//正在打字

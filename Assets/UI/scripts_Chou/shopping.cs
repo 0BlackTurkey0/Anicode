@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class shopping : MonoBehaviour
@@ -18,10 +19,10 @@ public class shopping : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Mouse.current.leftButton.isPressed)
         {    
 
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);   
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Mouse.current.position.ReadDefaultValue().x,Mouse.current.position.ReadDefaultValue().y,0));   
             RaycastHit hit;   
             if (Physics.Raycast(ray, out hit))  
             {

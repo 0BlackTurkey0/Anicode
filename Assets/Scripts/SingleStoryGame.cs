@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class SingleStoryGame : MonoBehaviour {
     public static int status;
@@ -30,7 +31,7 @@ public class SingleStoryGame : MonoBehaviour {
     {
         StartCoroutine(UpdateIcon());
         StartCoroutine(UpdateButton());
-        if (Input.GetMouseButtonDown(0))
+        if (Mouse.current.leftButton.isPressed)
             if (isShowText)
                 isClick = true;
 

@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class Create : MonoBehaviour {
     private GameObject Prefab;
@@ -61,7 +62,7 @@ public class Create : MonoBehaviour {
                 case "1":   //¦³¹ï¸Ü
                     //isFinish = Prefab.transform.GetChild(1).gameObject.GetComponent<DialogSystem>().Finished;
                     isFinish = Prefab.transform.GetComponent<DialogSystem>().Finished;
-                    if (Input.GetKeyDown(KeyCode.RightArrow) && isFinish) {
+                    if (Keyboard.current.rightArrowKey.isPressed && isFinish) {
                         Destroy(Prefab);
                         ind++;
                         Prefab = Instantiate(Resources.Load<GameObject>(storyNum.ToString() + "-" + ind.ToString()), gameObject.transform);

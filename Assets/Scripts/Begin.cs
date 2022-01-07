@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -35,7 +36,7 @@ public class Begin : MonoBehaviour {
     void Update()
     {
         //buttonReturn.GetComponent<Button>().onClick.AddListener(delegate () { SceneManager.LoadScene("lobby"); });
-        if (Input.GetKeyDown(KeyCode.Space) && index == textList.Count) {
+        if (Keyboard.current.spaceKey.isPressed && index == textList.Count) {
             applicationHandler.GameData.Schedule_Simple = 1;
             applicationHandler.GameData.SaveData();
             GameObject.Find("DialogPanel").SetActive(false);
@@ -46,7 +47,7 @@ public class Begin : MonoBehaviour {
             index = 0;
         }
         else {
-            if (Input.GetKeyDown(KeyCode.Space) && applicationHandler.GameData.Schedule_Simple == 0) {
+            if (Keyboard.current.spaceKey.isPressed && applicationHandler.GameData.Schedule_Simple == 0) {
                 if (textFinished && !cancelTyping)   //打完目前這行要繼續下一行
                     StartCoroutine(SetTextUI());
                 else if (!textFinished)   //正在打字

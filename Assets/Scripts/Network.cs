@@ -98,9 +98,9 @@ public class Network : MonoBehaviour {
                     responseIP = endPoint.Address.ToString();
                     if (responseIP == localIP) continue;    //過濾廣播後傳給自己的封包
                                                             //if (challengerIP != null && responseIP != challengerIP) continue;   //進入對戰後過濾非對手的封包
-                    Debug.Log(responseIP + " : " + Encoding.UTF8.GetString(bytes));
-                    Data receiveData = JsonUtility.FromJson<Data>(Encoding.UTF8.GetString(bytes));
-                    //Data receiveData = JsonSerializer.Deserialize<Data>(Encoding.UTF8.GetString(bytes));
+                    Debug.LogError(responseIP + " : " + Encoding.UTF8.GetString(bytes));
+                    //Data receiveData = JsonUtility.FromJson<Data>(Encoding.UTF8.GetString(bytes));
+                    Data receiveData = JsonSerializer.Deserialize<Data>(Encoding.UTF8.GetString(bytes));
                     switch (receiveData.Type) {
                         case MSG.REQUEST:
                             SendResponse(responseIP);
@@ -205,8 +205,8 @@ public class Network : MonoBehaviour {
     {
         try {
             IPEndPoint ipep = new IPEndPoint(IPAddress.Parse(ip), port);
-            //byte[] bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(data));
-            byte[] bytes = Encoding.UTF8.GetBytes(JsonUtility.ToJson(data));
+            byte[] bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(data));
+            //byte[] bytes = Encoding.UTF8.GetBytes(JsonUtility.ToJson(data));
             sendingClient.Send(bytes, bytes.Length, ipep);
         }
         catch (Exception ex) {
