@@ -547,6 +547,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 30557912}
   m_CullTransparentMesh: 1
+--- !u!1 &42255022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 42255024}
+  - component: {fileID: 42255023}
+  m_Layer: 0
+  m_Name: ControlPurchase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &42255023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42255022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e283fe2e43b18a7458c2aa89e01d2ca7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BananaBtn: {fileID: 639503017}
+  GrapeBtn: {fileID: 971667415}
+  CherryBtn: {fileID: 369865871}
+  AvocadoBtn: {fileID: 1606449216}
+  PearBtn: {fileID: 423416797}
+  OrangeBtn: {fileID: 1703803218}
+  StrawberryBtn: {fileID: 849965825}
+  TomatoBtn: {fileID: 55855827}
+  BaconBtn: {fileID: 614325320}
+  ChickenBtn: {fileID: 373330723}
+  TroutBtn: {fileID: 188507653}
+  FishBtn: {fileID: 808750419}
+  BlowfishBtn: {fileID: 2083351422}
+  MeatBtn: {fileID: 1437609413}
+  SchnitzelBtn: {fileID: 1942351764}
+  HamBtn: {fileID: 249723706}
+  JemBtn: {fileID: 352571268}
+  PotionBtn: {fileID: 232071292}
+  ScrollBtn: {fileID: 828453334}
+  SwordBtn: {fileID: 1626515876}
+  HerbBtn: {fileID: 1694234974}
+  ConfirmSurface: {fileID: 1393472494}
+  FailSurface: {fileID: 0}
+  ConfirmBtn: {fileID: 2059358827}
+  FailBtn: {fileID: 1435037369}
+  Content: {fileID: 1430042757}
+  Chosen: {fileID: 0}
+--- !u!4 &42255024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42255022}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 538.5655, y: 259.82922, z: -38.58014}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &55855827
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,7 +701,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 55855830}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 9
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &55855830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1376,7 +1458,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 188507656}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 17
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &188507656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1724,7 +1818,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 232071295}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 30
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &232071295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1965,7 +2071,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 249723709}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 23
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &249723709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2781,7 +2899,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 352571271}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 29
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &352571271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3134,7 +3264,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 369865874}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &369865874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3389,7 +3531,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 373330726}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 16
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &373330726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3965,7 +4119,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 423416800}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &423416800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5045,7 +5211,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 614325323}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 15
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &614325323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5337,7 +5515,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 639503020}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &639503020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6192,7 +6382,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 808750422}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 18
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &808750422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6456,7 +6658,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 828453337}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 31
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &828453337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6729,7 +6943,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 849965828}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 8
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &849965828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7377,7 +7603,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 971667418}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &971667418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10571,7 +10809,7 @@ GameObject:
   - component: {fileID: 1435037372}
   - component: {fileID: 1435037371}
   m_Layer: 5
-  m_Name: Button
+  m_Name: FailBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10641,10 +10879,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 638556143}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: FailBtn_OnClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10775,7 +11013,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1437609416}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 20
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1437609416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11846,7 +12096,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1606449219}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1606449219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11969,7 +12231,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1626515879}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 32
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1626515879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12091,7 +12365,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 540012713}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.4920148
+  m_Size: 0.5452981
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12490,7 +12764,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1694234977}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 33
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1694234977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12690,7 +12976,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1703803221}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 6
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1703803221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14076,7 +14374,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1942351767}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 22
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1942351767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15144,10 +15454,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1393472494}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: ConfirmBtn_OnClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -15728,7 +16038,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2083351425}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42255023}
+        m_TargetAssemblyTypeName: AnimalStore, Assembly-CSharp
+        m_MethodName: Btn_OnClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 19
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2083351425
 MonoBehaviour:
   m_ObjectHideFlags: 0

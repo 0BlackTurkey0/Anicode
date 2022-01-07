@@ -1,26 +1,55 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Control : MonoBehaviour {
-    public GameObject Ach1;
-    public GameObject Ach2;
-    public GameObject Ach3;
-    public GameObject Ach4;
-    public GameObject Ach5;
-    public GameObject Ach6;
-    public GameObject Ach7;
-    public GameObject Ach8;
-    public GameObject Ach9;
-    public GameObject Ach10;
-    public GameObject Ach11;
-    public GameObject Ach12;
-    public GameObject Ach13;
-    public GameObject Ach14;
-    public GameObject illustration;
-    public GameObject illustration_text;
+    [SerializeField]  GameObject Ach1;
+    [SerializeField]  GameObject Ach2;
+    [SerializeField]  GameObject Ach3;
+    [SerializeField]  GameObject Ach4;
+    [SerializeField]  GameObject Ach5;
+    [SerializeField]  GameObject Ach6;
+    [SerializeField]  GameObject Ach7;
+    [SerializeField]  GameObject Ach8;
+    [SerializeField]  GameObject Ach9;
+    [SerializeField]  GameObject Ach10;
+    [SerializeField]  GameObject illustration;
+    [SerializeField]  GameObject illustration_text;
+
+    private ApplicationHandler applicationHandler;
+
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
+    }
     void Start()
     {
+        int count = 0;
+        for(int i=0; i<10; i++)
+            if (applicationHandler.GameData.Items[i]) count++;
+        if(count >= 4) Ach1.transform.GetChild(1).gameObject.SetActive(true);
+        if(count >= 6) Ach2.transform.GetChild(1).gameObject.SetActive(true);
+        if(count >= 8) Ach3.transform.GetChild(1).gameObject.SetActive(true);
+        count = 0;
+        for (int i = 15; i < 24; i++)
+            if (applicationHandler.GameData.Items[i]) count++;
+        if (count >= 4) Ach4.transform.GetChild(1).gameObject.SetActive(true);
+        if (count >= 6) Ach5.transform.GetChild(1).gameObject.SetActive(true);
+        if (count >= 8) Ach6.transform.GetChild(1).gameObject.SetActive(true);
+        count = 0;
+        for (int i = 29; i < 34; i++)
+            if (applicationHandler.GameData.Items[i]) count++;
+        if (count >= 3) Ach7.transform.GetChild(1).gameObject.SetActive(true);
+        if (count >= 4) Ach8.transform.GetChild(1).gameObject.SetActive(true);
+        if (count >= 5) Ach9.transform.GetChild(1).gameObject.SetActive(true);
+        count = 0;
+        for(int i = 0; i <34; i++) 
+            if (applicationHandler.GameData.Items[i]) count++;
+        if (count == 21) Ach10.transform.GetChild(1).gameObject.SetActive(true);
+
     }
 
     // Update is called once per frame
@@ -33,108 +62,65 @@ public class Control : MonoBehaviour {
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "�b��H�Ҧ��������J�����׮ʯ���";
+        temp.text = "成功集滿四個水果!!";
     }
     public void Ach2_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "�b��H�Ҧ�������²�����׮ʯ���";
+        temp.text = "成功集滿六個水果!!";
     }
     public void Ach3_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "�b��H�Ҧ����������q���׮ʯ���";
+        temp.text = "成功集滿八個水果!!";
     }
     public void Ach4_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "�b��H�Ҧ��������x�����׮ʯ���";
+        temp.text = "成功集滿四個肉類!!";
     }
     public void Ach5_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "�b���H�Ҧ������@�^�X������4���H�W���j��(Loop)���O";
+        temp.text = "成功集滿六個肉類!!";
     }
     public void Ach6_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "�b���H�Ҧ������@�^�X������8���H�W������(If...Else...)���O";
+        temp.text = "成功集滿八個肉類!!";
     }
     public void Ach7_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "�b���H�Ҧ������@�^�X���y��100�I�H�W���ˮ`";
+        temp.text = "成功集滿三個寶物!!";
     }
     public void Ach8_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "�b���H�Ҧ������@�^�X������15���H�W����ƹB��l";
+        temp.text = "成功集滿四個寶物!!";
     }
     public void Ach9_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "�b���H�Ҧ������@�^�X������25���H�W���޿�����Y�B��l";
+        temp.text = "成功集滿五個寶物!!";
     }
     public void Ach10_Show()
     {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
-        temp.text = "�b���H�Ҧ������@�^�X������7�إH�W���S����O";
+        temp.text = "成功集滿所有物品!!";
     }
-    public void Ach11_Show()
-    {
-        Text temp = illustration_text.transform.GetComponent<Text>();
-        illustration.SetActive(true);
-        temp.text = "�b���H�Ҧ����^�X�ƹF��8�H�W";
-    }
-    public void Ach12_Show()
-    {
-        Text temp = illustration_text.transform.GetComponent<Text>();
-        illustration.SetActive(true);
-        temp.text = "�b���H�Ҧ��������D��";
-    }
-    public void Ach13_Show()
-    {
-        Text temp = illustration_text.transform.GetComponent<Text>();
-        illustration.SetActive(true);
-        temp.text = "�b���H�Ҧ������o�ӧQ";
-    }
-    public void Ach14_Show()
-    {
-        Text temp = illustration_text.transform.GetComponent<Text>();
-        illustration.SetActive(true);
-        temp.text = "�b���H�Ҧ����ֿn���o10���ӧQ";
-    }
-
-    public void CloseButton2_OnClick()
+    public void CloseButton_OnClick()
     {
         illustration.SetActive(false);
-    }
-
-    public void NextButton_OnClick()
-    {
-        Ach1.SetActive(!Ach1.activeSelf);
-        Ach2.SetActive(!Ach2.activeSelf);
-        Ach3.SetActive(!Ach3.activeSelf);
-        Ach4.SetActive(!Ach4.activeSelf);
-        Ach5.SetActive(!Ach5.activeSelf);
-        Ach6.SetActive(!Ach6.activeSelf);
-        Ach7.SetActive(!Ach7.activeSelf);
-        Ach8.SetActive(!Ach8.activeSelf);
-        Ach9.SetActive(!Ach9.activeSelf);
-        Ach10.SetActive(!Ach10.activeSelf);
-        Ach12.SetActive(!Ach12.activeSelf);
-        Ach13.SetActive(!Ach13.activeSelf);
-        Ach14.SetActive(!Ach14.activeSelf);
-        Ach11.SetActive(!Ach11.activeSelf);
     }
 
 }

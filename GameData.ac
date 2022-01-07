@@ -2,7 +2,7 @@
 <GameData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Name>= =</Name>
   <Rank>Normal</Rank>
-  <Money>25</Money>
+  <Money>2743175</Money>
   <Achievements>
     <boolean>false</boolean>
     <boolean>false</boolean>
@@ -19,23 +19,42 @@
     <boolean>false</boolean>
     <boolean>false</boolean>
   </Achievements>
-  <Skins>
+  <Items>
+    <boolean>false</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>false</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>false</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
-    <boolean>false</boolean>
-    <boolean>false</boolean>
-    <boolean>false</boolean>
-    <boolean>false</boolean>
-    <boolean>false</boolean>
-  </Skins>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+  </Items>
   <IsFullScreen>true</IsFullScreen>
   <VoiceVolume>0</VoiceVolume>
   <IsIntro_Single>

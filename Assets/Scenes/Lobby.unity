@@ -437,7 +437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 388986475}
   m_Layer: 5
-  m_Name: "\u52D5\u7269\u5546\u5E97"
+  m_Name: "\u7D00\u5FF5\u54C1\u5E97"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2263,7 +2263,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u52D5\u7269"
+  m_Text: "\u7D00\u5FF5"
 --- !u!222 &1304461159
 CanvasRenderer:
   m_ObjectHideFlags: 0
