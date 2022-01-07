@@ -98,7 +98,7 @@ public class Network : MonoBehaviour {
                     responseIP = endPoint.Address.ToString();
                     if (responseIP == localIP) continue;    //過濾廣播後傳給自己的封包
                                                             //if (challengerIP != null && responseIP != challengerIP) continue;   //進入對戰後過濾非對手的封包
-                    Debug.LogError(responseIP + " : " + Encoding.UTF8.GetString(bytes));
+                    Debug.Log(responseIP + " : " + Encoding.UTF8.GetString(bytes));
                     //Data receiveData = JsonUtility.FromJson<Data>(Encoding.UTF8.GetString(bytes));
                     Data receiveData = JsonSerializer.Deserialize<Data>(Encoding.UTF8.GetString(bytes));
                     switch (receiveData.Type) {

@@ -91,7 +91,7 @@ public class Create : MonoBehaviour {
                             buttonParent.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(delegate () { StoryOnClick(); });
 
                     }*/
-                    if (Input.GetKeyDown(KeyCode.RightArrow) && isFinish) {
+                    if (Keyboard.current.rightArrowKey.isPressed && isFinish) {
                         if (storyNum < 4)
                             storyNum++;
                         if (storyNum > applicationHandler.GameData.Schedule_Simple && storyNum < 5) {
