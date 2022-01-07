@@ -2190,7 +2190,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 577010416}
         m_TargetAssemblyTypeName: ControlGoBackLobby, Assembly-CSharp
-        m_MethodName: ReturnToLobby
+        m_MethodName: ExitFromGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

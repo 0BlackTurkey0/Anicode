@@ -10,11 +10,19 @@ public class GameData {
         set { _name = value; }
     }
 
-    private DifficultyType _rank;
-
     public DifficultyType Rank {
-        get { return _rank; }
-        set { _rank = value; }
+        get {
+            if ((_schedule_Single & (1 << 16)) == (1 << 16))
+                return DifficultyType.Hard;
+            else if ((_schedule_Single & (1 << 12)) == (1 << 12))
+                return DifficultyType.Normal;
+            else if ((_schedule_Single & (1 << 8)) == (1 << 8))
+                return DifficultyType.Easy;
+            else if ((_schedule_Single & (1 << 4)) == (1 << 4))
+                return DifficultyType.Start;
+            else
+                return DifficultyType.NULL;
+        }
     }
 
     private int _money;
@@ -22,13 +30,6 @@ public class GameData {
     public int Money {
         get { return _money; }
         set { _money = value; }
-    }
-
-    private bool[] _achievements;
-
-    public bool[] Achievements {
-        get { return _achievements; }
-        set { _achievements = value; }
     }
 
     private bool[] _items;
@@ -51,6 +52,13 @@ public class GameData {
     public float VoiceVolume {
         get { return _voiceVolume; }
         set { _voiceVolume = value; }
+    }
+
+    private bool _firstIntro_Single;
+    public bool FirstIntro_Single
+    {
+        get { return _firstIntro_Single; }
+        set { _firstIntro_Single = value; }
     }
 
     private bool[] _isIntro_Single;
@@ -107,13 +115,12 @@ public class GameData {
     public GameData()
     {
         _name = "Guest";
-        _rank = DifficultyType.NULL;
         _money = 0;
-        _achievements = new bool[14];
         _items = new bool[34];
         _isFullScreen = true;
         _voiceVolume = 1f;
-        _isIntro_Single = new bool[4];
+        _firstIntro_Single = true;
+        _isIntro_Single = new bool[4] { true, true, true, true };
         _schedule_Simple = 0;
         _schedule_SimpleChange = 0;
         _iswinForSimple = false;
@@ -141,17 +148,14 @@ public class GameData {
     {
         if (gameData.Name.Length >= 1 && gameData.Name.Length <= 8)
             _name = gameData.Name;
-        if (Enum.IsDefined(typeof(DifficultyType), gameData.Rank))
-            _rank = gameData.Rank;
         if (gameData.Money >= 0)
             _money = gameData.Money;
-        if (gameData.Achievements.Length <= 14)
-            _achievements = gameData.Achievements;
         if (gameData.Items.Length <= 34)
-            _items = gameData.Items;
+            Array.Copy(gameData.Items, _items, 34);
         if (gameData.VoiceVolume >= 0 && gameData.VoiceVolume <= 1)
             _voiceVolume = gameData.VoiceVolume;
-        _isIntro_Single = gameData.IsIntro_Single;
+        _firstIntro_Single = gameData.FirstIntro_Single;
+        Array.Copy(gameData.IsIntro_Single, _isIntro_Single, 4);
         if (gameData.Schedule_Simple >= 0 && gameData.Schedule_Simple <= 4)
             _schedule_Simple = gameData.Schedule_Simple;
         if (gameData.Schedule_SimpleChange >= 0 && gameData.Schedule_SimpleChange <= 22)

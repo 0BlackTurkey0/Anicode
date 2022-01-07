@@ -29,7 +29,7 @@ public class Control_in_Twolobby : MonoBehaviour {
 
     private int playerRank;
     private Dictionary<string, (string, int, int)> playerList { get { return network.dict; } }
-    private readonly string[] playerRankType = { "入門", "簡單", "普通", "困難" };
+    private readonly string[] playerRankType = { "入門", "簡單", "普通", "困難", "無" };
     private readonly string[] statusType = { "閒置", "忙碌", "對戰中" };
 
     private int seletedIndex = -1;

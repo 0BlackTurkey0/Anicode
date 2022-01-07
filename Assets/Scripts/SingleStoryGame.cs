@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SingleStoryGame : MonoBehaviour {
     public static int status;
@@ -193,12 +194,14 @@ public class SingleStoryGame : MonoBehaviour {
         BG.transform.GetChild(0).gameObject.SetActive(true);
         BG.transform.GetChild(1).gameObject.SetActive(false);
         BG.transform.GetChild(2).gameObject.SetActive(false);
-        BG.transform.GetChild(0).gameObject.GetComponent<Text>().text = Resources.Load<TextAsset>("plot/intro").ToString();
-
-        while (!isClick)
-            yield return null;
-        isClick = false;
-
+        if (applicationHandler.GameData.FirstIntro_Single) {
+            BG.transform.GetChild(0).gameObject.GetComponent<Text>().text = Resources.Load<TextAsset>("plot/intro").ToString();
+            while (!isClick)
+                yield return null;
+            isClick = false;
+            applicationHandler.GameData.FirstIntro_Single = false;
+            applicationHandler.GameData.SaveData();
+        }
         GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 110);
         BG.SetActive(false);
 
@@ -403,5 +406,10 @@ public class SingleStoryGame : MonoBehaviour {
     {
         for (int i = 0;i < GameObject.Find("CHARACTER").transform.childCount;i += 1)
             GameObject.Find("CHARACTER").transform.GetChild(i).gameObject.SetActive(false);
+    }
+
+    public void GoBack()
+    {
+        SceneManager.LoadScene("Lobby");
     }
 }

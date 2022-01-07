@@ -64,12 +64,20 @@ public class ApplicationHandler : MonoBehaviour {
         set { _isschedule_SimpleChange = value; }
     }
 
+    private int[] _characProperty;
+
+    public int[] CharacProperty
+    {
+        get { return _characProperty; }
+        set { _characProperty = value; }
+    }
+
     void Awake() {
         DontDestroyOnLoad(gameObject);
         _gameData = new GameData();
         _gameData.LoadData();
         _gameData.SaveData();
-        CharaType = new CharacterType[2];
+        _charaType = new CharacterType[2];
     }
 
     void Start() {
