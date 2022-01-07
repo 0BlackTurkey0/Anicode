@@ -40,9 +40,9 @@
   </Items>
   <IsFullScreen>true</IsFullScreen>
   <VoiceVolume>0</VoiceVolume>
-  <FirstIntro_Single>true</FirstIntro_Single>
+  <FirstIntro_Single>false</FirstIntro_Single>
   <IsIntro_Single>
-    <boolean>true</boolean>
+    <boolean>false</boolean>
     <boolean>true</boolean>
     <boolean>true</boolean>
     <boolean>true</boolean>

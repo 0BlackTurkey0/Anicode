@@ -576,31 +576,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e283fe2e43b18a7458c2aa89e01d2ca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BananaBtn: {fileID: 639503017}
-  GrapeBtn: {fileID: 971667415}
-  CherryBtn: {fileID: 369865871}
-  AvocadoBtn: {fileID: 1606449216}
-  PearBtn: {fileID: 423416797}
-  OrangeBtn: {fileID: 1703803218}
-  StrawberryBtn: {fileID: 849965825}
-  TomatoBtn: {fileID: 55855827}
-  BaconBtn: {fileID: 614325320}
-  ChickenBtn: {fileID: 373330723}
-  TroutBtn: {fileID: 188507653}
-  FishBtn: {fileID: 808750419}
-  BlowfishBtn: {fileID: 2083351422}
-  MeatBtn: {fileID: 1437609413}
-  SchnitzelBtn: {fileID: 1942351764}
-  HamBtn: {fileID: 249723706}
-  JemBtn: {fileID: 352571268}
-  PotionBtn: {fileID: 232071292}
-  ScrollBtn: {fileID: 828453334}
-  SwordBtn: {fileID: 1626515876}
-  HerbBtn: {fileID: 1694234974}
   ConfirmSurface: {fileID: 1393472494}
-  FailSurface: {fileID: 0}
-  ConfirmBtn: {fileID: 2059358827}
-  FailBtn: {fileID: 1435037369}
+  FailSurface: {fileID: 638556143}
   Content: {fileID: 1430042757}
   Chosen: {fileID: 0}
 --- !u!4 &42255024
@@ -11898,29 +11875,6 @@ MonoBehaviour:
   PlayerName: {fileID: 551504952}
   MoneyText: {fileID: 1259327845}
   LevelText: {fileID: 1738183801}
-  BananaBtn: {fileID: 0}
-  GrapeBtn: {fileID: 0}
-  CherryBtn: {fileID: 0}
-  AvocadoBtn: {fileID: 0}
-  PearBtn: {fileID: 0}
-  OrangeBtn: {fileID: 0}
-  StrawberryBtn: {fileID: 0}
-  TomatoBtn: {fileID: 0}
-  BaconBtn: {fileID: 0}
-  ChickenBtn: {fileID: 0}
-  TroutBtn: {fileID: 0}
-  FishBtn: {fileID: 0}
-  BlowfishBtn: {fileID: 0}
-  MeatBtn: {fileID: 0}
-  SchnitzelBtn: {fileID: 0}
-  HamBtn: {fileID: 0}
-  JemBtn: {fileID: 0}
-  PotionBtn: {fileID: 0}
-  ScrollBtn: {fileID: 0}
-  SwordBtn: {fileID: 0}
-  HerbBtn: {fileID: 0}
-  ConfirmSurface: {fileID: 0}
-  ConfirmBtn: {fileID: 0}
 --- !u!4 &1584478252
 Transform:
   m_ObjectHideFlags: 0
@@ -12364,8 +12318,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 540012714}
   m_HandleRect: {fileID: 540012713}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.5452981
+  m_Value: 1.0000002
+  m_Size: 0.49201494
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
