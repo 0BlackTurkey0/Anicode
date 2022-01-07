@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Xml.Serialization;
+using UnityEngine;
 
 public class GameData {
     private string _name;
@@ -129,7 +130,7 @@ public class GameData {
 
     public void SaveData()
     {
-        using (StreamWriter writer = new StreamWriter("./GameData.ac")) {
+        using (StreamWriter writer = new StreamWriter(Application.dataPath + "/GameData.ac")) {
             var serializer = new XmlSerializer(GetType());
             serializer.Serialize(writer, this);
         }
@@ -137,7 +138,7 @@ public class GameData {
 
     public void LoadData()
     {
-        using (StreamReader reader = new StreamReader("./GameData.ac")) {
+        using (StreamReader reader = new StreamReader(Application.dataPath + "/GameData.ac")) {
             var serializer = new XmlSerializer(GetType());
             GameData gameData = serializer.Deserialize(reader) as GameData;
             UpdateData(gameData);

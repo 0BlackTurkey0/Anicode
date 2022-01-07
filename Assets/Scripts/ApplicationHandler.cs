@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -75,8 +76,11 @@ public class ApplicationHandler : MonoBehaviour {
     void Awake() {
         DontDestroyOnLoad(gameObject);
         _gameData = new GameData();
-        _gameData.LoadData();
-        _gameData.SaveData();
+        DirectoryInfo dir = new DirectoryInfo(Application.dataPath + "/GameData.ac");
+        if (dir.Exists)
+            _gameData.LoadData();
+        else
+            _gameData.SaveData();
         _charaType = new CharacterType[2];
     }
 

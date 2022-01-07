@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -25,9 +24,9 @@ public class Create : MonoBehaviour {
         if (ind == 0) //一個story結束後下一次載入select場景
         {
             if (applicationHandler.GameData.SimpleIsFinish == true) //已經玩過一輪
-                Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_3.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+                Prefab = Instantiate(Resources.Load("Assets/Prefabs/select_3.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
             else
-                Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_" + applicationHandler.GameData.Schedule_Simple.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+                Prefab = Instantiate(Resources.Load("Assets/Prefabs/select_" + applicationHandler.GameData.Schedule_Simple.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
             buttonParent = gameObject.transform.GetChild(0).gameObject;
             for (int i = 1; i <= 3; i += 1)
                 buttonParent.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(delegate () { StoryOnClick(); });
@@ -37,7 +36,7 @@ public class Create : MonoBehaviour {
             if (applicationHandler.GameData.IswinForSimple) //打贏AI
             {
                 ind++;
-                Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+                Prefab = Instantiate(Resources.Load("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
                 isClick = true;
                 isRun = false;
                 isFinish = true;
@@ -45,7 +44,7 @@ public class Create : MonoBehaviour {
             else //打輸AI
             {
                 ind++;
-                Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + "-2" + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+                Prefab = Instantiate(Resources.Load("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + "-2" + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
                 isClick = true;
                 isRun = false;
                 isFinish = true;
@@ -65,7 +64,7 @@ public class Create : MonoBehaviour {
                     if (Input.GetKeyDown(KeyCode.RightArrow) && isFinish) {
                         Destroy(Prefab);
                         ind++;
-                        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+                        Prefab = Instantiate(Resources.Load("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
                     }
                     break;
                 case "2":   //進入關卡前畫面
@@ -103,9 +102,9 @@ public class Create : MonoBehaviour {
                         applicationHandler.GameData.Schedule_SimpleChange = ind;
                         applicationHandler.GameData.SaveData();
                         if(applicationHandler.GameData.SimpleIsFinish == true) //已經玩過一輪
-                            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_3.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+                            Prefab = Instantiate(Resources.Load("Assets/Prefabs/select_3.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
                         else
-                            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/select_" + applicationHandler.GameData.Schedule_Simple.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+                            Prefab = Instantiate(Resources.Load("Assets/Prefabs/select_" + applicationHandler.GameData.Schedule_Simple.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
                         isEnd = true;
                     }
                     break;
@@ -144,7 +143,7 @@ public class Create : MonoBehaviour {
         applicationHandler.GameData.SaveData();
         Destroy(Prefab);
         //lastTag = 4;
-        Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-1.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+        Prefab = Instantiate(Resources.Load("Assets/Prefabs/" + storyNum.ToString() + "-1.prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
         //isFinish = Prefab.transform.GetChild(1).gameObject.GetComponent<DialogSystem>().Finished;
         isFinish = Prefab.transform.GetComponent<DialogSystem>().Finished;
     }
@@ -172,14 +171,14 @@ public class Create : MonoBehaviour {
             applicationHandler.GameData.Schedule_SimpleChange = ind;
             applicationHandler.GameData.SaveData();
             ind++;
-            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+            Prefab = Instantiate(Resources.Load("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
             isRun = false;
         }
         else
         {//失敗
             Destroy(Prefab);
             ind --;
-            Prefab = Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
+            Prefab = Instantiate(Resources.Load("Assets/Prefabs/" + storyNum.ToString() + "-" + ind.ToString() + ".prefab", typeof(GameObject)) as GameObject, gameObject.GetComponent<Transform>());
             applicationHandler.GameData.Schedule_SimpleChange = ind;
             applicationHandler.GameData.SaveData();
             isRun = false;
