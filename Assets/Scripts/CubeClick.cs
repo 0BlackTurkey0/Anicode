@@ -14,6 +14,7 @@ public class CubeClick : MonoBehaviour {
     {
         SingleStoryGame.HideCharacter();
         applicationHandler.IsDuel = false;
+        applicationHandler.IsSimple = false;
         applicationHandler.CharaType[0] = CharacterType.Kangaroo;
         applicationHandler.CharaType[1] = CharacterType.Customized;
         SetAniProperty();
@@ -26,6 +27,7 @@ public class CubeClick : MonoBehaviour {
     {
         SingleStoryGame.HideCharacter();
         applicationHandler.IsDuel = false;
+        applicationHandler.IsSimple = false;
         applicationHandler.CharaType[0] = CharacterType.Whale;
         applicationHandler.CharaType[1] = CharacterType.Customized;
         SetAniProperty();
@@ -38,6 +40,7 @@ public class CubeClick : MonoBehaviour {
     {
         SingleStoryGame.HideCharacter();
         applicationHandler.IsDuel = false;
+        applicationHandler.IsSimple = false;
         applicationHandler.CharaType[0] = CharacterType.Owl;
         applicationHandler.CharaType[1] = CharacterType.Customized;
         SetAniProperty();
@@ -50,6 +53,7 @@ public class CubeClick : MonoBehaviour {
     {
         SingleStoryGame.HideCharacter();
         applicationHandler.IsDuel = false;
+        applicationHandler.IsSimple = false;
         applicationHandler.CharaType[0] = CharacterType.Koala;
         applicationHandler.CharaType[1] = CharacterType.Customized;
         SetAniProperty();
@@ -62,6 +66,7 @@ public class CubeClick : MonoBehaviour {
     {
         SingleStoryGame.HideCharacter();
         applicationHandler.IsDuel = false;
+        applicationHandler.IsSimple = false;
         applicationHandler.CharaType[0] = CharacterType.Fox;
         applicationHandler.CharaType[1] = CharacterType.Customized;
         SetAniProperty();
