@@ -39,8 +39,8 @@
     <boolean>false</boolean>
   </Items>
   <IsFullScreen>true</IsFullScreen>
-  <VoiceVolume>0.08982045</VoiceVolume>
-  <FirstIntro_Single>false</FirstIntro_Single>
+  <VoiceVolume>0</VoiceVolume>
+  <FirstIntro_Single>true</FirstIntro_Single>
   <IsIntro_Single>
     <boolean>false</boolean>
     <boolean>true</boolean>

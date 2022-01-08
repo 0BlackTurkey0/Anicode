@@ -188,7 +188,7 @@ public class Network : MonoBehaviour {
     private IEnumerator UpdateNetwork()
     {
         while (true) {
-            if (SceneManager.GetActiveScene().name == "DuelMode" || SceneManager.GetActiveScene().name == "Battle") {
+            if (SceneManager.GetActiveScene().name == "DualMode" || SceneManager.GetActiveScene().name == "Battle") {
                 playerName = applicationHandler.GameData.Name;
                 playerRank = (int)applicationHandler.GameData.Rank;
                 isNetworkRunning = true;
@@ -231,6 +231,12 @@ public class Network : MonoBehaviour {
     {
         systemMessage = SYS.GAME;
         playerStatus = 2;
+    }
+
+    public void FinishGame()
+    {
+        systemMessage = null;
+        playerStatus = 0;
     }
 
     public void ClearSystemMessage()
