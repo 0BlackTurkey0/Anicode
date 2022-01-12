@@ -1,1 +1,1 @@
-新增Move、Attack
+新增Move、Attack。

@@ -1,2 +1,1 @@
-新增排序演算法、
-Swap、Food
+新增排序演算法、Swap、Food。

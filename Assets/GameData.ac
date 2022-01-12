@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Name>Guest</Name>
+  <Name>123</Name>
   <Money>1050</Money>
   <Items>
     <boolean>false</boolean>
