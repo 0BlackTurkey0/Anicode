@@ -6,10 +6,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DualMode : MonoBehaviour {
-    [Header("PlayerInfo")]
-    [SerializeField] Text PlayerNameObject;
-    [SerializeField] Text RankObject;
-    [SerializeField] Text DiamondObject;
     [Header("Panel")]
     [SerializeField] GameObject ModeSetting;
     [SerializeField] GameObject PlayerListContent;
@@ -45,9 +41,6 @@ public class DualMode : MonoBehaviour {
 
     void Start()
     {
-        PlayerNameObject.text = applicationHandler.GameData.Name;
-        RankObject.text = "階級 : " + playerRankType[(int)applicationHandler.GameData.Rank];
-        DiamondObject.text = applicationHandler.GameData.Money.ToString();
         ModeSetting.SetActive(false);
         WaitingListUpdate.SetActive(false);
         HintWhenBusy.SetActive(false);
@@ -58,7 +51,7 @@ public class DualMode : MonoBehaviour {
         StartCoroutine(UpdateNetwork());
     }
 
-    private void OnApplicationQuit()
+    void OnApplicationQuit()
     {
 
     }
@@ -122,7 +115,7 @@ public class DualMode : MonoBehaviour {
                     Destroy(temp);
             }
 
-            int height = playerList.Count > 5 ? playerList.Count * 100 : 500;
+            int height = playerList.Count > 6 ? playerList.Count * 100 : 600;
             PlayerListContent.GetComponent<RectTransform>().sizeDelta = new Vector2(0, height);
 
             if (playerList.Count > 0) {
@@ -137,7 +130,7 @@ public class DualMode : MonoBehaviour {
                     temp.transform.GetChild(1).gameObject.GetComponent<Text>().text = playerRankType[item.Value.Rank];
                     temp.transform.GetChild(2).gameObject.GetComponent<Text>().text = item.Value.Name;
                     temp.transform.GetChild(3).gameObject.GetComponent<Text>().text = statusType[item.Value.Status];
-                    temp.transform.localPosition = new Vector2(600, posY);
+                    temp.transform.localPosition = new Vector2(650, posY);
                     temp.GetComponent<Button>().onClick.RemoveAllListeners();
                     temp.GetComponent<Button>().onClick.AddListener(delegate () { OnClick_Select(temp.transform.GetSiblingIndex()); });
                     posY -= 100;

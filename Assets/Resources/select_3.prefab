@@ -1062,9 +1062,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8616754368547762050}
-        m_TargetAssemblyTypeName: EasyStory_ReturnLobby, Assembly-CSharp
-        m_MethodName: Return
+      - m_Target: {fileID: 1665840390243566446}
+        m_TargetAssemblyTypeName: ToScene, Assembly-CSharp
+        m_MethodName: ReturnToSingleMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1083,7 +1083,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5258874735550311872}
-  - component: {fileID: 8616754368547762050}
+  - component: {fileID: 1665840390243566446}
   m_Layer: 5
   m_Name: GameObject
   m_TagString: Untagged
@@ -1112,7 +1112,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8616754368547762050
+--- !u!114 &1665840390243566446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1121,6 +1121,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7340878645240184156}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31af611c61c72e943a67e18c79d2bbbf, type: 3}
+  m_Script: {fileID: 11500000, guid: b318b780443dad14ca05f2be7dd22626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

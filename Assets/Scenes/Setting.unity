@@ -668,8 +668,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 577010416}
-        m_TargetAssemblyTypeName: ControlGoBackLobby, Assembly-CSharp
+      - m_Target: {fileID: 436541097}
+        m_TargetAssemblyTypeName: ToLobby, Assembly-CSharp
         m_MethodName: ReturnToLobby
         m_Mode: 1
         m_Arguments:
@@ -728,8 +728,9 @@ GameObject:
   m_Component:
   - component: {fileID: 436541096}
   - component: {fileID: 436541095}
+  - component: {fileID: 436541097}
   m_Layer: 0
-  m_Name: Setting
+  m_Name: Control
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -758,12 +759,24 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 436541094}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 443.77905, y: 193.23022, z: -333.64258}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &436541097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436541094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b318b780443dad14ca05f2be7dd22626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &456427555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1036,49 +1049,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557061289}
   m_CullTransparentMesh: 1
---- !u!1 &577010415
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 577010417}
-  - component: {fileID: 577010416}
-  m_Layer: 0
-  m_Name: ControlGoBackToLobby
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &577010416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 577010415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b318b780443dad14ca05f2be7dd22626, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &577010417
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 577010415}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 146.47714, y: 534.7237, z: -133.16432}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &624062793
 GameObject:
   m_ObjectHideFlags: 0
@@ -2268,8 +2238,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 577010416}
-        m_TargetAssemblyTypeName: ControlGoBackLobby, Assembly-CSharp
+      - m_Target: {fileID: 436541097}
+        m_TargetAssemblyTypeName: ToLobby, Assembly-CSharp
         m_MethodName: ExitFromGame
         m_Mode: 1
         m_Arguments:

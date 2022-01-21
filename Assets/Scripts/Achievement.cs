@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Control : MonoBehaviour {
+public class Achievement : MonoBehaviour {
     [SerializeField] GameObject Ach1;
     [SerializeField] GameObject Ach2;
     [SerializeField] GameObject Ach3;

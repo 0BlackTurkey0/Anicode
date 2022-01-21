@@ -242,7 +242,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2002311278}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9466938
+  m_Size: 0.9466939
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -261,7 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 271011996}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control, Assembly-CSharp
         m_MethodName: CloseButton_OnClick
         m_Mode: 1
@@ -646,66 +646,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 217353177}
   m_CullTransparentMesh: 1
---- !u!1 &271011994
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 271011995}
-  - component: {fileID: 271011996}
-  m_Layer: 5
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &271011995
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 271011994}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1965861010}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &271011996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 271011994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d598ee64d5f7c443a90442634d860fb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Ach1: {fileID: 1475686259}
-  Ach2: {fileID: 1809554545}
-  Ach3: {fileID: 1766090470}
-  Ach4: {fileID: 1721450872}
-  Ach5: {fileID: 501814206}
-  Ach6: {fileID: 597408334}
-  Ach7: {fileID: 1410763773}
-  Ach8: {fileID: 408690569}
-  Ach9: {fileID: 293588847}
-  Ach10: {fileID: 782375075}
-  illustration: {fileID: 640414975}
-  illustration_text: {fileID: 664419327}
 --- !u!1 &293588847
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,7 +730,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 271011996}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control, Assembly-CSharp
         m_MethodName: Ach9_Show
         m_Mode: 1
@@ -891,7 +831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -974,7 +914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1082,7 +1022,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 271011996}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control, Assembly-CSharp
         m_MethodName: Ach8_Show
         m_Mode: 1
@@ -1216,8 +1156,9 @@ GameObject:
   m_Component:
   - component: {fileID: 485144074}
   - component: {fileID: 485144073}
+  - component: {fileID: 485144075}
   m_Layer: 0
-  m_Name: ControlGoBackToLobby
+  m_Name: Control
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1243,12 +1184,36 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 485144072}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 146.47714, y: 534.7237, z: -133.16432}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &485144075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485144072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d598ee64d5f7c443a90442634d860fb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Ach1: {fileID: 1475686259}
+  Ach2: {fileID: 1809554545}
+  Ach3: {fileID: 1766090470}
+  Ach4: {fileID: 1721450872}
+  Ach5: {fileID: 501814206}
+  Ach6: {fileID: 597408334}
+  Ach7: {fileID: 1410763773}
+  Ach8: {fileID: 408690569}
+  Ach9: {fileID: 293588847}
+  Ach10: {fileID: 782375075}
+  illustration: {fileID: 640414975}
+  illustration_text: {fileID: 664419327}
 --- !u!1 &485405112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1412,7 +1377,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 271011996}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control, Assembly-CSharp
         m_MethodName: Ach5_Show
         m_Mode: 1
@@ -1546,7 +1511,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 271011996}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control, Assembly-CSharp
         m_MethodName: Ach6_Show
         m_Mode: 1
@@ -1916,7 +1881,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 271011996}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control, Assembly-CSharp
         m_MethodName: Ach10_Show
         m_Mode: 1
@@ -2616,7 +2581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3262,7 +3227,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 271011996}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control, Assembly-CSharp
         m_MethodName: Ach7_Show
         m_Mode: 1
@@ -3396,7 +3361,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 271011996}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control, Assembly-CSharp
         m_MethodName: Ach1_Show
         m_Mode: 1
@@ -3909,7 +3874,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 271011996}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control, Assembly-CSharp
         m_MethodName: Ach4_Show
         m_Mode: 1
@@ -4011,7 +3976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4119,7 +4084,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 271011996}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control, Assembly-CSharp
         m_MethodName: Ach3_Show
         m_Mode: 1
@@ -4253,7 +4218,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 271011996}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Control, Assembly-CSharp
         m_MethodName: Ach2_Show
         m_Mode: 1
@@ -4409,7 +4374,6 @@ RectTransform:
   m_Children:
   - {fileID: 1984994701}
   - {fileID: 367005949}
-  - {fileID: 271011995}
   m_Father: {fileID: 799799066}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4474,7 +4438,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000030518, y: 0.000015259}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1984994702

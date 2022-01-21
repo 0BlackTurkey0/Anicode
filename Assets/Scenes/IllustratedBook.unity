@@ -488,7 +488,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 929505721}
   m_HandleRect: {fileID: 929505720}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2409,49 +2409,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 676990026}
   m_CullTransparentMesh: 1
---- !u!1 &681987410
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 681987412}
-  - component: {fileID: 681987411}
-  m_Layer: 0
-  m_Name: ControlGoBackToLobby
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &681987411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 681987410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b318b780443dad14ca05f2be7dd22626, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &681987412
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 681987410}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 146.47714, y: 534.7237, z: -133.16432}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &717844556
 GameObject:
   m_ObjectHideFlags: 0
@@ -3057,8 +3014,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 681987411}
-        m_TargetAssemblyTypeName: ControlGoBackLobby, Assembly-CSharp
+      - m_Target: {fileID: 926803678}
+        m_TargetAssemblyTypeName: ToLobby, Assembly-CSharp
         m_MethodName: ReturnToLobby
         m_Mode: 1
         m_Arguments:
@@ -3597,8 +3554,9 @@ GameObject:
   - component: {fileID: 926803676}
   - component: {fileID: 926803675}
   - component: {fileID: 926803677}
+  - component: {fileID: 926803678}
   m_Layer: 0
-  m_Name: Control_Object
+  m_Name: Control
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3630,7 +3588,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 926803674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 415.92932, y: 230.07939, z: -120.79173}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3649,8 +3607,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerName: {fileID: 1349427618}
-  MoneyText: {fileID: 1789190079}
   LevelText: {fileID: 484083617}
+  MoneyText: {fileID: 1789190079}
+--- !u!114 &926803678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926803674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b318b780443dad14ca05f2be7dd22626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &928197445
 GameObject:
   m_ObjectHideFlags: 0
