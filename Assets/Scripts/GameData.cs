@@ -35,8 +35,7 @@ public class GameData {
 
     private bool[] _items;
 
-    public bool[] Items
-    {
+    public bool[] Items {
         get { return _items; }
         set { _items = value; }
     }
@@ -56,8 +55,7 @@ public class GameData {
     }
 
     private bool _firstIntro_Single;
-    public bool FirstIntro_Single
-    {
+    public bool FirstIntro_Single {
         get { return _firstIntro_Single; }
         set { _firstIntro_Single = value; }
     }
@@ -72,7 +70,7 @@ public class GameData {
     private int _schedule_Simple;
 
     public int Schedule_Simple {
-        get { 
+        get {
             if (_schedule_Simple == 4)
                 return 3;
             return _schedule_Simple;
@@ -82,24 +80,21 @@ public class GameData {
 
     private int _schedule_SimpleChange;
 
-    public int Schedule_SimpleChange
-    {
+    public int Schedule_SimpleChange {
         get { return _schedule_SimpleChange; }
         set { _schedule_SimpleChange = value; }
     }
 
-    private bool _iswinForSimple; //§PÂ_¬O§_¥´Ä¹AI
+    private bool _iswinForSimple; //åˆ¤æ–·æ˜¯å¦æ‰“è´AI
 
-    public bool IswinForSimple
-    {
+    public bool IswinForSimple {
         get { return _iswinForSimple; }
         set { _iswinForSimple = value; }
     }
 
-    private bool _simpleIsFinish; //§PÂ_Â²³æAI¬O§_§¹¦¨¹L¤@½ü
+    private bool _simpleIsFinish; //åˆ¤æ–·ç°¡å–®AIæ˜¯å¦å®Œæˆéä¸€è¼ª
 
-    public bool SimpleIsFinish
-    {
+    public bool SimpleIsFinish {
         get { return _simpleIsFinish; }
         set { _simpleIsFinish = value; }
     }
@@ -111,7 +106,7 @@ public class GameData {
         set { _schedule_Single = value; }
     }
 
-    //³æ¤H2ºØ¶i«×
+    //å–®äºº2ç¨®é€²åº¦
 
     public GameData()
     {

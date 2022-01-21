@@ -7,7 +7,7 @@ public class Timer : MonoBehaviour {
     public Slider slider;
     public Text progressText;
     private int i = 0;
-    // Start is called before the first frame update
+
     void Start()
     {
         StartCoroutine(timer());

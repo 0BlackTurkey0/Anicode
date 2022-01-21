@@ -729,7 +729,7 @@ GameObject:
   - component: {fileID: 436541096}
   - component: {fileID: 436541095}
   m_Layer: 0
-  m_Name: Setting_UI_Control
+  m_Name: Setting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

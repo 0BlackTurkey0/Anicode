@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.Json;
 using UnityEngine;
 
-public class CLASSFORTEST : MonoBehaviour
-{
+public class CLASSFORTEST : MonoBehaviour {
     Code code1;
     Code code2;
-    // Start is called before the first frame update
+    
     void Start()
     {
         code1 = new Code();
@@ -29,11 +25,5 @@ public class CLASSFORTEST : MonoBehaviour
 
         //code1.Display();
         //code2.Display();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

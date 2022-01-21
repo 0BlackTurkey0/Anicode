@@ -351,7 +351,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 188354483}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 146.47714, y: 534.7237, z: -133.16432}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -370,8 +370,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerName: {fileID: 1261385881}
-  MoneyText: {fileID: 1969809700}
   LevelText: {fileID: 1671630969}
+  MoneyText: {fileID: 1969809700}
 --- !u!1 &202829252
 GameObject:
   m_ObjectHideFlags: 0

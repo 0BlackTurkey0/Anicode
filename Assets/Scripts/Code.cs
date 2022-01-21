@@ -4,15 +4,14 @@ using System.Text.Json.Serialization;
 using UnityEngine;
 
 public class Code {
-
     private List<Tuple<Instruction, ushort>> _instructions;
     private Stack<ushort> _records;
     private ushort _programCounter;
 
     public List<Tuple<Instruction, ushort>> Instructions {
         get { return _instructions; }
-        set { _instructions = value; } 
-    } 
+        set { _instructions = value; }
+    }
 
     [JsonIgnore]
     public ushort Size {
@@ -148,10 +147,11 @@ public class Code {
         if (index < _instructions.Count) return _instructions[index].Item2;
         return 0;
     }
-    public void Display() {
+    public void Display()
+    {
         System.Text.StringBuilder display = new System.Text.StringBuilder();
         foreach (var i in _instructions) {
-            for (int x = 0; x < i.Item2; x++)
+            for (int x = 0;x < i.Item2;x++)
                 display.Append("  ");
             display.AppendLine(i.Item1.Type.ToString());
         }

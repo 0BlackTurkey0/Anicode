@@ -3,13 +3,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Commodity_Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
-
     [SerializeField] private GameObject Code_Area;
 
     private InstructionType type;
     private RectTransform rect;
     private Vector2 position;
-
     private Game game;
 
     void Start()
