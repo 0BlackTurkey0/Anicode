@@ -119,7 +119,7 @@ public class DualMode : MonoBehaviour {
             PlayerListContent.GetComponent<RectTransform>().sizeDelta = new Vector2(0, height);
 
             if (playerList.Count > 0) {
-                int posY = -50;
+                int posY = 250;
                 foreach (KeyValuePair<string, (string Name, int Rank, int Status)> item in playerList) {
                     GameObject temp = PlayerListContent.transform.Find(item.Key)?.gameObject;
                     if (temp == null) {
@@ -130,7 +130,7 @@ public class DualMode : MonoBehaviour {
                     temp.transform.GetChild(1).gameObject.GetComponent<Text>().text = playerRankType[item.Value.Rank];
                     temp.transform.GetChild(2).gameObject.GetComponent<Text>().text = item.Value.Name;
                     temp.transform.GetChild(3).gameObject.GetComponent<Text>().text = statusType[item.Value.Status];
-                    temp.transform.localPosition = new Vector2(650, posY);
+                    temp.transform.localPosition = new Vector2(0, posY);
                     temp.GetComponent<Button>().onClick.RemoveAllListeners();
                     temp.GetComponent<Button>().onClick.AddListener(delegate () { OnClick_Select(temp.transform.GetSiblingIndex()); });
                     posY -= 100;
@@ -138,7 +138,6 @@ public class DualMode : MonoBehaviour {
             }
             yield return new WaitForSeconds(1);
         }
-        //SearchButton.GetComponent<Button>().enabled = true;
         WaitingListUpdate.SetActive(false);
     }
 
@@ -224,11 +223,6 @@ public class DualMode : MonoBehaviour {
         }
     }
 
-    public void OnClick_CancelInModeSetting()
-    {
-        ModeSetting.SetActive(false);
-    }
-
     public void OnClick_ConfirmInModeSetting()
     {
         ModeSetting.SetActive(false);
@@ -244,11 +238,6 @@ public class DualMode : MonoBehaviour {
         if (!isUpdateStatus)
             StartCoroutine(UpdateStatus());
         //SearchButton.GetComponent<Button>().enabled = false;
-    }
-
-    public void OnClick_NoneModeSetting()
-    {
-        ModeSettingHint.SetActive(true);
     }
 
     public void OnClick_Challenge()   //發起挑戰
@@ -284,30 +273,5 @@ public class DualMode : MonoBehaviour {
     private void OnClick_Select(int index)
     {
         seletedIndex = index;
-    }
-
-    public void OnClick_ConfirmInHintWhenBusy()
-    {
-        HintWhenBusy.SetActive(false);
-    }
-
-    public void OnClick_ConfirmInHintWhenDeny()
-    {
-        HintWhenDeny.SetActive(false);
-    }
-
-    public void OnClick_ConfirmInBothNoSameDifficulty()
-    {
-        BothNoSameDifficulty.SetActive(false);
-    }
-
-    public void OnClick_ConfirmInModeSettingHint()
-    {
-        ModeSettingHint.SetActive(false);
-    }
-
-    public void ReturnToLobby()
-    {
-        SceneManager.LoadScene("Lobby");
     }
 }

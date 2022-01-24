@@ -1171,8 +1171,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2037520176}
-        m_TargetAssemblyTypeName: Control_in_Twolobby, Assembly-CSharp
+      - m_Target: {fileID: 2037520179}
+        m_TargetAssemblyTypeName: ToScene, Assembly-CSharp
         m_MethodName: ReturnToLobby
         m_Mode: 1
         m_Arguments:
@@ -1460,10 +1460,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2037520176}
-        m_TargetAssemblyTypeName: Control_in_Twolobby, Assembly-CSharp
-        m_MethodName: OnClick_ConfirmInModeSettingHint
-        m_Mode: 1
+      - m_Target: {fileID: 1279629264}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1634,17 +1634,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2037520176}
-        m_TargetAssemblyTypeName: Control_in_Twolobby, Assembly-CSharp
-        m_MethodName: OnClick_NoneModeSetting
-        m_Mode: 1
+      - m_Target: {fileID: 1279629264}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &121350473
 MonoBehaviour:
@@ -3242,10 +3242,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2037520176}
-        m_TargetAssemblyTypeName: Control_in_Twolobby, Assembly-CSharp
-        m_MethodName: OnClick_ConfirmInHintWhenBusy
-        m_Mode: 1
+      - m_Target: {fileID: 158445803}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4964,17 +4964,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2037520176}
-        m_TargetAssemblyTypeName: Control_in_Twolobby, Assembly-CSharp
-        m_MethodName: ShowModeSetting
-        m_Mode: 1
+      - m_Target: {fileID: 982115254}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &434057118
 MonoBehaviour:
@@ -5330,10 +5330,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2037520176}
-        m_TargetAssemblyTypeName: Control_in_Twolobby, Assembly-CSharp
-        m_MethodName: OnClick_ConfirmInBothNoSameDifficulty
-        m_Mode: 1
+      - m_Target: {fileID: 30655420}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10202,10 +10202,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2037520176}
-        m_TargetAssemblyTypeName: Control_in_Twolobby, Assembly-CSharp
-        m_MethodName: OnClick_ConfirmInHintWhenDeny
-        m_Mode: 1
+      - m_Target: {fileID: 882435646}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10884,7 +10884,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19700,6 +19700,7 @@ GameObject:
   - component: {fileID: 2037520176}
   - component: {fileID: 2037520177}
   - component: {fileID: 2037520178}
+  - component: {fileID: 2037520179}
   m_Layer: 0
   m_Name: Control
   m_TagString: Untagged
@@ -19783,6 +19784,18 @@ MonoBehaviour:
   PlayerName: {fileID: 2063083725}
   LevelText: {fileID: 1045607651}
   MoneyText: {fileID: 813031594}
+--- !u!114 &2037520179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037520174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b318b780443dad14ca05f2be7dd22626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2039252308
 GameObject:
   m_ObjectHideFlags: 0

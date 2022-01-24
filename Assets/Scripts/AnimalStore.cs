@@ -23,6 +23,7 @@ public class AnimalStore : MonoBehaviour {
         for (int i = 0;i < 34;i++) {
             if (applicationHandler.GameData.Items[i]) {
                 Chosen = Content.transform.GetChild(i).gameObject;
+                Chosen.GetComponent<Button>().enabled = false;
                 Chosen.transform.GetChild(0).gameObject.SetActive(false);
                 Chosen.transform.GetChild(1).gameObject.SetActive(false);
                 Chosen.transform.GetChild(2).gameObject.SetActive(true);
@@ -37,17 +38,12 @@ public class AnimalStore : MonoBehaviour {
         ConfirmSurface.SetActive(true);
     }
 
-    public void FailBtn_OnClick()
-    {
-        FailSurface.SetActive(false);
-    }
-
     public void ConfirmBtn_OnClick()
     {
         if (Money > Price) {
-            Debug.Log("confirm");
+            //Debug.Log("confirm");
             ConfirmSurface.SetActive(false);
-            Chosen.gameObject.GetComponent<Button>().enabled = false;
+            Chosen.GetComponent<Button>().enabled = false;
             Chosen.transform.GetChild(0).gameObject.SetActive(false);
             Chosen.transform.GetChild(1).gameObject.SetActive(false);
             Chosen.transform.GetChild(2).gameObject.SetActive(true);
@@ -56,7 +52,7 @@ public class AnimalStore : MonoBehaviour {
             applicationHandler.GameData.SaveData();
         }
         else {
-            Debug.Log("fail");
+            //Debug.Log("fail");
             FailSurface.SetActive(true);
             ConfirmSurface.SetActive(false);
         }
