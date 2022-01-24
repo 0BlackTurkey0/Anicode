@@ -48,7 +48,7 @@
     <boolean>true</boolean>
   </IsIntro_Single>
   <Schedule_Simple>1</Schedule_Simple>
-  <Schedule_SimpleChange>2</Schedule_SimpleChange>
+  <Schedule_SimpleChange>0</Schedule_SimpleChange>
   <IswinForSimple>true</IswinForSimple>
   <SimpleIsFinish>false</SimpleIsFinish>
   <Schedule_Single>0</Schedule_Single>

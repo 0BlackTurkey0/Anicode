@@ -6,19 +6,20 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SimpleStory_Begin : MonoBehaviour {
-    [Header("UI component")]
-    public Text textLabel;
-    //public Image faceImage;
+    [Header("UI Component")]
+    [SerializeField] Text textLabel;
+    [SerializeField] GameObject Leader;
+    [SerializeField] GameObject DialogPanel;
+    [SerializeField] GameObject StartBtn;
 
-    [Header("text component")]
-    public TextAsset textFile;
-    public float textSpeed;
+    [Header("Text Component")]
+    [SerializeField] TextAsset textFile;
+    [SerializeField] float textSpeed;
 
     private int index;
     private bool cancelTyping, textFinished = true;
     //public bool Finished { get { return exit; } }
     private List<string> textList = new List<string>();
-    //private GameObject buttonReturn = GameObject.Find("Return").gameObject;
     private ApplicationHandler applicationHandler;
 
     void Awake()
@@ -34,15 +35,13 @@ public class SimpleStory_Begin : MonoBehaviour {
 
     void Update()
     {
-        //buttonReturn.GetComponent<Button>().onClick.AddListener(delegate () { SceneManager.LoadScene("lobby"); });
         if (Keyboard.current.spaceKey.isPressed && index == textList.Count) {
             applicationHandler.GameData.Schedule_Simple = 1;
             applicationHandler.GameData.SaveData();
-            GameObject.Find("DialogPanel").SetActive(false);
-            GameObject.Find("Leader").SetActive(false);
-            GameObject buttonStart = GameObject.Find("control").gameObject.transform.GetChild(0).gameObject;
-            buttonStart.SetActive(true);
-            buttonStart.GetComponent<Button>().onClick.AddListener(delegate () { PlayStory(); });
+            DialogPanel.SetActive(false);
+            Leader.SetActive(false);
+            StartBtn.SetActive(true);
+            StartBtn.GetComponent<Button>().onClick.AddListener(delegate () { PlayStory(); });
             index = 0;
         }
         else {
@@ -86,10 +85,5 @@ public class SimpleStory_Begin : MonoBehaviour {
             applicationHandler.GameData.SaveData();
             SceneManager.LoadScene("SimpleStory");
         }
-    }
-
-    public void OnClick()
-    {
-        SceneManager.LoadScene("Lobby");
     }
 }
