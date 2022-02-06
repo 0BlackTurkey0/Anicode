@@ -17,7 +17,7 @@ Produce by NTPU2021 - Software Engineering Group 1
 ### 角色
 ||狐狸|無尾熊|袋鼠|鯨魚|貓頭鷹|
 |---|---|---|---|---|---|
-|圖示|<img src="Assets/UI/%E7%8B%90%E7%8B%B8.png" alt="Fox" title="狐狸" width=100 heigh=100>|<img src="Assets/UI/無尾熊.png" alt="Koala" title="無尾熊" width=100 heigh=100>|<img src="Assets/UI/袋鼠.png" alt="Kangaroo" title="袋鼠" width=100 heigh=100>|<img src="Assets/UI/鯨魚.png" alt="Whale" title="鯨魚" width=100 heigh=100>|<img src="Assets/UI/貓頭鷹.png" alt="Owl" title="貓頭鷹" width=100 heigh=100>|
+|圖示|<img src="Assets/Images/%E7%8B%90%E7%8B%B8.png" alt="Fox" title="狐狸" width=100 heigh=100>|<img src="Assets/Images/無尾熊.png" alt="Koala" title="無尾熊" width=100 heigh=100>|<img src="Assets/Images/袋鼠.png" alt="Kangaroo" title="袋鼠" width=100 heigh=100>|<img src="Assets/Images/鯨魚.png" alt="Whale" title="鯨魚" width=100 heigh=100>|<img src="Assets/Images/貓頭鷹.png" alt="Owl" title="貓頭鷹" width=100 heigh=100>|
 
 ### 模式
 * 劇情模式
