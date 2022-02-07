@@ -18,7 +18,6 @@ public class SimpleStory_Begin : MonoBehaviour {
 
     private int index;
     private bool cancelTyping, textFinished = true;
-    //public bool Finished { get { return exit; } }
     private List<string> textList = new List<string>();
     private ApplicationHandler applicationHandler;
 
@@ -37,11 +36,11 @@ public class SimpleStory_Begin : MonoBehaviour {
     {
         if (Keyboard.current.spaceKey.isPressed && index == textList.Count) {
             applicationHandler.GameData.Schedule_Simple = 1;
+            applicationHandler.GameData.Schedule_SimpleChange = 0;
             applicationHandler.GameData.SaveData();
             DialogPanel.SetActive(false);
             Leader.SetActive(false);
             StartBtn.SetActive(true);
-            StartBtn.GetComponent<Button>().onClick.AddListener(delegate () { PlayStory(); });
             index = 0;
         }
         else {
@@ -74,16 +73,14 @@ public class SimpleStory_Begin : MonoBehaviour {
             yield return new WaitForSeconds(textSpeed);
         }
         textLabel.text = textList[index];
+        yield return new WaitForSeconds(0.5f);
         cancelTyping = false;
         textFinished = true;
         index++;
     }
 
-    private void PlayStory()
+    public void PlayStory()
     {
-        if (applicationHandler.GameData.Schedule_Simple == 1) {
-            applicationHandler.GameData.SaveData();
-            SceneManager.LoadScene("SimpleStory");
-        }
+        SceneManager.LoadScene("SimpleStory");
     }
 }
