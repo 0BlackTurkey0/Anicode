@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class SimpleStory : MonoBehaviour {
     private GameObject Prefab;
-    private int ind, storyNum, lastTag, pressStatus;
-    private bool isClick, isFinish, isRun, isEnd;// isFinal;
+    private int ind = 0, storyNum, pressStatus;
+    private bool isFinish, isRun, isSelect; // isFinal;
     private GameObject buttonParent;
     private ApplicationHandler applicationHandler;
 
@@ -19,7 +19,7 @@ public class SimpleStory : MonoBehaviour {
     void Start()
     {
         applicationHandler.IsSimple = true;
-        isClick = false;
+        
         storyNum = applicationHandler.GameData.Schedule_Simple;
         ind = applicationHandler.GameData.Schedule_SimpleChange;
         if (ind == 0) { //一個story結束後下一次載入select場景
@@ -27,15 +27,12 @@ public class SimpleStory : MonoBehaviour {
                 Prefab = Instantiate(Resources.Load<GameObject>("select_3"), gameObject.transform);
             else
                 Prefab = Instantiate(Resources.Load<GameObject>("select_" + storyNum.ToString()), gameObject.transform);
-            buttonParent = gameObject.transform.GetChild(0).gameObject;
-            for (int i = 1;i <= storyNum;i += 1)
-                buttonParent.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(delegate () { StoryOnClick(); });
+            isSelect = true;
         }
         else { //只結束小關卡
             string tag = Resources.Load<GameObject>(storyNum.ToString() + "-" + ind.ToString()).tag;
             if (tag == "1" || tag == "4") {
                 Prefab = Instantiate(Resources.Load<GameObject>(storyNum.ToString() + "-" + ind.ToString()), gameObject.transform);
-                isClick = true;
                 isRun = false;
                 isFinish = true;
             }
@@ -43,7 +40,6 @@ public class SimpleStory : MonoBehaviour {
                 if (applicationHandler.GameData.IswinForSimple) { //打贏AI
                     ind++;
                     Prefab = Instantiate(Resources.Load<GameObject>(storyNum.ToString() + "-" + ind.ToString()), gameObject.transform);
-                    isClick = true;
                     isRun = false;
                     isFinish = true;
                 }
@@ -51,7 +47,6 @@ public class SimpleStory : MonoBehaviour {
                     Debug.Log("001");
                     ind++;
                     Prefab = Instantiate(Resources.Load<GameObject>(storyNum.ToString() + "-" + ind.ToString() + "-2"), gameObject.transform);
-                    isClick = true;
                     isRun = false;
                     isFinish = true;
                 }
@@ -61,7 +56,7 @@ public class SimpleStory : MonoBehaviour {
 
     void Update()
     {
-        if (Prefab != null && isClick == true) {
+        if (Prefab != null) {
             if (pressStatus == 0 && Keyboard.current.rightArrowKey.isPressed) {
                 pressStatus = 1;
                 StartCoroutine(PressWait());
@@ -112,15 +107,15 @@ public class SimpleStory : MonoBehaviour {
                         if (applicationHandler.GameData.SimpleIsFinish == true) //已經玩過一輪
                             Prefab = Instantiate(Resources.Load<GameObject>("select_3"), gameObject.transform);
                         else
-                            Prefab = Instantiate(Resources.Load<GameObject>("select_" + applicationHandler.GameData.Schedule_Simple.ToString()), gameObject.transform);
-                        isEnd = true;
+                            Prefab = Instantiate(Resources.Load<GameObject>("select_" + storyNum.ToString()), gameObject.transform);
+                        isSelect = true;
                     }
                     break;
                 case "5":
-                    if (isEnd) {
-                        isEnd = false;
+                    if (isSelect) {
+                        isSelect = false;
                         buttonParent = gameObject.transform.GetChild(0).gameObject;
-                        for (int i = 1;i <= 3;i += 1)
+                        for (int i = 1;i <= storyNum;i += 1)
                             buttonParent.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(delegate () { StoryOnClick(); });
                     }
                     break;
@@ -131,7 +126,6 @@ public class SimpleStory : MonoBehaviour {
     private void StoryOnClick()
     {
         ind = 1;
-        isClick = true;
         var button = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
         if (button.name == "story1")
             storyNum = 1;
@@ -143,9 +137,8 @@ public class SimpleStory : MonoBehaviour {
         applicationHandler.GameData.Schedule_SimpleChange = ind;
         applicationHandler.GameData.SaveData();
         Destroy(Prefab);
-        //lastTag = 4;
         Prefab = Instantiate(Resources.Load<GameObject>(storyNum.ToString() + "-1"), gameObject.transform);
-        isFinish = Prefab.transform.GetComponent<SimpleStory_DialogSystem>().Finished;
+        isFinish = false;
     }
 
     private IEnumerator UpdateIntoGame()    // 進入AI

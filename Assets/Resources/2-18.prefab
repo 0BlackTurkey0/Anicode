@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 4897216528909830173}
   - component: {fileID: 4897216528909830172}
   m_Layer: 0
-  m_Name: fire_house
+  m_Name: "(\u5716\u7247)\u80CC\u666F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -320,7 +320,7 @@ GameObject:
   - component: {fileID: 4897216529599324352}
   - component: {fileID: 4897216529599324351}
   m_Layer: 0
-  m_Name: "\u72D0\u72F8"
+  m_Name: "(\u5716\u7247)\u72D0\u72F8"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 532793442530460989}
   - component: {fileID: 532793442530460990}
   m_Layer: 0
-  m_Name: "\u888B\u9F20"
+  m_Name: "(\u5716\u7247)\u888B\u9F20"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 532793442623988762}
   - component: {fileID: 532793442623988763}
   m_Layer: 0
-  m_Name: house
+  m_Name: "(\u5716\u7247)\u80CC\u666F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

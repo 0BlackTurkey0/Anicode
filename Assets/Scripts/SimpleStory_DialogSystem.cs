@@ -17,8 +17,8 @@ public class SimpleStory_DialogSystem : MonoBehaviour {
 
     [Header("head")]
     [SerializeField] Sprite face01, face02, face03, face04, face05;
-    public bool Finished { get { return exit; } }
 
+    public bool Finished { get { return exit; } }
     private bool textFinished, cancelTyping, exit;
     private List<string> textList = new List<string>();
 
@@ -35,23 +35,18 @@ public class SimpleStory_DialogSystem : MonoBehaviour {
     {
         if (Keyboard.current.spaceKey.isPressed && index == textList.Count) {
             exit = true;
-            //GameObject.Find("Panel").SetActive(false);
             textLabel.enabled = false;
             faceImage.enabled = false;
             HintText.SetActive(true);
             index = 0;
             return;
         }
-        //if(Input.GetKeyDown(KeyCode.RightArrow) && index == textList.Count)
-        //  GameObject.Find("Hint").gameObject.transform.GetChild(0).gameObject.SetActive(false);
         if (Keyboard.current.spaceKey.isPressed && !exit) {
-            if (textFinished && !cancelTyping)//打完目前這行要繼續下一行
+            if (textFinished && !cancelTyping)  //打完目前這行要繼續下一行
                 StartCoroutine(SetTextUI());
-            else if (!textFinished)//正在打字
+            else if (!textFinished) //正在打字
                 cancelTyping = !cancelTyping;
         }
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //  Application.Quit();
     }
 
     void GetTextFromfile(TextAsset file)

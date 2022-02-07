@@ -53,8 +53,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48afd2ccd685f55469df6c7930a6d207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textLabel: {fileID: 1110870067003422607}
   faceImage: {fileID: 1110870067998442809}
+  textLabel: {fileID: 1110870067003422607}
   HintText: {fileID: 5825702597359292080}
   textFile: {fileID: 4900000, guid: b71d76341e916354eb69a9bcd1525198, type: 3}
   index: 10

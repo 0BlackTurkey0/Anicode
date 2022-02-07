@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 7211955942227733978}
   - component: {fileID: 7211955942227733979}
   m_Layer: 0
-  m_Name: "\u72D0\u72F8"
+  m_Name: "(\u5716\u7247)\u72D0\u72F8"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 7211955942332809095}
   - component: {fileID: 7211955942332809088}
   m_Layer: 0
-  m_Name: forest
+  m_Name: "(\u5716\u7247)\u80CC\u666F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -473,7 +473,7 @@ GameObject:
   - component: {fileID: 7211955943266675871}
   - component: {fileID: 7211955943266675864}
   m_Layer: 0
-  m_Name: "\u7121\u5C3E\u718A"
+  m_Name: "(\u5716\u7247)\u7121\u5C3E\u718A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -613,7 +613,7 @@ GameObject:
   - component: {fileID: 7211955943909656665}
   - component: {fileID: 7211955943909656666}
   m_Layer: 0
-  m_Name: "\u888B\u9F20"
+  m_Name: "(\u5716\u7247)\u888B\u9F20"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -688,7 +688,7 @@ GameObject:
   - component: {fileID: 7211955943930699621}
   - component: {fileID: 7211955943930699622}
   m_Layer: 0
-  m_Name: "\u8C93\u982D\u9DF9"
+  m_Name: "(\u5716\u7247)\u8C93\u982D\u9DF9"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

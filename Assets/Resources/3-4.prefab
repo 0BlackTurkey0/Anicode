@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 7532282020622506612}
   - component: {fileID: 7532282020622506613}
   m_Layer: 0
-  m_Name: koala
+  m_Name: "(\u5716\u7247)\u7121\u5C3E\u718A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 7532282020662905977}
   - component: {fileID: 7532282020662905982}
   m_Layer: 0
-  m_Name: house
+  m_Name: "(\u5716\u7247)\u80CC\u666F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -457,7 +457,7 @@ GameObject:
   - component: {fileID: 7532282021358303571}
   - component: {fileID: 7532282021358303568}
   m_Layer: 0
-  m_Name: "\u888B\u9F20"
+  m_Name: "(\u5716\u7247)\u888B\u9F20"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

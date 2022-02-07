@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 1742499948194911936}
   - component: {fileID: 1742499948194911943}
   m_Layer: 0
-  m_Name: "\u888B\u9F20"
+  m_Name: "(\u5716\u7247)\u888B\u9F20"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 1742499949072901701}
   - component: {fileID: 1742499949072901700}
   m_Layer: 0
-  m_Name: "\u4E95"
+  m_Name: "(\u5716\u7247)\u80CC\u666F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 1742499949869069199}
   - component: {fileID: 1742499949869069198}
   m_Layer: 0
-  m_Name: koala
+  m_Name: "(\u5716\u7247)\u7121\u5C3E\u718A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
