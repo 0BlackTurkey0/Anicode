@@ -155,9 +155,9 @@ public class SingleStory : MonoBehaviour {
                 if (isBigCubeClick) {
                     for (int j = 1;j <= 3;j += 1) {
                         if ((applicationHandler.GameData.Schedule_Single & 1 << (i * 4 + j)) == 0 && currentPos == i)
-                            CUBE.transform.Find("cube" + ColorPriority[i]).Find("cube" + (i * 4 + j).ToString()).gameObject.GetComponent<Button>().enabled = true;
+                            CUBE.transform.Find("cube" + ColorPriority[i]).Find("cube" + (i * 4 + j).ToString()).GetComponent<Button>().enabled = true;
                         else
-                            CUBE.transform.Find("cube" + ColorPriority[i]).Find("cube" + (i * 4 + j).ToString()).gameObject.GetComponent<Button>().enabled = false;
+                            CUBE.transform.Find("cube" + ColorPriority[i]).Find("cube" + (i * 4 + j).ToString()).GetComponent<Button>().enabled = false;
                     }
                 }
                 else if (!isBigCubeClick || currentPos >= 4) {
@@ -165,20 +165,20 @@ public class SingleStory : MonoBehaviour {
                     tempObject.transform.GetChild(0).gameObject.SetActive(true);
                     if (currentPos < 4) {
                         if (currentPos == i)
-                            tempObject.transform.GetChild(0).gameObject.GetComponent<Button>().enabled = true;
+                            tempObject.transform.GetChild(0).GetComponent<Button>().enabled = true;
                         else
-                            tempObject.transform.GetChild(0).gameObject.GetComponent<Button>().enabled = false;
+                            tempObject.transform.GetChild(0).GetComponent<Button>().enabled = false;
                     }
                     for (int j = 2;j < 5;j += 1)
                         tempObject.transform.GetChild(j).gameObject.SetActive(false);
                 }
                 if ((i * 4 + 4) < 16) {
                     if ((applicationHandler.GameData.Schedule_Single & 1 << (i * 4 + 4)) == 0 && currentPos == (i * 4 + 4)) {
-                        FOOTPRINT.transform.Find("footprint" + (i * 4 + 4).ToString()).gameObject.GetComponent<Button>().enabled = true;
+                        FOOTPRINT.transform.Find("footprint" + (i * 4 + 4).ToString()).GetComponent<Button>().enabled = true;
                         isBigCubeClick = false;
                     }
                     else {
-                        FOOTPRINT.transform.Find("footprint" + (i * 4 + 4).ToString()).gameObject.GetComponent<Button>().enabled = false;
+                        FOOTPRINT.transform.Find("footprint" + (i * 4 + 4).ToString()).GetComponent<Button>().enabled = false;
                     }
                 }
                 else if ((i * 4 + 4) == 16) {

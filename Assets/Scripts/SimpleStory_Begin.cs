@@ -74,6 +74,7 @@ public class SimpleStory_Begin : MonoBehaviour {
             yield return new WaitForSeconds(textSpeed);
         }
         textLabel.text = textList[index];
+        yield return new WaitForSeconds(0.5f);
         cancelTyping = false;
         textFinished = true;
         index++;
