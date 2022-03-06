@@ -99,7 +99,6 @@ public class Network : MonoBehaviour {
                     if (responseIP == localIP) continue;    //過濾廣播後傳給自己的封包
                                                             //if (challengerIP != null && responseIP != challengerIP) continue;   //進入對戰後過濾非對手的封包
                     Debug.Log(responseIP + " : " + Encoding.UTF8.GetString(bytes));
-                    //Data receiveData = JsonUtility.FromJson<Data>(Encoding.UTF8.GetString(bytes));
                     Data receiveData = JsonSerializer.Deserialize<Data>(Encoding.UTF8.GetString(bytes));
                     switch (receiveData.Type) {
                         case MSG.REQUEST:
@@ -107,7 +106,6 @@ public class Network : MonoBehaviour {
                             break;
 
                         case MSG.RESPONSE:
-                            //dict.Add(responseIP, (receiveData.Name, receiveData.Rank, receiveData.Status));
                             if (dict.ContainsKey(responseIP)) {
                                 var (Name, Rank, Status) = dict[responseIP];
                                 Name = receiveData.Name;
@@ -206,7 +204,6 @@ public class Network : MonoBehaviour {
         try {
             IPEndPoint ipep = new IPEndPoint(IPAddress.Parse(ip), port);
             byte[] bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(data));
-            //byte[] bytes = Encoding.UTF8.GetBytes(JsonUtility.ToJson(data));
             sendingClient.Send(bytes, bytes.Length, ipep);
         }
         catch (Exception ex) {
