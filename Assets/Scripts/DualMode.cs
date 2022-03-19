@@ -128,11 +128,9 @@ public class DualMode : MonoBehaviour {
     public void OnClick_Challenge()   //發起挑戰
     {
         if (seletedIndex != -1) {
-            string ip = PlayerListContent.transform.GetChild(seletedIndex).name;
-            string status = PlayerListContent.transform.GetChild(seletedIndex).GetChild(3).gameObject.GetComponent<Text>().text;
             seletedIndex = -1;
-            if (status == "閒置") {
-                presenter.SendChallenge(ip);
+            if (PlayerListContent.transform.GetChild(seletedIndex).GetChild(3).gameObject.GetComponent<Text>().text == "閒置") {
+                presenter.SendChallenge(PlayerListContent.transform.GetChild(seletedIndex).name);
                 WaitingOpponentRespond.SetActive(true);
             }
             else {

@@ -11,28 +11,28 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Network : MonoBehaviour {
-    public string localIP { get; private set; }
-    public Dictionary<string, (string Name, int Rank, int Status)> dict { get; private set; } = new Dictionary<string, (string, int, int)>();
-    public DateTime responseTime { get; private set; }
-    public string systemMessage { get; private set; } = null;
-    public int playerStatus { get; private set; } = 0;
-    public GameMode playerMode { get; private set; } = null;
-    public bool isGuest { get; private set; }
-    public bool isConnect { get; set; } = true;
-    public int finalDifficulty { get; set; } = -1;
-    public string challengerIP { get; private set; } = null;
-    public bool isModeReceive { get; set; } = false;
-    public GameMode challengerMode { get; private set; } = null;
-    public bool isCodeReceive { get; set; } = false;
-    public Code challengerCode { get; set; } = null;
-    public bool isFoodReceive { get; set; } = false;
-    public int[] challengerFood { get; private set; } = new int[10];
+    public Dictionary<string, (string Name, int Rank, int Status)> dict { get; private set; } = new Dictionary<string, (string, int, int)>();   //線上玩家資訊
+    public DateTime responseTime { get; private set; }  //對手上次回應的時間
+    public string systemMessage { get; private set; } = null;   //系統訊息
+    public int playerStatus { get; private set; } = 0;  //玩家的遊玩狀態
+    public GameMode playerMode { get; private set; } = null;    //玩家的模式設定
+    public bool isGuest { get; private set; }   //玩家是否為挑戰者
+    public bool isConnect { get; set; } = true; //對手是否連線中
+    public int finalDifficulty { get; set; } = -1;  //最後決定的難度
+    public string challengerIP { get; private set; } = null;    //對手的IP
+    public bool isModeReceive { get; set; } = false;    //是否接收到對手的模式設定
+    public GameMode challengerMode { get; private set; } = null;    //對手的模式設定
+    public bool isCodeReceive { get; set; } = false;    //是否接收到對手的程式碼
+    public Code challengerCode { get; set; } = null;    //對手的程式碼
+    public bool isFoodReceive { get; set; } = false;    //是否接收到對手的食物
+    public int[] challengerFood { get; private set; } = new int[10];    //對手的食物
 
     private ApplicationHandler applicationHandler;
     private UdpClient receivingClient = null;
     private UdpClient sendingClient = null;
     private Thread receivingThread = null;
     private bool isNetworkOn, isNetworkRunning;
+    private string localIP;
     private string playerName;
     private int playerRank;
     private const int port = 8888;
@@ -97,7 +97,6 @@ public class Network : MonoBehaviour {
                     byte[] bytes = receivingClient.Receive(ref endPoint);
                     responseIP = endPoint.Address.ToString();
                     if (responseIP == localIP) continue;    //過濾廣播後傳給自己的封包
-                                                            //if (challengerIP != null && responseIP != challengerIP) continue;   //進入對戰後過濾非對手的封包
                     Debug.Log(responseIP + " : " + Encoding.UTF8.GetString(bytes));
                     Data receiveData = JsonSerializer.Deserialize<Data>(Encoding.UTF8.GetString(bytes));
                     switch (receiveData.Type) {
@@ -340,7 +339,6 @@ public class Network : MonoBehaviour {
                 systemMessage = SYS.READY;
                 playerStatus = 1;
             }
-
         }
         catch (Exception ex) {
             throw ex;
