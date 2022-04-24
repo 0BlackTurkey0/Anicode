@@ -65,6 +65,13 @@ public class ApplicationHandler : MonoBehaviour {
         set { _characProperty = value; }
     }
 
+    private string _missonText;
+
+    public string MissonText {
+        get { return _missonText; }
+        set { _missonText = value; }
+    }
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -93,6 +100,7 @@ public class ApplicationHandler : MonoBehaviour {
                 if (!isActiveAI && SceneManager.GetActiveScene().name == "Battle") {
                     if (_gameData.Schedule_Simple == 1 && _gameData.Schedule_SimpleChange == 2) {
                         gameObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+                        _missonText = "拖曳一個\"Move往上\"的指令至左側";
                     }
                     else if (_gameData.Schedule_Simple == 1 && _gameData.Schedule_SimpleChange == 6) {
                         gameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Name>000</Name>
-  <Money>875</Money>
+  <Name>Player</Name>
+  <Money>15</Money>
   <Items>
     <boolean>false</boolean>
-    <boolean>true</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
@@ -20,7 +19,8 @@
     <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
-    <boolean>true</boolean>
+    <boolean>false</boolean>
+    <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
     <boolean>false</boolean>
@@ -40,16 +40,16 @@
   </Items>
   <IsFullScreen>true</IsFullScreen>
   <VoiceVolume>0</VoiceVolume>
-  <FirstIntro_Single>false</FirstIntro_Single>
+  <FirstIntro_Single>true</FirstIntro_Single>
   <IsIntro_Single>
-    <boolean>false</boolean>
+    <boolean>true</boolean>
     <boolean>true</boolean>
     <boolean>true</boolean>
     <boolean>true</boolean>
   </IsIntro_Single>
-  <Schedule_Simple>0</Schedule_Simple>
-  <Schedule_SimpleChange>0</Schedule_SimpleChange>
-  <IswinForSimple>false</IswinForSimple>
+  <Schedule_Simple>1</Schedule_Simple>
+  <Schedule_SimpleChange>4</Schedule_SimpleChange>
+  <IswinForSimple>true</IswinForSimple>
   <SimpleIsFinish>false</SimpleIsFinish>
   <Schedule_Single>0</Schedule_Single>
 </GameData>

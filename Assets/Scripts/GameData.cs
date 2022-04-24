@@ -114,7 +114,7 @@ public class GameData {
         _money = 0;
         _items = new bool[34];
         _isFullScreen = true;
-        _voiceVolume = 1f;
+        _voiceVolume = 0.1f;
         _firstIntro_Single = true;
         _isIntro_Single = new bool[4] { true, true, true, true };
         _schedule_Simple = 0;

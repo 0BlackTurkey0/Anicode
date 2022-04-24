@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AI_Mission1_2 : MonoBehaviour
@@ -67,7 +65,5 @@ public class AI_Mission1_2 : MonoBehaviour
             if (game.Players[0].Code[(ushort)preProgramCounter].Equals(new Instruction(InstructionType.Move, new int[1] { 1 })))
                 Mission1 = true;
         }
-        Debug.Log("Mission1");
-        Debug.Log(Mission1);
     }
 }

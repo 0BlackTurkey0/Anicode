@@ -111,6 +111,7 @@ public class Game : MonoBehaviour {
     [SerializeField] private GameObject Store;
     [SerializeField] private GameObject PrepareTime;
     [SerializeField] private GameObject RoundText;
+    [SerializeField] private GameObject MissonPanel;
     [SerializeField] private GameObject CoverField;
     [SerializeField] private GameObject Purchase;
     [SerializeField] private GameObject[] Commodity;
@@ -129,8 +130,7 @@ public class Game : MonoBehaviour {
     private ApplicationHandler applicationHandler;
     private Network networkHandler;
 
-    void Awake()
-    {
+    void Awake() {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
         CharacterType[] characterType = new CharacterType[2];
         _isDuel = applicationHandler.IsDuel;
@@ -421,8 +421,7 @@ public class Game : MonoBehaviour {
         }
     }
 
-    void Start()
-    {
+    void Start() {
         _isBattle = false;
         _round = 1;
         UpdateHP();
@@ -449,8 +448,7 @@ public class Game : MonoBehaviour {
         UpdateCode(0);
     }
 
-    void Update()
-    {
+    void Update() {
         if (!_endGame) {
             if (_battleEnd) {
                 StartCoroutine(PrepareCode());
@@ -461,14 +459,14 @@ public class Game : MonoBehaviour {
                 Players[0].Reset();
                 Players[1].Reset();
                 if (_difficulty == DifficultyType.Hard) {
-                    for (int i = 0;i < 10;i++) {
+                    for (int i = 0; i < 10; i++) {
                         int number = UnityEngine.Random.Range(1, 15);
                         Players[0].Food[i] = number;
                         Players[1].Food[i] = number;
                     }
                 }
                 else {
-                    for (int i = 0;i < 10;i++) {
+                    for (int i = 0; i < 10; i++) {
                         Players[0].Food[i] = 0;
                         Players[1].Food[i] = 0;
                     }
@@ -510,8 +508,7 @@ public class Game : MonoBehaviour {
         }
     }
 
-    private IEnumerator PrepareCode()
-    {
+    private IEnumerator PrepareCode() {
         PlayerCode.GetComponent<RectTransform>().anchoredPosition = new Vector3(350, 0);
         PlayerCode.GetComponent<RectTransform>().sizeDelta = new Vector2(650, 1000);
         EnemyCode.SetActive(false);
@@ -526,6 +523,7 @@ public class Game : MonoBehaviour {
         PlayerHP.SetActive(false);
         EnemyHP.SetActive(false);
         RoundText.GetComponent<Text>().text = "Round " + _round.ToString();
+        MissonPanel.SetActive(false);
         _purchaseCount = 0;
         Purchase.transform.GetChild(0).GetComponent<Text>().text = _purchaseCount.ToString() + " / 5";
         PlayerCode.transform.GetChild(2).gameObject.SetActive(false);
@@ -552,8 +550,7 @@ public class Game : MonoBehaviour {
         _battleStart = true;
     }
 
-    private IEnumerator RunCode()
-    {
+    private IEnumerator RunCode() {
         _costLimit = (ushort)(_round * 5);
         _turn = (Players[0].Speed < Players[1].Speed);
         UpdateCode(1);
@@ -599,8 +596,7 @@ public class Game : MonoBehaviour {
         _battleEnd = true;
     }
 
-    private IEnumerator GameEnd()
-    {
+    private IEnumerator GameEnd() {
         yield return new WaitForSeconds(2f);
         if (_isDuel) {
             if (_winner) {
@@ -645,8 +641,7 @@ public class Game : MonoBehaviour {
         }
     }
 
-    private bool RunInstrucion(int active, Instruction target)
-    {
+    private bool RunInstrucion(int active, Instruction target) {
         int s1, s2;
         switch (target.Type) {
             case InstructionType.Move:
@@ -657,7 +652,7 @@ public class Game : MonoBehaviour {
                 return true;
             case InstructionType.Attack:
                 bool near = false;
-                for (int i = 0;i < 4;i++)
+                for (int i = 0; i < 4; i++)
                     if (Players[active].Pos == _neighbor[Players[1 - active].Pos, i])
                         near = true;
                 if (near) {
@@ -779,8 +774,7 @@ public class Game : MonoBehaviour {
         return true;
     }
 
-    public void UpdateCode(ushort num)
-    {
+    public void UpdateCode(ushort num) {
         foreach (Transform child in Code_Area[num].transform) Destroy(child.gameObject);
         ushort programCounter = 0;
         while (Players[num].Code[programCounter] != null) {
@@ -815,20 +809,20 @@ public class Game : MonoBehaviour {
                         instruction = Instantiate(Instruction_Assign_H);
                     else
                         instruction = Instantiate(Instruction_Assign_EN);
-                    for (int i = 0;i < 3;i++)
+                    for (int i = 0; i < 3; i++)
                         instruction.transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value = target.Arguments[i];
                     instruction.transform.GetChild(0).GetChild(5).GetComponent<InputField>().text = target.Arguments[3].ToString();
                     instruction.transform.GetChild(0).GetChild(6).GetComponent<Dropdown>().value = target.Arguments[4];
                     break;
                 case InstructionType.If:
                     instruction = Instantiate(Instruction_If);
-                    for (int i = 0;i < 3;i++)
+                    for (int i = 0; i < 3; i++)
                         instruction.transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value = target.Arguments[i];
                     instruction.transform.GetChild(0).GetChild(5).GetComponent<InputField>().text = target.Arguments[3].ToString();
                     break;
                 case InstructionType.Loop:
                     instruction = Instantiate(Instruction_Loop);
-                    for (int i = 0;i < 3;i++)
+                    for (int i = 0; i < 3; i++)
                         instruction.transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value = target.Arguments[i];
                     instruction.transform.GetChild(0).GetChild(5).GetComponent<InputField>().text = target.Arguments[3].ToString();
                     break;
@@ -851,75 +845,75 @@ public class Game : MonoBehaviour {
         //_Players[num].code.Display();
     }
 
-    private void UpdateCost(bool num)
-    {
+    private void UpdateCost(bool num) {
         if (!num)
             PlayerCode.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = Players[0].TotalCost.ToString() + " / " + _costLimit.ToString();
         else
             EnemyCode.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = Players[1].TotalCost.ToString() + " / " + _costLimit.ToString();
     }
 
-    private void UpdateLocation()
-    {
+    private void UpdateLocation() {
         Character1.GetComponent<RectTransform>().anchoredPosition = new Vector2(_location[Players[0].Pos, 0], _location[Players[0].Pos, 1]);
         Character2.GetComponent<RectTransform>().anchoredPosition = new Vector2(_location[Players[1].Pos, 0], _location[Players[1].Pos, 1]);
     }
 
-    private void UpdateHP()
-    {
+    private void UpdateHP() {
         PlayerHP.transform.GetChild(0).GetComponent<Text>().text = "HP: " + Players[0].CurrentHP.ToString();
         EnemyHP.transform.GetChild(0).GetComponent<Text>().text = "HP: " + Players[1].CurrentHP.ToString();
     }
 
-    private void UpdateVariable()
-    {
-        for (int i = 0;i < 5;i++) {
+    private void UpdateVariable() {
+        for (int i = 0; i < 5; i++) {
             PlayerVariable.transform.GetChild(i).GetComponent<Text>().text = Players[0].Variable[i].ToString();
             EnemyVariable.transform.GetChild(i).GetComponent<Text>().text = Players[1].Variable[i].ToString();
         }
     }
 
-    private void UpdateFood()
-    {
-        for (int i = 0;i < 10;i++) {
+    private void UpdateFood() {
+        for (int i = 0; i < 10; i++) {
             PlayerFood.transform.GetChild(i).GetComponent<Text>().text = Players[0].Food[i].ToString();
             EnemyFood.transform.GetChild(i).GetComponent<Text>().text = Players[1].Food[i].ToString();
         }
     }
 
-    private bool IsSorted(int num)
-    {
-        for (int i = 0;i < 9;i++) {
+    private bool IsSorted(int num) {
+        for (int i = 0; i < 9; i++) {
             if (Players[num].Food[i] > Players[num].Food[i + 1])
                 return false;
         }
         return true;
     }
 
-    public int IncPurchaseCount()
-    {
+    public int IncPurchaseCount() {
         if (_purchaseCount < 5) _purchaseCount++;
         else return -1;
         Purchase.transform.GetChild(0).GetComponent<Text>().text = _purchaseCount.ToString() + " / 5";
         return _purchaseCount;
     }
 
-    public void OnClick_ConfirmInWinnerPanel()
-    {
+    public void OnClick_MissonArrow() {
+        if (MissonPanel.activeInHierarchy) {
+            MissonPanel.SetActive(false);
+        }
+        else {
+            MissonPanel.SetActive(true);
+            MissonPanel.transform.GetChild(0).GetComponent<Text>().text = applicationHandler.MissonText;
+        }
+    }
+
+    public void OnClick_ConfirmInWinnerPanel() {
         WinnerPanel.SetActive(false);
         networkHandler.FinishGame();
         SceneManager.LoadScene("DualMode");
     }
 
-    public void OnClick_ConfirmInLoserPanel()
-    {
+    public void OnClick_ConfirmInLoserPanel() {
         LoserPanel.SetActive(false);
         networkHandler.FinishGame();
         SceneManager.LoadScene("DualMode");
     }
 
-    public void OnClick_ConfirmInDisconnectPanel()
-    {
+    public void OnClick_ConfirmInDisconnectPanel() {
         DisconnectPanel.SetActive(false);
         networkHandler.FinishGame();
         SceneManager.LoadScene("Lobby");
