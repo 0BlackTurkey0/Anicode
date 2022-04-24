@@ -1,20 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 //每回合開始時額外造成當前回合數*20的真實傷害(常規戰鬥)(2)
-public class AI_Mission8 : MonoBehaviour
-{
+public class AI_Mission8 : MonoBehaviour {
     private Game game;
     private bool preStageBattle = true;
     private int preProgramCounter = -1;
 
-
-    private void OnEnable()
-    {
-        game = GameObject.Find("GameHandler").gameObject.GetComponent<Game>();
+    private void OnEnable() {
+        game = GameObject.Find("GameHandler").GetComponent<Game>();
     }
-    private void AI_add_code()
-    {
+
+    private void AI_add_code() {
         if (game.Round == 1) {
             game.Players[1].Code.Insert(InstructionType.If, 0, 0, new int[4] { 0, 0, 0, 1 });
             game.Players[1].Code.Insert(InstructionType.Move, 1, 1, new int[1] { 1 });
@@ -33,18 +28,14 @@ public class AI_Mission8 : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (!game.IsBattle)
-        {
-            if (preStageBattle)
-            {
+    private void Update() {
+        if (!game.IsBattle) {
+            if (preStageBattle) {
                 AI_add_code();
                 preStageBattle = false;
             }
         }
-        else
-        {
+        else {
             if (!preStageBattle) {
                 preStageBattle = true;
                 preProgramCounter = -1;
@@ -56,13 +47,9 @@ public class AI_Mission8 : MonoBehaviour
                     game.Winner = false;
                 }
             }
-            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter)
-            {
+            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter) {
                 preProgramCounter = game.Players[0].ProgramCounter;
-
             }
-
         }
     }
-
 }

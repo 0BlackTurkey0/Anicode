@@ -1,19 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 //Boss:每回合恢復100HP(常規戰鬥)(1)
-public class AI_Mission4 : MonoBehaviour
-{
+public class AI_Mission4 : MonoBehaviour {
     private Game game;
     private bool preStageBattle = true;
     private int preProgramCounter = -1;
 
-    private void OnEnable()
-    {
-        game = GameObject.Find("GameHandler").gameObject.GetComponent<Game>();
+    private void OnEnable() {
+        game = GameObject.Find("GameHandler").GetComponent<Game>();
     }
-    private void AI_add_code()
-    {
+
+    private void AI_add_code() {
         if (game.Round == 1) {
             game.Players[1].Code.Insert(InstructionType.Move, 0, 0, new int[1] { 1 });
             game.Players[1].Code.Insert(InstructionType.Move, 1, 0, new int[1] { 2 });
@@ -42,18 +38,14 @@ public class AI_Mission4 : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (!game.IsBattle)
-        {
-            if (preStageBattle)
-            {
+    private void Update() {
+        if (!game.IsBattle) {
+            if (preStageBattle) {
                 AI_add_code();
                 preStageBattle = false;
             }
         }
-        else
-        {
+        else {
             if (!preStageBattle) {
                 preStageBattle = true;
                 preProgramCounter = -1;
@@ -62,12 +54,9 @@ public class AI_Mission4 : MonoBehaviour
                 else
                     game.Players[1].CurrentHP = game.Players[1].Hp;
             }
-            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter)
-            {
+            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter) {
                 preProgramCounter = game.Players[0].ProgramCounter;
-
             }
-
         }
     }
 }

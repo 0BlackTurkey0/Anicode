@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 //完成assign，if各2次(2)
-public class AI_Mission6 : MonoBehaviour
-{
+public class AI_Mission6 : MonoBehaviour {
     private Game game;
     private bool preStageBattle = true;
     private int preProgramCounter = -1;
@@ -12,12 +9,11 @@ public class AI_Mission6 : MonoBehaviour
     private int cnt_if = 0;
     private int cnt_assign = 0;
 
-    private void OnEnable()
-    {
-        game = GameObject.Find("GameHandler").gameObject.GetComponent<Game>();
+    private void OnEnable() {
+        game = GameObject.Find("GameHandler").GetComponent<Game>();
     }
-    private void AI_add_code()
-    {
+
+    private void AI_add_code() {
         if (game.Round == 1) {
             game.Players[1].Code.Insert(InstructionType.If, 0, 0, new int[4] { 0, 0, 0, 1 });
             game.Players[1].Code.Insert(InstructionType.Move, 1, 1, new int[1] { 1 });
@@ -36,62 +32,48 @@ public class AI_Mission6 : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (!game.IsBattle)
-        {
-            if (preStageBattle)
-            {
+    private void Update() {
+        if (!game.IsBattle) {
+            if (preStageBattle) {
                 WinCheck();
                 AI_add_code();
                 preStageBattle = false;
             }
         }
-        else
-        {
-            if (!preStageBattle)
-            {
+        else {
+            if (!preStageBattle) {
                 preStageBattle = true;
                 preProgramCounter = -1;
             }
-            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter)
-            {
+            if (game.Players[0].ProgramCounter != (ushort)preProgramCounter) {
                 preProgramCounter = game.Players[0].ProgramCounter;
-
                 Check();
             }
-
         }
     }
 
-    private void WinCheck()
-    {
-        if (Mission1 && Mission2)
-        {
+    private void WinCheck() {
+        if (Mission1 && Mission2) {
             Debug.Log("You win");
             game.EndGame = true;
             game.Winner = true;
         }
     }
-    private void Check()
-    {
+
+    private void Check() {
         if (game.Players[0].Code[(ushort)preProgramCounter] != null) {
             if (game.Players[0].Code[(ushort)preProgramCounter].Type == InstructionType.If) {
                 cnt_if++;
-                if (cnt_if > 1) {
+                if (cnt_if > 1)
                     Mission1 = true;
-                }
             }
         }
-
         if (game.Players[0].Code[(ushort)preProgramCounter] != null) {
             if (game.Players[0].Code[(ushort)preProgramCounter].Type == InstructionType.Assign) {
                 cnt_assign++;
-                if (cnt_assign > 1) {
+                if (cnt_assign > 1)
                     Mission2 = true;
-                }
             }
         }
     }
-
 }

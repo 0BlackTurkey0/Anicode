@@ -7,8 +7,9 @@ public class AI_Mission1_1 : MonoBehaviour {
     private bool Mission1 = false;
 
     private void OnEnable() {
-        game = GameObject.Find("GameHandler").gameObject.GetComponent<Game>();
+        game = GameObject.Find("GameHandler").GetComponent<Game>();
     }
+
     private void AI_add_code() {
         game.Players[1].Code.Insert(InstructionType.Move, 0, 0, new int[1] { 0 });
     }
@@ -33,6 +34,7 @@ public class AI_Mission1_1 : MonoBehaviour {
 
         }
     }
+
     private void WinCheck() {
         if (Mission1) {
             Debug.Log("You win");
@@ -46,6 +48,7 @@ public class AI_Mission1_1 : MonoBehaviour {
             game.Winner = false;
         }
     }
+
     private void Check() {
         //move ¤W
         if (game.Players[0].Code[(ushort)preProgramCounter] != null) {
@@ -53,5 +56,4 @@ public class AI_Mission1_1 : MonoBehaviour {
                 Mission1 = true;
         }
     }
-
 }
