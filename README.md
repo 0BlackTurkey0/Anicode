@@ -1,5 +1,5 @@
-# Anicode
-Produce by NTPU2021 - Software Engineering Group 1
+<img src="Assets/Images/Anicode-removebg.png" alt="Anicode" title="Anicode" width=300 heigh=100>Produce by NTPU2021 - Software Engineering Group 1
+
 
 ## 介紹
 我們開發了一款遊戲以程式設計為基礎，並加入競技與娛樂的性質，用來培養程式邏輯與素養。
@@ -7,7 +7,7 @@ Produce by NTPU2021 - Software Engineering Group 1
 ## 環境
 
 ### 開發
-`Windows 10` `Unity 2020.3.22` `Visual Studio 2019`
+`Windows 10` `Unity 2020.3.22` `Visual Studio`
 
 ### 執行
 `Windows 10` `單一區域私人網路(雙人模式需求)`
@@ -17,7 +17,7 @@ Produce by NTPU2021 - Software Engineering Group 1
 ### 角色
 ||狐狸|無尾熊|袋鼠|鯨魚|貓頭鷹|
 |---|---|---|---|---|---|
-|圖示|<img src="Assets/Images/%E7%8B%90%E7%8B%B8.png" alt="Fox" title="狐狸" width=100 heigh=100>|<img src="Assets/Images/無尾熊.png" alt="Koala" title="無尾熊" width=100 heigh=100>|<img src="Assets/Images/袋鼠.png" alt="Kangaroo" title="袋鼠" width=100 heigh=100>|<img src="Assets/Images/鯨魚.png" alt="Whale" title="鯨魚" width=100 heigh=100>|<img src="Assets/Images/貓頭鷹.png" alt="Owl" title="貓頭鷹" width=100 heigh=100>|
+|圖示|<img src="Assets/Images/狐狸.png" alt="Fox" title="狐狸" width=100 heigh=100>|<img src="Assets/Images/無尾熊.png" alt="Koala" title="無尾熊" width=100 heigh=100>|<img src="Assets/Images/袋鼠.png" alt="Kangaroo" title="袋鼠" width=100 heigh=100>|<img src="Assets/Images/鯨魚.png" alt="Whale" title="鯨魚" width=100 heigh=100>|<img src="Assets/Images/貓頭鷹.png" alt="Owl" title="貓頭鷹" width=100 heigh=100>|
 
 ### 模式
 * 劇情模式
