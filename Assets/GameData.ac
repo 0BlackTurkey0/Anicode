@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Name>Player</Name>
-  <Money>50</Money>
+  <Money>55</Money>
   <Items>
     <boolean>false</boolean>
     <boolean>false</boolean>
@@ -48,8 +48,8 @@
     <boolean>true</boolean>
   </IsIntro_Single>
   <Schedule_Simple>2</Schedule_Simple>
-  <Schedule_SimpleChange>8</Schedule_SimpleChange>
-  <IswinForSimple>false</IswinForSimple>
+  <Schedule_SimpleChange>10</Schedule_SimpleChange>
+  <IswinForSimple>true</IswinForSimple>
   <SimpleIsFinish>false</SimpleIsFinish>
   <Schedule_Single>2</Schedule_Single>
 </GameData>
