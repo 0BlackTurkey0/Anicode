@@ -66,9 +66,19 @@ public class SimpleStory_DialogSystem : MonoBehaviour {
         faceImage.enabled = true;
         HintText.SetActive(false);
         switch (textList[index]) {
+            case "A":
+                textLabel.enabled = true;
+                faceImage.sprite = face01;
+                index++;
+                break;
             case "A\r":
                 textLabel.enabled = true;
                 faceImage.sprite = face01;
+                index++;
+                break;
+            case "B":
+                textLabel.enabled = true;
+                faceImage.sprite = face02;
                 index++;
                 break;
             case "B\r":
@@ -76,14 +86,29 @@ public class SimpleStory_DialogSystem : MonoBehaviour {
                 faceImage.sprite = face02;
                 index++;
                 break;
+            case "C":
+                textLabel.enabled = true;
+                faceImage.sprite = face03;
+                index++;
+                break;
             case "C\r":
                 textLabel.enabled = true;
                 faceImage.sprite = face03;
                 index++;
                 break;
+            case "D":
+                textLabel.enabled = true;
+                faceImage.sprite = face04;
+                index++;
+                break;
             case "D\r":
                 textLabel.enabled = true;
                 faceImage.sprite = face04;
+                index++;
+                break;
+            case "E":
+                textLabel.enabled = true;
+                faceImage.enabled = false;
                 index++;
                 break;
             case "E\r":

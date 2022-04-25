@@ -128,7 +128,6 @@ public class DualMode : MonoBehaviour {
     public void OnClick_Challenge()   //發起挑戰
     {
         if (seletedIndex != -1) {
-            seletedIndex = -1;
             if (PlayerListContent.transform.GetChild(seletedIndex).GetChild(3).gameObject.GetComponent<Text>().text == "閒置") {
                 presenter.SendChallenge(PlayerListContent.transform.GetChild(seletedIndex).name);
                 WaitingOpponentRespond.SetActive(true);
@@ -136,6 +135,7 @@ public class DualMode : MonoBehaviour {
             else {
                 HintWhenBusy.SetActive(true);
             }
+            seletedIndex = -1;
         }
     }
 
