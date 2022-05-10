@@ -25,13 +25,11 @@ public class DualMode : MonoBehaviour {
     private int seletedIndex = -1;
     private DualModePresenter presenter;
 
-    void Awake()
-    {
+    void Awake() {
         presenter = GameObject.Find("Control").GetComponent<DualModePresenter>();
     }
 
-    void Start()
-    {
+    void Start() {
         ModeSetting.SetActive(false);
         WaitingListUpdate.SetActive(false);
         HintWhenBusy.SetActive(false);
@@ -41,8 +39,7 @@ public class DualMode : MonoBehaviour {
         ModeSettingHint.SetActive(false);
     }
 
-    public void ShowPlayerList(Dictionary<string, (string, int, int)> playerList)
-    {
+    public void ShowPlayerList(Dictionary<string, (string, int, int)> playerList) {
         int height = playerList.Count > 6 ? playerList.Count * 100 : 600;
         PlayerListContent.GetComponent<RectTransform>().sizeDelta = new Vector2(0, height);
         if (playerList.Count > 0) {
@@ -65,61 +62,51 @@ public class DualMode : MonoBehaviour {
         }
     }
 
-    public void UpdatePlayerListStatus(Dictionary<string, (string, int, int)> playerList)
-    {
+    public void UpdatePlayerListStatus(Dictionary<string, (string, int, int)> playerList) {
         for (int i = 0;i < PlayerListContent.transform.childCount;i += 1)
             PlayerListContent.transform.GetChild(i).GetChild(3).gameObject.GetComponent<Text>().text = statusType[playerList[PlayerListContent.transform.GetChild(i).gameObject.name].Item3];
     }
 
-    public void ShowReceiveChallenge(string name, int? time)
-    {
+    public void ShowReceiveChallenge(string name, int? time) {
         RespondAcceptOrNot.transform.GetChild(1).GetComponent<Text>().text = name + ":";
         RespondAcceptOrNot.transform.GetChild(3).GetComponent<Text>().text = time.ToString();
     }
 
     //---------------------------------------------------------------------------------------------
 
-    public void ShowWaitingListUpdate(bool isShow)
-    {
+    public void ShowWaitingListUpdate(bool isShow) {
         WaitingListUpdate.SetActive(isShow);
     }
 
-    public void ShowModeSetting(bool isShow)
-    {
+    public void ShowModeSetting(bool isShow) {
         ModeSetting.SetActive(isShow);
     }
 
-    public void ShowHintWhenDeny(bool isShow)
-    {
+    public void ShowHintWhenDeny(bool isShow) {
         HintWhenDeny.SetActive(isShow);
     }
 
-    public void ShowBothNoSameDifficulty(bool isShow)
-    {
+    public void ShowBothNoSameDifficulty(bool isShow) {
         BothNoSameDifficulty.SetActive(isShow);
     }
 
-    public void ShowWaitingOpponentRespond(bool isShow)
-    {
+    public void ShowWaitingOpponentRespond(bool isShow) {
         WaitingOpponentRespond.SetActive(isShow);
     }
 
-    public void ShowRespondAcceptOrNot(bool isShow)
-    {
+    public void ShowRespondAcceptOrNot(bool isShow) {
         RespondAcceptOrNot.SetActive(isShow);
     }
 
     //---------------------------------------------------------------------------------------------
 
-    public void OnClick_ConfirmInModeSetting()
-    {
+    public void OnClick_ConfirmInModeSetting() {
         ModeSetting.SetActive(false);
         //JoinButton.transform.GetComponent<Button>().enabled = true;
         NoneModeSettingButton.SetActive(false);
     }
 
-    public void OnClick_Search()
-    {
+    public void OnClick_Search() {
         WaitingListUpdate.SetActive(true);
         presenter.SearchUser();
         //SearchButton.GetComponent<Button>().enabled = false;
@@ -151,8 +138,7 @@ public class DualMode : MonoBehaviour {
         RespondAcceptOrNot.SetActive(false);
     }
 
-    private void OnClick_Select(int index)
-    {
+    private void OnClick_Select(int index) {
         seletedIndex = index;
     }
 }

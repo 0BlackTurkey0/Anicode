@@ -27,46 +27,44 @@ public class Code {
     }
 
     [JsonConstructor]
-    public Code(List<Tuple<Instruction, ushort>> instructions)
-    {
+    public Code(List<Tuple<Instruction, ushort>> instructions) {
         _instructions = new List<Tuple<Instruction, ushort>>(instructions);
         _records = new Stack<ushort>();
         _programCounter = 0;
     }
 
-    public Code(Code copy = null)
-    {
+    public Code(Code copy = null) {
         if (copy != null) _instructions = new List<Tuple<Instruction, ushort>>(copy.Instructions);
         else _instructions = new List<Tuple<Instruction, ushort>>();
         _records = new Stack<ushort>();
         _programCounter = 0;
     }
 
-    public void Init()
-    {
+    public void Init() {
         _records.Clear();
         _programCounter = 0;
     }
 
-    public void Insert(InstructionType type, ushort position, ushort level, int[] arguments = null)
-    {
+    public void Insert(InstructionType type, ushort position, ushort level, int[] arguments = null) {
         if (position > _instructions.Count) position = (ushort)_instructions.Count;
-        if (position == 0) level = 0;
+        if (position == 0) {
+            level = 0;
+        }
         else if (level > _instructions[position - 1].Item2) {
             if (_instructions[position - 1].Item1.Type == InstructionType.Loop || _instructions[position - 1].Item1.Type == InstructionType.If)
                 level = (ushort)(_instructions[position - 1].Item2 + 1);
             else
                 level = _instructions[position - 1].Item2;
         }
-        else if (position < _instructions.Count)
+        else if (position < _instructions.Count) {
             if (level < _instructions[position].Item2)
                 level = _instructions[position].Item2;
+        }
         Tuple<Instruction, ushort> New_Instruction = new Tuple<Instruction, ushort>(new Instruction(type, arguments), level);
         _instructions.Insert(position, New_Instruction);
     }
 
-    public void Delete(ushort position)
-    {
+    public void Delete(ushort position) {
         if (position >= _instructions.Count) position = (ushort)(_instructions.Count - 1);
         if (_instructions[position].Item1.Type == InstructionType.Loop || _instructions[position].Item1.Type == InstructionType.If) {
             ushort tmp = position;
@@ -76,8 +74,7 @@ public class Code {
         _instructions.RemoveAt(position);
     }
 
-    public void Change(ushort source, ushort destination, ushort level)
-    {
+    public void Change(ushort source, ushort destination, ushort level) {
         if (source >= _instructions.Count) source = (ushort)(_instructions.Count - 1);
         if (destination > _instructions.Count) destination = (ushort)_instructions.Count;
         if (_instructions[source].Item1.Type == InstructionType.Loop || _instructions[source].Item1.Type == InstructionType.If) {
@@ -110,13 +107,13 @@ public class Code {
         }
         else {
             Insert(_instructions[source].Item1.Type, destination, level, _instructions[source].Item1.Arguments.ToArray());
-            if (source >= destination) source++;
+            if (source >= destination)
+                source++;
             Delete(source);
         }
     }
 
-    public ushort Next(bool condition = true)
-    {
+    public ushort Next(bool condition = true) {
         if (_programCounter > _instructions.Count) return _programCounter;
         if (!condition) {
             ushort tmp = _records.Pop();
@@ -142,13 +139,13 @@ public class Code {
         return _programCounter++;
     }
 
-    public ushort GetLevel(ushort index)
-    {
-        if (index < _instructions.Count) return _instructions[index].Item2;
+    public ushort GetLevel(ushort index) {
+        if (index < _instructions.Count)
+            return _instructions[index].Item2;
         return 0;
     }
-    public void Display()
-    {
+
+    public void Display() {
         System.Text.StringBuilder display = new System.Text.StringBuilder();
         foreach (var i in _instructions) {
             for (int x = 0;x < i.Item2;x++)

@@ -8,13 +8,11 @@ public class ShowInfo : MonoBehaviour {
 
     private ApplicationHandler applicationHandler;
 
-    void Awake()
-    {
+    void Awake() {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
     }
 
-    void Start()
-    {
+    void Start() {
         PlayerName.text = applicationHandler.GameData.Name;
         LevelText.text = "階級 : ";
         switch (applicationHandler.GameData.Rank) {
@@ -37,8 +35,7 @@ public class ShowInfo : MonoBehaviour {
         MoneyText.text = applicationHandler.GameData.Money.ToString();
     }
 
-    void Update()
-    {
+    void Update() {
         MoneyText.text = applicationHandler.GameData.Money.ToString();
     }
 }

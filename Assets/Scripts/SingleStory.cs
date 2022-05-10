@@ -26,19 +26,16 @@ public class SingleStory : MonoBehaviour {
     private string[] ColorPriority = { "Orange", "Green", "Blue", "Red" };
     private ApplicationHandler applicationHandler;
 
-    void Awake()
-    {
+    void Awake() {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
     }
 
-    void Start()
-    {
+    void Start() {
         status = 0;     //Set!!
         StartCoroutine(ShowIntro());
     }
 
-    void Update()
-    {
+    void Update() {
         StartCoroutine(UpdateIcon());
         StartCoroutine(UpdateButton());
         if (Mouse.current.leftButton.isPressed)
@@ -85,8 +82,7 @@ public class SingleStory : MonoBehaviour {
         status = 5;
     }
 
-    private IEnumerator UpdateIcon()
-    {
+    private IEnumerator UpdateIcon() {
         if (status == 1 && 0 <= applicationHandler.GameData.Schedule_Single && applicationHandler.GameData.Schedule_Single < 1 << 17) {
             for (int i = 0;i < 4;i += 1)
                 CUBE.transform.Find("cube" + ColorPriority[i]).gameObject.SetActive(true);
@@ -148,8 +144,7 @@ public class SingleStory : MonoBehaviour {
         yield return new WaitForSeconds(1);
     }
 
-    private IEnumerator UpdateButton()
-    {
+    private IEnumerator UpdateButton() {
         if (status == 1) {
             for (int i = 0;i < 4;i += 1) {
                 if (isBigCubeClick) {
@@ -195,8 +190,7 @@ public class SingleStory : MonoBehaviour {
         yield return new WaitForSeconds(1);
     }
 
-    private IEnumerator ShowIntro()
-    {
+    private IEnumerator ShowIntro() {
         //GameObject.Find("mainBG").transform.GetComponent<Image>().color = new Color32(255, 255, 255, 80);
         Background.color = new Color32(255, 255, 255, 80);
         GameObject BGobject = BG.transform.Find("bgOrange").gameObject;
@@ -219,8 +213,7 @@ public class SingleStory : MonoBehaviour {
         isShowText = false;
     }
 
-    private IEnumerator ShowChapterContent()
-    {
+    private IEnumerator ShowChapterContent() {
         Background.color = new Color32(255, 255, 255, 80);
         GameObject BGobject = BG.transform.Find("bg" + ColorPriority[currentPos]).gameObject;
         BGobject.SetActive(true);
@@ -253,8 +246,7 @@ public class SingleStory : MonoBehaviour {
         isShowText = false;
     }
 
-    private IEnumerator ShowFinal()
-    {
+    private IEnumerator ShowFinal() {
         Background.color = new Color32(255, 255, 255, 80);
         GameObject BGobject = BG.transform.Find("bgFinal").gameObject;
         BGobject.SetActive(true);
@@ -278,8 +270,7 @@ public class SingleStory : MonoBehaviour {
         isShowText = false;
     }
 
-    private IEnumerator Clicked_SmallCube()
-    {
+    private IEnumerator Clicked_SmallCube() {
         Background.color = new Color32(255, 255, 255, 80);
         GoBackButton.SetActive(true);
         GameObject BGobject = BG.transform.Find("bg" + ColorPriority[Convert.ToInt32(clickedButtonName) / 4]).gameObject;
@@ -310,8 +301,7 @@ public class SingleStory : MonoBehaviour {
         isShowText = false;
     }
 
-    private IEnumerator Clicked_Footprint()
-    {
+    private IEnumerator Clicked_Footprint() {
         Background.color = new Color32(255, 255, 255, 80);
         GameObject BGobject = BG.transform.Find("bgWarning").gameObject;
         BGobject.SetActive(true);
@@ -353,8 +343,7 @@ public class SingleStory : MonoBehaviour {
         isShowText = false;
     }
 
-    private IEnumerator Clicked_Skeleton()
-    {
+    private IEnumerator Clicked_Skeleton() {
         Background.color = new Color32(255, 255, 255, 80);
         GameObject BGobject = BG.transform.Find("bgRed").gameObject;
         BGobject.SetActive(true);
@@ -396,8 +385,7 @@ public class SingleStory : MonoBehaviour {
         isShowText = false;
     }
 
-    private IEnumerator Clicked_BigCube()
-    {
+    private IEnumerator Clicked_BigCube() {
         GameObject tempObject = CUBE.transform.Find(clickedButtonName).gameObject;
         tempObject.transform.GetChild(0).gameObject.SetActive(false);
         for (int i = 2;i < 5;i += 1)
@@ -407,28 +395,24 @@ public class SingleStory : MonoBehaviour {
         yield return null;
     }
 
-    private void ChooseCharacter()
-    {
+    private void ChooseCharacter() {
         for (int i = 0;i < GameObject.Find("CHARACTER").transform.childCount;i += 1)
             GameObject.Find("CHARACTER").transform.GetChild(i).gameObject.SetActive(true);
     }
 
-    public void CancelChooseCharacter()
-    {
+    public void CancelChooseCharacter() {
         for (int i = 0;i < GameObject.Find("CHARACTER").transform.childCount;i += 1)
             GameObject.Find("CHARACTER").transform.GetChild(i).gameObject.SetActive(false);
         status = 1;
         GoBackButton.SetActive(false);
     }
 
-    public static void HideCharacter()
-    {
+    public static void HideCharacter() {
         for (int i = 0;i < GameObject.Find("CHARACTER").transform.childCount;i += 1)
             GameObject.Find("CHARACTER").transform.GetChild(i).gameObject.SetActive(false);
     }
 
-    public void ToSingleMode()
-    {
+    public void ToSingleMode() {
         SceneManager.LoadScene("SingleMode");
     }
 }

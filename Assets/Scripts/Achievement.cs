@@ -17,13 +17,11 @@ public class Achievement : MonoBehaviour {
 
     private ApplicationHandler applicationHandler;
 
-    void Awake()
-    {
+    void Awake() {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
     }
 
-    void Start()
-    {
+    void Start() {
         int count = 0;
         for (int i = 0;i < 10;i++)
             if (applicationHandler.GameData.Items[i]) count++;
@@ -49,78 +47,67 @@ public class Achievement : MonoBehaviour {
 
     }
 
-    public void Ach1_Show()
-    {
+    public void Ach1_Show() {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
         temp.text = "成功集滿四個水果!!";
     }
 
-    public void Ach2_Show()
-    {
+    public void Ach2_Show() {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
         temp.text = "成功集滿六個水果!!";
     }
 
-    public void Ach3_Show()
-    {
+    public void Ach3_Show() {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
         temp.text = "成功集滿八個水果!!";
     }
 
-    public void Ach4_Show()
-    {
+    public void Ach4_Show() {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
         temp.text = "成功集滿四個肉類!!";
     }
 
-    public void Ach5_Show()
-    {
+    public void Ach5_Show() {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
         temp.text = "成功集滿六個肉類!!";
     }
 
-    public void Ach6_Show()
-    {
+    public void Ach6_Show() {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
         temp.text = "成功集滿八個肉類!!";
     }
 
-    public void Ach7_Show()
-    {
+    public void Ach7_Show() {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
         temp.text = "成功集滿三個寶物!!";
     }
 
-    public void Ach8_Show()
-    {
+    public void Ach8_Show() {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
         temp.text = "成功集滿四個寶物!!";
     }
 
-    public void Ach9_Show()
-    {
+    public void Ach9_Show() {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
         temp.text = "成功集滿五個寶物!!";
     }
 
-    public void Ach10_Show()
-    {
+    public void Ach10_Show() {
         Text temp = illustration_text.transform.GetComponent<Text>();
         illustration.SetActive(true);
         temp.text = "成功集滿所有物品!!";
     }
 
-    public void CloseButton_OnClick()
-    {
+    public void CloseButton_OnClick() {
         illustration.SetActive(false);
     }
 }

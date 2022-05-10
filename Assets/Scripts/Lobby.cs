@@ -19,13 +19,11 @@ public class Lobby : MonoBehaviour {
 
     private ApplicationHandler applicationHandler;
 
-    void Awake()
-    {
+    void Awake() {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
     }
 
-    void Start()
-    {
+    void Start() {
         PlayerName.GetComponent<Text>().text = applicationHandler.GameData.Name;
         LevelText.text = "階級 : ";
         switch (applicationHandler.GameData.Rank) {
@@ -51,44 +49,36 @@ public class Lobby : MonoBehaviour {
         WarningOnPlayerNameWindow.SetActive(false);
     }
 
-    public void SingleMotionOnclick()
-    {
+    public void SingleMotionOnclick() {
         SceneManager.LoadScene("SingleMode");
     }
 
-    public void DoubleMotionOnClick()
-    {
+    public void DoubleMotionOnClick() {
         SceneManager.LoadScene("DualMode");
     }
 
-    public void StoreOnClick()
-    {
+    public void StoreOnClick() {
         SceneManager.LoadScene("AnimalStore");
     }
 
-    public void AchievementOnclick()
-    {
+    public void AchievementOnclick() {
         SceneManager.LoadScene("Achievement");
     }
 
-    public void BookOnClick()
-    {
+    public void BookOnClick() {
         SceneManager.LoadScene("IllustratedBook");
     }
 
-    public void SettingOnClick()
-    {
+    public void SettingOnClick() {
         SceneManager.LoadScene("Setting");
     }
 
-    public void ReviseNameOnClick()
-    {
+    public void ReviseNameOnClick() {
         ReviseNameWindow.SetActive(true);
         ReviseNameWindow.transform.GetChild(2).GetComponent<InputField>().text = applicationHandler.GameData.Name;
     }
 
-    public void ReviseNameConfirm()
-    {
+    public void ReviseNameConfirm() {
         if (RevisePlayerName.text.Length > 8 || RevisePlayerName.text.Length == 0) {
             WarningOnPlayerNameWindow.SetActive(true);
         }
@@ -109,8 +99,7 @@ public class Lobby : MonoBehaviour {
         }
     }
 
-    public void ReviseNameCancel()
-    {
+    public void ReviseNameCancel() {
         RevisePlayerName.text = "";
         ReviseNameWindow.SetActive(false);
         SingleMotionBtn.SetActive(true);
@@ -121,13 +110,11 @@ public class Lobby : MonoBehaviour {
         AchievementBtn.SetActive(true);
         SettingBtn.SetActive(true);
     }
-    public void WarningOnPlayerNameRealizeOnClick()
-    {
+    public void WarningOnPlayerNameRealizeOnClick() {
         WarningOnPlayerNameWindow.SetActive(false);
         RevisePlayerName.text = "";
     }
-    public void ExceptForLobbyReturnOnClick()
-    {
+    public void ExceptForLobbyReturnOnClick() {
         SceneManager.LoadScene("Lobby");
     }
 }

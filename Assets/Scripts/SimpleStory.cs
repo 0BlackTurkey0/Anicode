@@ -11,15 +11,13 @@ public class SimpleStory : MonoBehaviour {
     private GameObject buttonParent;
     private ApplicationHandler applicationHandler;
 
-    void Awake()
-    {
+    void Awake() {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
     }
 
-    void Start()
-    {
+    void Start() {
         applicationHandler.IsSimple = true;
-        
+
         storyNum = applicationHandler.GameData.Schedule_Simple;
         ind = applicationHandler.GameData.Schedule_SimpleChange;
         if (ind == 0) { //一個story結束後下一次載入select場景
@@ -54,8 +52,7 @@ public class SimpleStory : MonoBehaviour {
         }
     }
 
-    void Update()
-    {
+    void Update() {
         if (Prefab != null) {
             if (pressStatus == 0 && Keyboard.current.rightArrowKey.isPressed) {
                 pressStatus = 1;
@@ -123,8 +120,7 @@ public class SimpleStory : MonoBehaviour {
         }
     }
 
-    private void StoryOnClick()
-    {
+    private void StoryOnClick() {
         ind = 1;
         var button = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
         if (button.name == "story1")
@@ -152,8 +148,7 @@ public class SimpleStory : MonoBehaviour {
         SceneManager.LoadScene("Battle");
     }
 
-    private IEnumerator UpdateExitGame()
-    {
+    private IEnumerator UpdateExitGame() {
         yield return new WaitForSeconds(2);
         Destroy(Prefab);
         if (applicationHandler.GameData.IswinForSimple) //成功
@@ -166,19 +161,16 @@ public class SimpleStory : MonoBehaviour {
         isRun = false;
     }
 
-    private IEnumerator PressWait()
-    {
+    private IEnumerator PressWait() {
         yield return new WaitForSeconds(1);
         pressStatus = 0;
     }
 
-    public void OnClick()
-    {
+    public void OnClick() {
         SceneManager.LoadScene("Lobby");
     }
 
-    private void ConnectAI()
-    {
+    private void ConnectAI() {
         if (storyNum == 1 && ind == 2) {
             applicationHandler.CharaType[0] = CharacterType.Fox;
             applicationHandler.CharaType[1] = CharacterType.Customized;

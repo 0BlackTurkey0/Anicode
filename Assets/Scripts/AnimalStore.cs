@@ -12,13 +12,11 @@ public class AnimalStore : MonoBehaviour {
     private int index;
     private ApplicationHandler applicationHandler;
 
-    void Awake()
-    {
+    void Awake() {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
     }
 
-    void Start()
-    {
+    void Start() {
         Money = applicationHandler.GameData.Money;
         for (int i = 0;i < 34;i++) {
             if (applicationHandler.GameData.Items[i]) {
@@ -31,17 +29,14 @@ public class AnimalStore : MonoBehaviour {
         }
     }
 
-    public void Btn_OnClick(int index_tmp)
-    {
+    public void Btn_OnClick(int index_tmp) {
         index = index_tmp;
         Chosen = Content.transform.GetChild(index).gameObject;
         ConfirmSurface.SetActive(true);
     }
 
-    public void ConfirmBtn_OnClick()
-    {
+    public void ConfirmBtn_OnClick() {
         if (Money > Price) {
-            //Debug.Log("confirm");
             ConfirmSurface.SetActive(false);
             Chosen.GetComponent<Button>().enabled = false;
             Chosen.transform.GetChild(0).gameObject.SetActive(false);
@@ -52,7 +47,6 @@ public class AnimalStore : MonoBehaviour {
             applicationHandler.GameData.SaveData();
         }
         else {
-            //Debug.Log("fail");
             FailSurface.SetActive(true);
             ConfirmSurface.SetActive(false);
         }

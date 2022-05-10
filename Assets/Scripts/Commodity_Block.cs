@@ -10,27 +10,23 @@ public class Commodity_Block : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private Vector2 position;
     private Game game;
 
-    void Start()
-    {
+    void Start() {
         game = GameObject.Find("GameHandler").GetComponent<Game>();
         rect = GetComponent<RectTransform>();
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
+    public void OnBeginDrag(PointerEventData eventData) {
         position = rect.position;
         ushort index = (ushort)Mathf.Round((rect.localPosition.y + 35) / -75);
         type = (InstructionType)index;
     }
 
-    public void OnDrag(PointerEventData eventData)
-    {
+    public void OnDrag(PointerEventData eventData) {
         Vector3 newPosition = new Vector3(eventData.position.x, eventData.position.y, transform.position.z);
         rect.position = newPosition;
     }
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
+    public void OnEndDrag(PointerEventData eventData) {
         if (rect.position.x < Screen.width / 2 && game.IncPurchaseCount() != -1) {
             float width = (rect.localPosition.x - Code_Area.GetComponent<RectTransform>().localPosition.x + 1218);
             ushort position = (Mathf.Round(rect.localPosition.y / -75) < 0) ? (ushort)0 : (ushort)Mathf.Round(rect.localPosition.y / -75);

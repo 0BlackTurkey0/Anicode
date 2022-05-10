@@ -7,13 +7,11 @@ public class Timer : MonoBehaviour {
     [SerializeField] Text progressText;
     private int i = 0;
 
-    void Start()
-    {
+    void Start() {
         StartCoroutine(timer());
     }
 
-    IEnumerator timer()
-    {
+    IEnumerator timer() {
         while (i < 100) {
             i += 1;
             slider.value = i;

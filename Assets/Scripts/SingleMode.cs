@@ -4,23 +4,19 @@ using UnityEngine.SceneManagement;
 public class SingleMode : MonoBehaviour {
     private ApplicationHandler applicationHandler;
 
-    void Awake()
-    {
+    void Awake() {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
     }
 
-    public void ReturnToLobby()
-    {
+    public void ReturnToLobby() {
         SceneManager.LoadScene("Lobby");
     }
 
-    public void ClickSingleMode()
-    {
+    public void ClickSingleMode() {
         SceneManager.LoadScene("SingleStory");
     }
 
-    public void ClickSimpleMode()
-    {
+    public void ClickSimpleMode() {
         if (0 < applicationHandler.GameData.Schedule_Simple && applicationHandler.GameData.Schedule_Simple < 5)
             SceneManager.LoadScene("SimpleStory");
         else

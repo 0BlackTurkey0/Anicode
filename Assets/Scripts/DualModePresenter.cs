@@ -12,15 +12,13 @@ public class DualModePresenter : MonoBehaviour {
     private Network network;
     private DualMode dualMode;
 
-    void Awake()
-    {
+    void Awake() {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
         network = GameObject.Find("Network").GetComponent<Network>();
         dualMode = GameObject.Find("Control").GetComponent<DualMode>();
     }
 
-    void Start()
-    {
+    void Start() {
         StartCoroutine(UpdateNetwork());
     }
 
@@ -73,8 +71,7 @@ public class DualModePresenter : MonoBehaviour {
         }
     }
 
-    private IEnumerator UpdateList()
-    {
+    private IEnumerator UpdateList() {
         int loop = 4;
         while (loop-- > 0) {
             playerList = network.dict;
@@ -84,8 +81,7 @@ public class DualModePresenter : MonoBehaviour {
         dualMode.ShowWaitingListUpdate(false);
     }
 
-    private IEnumerator UpdateStatus()
-    {
+    private IEnumerator UpdateStatus() {
         isUpdateStatus = true;
         while (isUpdateStatus) {
             if (playerList.Count > 0)
@@ -116,8 +112,7 @@ public class DualModePresenter : MonoBehaviour {
         dualMode.ShowRespondAcceptOrNot(false);
     }
 
-    private IEnumerator DetectOverTime()
-    {
+    private IEnumerator DetectOverTime() {
         yield return new WaitForSeconds(15);
         if (!isNotOverTime)
             network.OverTimeDeny();
@@ -126,8 +121,7 @@ public class DualModePresenter : MonoBehaviour {
 
     //---------------------------------------------------------------------------------------------
 
-    private void DecideDifficulty()
-    {
+    private void DecideDifficulty() {
         List<int> temp = new List<int>();
         if (network.playerMode != null && network.challengerMode != null) {
             for (int i = 0;i < 4;i += 1)
@@ -149,8 +143,7 @@ public class DualModePresenter : MonoBehaviour {
         network.SendFinalDifficulty();
     }
 
-    private void CheckConnection()
-    {
+    private void CheckConnection() {
         network.SendConnection();
         DateTime LocalTime = DateTime.Now;
         if (LocalTime.Second % 5 == 0) {    //每五秒確認對手是否斷線
@@ -162,28 +155,24 @@ public class DualModePresenter : MonoBehaviour {
         }
     }
 
-    public void SearchUser()
-    {
+    public void SearchUser() {
         network.SearchUser();
         StartCoroutine(UpdateList());
         if (!isUpdateStatus)
             StartCoroutine(UpdateStatus());
     }
 
-    public void SendChallenge(string ip)
-    {
+    public void SendChallenge(string ip) {
         network.SendChallenge(ip);
         StartCoroutine(DetectOverTime());
     }
 
-    public void AcceptChallenge()
-    {
+    public void AcceptChallenge() {
         network.AcceptChallenge();
         isResponseChanllenge = true;
     }
 
-    public void DenyChallenge()
-    {
+    public void DenyChallenge() {
         network.DenyChallenge();
     }
 }

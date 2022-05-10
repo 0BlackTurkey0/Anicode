@@ -158,7 +158,7 @@ public class ApplicationHandler : MonoBehaviour {
                     isActiveAI = true;
                 }
                 else if (isActiveAI && SceneManager.GetActiveScene().name != "Battle") {
-                    for (int i = 0; i < 15; i++)
+                    for (int i = 0;i < 15;i++)
                         gameObject.transform.GetChild(0).GetChild(i).gameObject.SetActive(false);
                     isActiveAI = false;
                 }
@@ -166,7 +166,7 @@ public class ApplicationHandler : MonoBehaviour {
             else {
                 if (!isActiveAI && SceneManager.GetActiveScene().name == "Battle") {
                     gameObject.transform.GetChild(1).GetChild(_challenge).gameObject.SetActive(true);
-                    switch (_challenge+1) {
+                    switch (_challenge + 1) {
                         case 1:
                             _missonText = "經過地圖上所有的點";
                             break;

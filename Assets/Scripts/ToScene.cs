@@ -2,18 +2,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ToScene : MonoBehaviour {
-    public void ReturnToLobby()
-    {
+    public void ReturnToLobby() {
         SceneManager.LoadScene("Lobby");
     }
 
-    public void ReturnToSingleMode()
-    {
+    public void ReturnToSingleMode() {
         SceneManager.LoadScene("SingleMode");
     }
 
-    public void ExitFromGame()
-    {
+    public void ExitFromGame() {
         Application.Quit();
     }
 }

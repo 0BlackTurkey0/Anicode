@@ -37,14 +37,12 @@ public class Network : MonoBehaviour {
     private int playerRank;
     private const int port = 8888;
 
-    void Awake()
-    {
+    void Awake() {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
         DontDestroyOnLoad(gameObject);
     }
 
-    void Start()
-    {
+    void Start() {
         localIP = Dns.GetHostEntry(Dns.GetHostName()).AddressList.ToList().Where(p => p.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault().ToString();
         playerName = applicationHandler.GameData.Name;
         playerRank = (int)applicationHandler.GameData.Rank;
@@ -66,8 +64,7 @@ public class Network : MonoBehaviour {
         StartCoroutine(UpdateNetwork());
     }
 
-    void OnApplicationQuit()
-    {
+    void OnApplicationQuit() {
         try {
             isNetworkOn = false;
             if (sendingClient != null) {
@@ -182,8 +179,7 @@ public class Network : MonoBehaviour {
         }
     }
 
-    private IEnumerator UpdateNetwork()
-    {
+    private IEnumerator UpdateNetwork() {
         while (true) {
             if (SceneManager.GetActiveScene().name == "DualMode" || SceneManager.GetActiveScene().name == "Battle") {
                 playerName = applicationHandler.GameData.Name;
@@ -223,26 +219,22 @@ public class Network : MonoBehaviour {
         }
     }
 
-    public void IntoGame()
-    {
+    public void IntoGame() {
         systemMessage = SYS.GAME;
         playerStatus = 2;
     }
 
-    public void FinishGame()
-    {
+    public void FinishGame() {
         systemMessage = null;
         playerStatus = 0;
     }
 
-    public void ClearSystemMessage()
-    {
+    public void ClearSystemMessage() {
         systemMessage = null;
         playerStatus = 0;
     }
 
-    private void SendResponse(string ip)
-    {
+    private void SendResponse(string ip) {
         try {
             Data sendData = new Data {
                 Type = MSG.RESPONSE,
@@ -257,8 +249,7 @@ public class Network : MonoBehaviour {
         }
     }
 
-    public void SendStatus(string ip)
-    {
+    public void SendStatus(string ip) {
         try {
             Data sendData = new Data {
                 Type = MSG.STATUS,
@@ -321,8 +312,7 @@ public class Network : MonoBehaviour {
         }
     }
 
-    public void SendFinalDifficulty()
-    {
+    public void SendFinalDifficulty() {
         try {
             Data sendData = new Data {
                 Type = MSG.DIFFICULTY,
@@ -373,8 +363,7 @@ public class Network : MonoBehaviour {
         }
     }
 
-    public void SendGameFood(int[] food)
-    {
+    public void SendGameFood(int[] food) {
         try {
             Data sendData = new Data {
                 Type = MSG.FOOD,
@@ -387,16 +376,14 @@ public class Network : MonoBehaviour {
         }
     }
 
-    public void OverTimeDeny()
-    {
+    public void OverTimeDeny() {
         systemMessage = SYS.DENY;
         playerStatus = 0;
         challengerIP = null;
         challengerMode = null;
     }
 
-    public void SetMode(GameMode mode)
-    {
+    public void SetMode(GameMode mode) {
         playerMode = mode;
     }
 }

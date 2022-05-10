@@ -108,8 +108,7 @@ public class GameData {
 
     //單人2種進度
 
-    public GameData()
-    {
+    public GameData() {
         _name = "Guest";
         _money = 0;
         _items = new bool[34];
@@ -123,16 +122,14 @@ public class GameData {
         _schedule_Single = 0;
     }
 
-    public void SaveData()
-    {
+    public void SaveData() {
         using (StreamWriter writer = new StreamWriter(Application.dataPath + "/GameData.ac")) {
             var serializer = new XmlSerializer(GetType());
             serializer.Serialize(writer, this);
         }
     }
 
-    public void LoadData()
-    {
+    public void LoadData() {
         using (StreamReader reader = new StreamReader(Application.dataPath + "/GameData.ac")) {
             var serializer = new XmlSerializer(GetType());
             GameData gameData = serializer.Deserialize(reader) as GameData;
@@ -140,8 +137,7 @@ public class GameData {
         }
     }
 
-    private void UpdateData(GameData gameData)
-    {
+    private void UpdateData(GameData gameData) {
         if (gameData.Name.Length >= 1 && gameData.Name.Length <= 8)
             _name = gameData.Name;
         if (gameData.Money >= 0)

@@ -21,19 +21,16 @@ public class SimpleStory_Begin : MonoBehaviour {
     private List<string> textList = new List<string>();
     private ApplicationHandler applicationHandler;
 
-    void Awake()
-    {
+    void Awake() {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
     }
 
-    void Start()
-    {
+    void Start() {
         GetTextFromfile(textFile);
         StartCoroutine(SetTextUI());
     }
 
-    void Update()
-    {
+    void Update() {
         if (Keyboard.current.spaceKey.isPressed && index == textList.Count) {
             applicationHandler.GameData.Schedule_Simple = 1;
             applicationHandler.GameData.Schedule_SimpleChange = 0;
@@ -53,8 +50,7 @@ public class SimpleStory_Begin : MonoBehaviour {
         }
     }
 
-    private void GetTextFromfile(TextAsset file)
-    {
+    private void GetTextFromfile(TextAsset file) {
         textList.Clear();
         index = 0;
         var lineData = file.text.Split('\n');
@@ -62,8 +58,7 @@ public class SimpleStory_Begin : MonoBehaviour {
             textList.Add(line);
     }
 
-    private IEnumerator SetTextUI()
-    {
+    private IEnumerator SetTextUI() {
         textFinished = false;
         textLabel.text = "";
         int letter = 0;
@@ -79,8 +74,7 @@ public class SimpleStory_Begin : MonoBehaviour {
         index++;
     }
 
-    public void PlayStory()
-    {
+    public void PlayStory() {
         SceneManager.LoadScene("SimpleStory");
     }
 }

@@ -459,14 +459,14 @@ public class Game : MonoBehaviour {
                 Players[0].Reset();
                 Players[1].Reset();
                 if (_difficulty == DifficultyType.Hard) {
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0;i < 10;i++) {
                         int number = UnityEngine.Random.Range(1, 15);
                         Players[0].Food[i] = number;
                         Players[1].Food[i] = number;
                     }
                 }
                 else {
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0;i < 10;i++) {
                         Players[0].Food[i] = 0;
                         Players[1].Food[i] = 0;
                     }
@@ -652,7 +652,7 @@ public class Game : MonoBehaviour {
                 return true;
             case InstructionType.Attack:
                 bool near = false;
-                for (int i = 0; i < 4; i++)
+                for (int i = 0;i < 4;i++)
                     if (Players[active].Pos == _neighbor[Players[1 - active].Pos, i])
                         near = true;
                 if (near) {
@@ -809,20 +809,20 @@ public class Game : MonoBehaviour {
                         instruction = Instantiate(Instruction_Assign_H);
                     else
                         instruction = Instantiate(Instruction_Assign_EN);
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0;i < 3;i++)
                         instruction.transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value = target.Arguments[i];
                     instruction.transform.GetChild(0).GetChild(5).GetComponent<InputField>().text = target.Arguments[3].ToString();
                     instruction.transform.GetChild(0).GetChild(6).GetComponent<Dropdown>().value = target.Arguments[4];
                     break;
                 case InstructionType.If:
                     instruction = Instantiate(Instruction_If);
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0;i < 3;i++)
                         instruction.transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value = target.Arguments[i];
                     instruction.transform.GetChild(0).GetChild(5).GetComponent<InputField>().text = target.Arguments[3].ToString();
                     break;
                 case InstructionType.Loop:
                     instruction = Instantiate(Instruction_Loop);
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0;i < 3;i++)
                         instruction.transform.GetChild(0).GetChild(i + 2).GetComponent<Dropdown>().value = target.Arguments[i];
                     instruction.transform.GetChild(0).GetChild(5).GetComponent<InputField>().text = target.Arguments[3].ToString();
                     break;
@@ -863,21 +863,21 @@ public class Game : MonoBehaviour {
     }
 
     private void UpdateVariable() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0;i < 5;i++) {
             PlayerVariable.transform.GetChild(i).GetComponent<Text>().text = Players[0].Variable[i].ToString();
             EnemyVariable.transform.GetChild(i).GetComponent<Text>().text = Players[1].Variable[i].ToString();
         }
     }
 
     private void UpdateFood() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0;i < 10;i++) {
             PlayerFood.transform.GetChild(i).GetComponent<Text>().text = Players[0].Food[i].ToString();
             EnemyFood.transform.GetChild(i).GetComponent<Text>().text = Players[1].Food[i].ToString();
         }
     }
 
     private bool IsSorted(int num) {
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0;i < 9;i++) {
             if (Players[num].Food[i] > Players[num].Food[i + 1])
                 return false;
         }

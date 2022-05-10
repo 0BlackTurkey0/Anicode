@@ -27,29 +27,25 @@ public class Instruction {
     // Swap {Index1, Constant1, Index2, Constant2}
 
     [JsonConstructor]
-    public Instruction(InstructionType type, List<int> arguments = null)
-    {
+    public Instruction(InstructionType type, List<int> arguments = null) {
         _type = type;
         if (arguments != null) _arguments = new List<int>(arguments);
         else _arguments = new List<int>();
     }
 
-    public Instruction(InstructionType type, int[] arguments = null)
-    {
+    public Instruction(InstructionType type, int[] arguments = null) {
         _type = type;
         if (arguments != null) _arguments = new List<int>(arguments.ToList());
         else _arguments = new List<int>();
     }
 
-    public override bool Equals(object ins)
-    {
+    public override bool Equals(object ins) {
         return (ins as Instruction).Type == _type && Enumerable.SequenceEqual((ins as Instruction).Arguments, _arguments);
     }
 
     public override int GetHashCode() => (_type, _arguments).GetHashCode();
 
-    public ushort GetInstuctionCost()
-    {
+    public ushort GetInstuctionCost() {
         switch (_type) {
             case InstructionType.Move:
                 return 2;

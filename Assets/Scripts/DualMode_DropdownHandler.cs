@@ -15,13 +15,11 @@ public class DualMode_DropdownHandler : MonoBehaviour {
     private int CharacterNum;
     private Network network;
 
-    void Awake()
-    {
+    void Awake() {
         network = GameObject.Find("Network").GetComponent<Network>();
     }
 
-    void Start()
-    {
+    void Start() {
         var characterdropdown = CharacterDropDown.transform.GetComponent<Dropdown>();
         characterdropdown.onValueChanged.AddListener(delegate { CharacterDropdownItemSelected(characterdropdown); });
 
@@ -32,8 +30,7 @@ public class DualMode_DropdownHandler : MonoBehaviour {
 
     }
 
-    void Update()
-    {
+    void Update() {
         if (EnteranceToggle.GetComponent<Toggle>().isOn == false && EasyToggle.GetComponent<Toggle>().isOn == false && NormalToggle.GetComponent<Toggle>().isOn == false && DifficultToggle.GetComponent<Toggle>().isOn == false) {
             ChoosingRankHint.SetActive(true);
             ConfirmBtn.transform.GetComponent<Button>().enabled = false;
@@ -44,8 +41,7 @@ public class DualMode_DropdownHandler : MonoBehaviour {
         }
     }
 
-    public void EnteranceToggle_sOn()
-    {
+    public void EnteranceToggle_sOn() {
         if (EnteranceToggle.GetComponent<Toggle>().isOn == true) {
             CharacterAttribute.transform.GetChild(0).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(1).gameObject.SetActive(false);
@@ -63,8 +59,7 @@ public class DualMode_DropdownHandler : MonoBehaviour {
         }
     }
 
-    public void EasyToggle_sOn()
-    {
+    public void EasyToggle_sOn() {
         if (EasyToggle.GetComponent<Toggle>().isOn == true) {
             CharacterAttribute.transform.GetChild(0).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(1).gameObject.SetActive(false);
@@ -82,8 +77,7 @@ public class DualMode_DropdownHandler : MonoBehaviour {
         }
     }
 
-    public void NormalToggle_sOn()
-    {
+    public void NormalToggle_sOn() {
         if (NormalToggle.GetComponent<Toggle>().isOn == true) {
             CharacterAttribute.transform.GetChild(0).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(1).gameObject.SetActive(false);
@@ -100,8 +94,7 @@ public class DualMode_DropdownHandler : MonoBehaviour {
             Attribute.transform.GetChild(5).gameObject.GetComponent<Text>().text = content;
         }
     }
-    public void DifficultToggle_sOn()
-    {
+    public void DifficultToggle_sOn() {
         if (DifficultToggle.GetComponent<Toggle>().isOn == true) {
             CharacterAttribute.transform.GetChild(0).gameObject.SetActive(false);
             CharacterAttribute.transform.GetChild(1).gameObject.SetActive(false);
@@ -119,8 +112,7 @@ public class DualMode_DropdownHandler : MonoBehaviour {
         }
     }
 
-    public void CharacterDropdownItemSelected(Dropdown dropdown)
-    {
+    public void CharacterDropdownItemSelected(Dropdown dropdown) {
         int index = dropdown.value;
         CharacterNum = index;
         CharacterText.text = dropdown.options[index].text;
@@ -190,8 +182,7 @@ public class DualMode_DropdownHandler : MonoBehaviour {
         }
     }
 
-    public void Confirm()
-    {
+    public void Confirm() {
         bool[] difficulty = new bool[4];
         if (EnteranceToggle.GetComponent<Toggle>().isOn == true)
             difficulty[0] = true;

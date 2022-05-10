@@ -22,8 +22,7 @@ public class SimpleStory_DialogSystem : MonoBehaviour {
     private bool textFinished, cancelTyping, exit;
     private List<string> textList = new List<string>();
 
-    void Start()
-    {
+    void Start() {
         HintText.SetActive(false);
         GetTextFromfile(textFile);
         textFinished = true;
@@ -31,8 +30,7 @@ public class SimpleStory_DialogSystem : MonoBehaviour {
         StartCoroutine(SetTextUI());
     }
 
-    void Update()
-    {
+    void Update() {
         if (Keyboard.current.spaceKey.isPressed && index == textList.Count) {
             exit = true;
             textLabel.enabled = false;
@@ -49,8 +47,7 @@ public class SimpleStory_DialogSystem : MonoBehaviour {
         }
     }
 
-    void GetTextFromfile(TextAsset file)
-    {
+    void GetTextFromfile(TextAsset file) {
         textList.Clear();
         index = 0;
         var lineData = file.text.Split('\n');
@@ -58,8 +55,7 @@ public class SimpleStory_DialogSystem : MonoBehaviour {
             textList.Add(line);
     }
 
-    IEnumerator SetTextUI()
-    {
+    IEnumerator SetTextUI() {
         textFinished = false;
         textLabel.enabled = true;
         textLabel.text = "";
@@ -67,50 +63,30 @@ public class SimpleStory_DialogSystem : MonoBehaviour {
         HintText.SetActive(false);
         switch (textList[index]) {
             case "A":
-                textLabel.enabled = true;
-                faceImage.sprite = face01;
-                index++;
-                break;
             case "A\r":
                 textLabel.enabled = true;
                 faceImage.sprite = face01;
                 index++;
                 break;
             case "B":
-                textLabel.enabled = true;
-                faceImage.sprite = face02;
-                index++;
-                break;
             case "B\r":
                 textLabel.enabled = true;
                 faceImage.sprite = face02;
                 index++;
                 break;
             case "C":
-                textLabel.enabled = true;
-                faceImage.sprite = face03;
-                index++;
-                break;
             case "C\r":
                 textLabel.enabled = true;
                 faceImage.sprite = face03;
                 index++;
                 break;
             case "D":
-                textLabel.enabled = true;
-                faceImage.sprite = face04;
-                index++;
-                break;
             case "D\r":
                 textLabel.enabled = true;
                 faceImage.sprite = face04;
                 index++;
                 break;
             case "E":
-                textLabel.enabled = true;
-                faceImage.enabled = false;
-                index++;
-                break;
             case "E\r":
                 textLabel.enabled = true;
                 faceImage.enabled = false;

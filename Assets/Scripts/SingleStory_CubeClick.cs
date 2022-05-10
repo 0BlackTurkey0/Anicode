@@ -5,13 +5,11 @@ using UnityEngine.SceneManagement;
 public class SingleStory_CubeClick : MonoBehaviour {
     private ApplicationHandler applicationHandler;
 
-    void Awake()
-    {
+    void Awake() {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
     }
 
-    public void OnClick_Kangaroo()
-    {
+    public void OnClick_Kangaroo() {
         SingleStory.HideCharacter();
         applicationHandler.IsDuel = false;
         applicationHandler.IsSimple = false;
@@ -23,8 +21,7 @@ public class SingleStory_CubeClick : MonoBehaviour {
         SceneManager.LoadScene("Battle");
     }
 
-    public void OnClick_Whale()
-    {
+    public void OnClick_Whale() {
         SingleStory.HideCharacter();
         applicationHandler.IsDuel = false;
         applicationHandler.IsSimple = false;
@@ -36,8 +33,7 @@ public class SingleStory_CubeClick : MonoBehaviour {
         SceneManager.LoadScene("Battle");
     }
 
-    public void OnClick_Owl()
-    {
+    public void OnClick_Owl() {
         SingleStory.HideCharacter();
         applicationHandler.IsDuel = false;
         applicationHandler.IsSimple = false;
@@ -49,8 +45,7 @@ public class SingleStory_CubeClick : MonoBehaviour {
         SceneManager.LoadScene("Battle");
     }
 
-    public void OnClick_Koala()
-    {
+    public void OnClick_Koala() {
         SingleStory.HideCharacter();
         applicationHandler.IsDuel = false;
         applicationHandler.IsSimple = false;
@@ -62,8 +57,7 @@ public class SingleStory_CubeClick : MonoBehaviour {
         SceneManager.LoadScene("Battle");
     }
 
-    public void OnClick_Fox()
-    {
+    public void OnClick_Fox() {
         SingleStory.HideCharacter();
         applicationHandler.IsDuel = false;
         applicationHandler.IsSimple = false;
@@ -75,31 +69,26 @@ public class SingleStory_CubeClick : MonoBehaviour {
         SceneManager.LoadScene("Battle");
     }
 
-    public void OnClick_BigCube()
-    {
+    public void OnClick_BigCube() {
         SingleStory.status = 6;
         SingleStory.clickedButtonName = this.transform.parent.gameObject.name;
     }
 
-    public void OnClick_SmallCube()
-    {
+    public void OnClick_SmallCube() {
         SingleStory.status = 2;
         SingleStory.clickedButtonName = this.name.Substring(4);
     }
 
-    public void OnClick_Footprint()
-    {
+    public void OnClick_Footprint() {
         SingleStory.status = 3;
         SingleStory.clickedButtonName = this.name.Substring(9);
     }
 
-    public void OnClick_Skeleton()
-    {
+    public void OnClick_Skeleton() {
         SingleStory.status = 4;
     }
 
-    private void SetAniProperty()
-    {
+    private void SetAniProperty() {
 
         switch (Convert.ToInt32(SingleStory.clickedButtonName)) {
             case 0:
