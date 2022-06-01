@@ -43,7 +43,7 @@ public class Network : MonoBehaviour {
     }
 
     void Start() {
-        localIP = Dns.GetHostEntry(Dns.GetHostName()).AddressList.ToList().Where(p => p.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault().ToString();
+        localIP = Dns.GetHostEntry(Dns.GetHostName()).AddressList.ToList().Where(p => p.AddressFamily == AddressFamily.InterNetwork).Last().ToString();
         playerName = applicationHandler.GameData.Name;
         playerRank = (int)applicationHandler.GameData.Rank;
         if (sendingClient == null) {
