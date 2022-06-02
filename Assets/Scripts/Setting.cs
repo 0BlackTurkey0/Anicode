@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Setting : MonoBehaviour {
-    public GameObject full_screen;
-    public GameObject windows;
-    public Slider slider;
+    [SerializeField] GameObject full_screen;
+    [SerializeField] GameObject windows;
+    [SerializeField] Slider slider;
 
     private ApplicationHandler applicationHandler;
 
@@ -35,10 +35,10 @@ public class Setting : MonoBehaviour {
     }
 
     public void ToReset() {
-        applicationHandler.GameData.VoiceVolume = 0.5f;
+        slider.value = 0.1f;
+        applicationHandler.GameData.VoiceVolume = 0.1f;
         applicationHandler.GameData.IsFullScreen = true;
         applicationHandler.GameData.SaveData();
-        slider.value = 0.5f;
         Screen.fullScreen = true;
     }
 }

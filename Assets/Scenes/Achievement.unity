@@ -442,10 +442,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Control, Assembly-CSharp
-        m_MethodName: CloseButton_OnClick
-        m_Mode: 1
+      - m_Target: {fileID: 640414975}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -730,8 +730,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Control, Assembly-CSharp
+      - m_Target: {fileID: 485144075}
+        m_TargetAssemblyTypeName: Achievement, Assembly-CSharp
         m_MethodName: Ach9_Show
         m_Mode: 1
         m_Arguments:
@@ -1022,8 +1022,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Control, Assembly-CSharp
+      - m_Target: {fileID: 485144075}
+        m_TargetAssemblyTypeName: Achievement, Assembly-CSharp
         m_MethodName: Ach8_Show
         m_Mode: 1
         m_Arguments:
@@ -1377,8 +1377,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Control, Assembly-CSharp
+      - m_Target: {fileID: 485144075}
+        m_TargetAssemblyTypeName: Achievement, Assembly-CSharp
         m_MethodName: Ach5_Show
         m_Mode: 1
         m_Arguments:
@@ -1511,8 +1511,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Control, Assembly-CSharp
+      - m_Target: {fileID: 485144075}
+        m_TargetAssemblyTypeName: Achievement, Assembly-CSharp
         m_MethodName: Ach6_Show
         m_Mode: 1
         m_Arguments:
@@ -1881,8 +1881,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Control, Assembly-CSharp
+      - m_Target: {fileID: 485144075}
+        m_TargetAssemblyTypeName: Achievement, Assembly-CSharp
         m_MethodName: Ach10_Show
         m_Mode: 1
         m_Arguments:
@@ -3227,8 +3227,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Control, Assembly-CSharp
+      - m_Target: {fileID: 485144075}
+        m_TargetAssemblyTypeName: Achievement, Assembly-CSharp
         m_MethodName: Ach7_Show
         m_Mode: 1
         m_Arguments:
@@ -3361,8 +3361,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Control, Assembly-CSharp
+      - m_Target: {fileID: 485144075}
+        m_TargetAssemblyTypeName: Achievement, Assembly-CSharp
         m_MethodName: Ach1_Show
         m_Mode: 1
         m_Arguments:
@@ -3874,8 +3874,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Control, Assembly-CSharp
+      - m_Target: {fileID: 485144075}
+        m_TargetAssemblyTypeName: Achievement, Assembly-CSharp
         m_MethodName: Ach4_Show
         m_Mode: 1
         m_Arguments:
@@ -4084,8 +4084,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Control, Assembly-CSharp
+      - m_Target: {fileID: 485144075}
+        m_TargetAssemblyTypeName: Achievement, Assembly-CSharp
         m_MethodName: Ach3_Show
         m_Mode: 1
         m_Arguments:
@@ -4218,8 +4218,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Control, Assembly-CSharp
+      - m_Target: {fileID: 485144075}
+        m_TargetAssemblyTypeName: Achievement, Assembly-CSharp
         m_MethodName: Ach2_Show
         m_Mode: 1
         m_Arguments:

@@ -89,31 +89,19 @@ public class Lobby : MonoBehaviour {
             RevisePlayerName.GetComponent<Text>().text = PlayerName.GetComponent<Text>().text;
             RevisePlayerName.text.Remove(0, PlayerName.GetComponent<Text>().text.Length);
             ReviseNameWindow.SetActive(false);
-            SingleMotionBtn.SetActive(true);
-            DoubleMotionBtn.SetActive(true);
-            StoreBtn.SetActive(true);
-            ReviseNameBtn.SetActive(true);
-            BookBtn.SetActive(true);
-            AchievementBtn.SetActive(true);
-            SettingBtn.SetActive(true);
         }
     }
 
     public void ReviseNameCancel() {
-        RevisePlayerName.text = "";
         ReviseNameWindow.SetActive(false);
-        SingleMotionBtn.SetActive(true);
-        DoubleMotionBtn.SetActive(true);
-        StoreBtn.SetActive(true);
-        ReviseNameBtn.SetActive(true);
-        BookBtn.SetActive(true);
-        AchievementBtn.SetActive(true);
-        SettingBtn.SetActive(true);
+        RevisePlayerName.text = "";
     }
+
     public void WarningOnPlayerNameRealizeOnClick() {
         WarningOnPlayerNameWindow.SetActive(false);
         RevisePlayerName.text = "";
     }
+
     public void ExceptForLobbyReturnOnClick() {
         SceneManager.LoadScene("Lobby");
     }

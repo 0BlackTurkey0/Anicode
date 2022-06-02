@@ -52,7 +52,7 @@ public class Network : MonoBehaviour {
             };
         }
         if (receivingClient == null)
-            receivingClient = new UdpClient(port);
+            receivingClient = new UdpClient(new IPEndPoint(IPAddress.Parse(localIP), port));
         isNetworkOn = true;
         isNetworkRunning = false;
         if (receivingThread == null) {
@@ -83,8 +83,7 @@ public class Network : MonoBehaviour {
         }
     }
 
-    private void Receiver() //接收資料
-    {
+    private void Receiver() { //接收資料
         IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, port);
         string responseIP;
 
@@ -194,8 +193,7 @@ public class Network : MonoBehaviour {
         }
     }
 
-    private void SendData(string ip, Data data)  //傳送資料給指定的ip位置
-    {
+    private void SendData(string ip, Data data) { //傳送資料給指定的ip位置
         try {
             IPEndPoint ipep = new IPEndPoint(IPAddress.Parse(ip), port);
             byte[] bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(data));
@@ -205,8 +203,8 @@ public class Network : MonoBehaviour {
             throw ex;
         }
     }
-    public void SearchUser()  //搜尋線上使用者
-    {
+
+    public void SearchUser() { //搜尋線上使用者
         try {
             dict.Clear();
             Data sendData = new Data {
