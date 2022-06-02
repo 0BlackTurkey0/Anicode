@@ -5,8 +5,8 @@ public class AnimalStore : MonoBehaviour {
     [SerializeField] GameObject ConfirmSurface;
     [SerializeField] GameObject FailSurface;
     [SerializeField] GameObject Content;
-    [SerializeField] GameObject Chosen;
 
+    private GameObject Chosen;
     private int Money;
     private int Price = 100;
     private int index;
@@ -21,10 +21,12 @@ public class AnimalStore : MonoBehaviour {
         for (int i = 0;i < 34;i++) {
             if (applicationHandler.GameData.Items[i]) {
                 Chosen = Content.transform.GetChild(i).gameObject;
-                Chosen.GetComponent<Button>().enabled = false;
-                Chosen.transform.GetChild(0).gameObject.SetActive(false);
-                Chosen.transform.GetChild(1).gameObject.SetActive(false);
-                Chosen.transform.GetChild(2).gameObject.SetActive(true);
+                if (Chosen.TryGetComponent<Button>(out Button button)) {
+                    button.enabled = false;
+                    Chosen.transform.GetChild(0).gameObject.SetActive(false);
+                    Chosen.transform.GetChild(1).gameObject.SetActive(false);
+                    Chosen.transform.GetChild(2).gameObject.SetActive(true);
+                }
             }
         }
     }
