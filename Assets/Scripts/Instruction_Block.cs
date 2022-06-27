@@ -2,12 +2,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Instruction_Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
-
     private InstructionType type;
     private RectTransform rect;
     private ushort originPosition;
     private ushort originLevel;
-
     private Game game;
 
     void Start() {

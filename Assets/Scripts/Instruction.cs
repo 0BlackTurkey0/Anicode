@@ -5,7 +5,6 @@ using System.Text.Json.Serialization;
 public enum InstructionType : ushort { Move, Attack, Assign, If, Loop, Swap }
 
 public class Instruction {
-
     private InstructionType _type;
     public InstructionType Type {
         get { return _type; }

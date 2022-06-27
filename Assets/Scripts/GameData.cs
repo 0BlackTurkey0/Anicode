@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class GameData {
     private string _name;
-
     public string Name {
         get { return _name; }
         set { _name = value; }
@@ -27,28 +26,24 @@ public class GameData {
     }
 
     private int _money;
-
     public int Money {
         get { return _money; }
         set { _money = value; }
     }
 
     private bool[] _items;
-
     public bool[] Items {
         get { return _items; }
         set { _items = value; }
     }
 
     private bool _isFullScreen;
-
     public bool IsFullScreen {
         get { return _isFullScreen; }
         set { _isFullScreen = value; }
     }
 
     private float _voiceVolume;
-
     public float VoiceVolume {
         get { return _voiceVolume; }
         set { _voiceVolume = value; }
@@ -61,14 +56,12 @@ public class GameData {
     }
 
     private bool[] _isIntro_Single;
-
     public bool[] IsIntro_Single {
         get { return _isIntro_Single; }
         set { _isIntro_Single = value; }
     }
 
     private int _schedule_Simple;
-
     public int Schedule_Simple {
         get {
             if (_schedule_Simple == 4)
@@ -79,28 +72,24 @@ public class GameData {
     }
 
     private int _schedule_SimpleChange;
-
     public int Schedule_SimpleChange {
         get { return _schedule_SimpleChange; }
         set { _schedule_SimpleChange = value; }
     }
 
     private bool _iswinForSimple; //判斷是否打贏AI
-
     public bool IswinForSimple {
         get { return _iswinForSimple; }
         set { _iswinForSimple = value; }
     }
 
     private bool _simpleIsFinish; //判斷簡單AI是否完成過一輪
-
     public bool SimpleIsFinish {
         get { return _simpleIsFinish; }
         set { _simpleIsFinish = value; }
     }
 
     private int _schedule_Single;
-
     public int Schedule_Single {
         get { return _schedule_Single; }
         set { _schedule_Single = value; }
@@ -123,18 +112,16 @@ public class GameData {
     }
 
     public void SaveData() {
-        using (StreamWriter writer = new StreamWriter(Application.dataPath + "/GameData.ac")) {
-            var serializer = new XmlSerializer(GetType());
-            serializer.Serialize(writer, this);
-        }
+        using StreamWriter writer = new StreamWriter(Application.dataPath + "/GameData.ac");
+        var serializer = new XmlSerializer(GetType());
+        serializer.Serialize(writer, this);
     }
 
     public void LoadData() {
-        using (StreamReader reader = new StreamReader(Application.dataPath + "/GameData.ac")) {
-            var serializer = new XmlSerializer(GetType());
-            GameData gameData = serializer.Deserialize(reader) as GameData;
-            UpdateData(gameData);
-        }
+        using StreamReader reader = new StreamReader(Application.dataPath + "/GameData.ac");
+        var serializer = new XmlSerializer(GetType());
+        GameData gameData = serializer.Deserialize(reader) as GameData;
+        UpdateData(gameData);
     }
 
     private void UpdateData(GameData gameData) {

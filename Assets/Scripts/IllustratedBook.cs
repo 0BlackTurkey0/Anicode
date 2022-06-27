@@ -2,12 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class IllustratedBook : MonoBehaviour {
-    [SerializeField] private GameObject preview_image;
-    [SerializeField] private GameObject ani_detail;
-    [SerializeField] private GameObject att_detail;
-    [SerializeField] private GameObject ins_detail;
-    [SerializeField] private GameObject intro_frame;
-    [SerializeField] private GameObject Content;
+    [SerializeField] GameObject preview_image;
+    [SerializeField] GameObject ani_detail;
+    [SerializeField] GameObject att_detail;
+    [SerializeField] GameObject ins_detail;
+    [SerializeField] GameObject intro_frame;
+    [SerializeField] GameObject Content;
 
     public void ChangeToAnimal() {
         ani_detail.SetActive(true);

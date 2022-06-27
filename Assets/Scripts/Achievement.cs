@@ -44,7 +44,6 @@ public class Achievement : MonoBehaviour {
         for (int i = 0;i < 34;i++)
             if (applicationHandler.GameData.Items[i]) count++;
         if (count == 21) Ach10.transform.GetChild(1).gameObject.SetActive(true);
-
     }
 
     public void Ach1_Show() {

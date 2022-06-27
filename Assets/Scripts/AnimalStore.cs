@@ -8,7 +8,7 @@ public class AnimalStore : MonoBehaviour {
 
     private GameObject Chosen;
     private int Money;
-    private int Price = 100;
+    private readonly int Price = 100;
     private int index;
     private ApplicationHandler applicationHandler;
 

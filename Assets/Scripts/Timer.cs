@@ -8,10 +8,10 @@ public class Timer : MonoBehaviour {
     private int i = 0;
 
     void Start() {
-        StartCoroutine(timer());
+        StartCoroutine(StartTimer());
     }
 
-    IEnumerator timer() {
+    IEnumerator StartTimer() {
         while (i < 100) {
             i += 1;
             slider.value = i;

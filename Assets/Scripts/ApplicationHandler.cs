@@ -52,21 +52,18 @@ public class ApplicationHandler : MonoBehaviour {
     }
 
     private int _isschedule_SimpleChange;
-
     public int IsSchedule_SimpleChange {
         get { return _isschedule_SimpleChange; }
         set { _isschedule_SimpleChange = value; }
     }
 
     private int[] _characProperty;
-
     public int[] CharacProperty {
         get { return _characProperty; }
         set { _characProperty = value; }
     }
 
     private string _missonText;
-
     public string MissonText {
         get { return _missonText; }
         set { _missonText = value; }

@@ -3,7 +3,6 @@ using System;
 public enum CharacterType : ushort { Owl, Koala, Kangaroo, Whale, Fox, Customized };
 
 public class Character {
-
     private CharacterType _type;
     public CharacterType Type {
         get { return _type; }

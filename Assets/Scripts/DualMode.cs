@@ -41,9 +41,10 @@ public class DualMode : MonoBehaviour {
 
     public void ShowPlayerList(Dictionary<string, (string, int, int)> playerList) {
         int height = playerList.Count > 6 ? playerList.Count * 100 : 600;
+        PlayerListContent.transform.localPosition = new Vector3(0, -height/2, 0);
         PlayerListContent.GetComponent<RectTransform>().sizeDelta = new Vector2(0, height);
         if (playerList.Count > 0) {
-            int posY = 250;
+            int posY = height / 2 - 50;//250;
             foreach (KeyValuePair<string, (string Name, int Rank, int Status)> item in playerList) {
                 GameObject temp = PlayerListContent.transform.Find(item.Key)?.gameObject;
                 if (temp == null) {
