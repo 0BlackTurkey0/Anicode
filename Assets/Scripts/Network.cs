@@ -14,7 +14,6 @@ public class Network : MonoBehaviour {
     public Dictionary<string, (string Name, int Rank, int Status)> dict { get; private set; } = new Dictionary<string, (string, int, int)>();   //線上玩家資訊
     public DateTime responseTime { get; private set; }  //對手上次回應的時間
     public string systemMessage { get; private set; } = null;   //系統訊息
-    public int playerStatus { get; private set; } = 0;  //玩家的遊玩狀態
     public GameMode playerMode { get; private set; } = null;    //玩家的模式設定
     public bool isGuest { get; private set; }   //玩家是否為挑戰者
     public bool isConnect { get; set; } = true; //對手是否連線中
@@ -32,9 +31,8 @@ public class Network : MonoBehaviour {
     private UdpClient sendingClient = null;
     private Thread receivingThread = null;
     private bool isNetworkOn, isNetworkRunning;
-    private string localIP;
-    private string playerName;
-    private int playerRank;
+    private string localIP, playerName;
+    private int playerRank, playerStatus = 0;  //玩家的遊玩狀態
     private const int port = 8888;
 
     void Awake() {
@@ -97,6 +95,7 @@ public class Network : MonoBehaviour {
                     Data receiveData = JsonSerializer.Deserialize<Data>(Encoding.UTF8.GetString(bytes));
                     switch (receiveData.Type) {
                         case MSG.REQUEST:
+                        case MSG.STATUS:
                             SendResponse(responseIP);
                             break;
 
@@ -111,10 +110,6 @@ public class Network : MonoBehaviour {
                             else {
                                 dict.Add(responseIP, (receiveData.Name, receiveData.Rank, receiveData.Status));
                             }
-                            break;
-
-                        case MSG.STATUS:
-                            SendResponse(responseIP);
                             break;
 
                         case MSG.CHALLENGE:

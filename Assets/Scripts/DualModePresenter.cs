@@ -22,8 +22,7 @@ public class DualModePresenter : MonoBehaviour {
         StartCoroutine(UpdateNetwork());
     }
 
-    private IEnumerator UpdateNetwork()    //藉由systemMessage值來確認狀態
-    {
+    private IEnumerator UpdateNetwork() {   //藉由systemMessage值來確認狀態
         while (true) {
             switch (network.systemMessage) {
                 case SYS.CHALLENGE:

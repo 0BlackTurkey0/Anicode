@@ -97,17 +97,12 @@ public class Game : MonoBehaviour {
     [SerializeField] Sprite[] Skin;
     [SerializeField] Sprite[] Map;
     [SerializeField] GameObject BattleGround;
-    [SerializeField] GameObject Character1;
-    [SerializeField] GameObject Character2;
+    [SerializeField] GameObject Character1, Character2;
     [SerializeField] GameObject[] Code_Area;
-    [SerializeField] GameObject PlayerCode;
-    [SerializeField] GameObject EnemyCode;
-    [SerializeField] GameObject PlayerVariable;
-    [SerializeField] GameObject EnemyVariable;
-    [SerializeField] GameObject PlayerFood;
-    [SerializeField] GameObject EnemyFood;
-    [SerializeField] GameObject PlayerHP;
-    [SerializeField] GameObject EnemyHP;
+    [SerializeField] GameObject PlayerCode, EnemyCode;
+    [SerializeField] GameObject PlayerVariable, EnemyVariable;
+    [SerializeField] GameObject PlayerFood, EnemyFood;
+    [SerializeField] GameObject PlayerHP, EnemyHP;
     [SerializeField] GameObject Store;
     [SerializeField] GameObject PrepareTime;
     [SerializeField] GameObject RoundText;
@@ -124,9 +119,8 @@ public class Game : MonoBehaviour {
     [SerializeField] GameObject Instruction_If;
     [SerializeField] GameObject Instruction_Loop;
     [SerializeField] GameObject Instruction_Swap;
-    [SerializeField] GameObject WinnerPanel;
-    [SerializeField] GameObject LoserPanel;
-    [SerializeField] GameObject DisconnectPanel;
+    [SerializeField] GameObject WinnerPanel, LoserPanel, DisconnectPanel;
+
     private ApplicationHandler applicationHandler;
     private Network networkHandler;
 
@@ -134,7 +128,7 @@ public class Game : MonoBehaviour {
         applicationHandler = GameObject.Find("ApplicationHandler").GetComponent<ApplicationHandler>();
         CharacterType[] characterType = new CharacterType[2];
         _isDuel = applicationHandler.IsDuel;
-        //_isDuel = false; //�ȩw
+        //_isDuel = false; //暫定
         if (_isDuel) {
             networkHandler = GameObject.Find("Network").GetComponent<Network>();
             _isGuest = networkHandler.isGuest;
@@ -196,7 +190,7 @@ public class Game : MonoBehaviour {
                     {52, -21},
                     {184, -21}
                 };
-                _neighbor = new int[16, 4] { // 0:�W, 1:�U, 2:��, 3:�k 
+                _neighbor = new int[16, 4] { // 0:上, 1:下, 2:左, 3:右 
                     {0, 4, 0, 1},
                     {1, 5, 0, 2},
                     {2, 6, 1, 3},
@@ -269,7 +263,7 @@ public class Game : MonoBehaviour {
                     {41, 14},
                     {157, 14}
                 };
-                _neighbor = new int[16, 4] { // 0:�W, 1:�U, 2:��, 3:�k 
+                _neighbor = new int[16, 4] { // 0:上, 1:下, 2:左, 3:右 
                     {12, 4, 3, 1},
                     {13, 5, 0, 2},
                     {14, 6, 1, 3},
@@ -332,7 +326,7 @@ public class Game : MonoBehaviour {
                     {7, 54},
                     {251, 46},
                 };
-                _neighbor = new int[6, 4] { // 0:��, 1:��, 2:��, 3:�� 
+                _neighbor = new int[6, 4] { // 0:紅, 1:黃, 2:綠, 3:藍 
                     {1, 2, 5, 3},
                     {0, 4, 3, 2},
                     {5, 0, 4, 1},
@@ -381,7 +375,7 @@ public class Game : MonoBehaviour {
                     {227, 158},
                     {122, 247}
                 };
-                _neighbor = new int[12, 4] { // 0:����, 1:���f, 2:�Ŷ�, 3:�Űf 
+                _neighbor = new int[12, 4] { // 0:紅順, 1:紅逆, 2:藍順, 3:藍逆
                     {1, 2, 1, 3},
                     {5, 0, 3, 0},
                     {0, 6, 4, 6},
@@ -611,7 +605,7 @@ public class Game : MonoBehaviour {
             applicationHandler.GameData.SaveData();
         }
         else {
-            if (_isSimple)//�@���Ҧ�
+            if (_isSimple)//劇情模式
             {
                 if (_winner) {
                     applicationHandler.GameData.IswinForSimple = true;
@@ -627,7 +621,7 @@ public class Game : MonoBehaviour {
                 }
                 SceneManager.LoadScene("SimpleStory");
             }
-            else//�D�ԼҦ�
+            else//挑戰模式
             {
                 if (_winner) {
                     if (0 <= applicationHandler.Challenge && applicationHandler.Challenge < 16) {
