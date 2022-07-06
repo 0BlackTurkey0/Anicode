@@ -41,7 +41,7 @@ public class DualMode : MonoBehaviour {
 
     public void ShowPlayerList(Dictionary<string, (string, int, int)> playerList) {
         int height = playerList.Count > 6 ? playerList.Count * 100 : 600;
-        PlayerListContent.transform.localPosition = new Vector3(0, -height/2, 0);
+        PlayerListContent.transform.localPosition = new Vector3(0, -height / 2, 0);
         PlayerListContent.GetComponent<RectTransform>().sizeDelta = new Vector2(0, height);
         if (playerList.Count > 0) {
             int posY = height / 2 - 50;//250;
@@ -109,12 +109,13 @@ public class DualMode : MonoBehaviour {
 
     public void OnClick_Search() {
         WaitingListUpdate.SetActive(true);
+        for (int i = 0;i < PlayerListContent.transform.childCount;i += 1)
+            Destroy(PlayerListContent.transform.GetChild(i).gameObject);
         presenter.SearchUser();
         //SearchButton.GetComponent<Button>().enabled = false;
     }
 
-    public void OnClick_Challenge()   //發起挑戰
-    {
+    public void OnClick_Challenge() {  //發起挑戰
         if (seletedIndex != -1) {
             if (PlayerListContent.transform.GetChild(seletedIndex).GetChild(3).gameObject.GetComponent<Text>().text == "閒置") {
                 presenter.SendChallenge(PlayerListContent.transform.GetChild(seletedIndex).name);
@@ -127,14 +128,12 @@ public class DualMode : MonoBehaviour {
         }
     }
 
-    public void OnClick_Accept()    //接收挑戰
-    {
+    public void OnClick_Accept() {   //接收挑戰
         presenter.AcceptChallenge();
         RespondAcceptOrNot.SetActive(false);
     }
 
-    public void OnClick_Deny()      //拒絕挑戰
-    {
+    public void OnClick_Deny() {     //拒絕挑戰
         presenter.DenyChallenge();
         RespondAcceptOrNot.SetActive(false);
     }
